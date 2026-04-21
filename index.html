@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M Grand Minori — Freehold Serviced Residences, Taman Pelangi JB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#151328;--navy2:#1E1B3A;--navy3:#2A2650;
+  --copper:#C4865A;--copper2:#A8714A;--copper3:#E0A87C;
+  --gold:#D4B07A;--gold2:#F0D4A8;
+  --cream:#F8F4EF;--cream2:#EDE8E0;
+  --white:#FFFFFF;--dark:#0D0B1E;
+  --td:#1A1A18;--tm:#6A6A65;--tl:#9A9A92;
+  --fd:'Playfair Display',Georgia,serif;
+  --fb:'Outfit',system-ui,sans-serif;
+  --pad:20px;--max:1200px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+@media(min-width:768px){:root{--pad:36px}}
+@media(min-width:1024px){:root{--pad:48px}}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);color:var(--cream);background:var(--navy);overflow-x:hidden;padding-bottom:calc(66px + var(--safe-b))}
+@media(min-width:1024px){body{padding-bottom:0}}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--fb);font-weight:500;border:none;cursor:pointer;border-radius:6px;transition:all .2s;text-decoration:none;letter-spacing:.3px}
+.btn:active{transform:scale(.98)}
+.btn-p{background:var(--copper);color:var(--white);padding:14px 28px;font-size:15px}
+.btn-p:hover{background:var(--copper2)}
+.btn-s{background:transparent;color:var(--copper3);padding:13px 28px;font-size:15px;border:1px solid var(--copper)}
+.btn-s:hover{background:rgba(196,134,90,.1)}
+.btn-ghost{color:var(--cream);padding:12px 24px;font-size:14px;border:1px solid rgba(255,255,255,.25);background:transparent}
+.btn-ghost:hover{background:rgba(255,255,255,.08)}
+.btn-block{width:100%;padding:16px;font-size:16px}
+.eyebrow{font-size:11px;font-weight:500;color:var(--copper);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
+h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);line-height:1.2;margin-bottom:8px}
+@media(min-width:768px){h2.stl{font-size:36px}}
+@media(min-width:1024px){h2.stl{font-size:42px}}
+.sdesc{font-size:14px;color:var(--tl);line-height:1.6;margin-bottom:24px;font-weight:300}
+
+/* ===== ANNOUNCE ===== */
+.ann{background:var(--copper);color:var(--white);text-align:center;padding:10px var(--pad);font-size:12px;font-weight:500;letter-spacing:.4px;overflow:hidden;white-space:nowrap}
+.ann-inner{display:inline-block}
+@media(max-width:767px){.ann-inner{animation:marq 22s linear infinite}}
+@keyframes marq{0%{transform:translateX(40%)}100%{transform:translateX(-100%)}}
+.ann-sep{opacity:.5;margin:0 10px}
+
+/* ===== NAV ===== */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--pad);background:rgba(21,19,40,.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(196,134,90,.12)}
+.nav-logo{font-family:var(--fd);font-size:20px;font-weight:500;color:var(--gold2);letter-spacing:1px}
+.nav-logo small{display:block;font-family:var(--fb);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--tl);font-weight:400}
+@media(min-width:1024px){.nav-logo{font-size:24px}}
+.nav-links{display:none;list-style:none;gap:22px;align-items:center}
+@media(min-width:1024px){.nav-links{display:flex}}
+.nav-links a{font-size:12px;font-weight:400;color:var(--tl);transition:color .2s;letter-spacing:.3px}
+.nav-links a:hover{color:var(--copper3)}
+.nav-cta{background:var(--copper)!important;color:var(--white)!important;padding:8px 20px!important;border-radius:5px!important;font-weight:500!important}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-reg{background:var(--copper);color:var(--white);padding:8px 16px;border-radius:5px;font-size:11px;font-weight:500}
+@media(min-width:1024px){.nav-reg{display:none}}
+.nav-ham{width:36px;height:36px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:none;cursor:pointer}
+.nav-ham span{width:18px;height:1.5px;background:var(--cream);border-radius:1px}
+@media(min-width:1024px){.nav-ham{display:none}}
+.mah-b{display:none;font-size:10px;color:var(--tl);border-left:1px solid rgba(255,255,255,.1);padding-left:16px;letter-spacing:.3px}
+.mah-b strong{display:block;font-family:var(--fd);font-size:18px;color:var(--copper3);font-weight:500}
+@media(min-width:1024px){.mah-b{display:block}}
+
+/* ===== HERO ===== */
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:linear-gradient(180deg,var(--navy) 0%,var(--dark) 100%);overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#2a2050 0%,#1a1535 30%,#0d0a1e 60%,#1a1040 100%);opacity:.9}
+.hero-bg::after{content:'';position:absolute;top:0;right:0;width:60%;height:100%;background:linear-gradient(200deg,rgba(196,134,90,.08) 0%,transparent 50%)}
+.hero-glow{position:absolute;top:10%;right:5%;width:400px;height:400px;background:radial-gradient(circle,rgba(196,134,90,.12) 0%,transparent 70%);border-radius:50%}
+@media(min-width:1024px){.hero-glow{width:600px;height:600px}}
+.hero-body{position:relative;z-index:2;padding:60px var(--pad) 40px;width:100%}
+@media(min-width:1024px){.hero-body{padding:100px var(--pad) 60px;max-width:var(--max);margin:0 auto}}
+.hero-top{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.h-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(196,134,90,.15);border:1px solid rgba(196,134,90,.3);color:var(--copper3);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:500;letter-spacing:.3px}
+.h-badge .dot{width:7px;height:7px;background:var(--copper);border-radius:50%;animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.h-tower{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--gold2);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:400}
+.hero h1{font-family:var(--fd);font-size:36px;font-weight:400;line-height:1.15;color:var(--cream);margin-bottom:6px}
+.hero h1 em{font-style:italic;color:var(--copper3)}
+@media(min-width:768px){.hero h1{font-size:48px}}
+@media(min-width:1024px){.hero h1{font-size:58px}}
+.hero-loc{font-size:13px;color:var(--tl);margin-bottom:28px;font-weight:300}
+.hero-loc strong{color:var(--copper3);font-weight:500}
+
+/* Price cards */
+.h-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;max-width:500px}
+@media(min-width:768px){.h-cards{gap:16px}}
+.h-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px 18px}
+.h-card-lab{font-size:10px;color:var(--tl);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.h-card-val{font-family:var(--fd);font-size:28px;font-weight:500;color:var(--cream)}
+@media(min-width:1024px){.h-card-val{font-size:32px}}
+.h-card-sub{font-size:11px;color:var(--tl);margin-top:2px;font-weight:300}
+.h-card-mo{font-size:13px;color:var(--copper3);font-weight:500;margin-top:4px}
+.h-specs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.h-spec{font-size:11px;color:var(--tl);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:14px;font-weight:400}
+.hero-ctas{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;max-width:420px}
+@media(min-width:768px){.hero-ctas{flex-direction:row}}
+.h-proof{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--tl);font-weight:300}
+.h-proof span::before{content:'✓ ';color:var(--copper);font-weight:600}
+
+/* ===== TRUST ===== */
+.trust{background:var(--dark);padding:22px var(--pad);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid rgba(196,134,90,.1);border-bottom:1px solid rgba(196,134,90,.1)}
+.trust::-webkit-scrollbar{display:none}
+.trust-in{display:flex;gap:28px;min-width:max-content}
+@media(min-width:768px){.trust-in{justify-content:center;min-width:auto;gap:48px}}
+.tr-item{text-align:center;min-width:80px}
+.tr-num{font-family:var(--fd);font-size:24px;font-weight:500;color:var(--gold2)}
+@media(min-width:1024px){.tr-num{font-size:28px}}
+.tr-lab{font-size:9px;color:var(--tl);letter-spacing:.3px;white-space:nowrap;text-transform:uppercase}
+
+/* ===== SECTIONS ===== */
+.sec{padding:56px var(--pad)}
+@media(min-width:1024px){.sec{padding:80px var(--pad)}}
+.sec-light{background:var(--cream);color:var(--td)}
+.sec-light h2.stl{color:var(--navy)}
+.sec-light .eyebrow{color:var(--copper2)}
+.sec-light .sdesc{color:var(--tm)}
+.sec-mid{background:var(--navy2)}
+.center{text-align:center}
+
+/* ===== RTS / CROSS-BORDER ===== */
+.rts-grid{display:grid;gap:32px}
+@media(min-width:1024px){.rts-grid{grid-template-columns:1fr 1fr;gap:56px;align-items:center}}
+.rts-visual{background:linear-gradient(135deg,rgba(196,134,90,.08),rgba(30,27,58,.5));border-radius:14px;height:280px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(196,134,90,.12);position:relative;overflow:hidden}
+@media(min-width:1024px){.rts-visual{height:380px}}
+.rts-visual-inner{text-align:center;color:var(--tl);font-size:12px;padding:20px}
+.rts-route{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px}
+.rts-node{text-align:center}
+.rts-node-name{font-family:var(--fd);font-size:18px;color:var(--cream);font-weight:500}
+.rts-node-sub{font-size:10px;color:var(--tl)}
+.rts-line{display:flex;align-items:center;gap:4px}
+.rts-dash{width:40px;height:1px;background:var(--copper);opacity:.5}
+@media(min-width:1024px){.rts-dash{width:60px}}
+.rts-time{font-size:14px;color:var(--copper3);font-weight:500}
+.rts-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.rts-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px;text-align:center}
+.rts-stat-val{font-family:var(--fd);font-size:20px;color:var(--gold2);font-weight:500}
+.rts-stat-lab{font-size:10px;color:var(--tl);margin-top:2px}
+.rts-right h2{font-family:var(--fd);font-size:28px;font-weight:400;margin-bottom:12px}
+@media(min-width:1024px){.rts-right h2{font-size:34px}}
+.rts-right>p{font-size:14px;color:var(--tl);line-height:1.65;margin-bottom:20px;font-weight:300}
+.rts-points{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.rts-point{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--cream);font-weight:300;line-height:1.5}
+.rts-point .ico{width:24px;height:24px;background:rgba(196,134,90,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--copper3)}
+
+/* ===== FACILITIES ===== */
+.fac-scroll{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 0 16px;scrollbar-width:none;margin:0 calc(var(--pad)*-1);padding-left:var(--pad);padding-right:var(--pad)}
+.fac-scroll::-webkit-scrollbar{display:none}
+@media(min-width:1024px){.fac-scroll{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;overflow:visible;margin:0;padding:0 0 16px}}
+.fac-card{min-width:240px;height:260px;flex-shrink:0;scroll-snap-align:start;border-radius:12px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--navy3),var(--navy));border:1px solid rgba(196,134,90,.1);cursor:pointer;transition:transform .3s}
+@media(min-width:1024px){.fac-card{min-width:auto;height:300px}.fac-card:hover{transform:scale(1.02)}}
+.fac-card-body{position:absolute;bottom:0;left:0;right:0;padding:18px;background:linear-gradient(transparent,rgba(13,11,30,.75))}
+.fac-card h3{font-family:var(--fd);font-size:19px;font-weight:400;color:var(--cream);margin-bottom:2px}
+.fac-card p{font-size:11px;color:rgba(255,255,255,.6);font-weight:300}
+.fac-count{position:absolute;top:14px;right:14px;background:rgba(196,134,90,.2);border:1px solid rgba(196,134,90,.3);color:var(--copper3);font-size:10px;padding:4px 10px;border-radius:12px;font-weight:500}
+.fac-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.fac-tag{background:rgba(196,134,90,.08);border:1px solid rgba(196,134,90,.15);padding:6px 14px;border-radius:14px;font-size:11px;color:var(--copper3);font-weight:400}
+.sh{text-align:center;font-size:10px;color:var(--tl);margin-top:6px;opacity:.5}
+@media(min-width:1024px){.sh{display:none}}
+
+/* ===== UNITS ===== */
+.unit-scroll{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 0 16px;scrollbar-width:none;margin:0 calc(var(--pad)*-1);padding-left:var(--pad);padding-right:var(--pad)}
+.unit-scroll::-webkit-scrollbar{display:none}
+@media(min-width:1024px){.unit-scroll{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;overflow:visible;margin:0;padding:0}}
+.u-card{min-width:260px;flex-shrink:0;scroll-snap-align:start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;transition:all .3s}
+@media(min-width:1024px){.u-card{min-width:auto}.u-card:hover{transform:translateY(-4px);border-color:rgba(196,134,90,.3)}}
+.u-card.feat{border-color:var(--copper)}
+.u-header{padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+.u-type{font-size:10px;background:rgba(196,134,90,.15);color:var(--copper3);padding:4px 10px;border-radius:4px;font-weight:500;letter-spacing:.3px}
+.u-type.pop{background:var(--copper);color:var(--white)}
+.u-name{font-family:var(--fd);font-size:20px;font-weight:500;color:var(--cream)}
+.u-body{padding:18px}
+.u-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.u-spec{font-size:12px;color:var(--tl);font-weight:300}
+.u-spec strong{color:var(--cream);font-weight:500;display:block;font-size:14px}
+.u-price-row{display:flex;align-items:baseline;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
+.u-price{font-family:var(--fd);font-size:22px;font-weight:500;color:var(--cream)}
+.u-mo{font-size:11px;color:var(--copper3);font-weight:500}
+.u-cta{display:block;width:100%;text-align:center;background:var(--copper);color:var(--white);padding:12px;border-radius:6px;font-size:13px;font-weight:500;border:none;cursor:pointer;font-family:var(--fb);margin-top:14px;transition:background .2s;letter-spacing:.3px}
+.u-cta:hover{background:var(--copper2)}
+
+/* ===== FURNISHING ===== */
+.furn{background:linear-gradient(135deg,var(--dark),var(--navy2));border:1px solid rgba(196,134,90,.12);border-radius:14px;padding:32px 24px;text-align:center;max-width:700px;margin:0 auto}
+@media(min-width:1024px){.furn{padding:48px 40px}}
+.furn-val{font-family:var(--fd);font-size:36px;font-weight:500;color:var(--gold2);margin-bottom:4px}
+@media(min-width:1024px){.furn-val{font-size:44px}}
+.furn-sub{font-size:14px;color:var(--tl);margin-bottom:20px;font-weight:300}
+.furn-items{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.furn-item{background:rgba(196,134,90,.08);border:1px solid rgba(196,134,90,.15);padding:10px 16px;border-radius:8px;font-size:12px;color:var(--copper3);font-weight:400;text-align:center;min-width:100px}
+.furn-item strong{display:block;font-size:14px;color:var(--cream);font-weight:500;margin-bottom:2px}
+.furn-ready{font-size:14px;color:var(--cream);font-weight:400;margin-bottom:20px;font-style:italic;font-family:var(--fd)}
+
+/* ===== CALCULATOR ===== */
+.calc-grid{display:grid;gap:32px}
+@media(min-width:1024px){.calc-grid{grid-template-columns:1fr 1fr;gap:56px}}
+.calc-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px 20px}
+@media(min-width:1024px){.calc-box{padding:32px}}
+.calc-box h3{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--cream);margin-bottom:4px}
+.calc-box>p{font-size:12px;color:var(--tl);margin-bottom:20px;font-weight:300}
+.cg{margin-bottom:16px}
+.cg-l{display:flex;justify-content:space-between;font-size:12px;color:var(--tl);margin-bottom:6px;font-weight:300}
+.cg-l strong{color:var(--cream);font-weight:500}
+.cg-s{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:rgba(255,255,255,.1);outline:none}
+.cg-s::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--copper);cursor:pointer;border:3px solid var(--navy);box-shadow:0 2px 8px rgba(196,134,90,.3)}
+.cg-s::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--copper);cursor:pointer;border:3px solid var(--navy)}
+.calc-out{background:var(--copper);border-radius:10px;padding:20px;text-align:center;margin-top:20px}
+.calc-out-lab{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.calc-out-val{font-family:var(--fd);font-size:34px;font-weight:500;color:var(--white)}
+@media(min-width:1024px){.calc-out-val{font-size:38px}}
+.calc-out-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+
+/* ===== LOCATION ===== */
+.loc-grid{display:grid;gap:28px}
+@media(min-width:1024px){.loc-grid{grid-template-columns:1fr 1fr;gap:48px}}
+.loc-map{background:var(--navy3);border-radius:12px;height:260px;display:flex;align-items:center;justify-content:center;color:var(--tl);font-size:12px;border:1px solid rgba(255,255,255,.06);text-align:center;padding:20px}
+@media(min-width:1024px){.loc-map{height:400px}}
+.am-tabs{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:14px;scrollbar-width:none;padding-bottom:4px}
+.am-tabs::-webkit-scrollbar{display:none}
+.am-tab{padding:7px 16px;border-radius:14px;border:1px solid rgba(196,134,90,.3);font-size:12px;font-weight:400;color:var(--copper3);background:transparent;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:var(--fb);transition:all .2s}
+.am-tab.on{background:var(--copper);color:var(--white);border-color:var(--copper)}
+.am-item{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:var(--cream);font-weight:300}
+.am-r{text-align:right;flex-shrink:0}
+.am-km{font-weight:500;color:var(--copper3);font-size:13px}
+.am-min{font-size:10px;color:var(--tl)}
+
+/* ===== FORM ===== */
+.form-sec{padding:56px var(--pad);background:var(--cream);color:var(--td)}
+@media(min-width:1024px){.form-sec{padding:80px var(--pad)}}
+.form-grid{max-width:1000px;margin:0 auto;display:grid;gap:36px}
+@media(min-width:1024px){.form-grid{grid-template-columns:1fr 1fr;gap:56px}}
+.form-grid h2{font-family:var(--fd);font-size:28px;color:var(--navy);font-weight:400;margin-bottom:6px}
+.form-grid>div>p{font-size:13px;color:var(--tm);margin-bottom:20px;font-weight:300}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:12px;color:var(--tm);margin-bottom:6px;font-weight:400}
+.fg input[type="text"],.fg input[type="tel"],.fg input[type="email"]{width:100%;padding:13px 16px;border:1px solid rgba(0,0,0,.12);border-radius:8px;background:var(--white);color:var(--td);font-size:16px;font-family:var(--fb);outline:none;transition:border-color .2s}
+.fg input:focus{border-color:var(--copper)}
+.fg input::placeholder{color:var(--tl)}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f-opts{display:flex;gap:8px;flex-wrap:wrap}
+.f-opt{padding:10px 16px;border:1px solid rgba(0,0,0,.1);border-radius:8px;font-size:13px;color:var(--tm);cursor:pointer;background:var(--white);font-family:var(--fb);transition:all .15s}
+.f-opt.on{border-color:var(--copper);color:var(--navy);background:rgba(196,134,90,.08)}
+.wa-chk{display:flex;align-items:center;gap:10px;margin:16px 0;font-size:12px;color:var(--tm);cursor:pointer}
+.wa-chk input{width:20px;height:20px;accent-color:var(--copper)}
+.f-sub{width:100%;background:var(--copper);color:var(--white);padding:16px;border:none;border-radius:8px;font-size:16px;font-weight:500;cursor:pointer;font-family:var(--fb);margin-top:8px;transition:background .2s;letter-spacing:.3px}
+.f-sub:hover{background:var(--copper2)}
+.f-trust{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;font-size:11px;color:var(--tl);flex-wrap:wrap}
+.rcv{background:var(--white);border-radius:12px;padding:24px;border:1px solid rgba(0,0,0,.06);margin-bottom:24px}
+.rcv h3{font-family:var(--fd);font-size:20px;color:var(--navy);margin-bottom:14px;font-weight:400}
+.rcv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rcv-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tm)}
+.rcv-ico{width:22px;height:22px;background:rgba(196,134,90,.1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--copper);flex-shrink:0}
+.proof{background:var(--navy);border-radius:12px;padding:20px;margin-top:20px}
+.proof-src{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.proof-q{font-family:var(--fd);font-size:16px;font-style:italic;color:rgba(255,255,255,.75);line-height:1.4;margin-bottom:6px}
+.proof-dt{font-size:10px;color:var(--tl)}
+
+/* ===== FAQ ===== */
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:16px 0;cursor:pointer;font-size:14px;font-weight:400;color:var(--cream);gap:12px}
+.faq-q:hover{color:var(--copper3)}
+.faq-t{font-size:18px;color:var(--tl);transition:transform .3s;flex-shrink:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:13px;color:var(--tl);line-height:1.6;font-weight:300}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:16px}
+.faq-item.open .faq-t{transform:rotate(45deg)}
+
+/* ===== DEV TRUST ===== */
+.dt{padding:28px var(--pad);background:var(--dark);text-align:center;border-top:1px solid rgba(196,134,90,.08)}
+@media(min-width:1024px){.dt{text-align:left}.dt-in{display:flex;align-items:center;justify-content:space-between;max-width:var(--max);margin:0 auto}}
+.dt h3{font-family:var(--fd);font-size:18px;color:var(--cream);margin-bottom:4px;font-weight:400}
+.dt>div>p,.dt-in>div>p{font-size:11px;color:var(--tl);margin-bottom:12px;font-weight:300}
+@media(min-width:1024px){.dt-in>div>p{margin-bottom:0}}
+.dt-stats{display:flex;justify-content:center;gap:32px}
+@media(min-width:1024px){.dt-stats{gap:40px}}
+.ds-n{font-family:var(--fd);font-size:24px;font-weight:500;color:var(--gold2)}
+.ds-l{font-size:9px;color:var(--tl);text-transform:uppercase;letter-spacing:.5px}
+
+/* ===== FOOTER ===== */
+.footer{background:var(--dark);color:var(--tl);padding:24px var(--pad) 32px;text-align:center;font-size:10px;line-height:1.6;font-weight:300;border-top:1px solid rgba(255,255,255,.04)}
+.footer a{color:var(--copper3)}
+
+/* ===== WA FAB ===== */
+.wa-fab{position:fixed;bottom:24px;right:24px;z-index:999;display:none;align-items:center;gap:8px;background:#25D366;color:var(--white);padding:14px 24px;border-radius:26px;font-weight:500;font-size:14px;box-shadow:0 4px 20px rgba(37,211,102,.3);transition:all .2s;animation:fabIn .6s ease-out}
+.wa-fab:hover{transform:scale(1.05)}
+@keyframes fabIn{from{opacity:0;transform:translateY(20px) scale(.9)}}
+@media(min-width:1024px){.wa-fab{display:flex}}
+.wa-fab svg{flex-shrink:0}
+
+/* ===== STICKY ===== */
+.sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--navy);border-top:1px solid rgba(196,134,90,.15);padding:10px 16px calc(10px + var(--safe-b));display:grid;grid-template-columns:1fr 1fr;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+@media(min-width:1024px){.sticky{display:none}}
+.stk{display:flex;align-items:center;justify-content:center;gap:6px;padding:14px;border-radius:8px;font-size:14px;font-weight:500;border:none;cursor:pointer;font-family:var(--fb);letter-spacing:.3px}
+.stk-r{background:var(--copper);color:var(--white)}
+.stk-w{background:#25D366;color:var(--white)}
+.stk-w svg{flex-shrink:0}
+
+/* ===== GOLDEN BEAM / BRAND STORY ===== */
+.beam{display:grid;gap:0}
+@media(min-width:1024px){.beam{grid-template-columns:1fr 1fr}}
+.beam-left{background:linear-gradient(180deg,#1a2545 0%,#0d1428 100%);padding:40px var(--pad);display:flex;flex-direction:column;justify-content:center;min-height:300px}
+@media(min-width:1024px){.beam-left{min-height:420px;padding:60px var(--pad)}}
+.beam-left blockquote{font-family:var(--fd);font-size:18px;font-style:italic;color:var(--cream);line-height:1.5;border-left:2px solid var(--copper);padding-left:16px;margin-bottom:20px;font-weight:400}
+@media(min-width:1024px){.beam-left blockquote{font-size:22px}}
+.beam-left p{font-size:13px;color:var(--tl);font-weight:300;line-height:1.6;font-style:italic}
+.beam-right{background:var(--navy2);padding:40px var(--pad)}
+@media(min-width:1024px){.beam-right{padding:60px var(--pad)}}
+.beam-right .eyebrow{margin-bottom:4px}
+.beam-right h2{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--gold2);margin-bottom:6px}
+@media(min-width:1024px){.beam-right h2{font-size:36px}}
+.beam-right h3{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--cream);margin-bottom:16px}
+@media(min-width:1024px){.beam-right h3{font-size:28px}}
+.beam-right>p{font-size:13px;color:var(--tl);line-height:1.65;font-weight:300}
+
+/* ===== IKI PILLARS ===== */
+.iki-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(min-width:1024px){.iki-grid{grid-template-columns:repeat(4,1fr);gap:20px}}
+.iki-card{background:rgba(255,255,255,.03);border:1px solid rgba(196,134,90,.12);border-radius:12px;overflow:hidden;transition:transform .3s}
+.iki-card:hover{transform:translateY(-3px)}
+.iki-img{height:140px;background:linear-gradient(135deg,rgba(30,27,58,.8),rgba(42,38,80,.6));border-bottom:2px solid var(--copper);position:relative}
+@media(min-width:1024px){.iki-img{height:200px}}
+.iki-img-label{position:absolute;bottom:8px;left:10px;font-size:9px;color:rgba(255,255,255,.4);font-weight:300}
+.iki-body{padding:14px}
+@media(min-width:1024px){.iki-body{padding:18px}}
+.iki-body h3{font-family:var(--fd);font-size:18px;font-weight:400;color:var(--copper3);margin-bottom:6px}
+@media(min-width:1024px){.iki-body h3{font-size:22px}}
+.iki-body p{font-size:11px;color:var(--tl);line-height:1.5;font-weight:300}
+@media(min-width:1024px){.iki-body p{font-size:12px}}
+
+/* ===== POTENTIAL & LIFE (3 pillars) ===== */
+.pot-grid{display:grid;gap:16px}
+@media(min-width:768px){.pot-grid{grid-template-columns:repeat(3,1fr);gap:20px}}
+.pot-card{background:rgba(255,255,255,.03);border:1px solid rgba(196,134,90,.15);border-radius:14px;padding:24px 20px;text-align:center;transition:border-color .3s}
+.pot-card:hover{border-color:var(--copper)}
+.pot-num{font-size:10px;color:var(--copper);font-weight:500;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.pot-card h3{font-family:var(--fd);font-size:16px;font-weight:500;color:var(--gold2);margin-bottom:10px;letter-spacing:.5px}
+@media(min-width:1024px){.pot-card h3{font-size:18px}}
+.pot-card p{font-size:12px;color:var(--tl);line-height:1.55;font-weight:300}
+
+/* ===== 15-MIN CITY ===== */
+.city-sec{position:relative;overflow:hidden;padding:56px var(--pad)}
+@media(min-width:1024px){.city-sec{padding:80px var(--pad)}}
+.city-sec::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--cream) 0%,var(--cream2) 100%)}
+.city-body{position:relative;z-index:2;max-width:var(--max);margin:0 auto}
+.city-sec h2{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--navy);text-align:center;margin-bottom:6px}
+@media(min-width:768px){.city-sec h2{font-size:36px}}
+@media(min-width:1024px){.city-sec h2{font-size:42px}}
+.city-sec .eyebrow{text-align:center;color:var(--copper2)}
+.city-sub{text-align:center;font-size:14px;color:var(--tm);margin-bottom:28px;font-weight:300}
+.city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(min-width:768px){.city-grid{grid-template-columns:repeat(5,1fr);gap:12px}}
+@media(min-width:1024px){.city-grid{grid-template-columns:repeat(9,1fr);gap:14px}}
+.city-item{background:var(--white);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px 8px;text-align:center;transition:transform .2s}
+.city-item:hover{transform:translateY(-2px)}
+.city-ico{font-size:22px;margin-bottom:6px;display:block}
+.city-item span:last-child{font-size:10px;color:var(--tm);font-weight:400;line-height:1.3;display:block}
+.city-render{margin-top:28px;background:linear-gradient(135deg,rgba(196,134,90,.06),rgba(0,0,0,.02));border-radius:14px;height:200px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(0,0,0,.06);color:var(--tm);font-size:12px;text-align:center;padding:20px}
+@media(min-width:1024px){.city-render{height:320px}}
+
+/* ===== UNIT FLOOR PLAN TOGGLE ===== */
+.u-card{position:relative}
+.u-flip{position:relative}
+.u-front,.u-back{transition:opacity .3s ease,transform .3s ease}
+.u-back{display:none;padding:18px;text-align:center}
+.u-card.flipped .u-front{display:none}
+.u-card.flipped .u-back{display:block}
+.u-fp-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;border:1px solid rgba(196,134,90,.25);border-radius:6px;background:transparent;color:var(--copper3);font-size:12px;font-weight:500;cursor:pointer;font-family:var(--fb);margin-top:8px;transition:all .2s;letter-spacing:.3px}
+.u-fp-btn:hover{background:rgba(196,134,90,.08)}
+.u-floorplan{width:100%;max-width:260px;margin:0 auto}
+.u-floorplan svg{width:100%;height:auto}
+.u-back-title{font-family:var(--fd);font-size:16px;color:var(--copper3);margin-bottom:10px;font-weight:400}
+.u-back-specs{font-size:11px;color:var(--tl);margin-bottom:12px;font-weight:300}
+.u-back-close{display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border:1px solid rgba(196,134,90,.25);border-radius:6px;background:transparent;color:var(--copper3);font-size:11px;cursor:pointer;font-family:var(--fb);margin-top:8px;transition:all .2s}
+.u-back-close:hover{background:rgba(196,134,90,.08)}
+.u-vt{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border:1px solid var(--copper);border-radius:5px;background:var(--copper);color:var(--white);font-size:10px;font-weight:500;margin-top:8px;cursor:pointer;font-family:var(--fb);letter-spacing:.3px}
+
+/* ===== ANIM ===== */
+.fi{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fi.v{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE -->
+<div class="ann"><span class="ann-inner">Tower B Now Open for Sale <span class="ann-sep">|</span> Tower A: 90% Taken Up <span class="ann-sep">|</span> From RM437,000 <span class="ann-sep">|</span> 3km to RTS — 5 Min to Singapore <span class="ann-sep">&nbsp;&nbsp;</span> Tower B Now Open for Sale <span class="ann-sep">|</span> Tower A: 90% Taken Up</span></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Grand Minori<small>by Mah Sing</small></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#rts">RTS Link</a></li>
+    <li><a href="#fac">Facilities</a></li>
+    <li><a href="#units">Units</a></li>
+    <li><a href="#invest">Investment</a></li>
+    <li><a href="#loc">Location</a></li>
+    <li><a href="#register" class="nav-cta">Register Interest →</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#register" class="nav-reg">Register →</a>
+    <button class="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="mah-b">A development by<strong>Mah Sing</strong></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-body">
+    <div class="hero-top">
+      <span class="h-badge"><span class="dot"></span> Tower B Open for Sale</span>
+      <span class="h-tower">Tower A — Limited Units</span>
+    </div>
+    <h1><em>Exclusive</em> Lifestyle<br>Awaits</h1>
+    <p class="hero-loc">at <strong>Taman Pelangi, Johor Bahru</strong> — 3km to RTS Link</p>
+    <div class="h-cards">
+      <div class="h-card">
+        <div class="h-card-lab">Starting from</div>
+        <div class="h-card-val">RM437,000</div>
+        <div class="h-card-sub">Freehold · Type A</div>
+        <div class="h-card-mo">≈ RM1,500/mo*</div>
+      </div>
+      <div class="h-card">
+        <div class="h-card-lab">Completion</div>
+        <div class="h-card-val">July 2030</div>
+        <div class="h-card-sub">Phase 1 · Tower A</div>
+      </div>
+    </div>
+    <div class="h-specs">
+      <span class="h-spec">3km RTS</span><span class="h-spec">Freehold</span><span class="h-spec">59 Storeys</span><span class="h-spec">403–835 sqft</span><span class="h-spec">Partially Furnished</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#register" class="btn btn-p">Get Investment Brief & Price List →</a>
+      <a href="#register" class="btn btn-s">Book Showroom Visit</a>
+    </div>
+    <div class="h-proof">
+      <span>90% Tower A sold</span><span>Freehold</span><span>Japanese-inspired design</span><span>RM32k furnishing included</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="trust-in">
+    <div class="tr-item"><div class="tr-num">90%</div><div class="tr-lab">Tower A Sold</div></div>
+    <div class="tr-item"><div class="tr-num">843</div><div class="tr-lab">Total Units</div></div>
+    <div class="tr-item"><div class="tr-num">3km</div><div class="tr-lab">to RTS Station</div></div>
+    <div class="tr-item"><div class="tr-num">5 min</div><div class="tr-lab">to Singapore</div></div>
+    <div class="tr-item"><div class="tr-num">41</div><div class="tr-lab">Lifestyle Facilities</div></div>
+    <div class="tr-item"><div class="tr-num">RM1.5B</div><div class="tr-lab">Total GDV</div></div>
+  </div>
+</div>
+
+<!-- GOLDEN BEAM / BRAND STORY -->
+<section class="beam">
+  <div class="beam-left">
+    <blockquote>"M Grand Minori celebrates the radiance of urban living, shaped by evolving lifestyles and inspired by the essence of Japanese philosophy."</blockquote>
+    <p>Flexibility is key at these grand residences, which extend the possibilities of what a home can offer.</p>
+  </div>
+  <div class="beam-right">
+    <div class="eyebrow">Golden Beam of Life</div>
+    <h2>The Poetry of</h2>
+    <h3>Shoji & Light</h3>
+    <p>Inspired by the iki-mado concept — loosely translated as "window to live" — the design draws from the traditional shoji, the signature Japanese sliding door with latticed screens. From the delicate washi paper that covers the latticed panels to the graceful motion of sliding the doors open, each movement is an art form with its own purpose.</p>
+  </div>
+</section>
+
+<!-- RTS / CROSS-BORDER -->
+<section class="sec" id="rts">
+  <div class="wrap">
+    <div class="rts-grid">
+      <div class="rts-visual">
+        <div class="rts-visual-inner">
+          <div class="rts-route">
+            <div class="rts-node"><div class="rts-node-name">Bukit Chagar</div><div class="rts-node-sub">Johor Bahru</div></div>
+            <div class="rts-line"><div class="rts-dash"></div><div class="rts-time">5 min</div><div class="rts-dash"></div></div>
+            <div class="rts-node"><div class="rts-node-name">Woodlands N.</div><div class="rts-node-sub">Singapore</div></div>
+          </div>
+          <div style="font-size:11px;color:var(--tl);margin-bottom:16px;font-weight:300">RTS Link opens 2027 — replace with bridge render in production</div>
+          <div class="rts-stats">
+            <div class="rts-stat"><div class="rts-stat-val">10k/hr</div><div class="rts-stat-lab">Passenger capacity</div></div>
+            <div class="rts-stat"><div class="rts-stat-val">3.6 min</div><div class="rts-stat-lab">Frequency</div></div>
+            <div class="rts-stat"><div class="rts-stat-val">RM1,050</div><div class="rts-stat-lab">PSF (est. area avg.)</div></div>
+            <div class="rts-stat"><div class="rts-stat-val">2026-27</div><div class="rts-stat-lab">RTS completion</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="rts-right">
+        <div class="eyebrow">Why invest now</div>
+        <h2>Unlock Cross-Border Footfall</h2>
+        <p>RTS-adjacent properties have seen significant capital uplift since announcement. M Grand Minori sits just 3km from Bukit Chagar RTS — positioning residents for seamless Singapore access.</p>
+        <div class="rts-points">
+          <div class="rts-point"><span class="ico">🚄</span> RTS Link connects JB to Woodlands North in under 5 minutes — no more Causeway jams</div>
+          <div class="rts-point"><span class="ico">💰</span> Earn in SGD, pay mortgage in RM — the exchange rate works in your favour</div>
+          <div class="rts-point"><span class="ico">📈</span> JB property near RTS stations projected for significant capital appreciation post-completion</div>
+          <div class="rts-point"><span class="ico">🏠</span> Freehold tenure — permanent ownership with no renewal costs</div>
+        </div>
+        <a href="#register" class="btn btn-p">Get Investment Brief →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="sec sec-mid" id="fac">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">41 Lifestyle Facilities</div>
+      <h2 class="stl">Designed for Elevated Living</h2>
+      <p class="sdesc">Japanese-inspired amenities curated for body, mind, and soul.</p>
+    </div>
+    <div class="fac-scroll">
+      <div class="fac-card fi"><div class="fac-count">7 Water</div><div class="fac-card-body"><h3>Infinity Pool</h3><p>Sky-level pool with JB city views</p></div></div>
+      <div class="fac-card fi"><div class="fac-count">9 Fitness</div><div class="fac-card-body"><h3>Gymnasium & Courts</h3><p>Fully equipped gym, yoga deck, multipurpose courts</p></div></div>
+      <div class="fac-card fi"><div class="fac-count">5 Nature</div><div class="fac-card-body"><h3>Garden Soul</h3><p>Zen-inspired landscaped gardens and meditation areas</p></div></div>
+      <div class="fac-card fi"><div class="fac-count">17 Social</div><div class="fac-card-body"><h3>Community Lounges</h3><p>Co-working spaces, BBQ deck, function rooms</p></div></div>
+    </div>
+    <div class="sh">← Swipe for more →</div>
+    <div class="fac-tags">
+      <span class="fac-tag">Kids Playground</span><span class="fac-tag">EV Charging</span><span class="fac-tag">Shuttle to RTS</span><span class="fac-tag">Retail Podium</span><span class="fac-tag">Automated Waste</span><span class="fac-tag">Rainwater Harvesting</span><span class="fac-tag">Sky Lounge</span>
+    </div>
+  </div>
+</section>
+
+<!-- ILLUMINATED LIFESTYLE — 4 IKI PILLARS -->
+<section class="sec">
+  <div class="wrap">
+    <div style="margin-bottom:36px">
+      <div class="eyebrow">Passage to an</div>
+      <h2 class="stl">Illuminated Lifestyle</h2>
+      <p class="sdesc">M Grand Minori is meticulously designed with pillars of Japanese-inspired elegance, where every space and experience is imbued with a signature Zen opulence.</p>
+    </div>
+    <div class="iki-grid">
+      <div class="iki-card fi">
+        <div class="iki-img"><div class="iki-img-label">Grand Arrival</div></div>
+        <div class="iki-body">
+          <h3>Iki-Gen</h3>
+          <p>Derived from genkan (玄関), meaning entryway — emphasising a grand arrival experience, setting the tone for prestige from entrance to lobby.</p>
+        </div>
+      </div>
+      <div class="iki-card fi">
+        <div class="iki-img" style="background:linear-gradient(135deg,rgba(42,38,80,.6),rgba(60,50,40,.5))"><div class="iki-img-label">Tranquil Flow</div></div>
+        <div class="iki-body">
+          <h3>Iki-Gawa</h3>
+          <p>Inspired by gawa (川), meaning water — introducing a tranquil corridor experience, seamlessly blending serenity into a serviced apartment setting.</p>
+        </div>
+      </div>
+      <div class="iki-card fi">
+        <div class="iki-img" style="background:linear-gradient(135deg,rgba(30,50,30,.6),rgba(42,38,60,.5))"><div class="iki-img-label">Garden Soul</div></div>
+        <div class="iki-body">
+          <h3>Iki-Niwa</h3>
+          <p>Rooted in niwa (庭), meaning garden — infusing the facilities deck and common areas with the sophistication of exquisite Japanese garden design.</p>
+        </div>
+      </div>
+      <div class="iki-card fi">
+        <div class="iki-img" style="background:linear-gradient(135deg,rgba(60,50,30,.5),rgba(42,38,80,.4))"><div class="iki-img-label">Natural Light</div></div>
+        <div class="iki-body">
+          <h3>Iki-Mado</h3>
+          <p>Drawing from mado (窓), meaning window — prioritising expansive window designs, inviting natural light to foster a luminous and airy living environment.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:28px"><a href="#register" class="btn btn-p">Register & Get Full Brochure →</a></div>
+  </div>
+</section>
+
+<!-- POTENTIAL & LIFE — 3 PILLARS -->
+<section class="sec sec-mid">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:32px">
+      <div class="eyebrow">Radiant with</div>
+      <h2 class="stl">Potential and Life</h2>
+    </div>
+    <div class="pot-grid">
+      <div class="pot-card fi">
+        <div class="pot-num">01 · Strategic Location</div>
+        <h3>STRATEGIC LOCATION</h3>
+        <p>Located in the mature township of Taman Pelangi, Johor Bahru, the residences enjoy access to vibrant amenities that appeal to homeowners and attract cross-border interest — a promising choice for investors.</p>
+      </div>
+      <div class="pot-card fi">
+        <div class="pot-num">02 · Close Proximity</div>
+        <h3>CLOSE PROXIMITY</h3>
+        <p>M Grand Minori is well-connected via major roads for seamless travel to nearby amenities as well as key transport links like the RTS and CIQ — all within minutes.</p>
+      </div>
+      <div class="pot-card fi">
+        <div class="pot-num">03 · Incredible Convenience</div>
+        <h3>INCREDIBLE CONVENIENCE</h3>
+        <p>A variety of amenities including hospitals, schools, malls, and direct access to the RTS and CIQ are readily available within a 3km radius — everything you need, close by.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:28px"><a href="#register" class="btn btn-p">Register & Get Price List →</a></div>
+  </div>
+</section>
+
+<!-- 15-MINUTE CITY -->
+<section class="city-sec">
+  <div class="city-body">
+    <div class="eyebrow">Effortless Urban Living</div>
+    <h2>The '15-Minute City' isn't a dream — it's a reality.</h2>
+    <p class="city-sub">Everything you need for daily life, within a 15-minute reach.</p>
+    <div class="city-grid">
+      <div class="city-item"><span class="city-ico">🏡</span><span>41 Luxurious Facilities</span></div>
+      <div class="city-item"><span class="city-ico">🌿</span><span>GreenRE Certification</span></div>
+      <div class="city-item"><span class="city-ico">🛍️</span><span>Retail Convenience Onsite</span></div>
+      <div class="city-item"><span class="city-ico">🚗</span><span>Speed Ramp to Carpark</span></div>
+      <div class="city-item"><span class="city-ico">♻️</span><span>STREAM Auto Waste</span></div>
+      <div class="city-item"><span class="city-ico">📐</span><span>Flexible Layouts</span></div>
+      <div class="city-item"><span class="city-ico">⚡</span><span>EV Charging Points</span></div>
+      <div class="city-item"><span class="city-ico">🛎️</span><span>Concierge Support</span></div>
+      <div class="city-item"><span class="city-ico">🚌</span><span>Shuttle Bus Service</span></div>
+    </div>
+    <div class="city-render"><div><strong style="font-size:16px;color:var(--navy);display:block;margin-bottom:6px">Retail Podium Render</strong>Replace with retail podium artist's impression (Town Grocer, Matsuns, cafes)</div></div>
+  </div>
+</section>
+
+<!-- FURNISHING PACKAGE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="furn fi">
+      <div class="eyebrow">Included with every unit</div>
+      <div class="furn-val">Up to RM32,000</div>
+      <div class="furn-sub">worth of fittings included — move in or rent out immediately</div>
+      <div class="furn-items">
+        <div class="furn-item"><strong>Kitchen</strong>Cabinet + Hob + Hood</div>
+        <div class="furn-item"><strong>Aircon</strong>Pre-installed</div>
+        <div class="furn-item"><strong>Digital Lock</strong>Smart entry</div>
+        <div class="furn-item"><strong>Water Heater</strong>Ready to use</div>
+        <div class="furn-item"><strong>Washer/Dryer</strong>2-in-1 unit</div>
+      </div>
+      <div class="furn-ready">"Ready to move in — or let it out immediately"</div>
+      <a href="#register" class="btn btn-p">Register & Get Price List →</a>
+    </div>
+  </div>
+</section>
+
+<!-- UNITS -->
+<section class="sec sec-mid" id="units">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">6 Layout Options</div>
+      <h2 class="stl">Smartly Designed For Living & Investing</h2>
+      <p class="sdesc">From compact studios to spacious dual-key — flexibility for every buyer profile.</p>
+    </div>
+    <div class="unit-scroll" id="uScroll">
+      <div class="u-card fi" id="uc-a">
+        <div class="u-header"><span class="u-type">Type A</span><span class="u-name">Studio</span></div>
+        <div class="u-front">
+          <div class="u-body">
+            <div class="u-specs"><div class="u-spec"><strong>403</strong>sq.ft</div><div class="u-spec"><strong>Studio</strong>Layout</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Singles / Rental</div></div>
+            <div class="u-price-row"><span class="u-price">RM437k</span><span class="u-mo">~RM1,500/mo</span></div>
+            <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
+            <button class="u-fp-btn" onclick="flipCard('uc-a')">View Floor Plan ↻</button>
+          </div>
+        </div>
+        <div class="u-back">
+          <div class="u-back-title">Type A · Studio · 403 sq.ft</div>
+          <div class="u-floorplan">
+            <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="196" height="256" rx="4" stroke="rgba(196,134,90,.4)" stroke-width="1"/>
+              <rect x="12" y="12" width="80" height="100" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="52" y="68" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="10" font-family="Outfit">STUDIO</text>
+              <rect x="100" y="12" width="88" height="50" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="144" y="42" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">KITCHEN</text>
+              <rect x="100" y="70" width="88" height="42" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="144" y="96" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">DINING</text>
+              <rect x="12" y="120" width="80" height="60" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="52" y="155" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">BATH</text>
+              <rect x="12" y="190" width="176" height="56" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="100" y="222" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">FOYER</text>
+              <text x="100" y="252" text-anchor="middle" fill="rgba(196,134,90,.35)" font-size="8" font-family="Outfit">4,425mm × 8,450mm</text>
+            </svg>
+          </div>
+          <div class="u-back-specs">403 sq.ft · 1 Bath · Kitchen · Dining · Foyer</div>
+          <button class="u-back-close" onclick="flipCard('uc-a')">← Back to specs</button>
+        </div>
+      </div>
+
+      <div class="u-card feat fi" id="uc-b">
+        <div class="u-header"><span class="u-type pop">Popular</span><span class="u-name">1 Bed + 1 Bath</span></div>
+        <div class="u-front">
+          <div class="u-body">
+            <div class="u-specs"><div class="u-spec"><strong>496</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Couples / Investors</div></div>
+            <div class="u-price-row"><span class="u-price">RM465k</span><span class="u-mo">~RM1,600/mo</span></div>
+            <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
+            <button class="u-fp-btn" onclick="flipCard('uc-b')">View Floor Plan ↻</button>
+            <button class="u-vt">Virtual Tour →</button>
+          </div>
+        </div>
+        <div class="u-back">
+          <div class="u-back-title">Type B · 1 Bed 1 Bath · 496 sq.ft</div>
+          <div class="u-floorplan">
+            <svg viewBox="0 0 220 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="216" height="276" rx="4" stroke="rgba(196,134,90,.4)" stroke-width="1"/>
+              <rect x="12" y="12" width="100" height="90" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="62" y="62" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">BEDROOM</text>
+              <rect x="120" y="12" width="88" height="90" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="164" y="62" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">LIVING</text>
+              <rect x="12" y="110" width="100" height="60" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="62" y="145" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">DINING</text>
+              <rect x="120" y="110" width="88" height="60" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="164" y="145" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">KITCHEN</text>
+              <rect x="12" y="180" width="75" height="50" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="50" y="210" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">BATH</text>
+              <rect x="12" y="238" width="196" height="30" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="110" y="257" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">FOYER</text>
+              <text x="110" y="274" text-anchor="middle" fill="rgba(196,134,90,.35)" font-size="8" font-family="Outfit">6,175mm × 8,000mm</text>
+            </svg>
+          </div>
+          <div class="u-back-specs">496 sq.ft · 1 Bed · 1 Bath · Living · Kitchen · Yard</div>
+          <button class="u-back-close" onclick="flipCard('uc-b')">← Back to specs</button>
+        </div>
+      </div>
+
+      <div class="u-card fi" id="uc-c">
+        <div class="u-header"><span class="u-type">Type C</span><span class="u-name">1 Bed + Powder</span></div>
+        <div class="u-front">
+          <div class="u-body">
+            <div class="u-specs"><div class="u-spec"><strong>624</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1+1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Couples / WFH</div></div>
+            <div class="u-price-row"><span class="u-price">RM591k</span><span class="u-mo">~RM2,030/mo</span></div>
+            <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
+            <button class="u-fp-btn" onclick="flipCard('uc-c')">View Floor Plan ↻</button>
+            <button class="u-vt">Virtual Tour →</button>
+          </div>
+        </div>
+        <div class="u-back">
+          <div class="u-back-title">Type C · 1 Bed 1 Bath + Powder · 624 sq.ft</div>
+          <div class="u-floorplan">
+            <svg viewBox="0 0 230 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="226" height="276" rx="4" stroke="rgba(196,134,90,.4)" stroke-width="1"/>
+              <rect x="12" y="12" width="105" height="90" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="65" y="62" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">BEDROOM</text>
+              <rect x="125" y="12" width="95" height="90" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="173" y="62" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">LIVING</text>
+              <rect x="12" y="110" width="105" height="55" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="65" y="142" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">BATH</text>
+              <rect x="125" y="110" width="50" height="55" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="150" y="142" text-anchor="middle" fill="rgba(196,134,90,.5)" font-size="8" font-family="Outfit">POWDER</text>
+              <rect x="12" y="173" width="208" height="50" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="116" y="202" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">KITCHEN + DINING</text>
+              <rect x="12" y="231" width="208" height="30" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="116" y="250" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">FOYER</text>
+              <text x="116" y="274" text-anchor="middle" fill="rgba(196,134,90,.35)" font-size="8" font-family="Outfit">6,700mm × 8,650mm</text>
+            </svg>
+          </div>
+          <div class="u-back-specs">624 sq.ft · 1 Bed · Bath + Powder Room · Living · Kitchen</div>
+          <button class="u-back-close" onclick="flipCard('uc-c')">← Back to specs</button>
+        </div>
+      </div>
+
+      <div class="u-card fi" id="uc-d">
+        <div class="u-header"><span class="u-type">Type D</span><span class="u-name">1 Bed · 630 sqft</span></div>
+        <div class="u-front">
+          <div class="u-body">
+            <div class="u-specs"><div class="u-spec"><strong>630</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Families / WFH</div></div>
+            <div class="u-price-row"><span class="u-price">RM609k</span><span class="u-mo">~RM2,100/mo</span></div>
+            <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
+            <button class="u-fp-btn" onclick="flipCard('uc-d')">View Floor Plan ↻</button>
+          </div>
+        </div>
+        <div class="u-back">
+          <div class="u-back-title">Type D · 1 Bed 1 Bath · 630 sq.ft</div>
+          <div class="u-floorplan">
+            <svg viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="216" height="256" rx="4" stroke="rgba(196,134,90,.4)" stroke-width="1"/>
+              <rect x="12" y="12" width="100" height="95" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="62" y="65" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">BEDROOM</text>
+              <rect x="120" y="12" width="88" height="95" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="164" y="65" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">LIVING</text>
+              <rect x="12" y="115" width="196" height="55" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="110" y="147" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">KITCHEN + DINING</text>
+              <rect x="12" y="178" width="80" height="45" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="52" y="205" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">BATH</text>
+              <rect x="12" y="230" width="196" height="20" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="110" y="244" text-anchor="middle" fill="rgba(196,134,90,.5)" font-size="8" font-family="Outfit">FOYER</text>
+            </svg>
+          </div>
+          <div class="u-back-specs">630 sq.ft · 1 Bed · 1 Bath · Living · Kitchen · Dining</div>
+          <button class="u-back-close" onclick="flipCard('uc-d')">← Back to specs</button>
+        </div>
+      </div>
+
+      <div class="u-card fi" id="uc-e">
+        <div class="u-header"><span class="u-type">Type E</span><span class="u-name">3 Bed Dual-Key</span></div>
+        <div class="u-front">
+          <div class="u-body">
+            <div class="u-specs"><div class="u-spec"><strong>835</strong>sq.ft</div><div class="u-spec"><strong>3</strong>Bedrooms</div><div class="u-spec"><strong>2</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Dual-key income</div></div>
+            <div class="u-price-row"><span class="u-price">RM769k</span><span class="u-mo">~RM2,650/mo</span></div>
+            <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
+            <button class="u-fp-btn" onclick="flipCard('uc-e')">View Floor Plan ↻</button>
+          </div>
+        </div>
+        <div class="u-back">
+          <div class="u-back-title">Type E · 3 Bed 2 Bath · 835 sq.ft</div>
+          <div class="u-floorplan">
+            <svg viewBox="0 0 260 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="256" height="276" rx="4" stroke="rgba(196,134,90,.4)" stroke-width="1"/>
+              <rect x="12" y="12" width="80" height="70" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="52" y="52" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="8" font-family="Outfit">BED 1</text>
+              <rect x="100" y="12" width="70" height="70" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="135" y="52" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="8" font-family="Outfit">BED 2</text>
+              <rect x="178" y="12" width="70" height="70" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="213" y="52" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="8" font-family="Outfit">BED 3</text>
+              <rect x="12" y="90" width="115" height="65" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="70" y="127" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">LIVING</text>
+              <rect x="135" y="90" width="113" height="65" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="192" y="127" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">KITCHEN</text>
+              <rect x="12" y="163" width="60" height="50" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="42" y="192" text-anchor="middle" fill="rgba(196,134,90,.5)" font-size="8" font-family="Outfit">BATH 1</text>
+              <rect x="80" y="163" width="60" height="50" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="110" y="192" text-anchor="middle" fill="rgba(196,134,90,.5)" font-size="8" font-family="Outfit">BATH 2</text>
+              <line x1="130" y1="2" x2="130" y2="90" stroke="rgba(196,134,90,.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <text x="130" y="84" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="7" font-family="Outfit">DUAL-KEY DIVIDE</text>
+              <rect x="12" y="220" width="236" height="28" rx="2" stroke="rgba(196,134,90,.25)" stroke-width=".7" stroke-dasharray="3 2"/>
+              <text x="130" y="238" text-anchor="middle" fill="rgba(196,134,90,.6)" font-size="9" font-family="Outfit">FOYER</text>
+              <text x="130" y="270" text-anchor="middle" fill="rgba(196,134,90,.35)" font-size="8" font-family="Outfit">9,200mm × 8,650mm</text>
+            </svg>
+          </div>
+          <div class="u-back-specs">835 sq.ft · 3 Bed · 2 Bath · Dual-Key · Living · Kitchen</div>
+          <button class="u-back-close" onclick="flipCard('uc-e')">← Back to specs</button>
+        </div>
+      </div>
+    </div>
+    <div class="sh">← Swipe to compare →</div>
+  </div>
+</section>
+
+<!-- CALCULATORS -->
+<section class="sec" id="invest">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:36px">
+      <div class="eyebrow">Investment tools</div>
+      <h2 class="stl">Crunch the Numbers</h2>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-box">
+        <h3>Monthly Instalment</h3>
+        <p>Estimate your RM repayment.</p>
+        <div class="cg"><div class="cg-l"><span>Property price</span><strong id="cpL">RM 500,000</strong></div><input type="range" class="cg-s" id="cP" min="390000" max="900000" step="5000" value="500000"></div>
+        <div class="cg"><div class="cg-l"><span>Down payment</span><strong id="cdL">10%</strong></div><input type="range" class="cg-s" id="cD" min="5" max="30" step="1" value="10"></div>
+        <div class="cg"><div class="cg-l"><span>Tenure</span><strong id="ctL">35 years</strong></div><input type="range" class="cg-s" id="cT" min="20" max="35" step="1" value="35"></div>
+        <div class="calc-out"><div class="calc-out-lab">Est. monthly instalment</div><div class="calc-out-val" id="cR">RM 1,720</div><div class="calc-out-sub">Based on 4.5% interest*</div></div>
+      </div>
+      <div class="calc-box">
+        <h3>SGD Income Calculator</h3>
+        <p>Earning in Singapore? See how affordable this is.</p>
+        <div class="cg"><div class="cg-l"><span>Monthly SGD income</span><strong id="sgdL">SGD 4,000</strong></div><input type="range" class="cg-s" id="sgdI" min="2000" max="12000" step="500" value="4000"></div>
+        <div class="cg"><div class="cg-l"><span>Unit price</span><strong id="sgdP">RM 500,000</strong></div><input type="range" class="cg-s" id="sgdU" min="390000" max="900000" step="5000" value="500000"></div>
+        <div class="calc-out" style="background:var(--navy)"><div class="calc-out-lab" style="color:var(--gold)">Mortgage as % of SGD income</div><div class="calc-out-val" id="sgdR">12.5%</div><div class="calc-out-sub">Very affordable — recommended under 30%</div></div>
+        <div style="margin-top:12px;font-size:11px;color:var(--tl);text-align:center;font-weight:300">Exchange rate: 1 SGD ≈ 3.45 MYR*</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="sec sec-mid" id="loc">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:32px">
+      <div class="eyebrow">Strategic Location</div>
+      <h2 class="stl">Heart of Taman Pelangi</h2>
+      <p class="sdesc">Mature township with everything within 5km — schools, malls, hospitals, transport.</p>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-map"><div><strong style="font-size:16px;color:var(--cream);display:block;margin-bottom:6px">Map Area</strong>Replace with interactive map or illustrated location graphic</div></div>
+      <div>
+        <div class="am-tabs">
+          <button class="am-tab on" onclick="showAm(this,'transport')">Transport</button>
+          <button class="am-tab" onclick="showAm(this,'schools')">Schools</button>
+          <button class="am-tab" onclick="showAm(this,'malls')">Shopping</button>
+          <button class="am-tab" onclick="showAm(this,'health')">Health</button>
+        </div>
+        <div id="transport">
+          <div class="am-item"><span>Bukit Chagar RTS Station</span><div class="am-r"><span class="am-km">3.0km</span><span class="am-min">~6 min</span></div></div>
+          <div class="am-item"><span>JB CIQ Checkpoint</span><div class="am-r"><span class="am-km">4.0km</span><span class="am-min">~10 min</span></div></div>
+          <div class="am-item"><span>JB Sentral / KTM</span><div class="am-r"><span class="am-km">4.5km</span><span class="am-min">~12 min</span></div></div>
+          <div class="am-item"><span>Senai Airport</span><div class="am-r"><span class="am-km">28km</span><span class="am-min">~35 min</span></div></div>
+        </div>
+        <div id="schools" style="display:none">
+          <div class="am-item"><span>SMK Taman Pelangi</span><div class="am-r"><span class="am-km">1.4km</span><span class="am-min">~4 min</span></div></div>
+          <div class="am-item"><span>Foon Yew High School</span><div class="am-r"><span class="am-km">3.4km</span><span class="am-min">~8 min</span></div></div>
+          <div class="am-item"><span>Paragon Private School</span><div class="am-r"><span class="am-km">16km</span><span class="am-min">~25 min</span></div></div>
+        </div>
+        <div id="malls" style="display:none">
+          <div class="am-item"><span>Plaza Pelangi</span><div class="am-r"><span class="am-km">1.5km</span><span class="am-min">~4 min</span></div></div>
+          <div class="am-item"><span>KSL City Mall</span><div class="am-r"><span class="am-km">2.1km</span><span class="am-min">~6 min</span></div></div>
+          <div class="am-item"><span>JB City Square</span><div class="am-r"><span class="am-km">4.4km</span><span class="am-min">~10 min</span></div></div>
+          <div class="am-item"><span>Mid Valley Southkey</span><div class="am-r"><span class="am-km">5.7km</span><span class="am-min">~14 min</span></div></div>
+        </div>
+        <div id="health" style="display:none">
+          <div class="am-item"><span>Columbia Asia Hospital</span><div class="am-r"><span class="am-km">4.5km</span><span class="am-min">~10 min</span></div></div>
+          <div class="am-item"><span>KPJ Johor Specialist</span><div class="am-r"><span class="am-km">5.5km</span><span class="am-min">~12 min</span></div></div>
+          <div class="am-item"><span>Hospital Sultanah Aminah</span><div class="am-r"><span class="am-km">5.7km</span><span class="am-min">~14 min</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-sec" id="register">
+  <div class="form-grid">
+    <div>
+      <h2>Register & Get Price List</h2>
+      <p>Fill in your details — instant WhatsApp reply with full investment brief.</p>
+      <div class="rcv"><h3>You'll Receive:</h3><div class="rcv-grid"><div class="rcv-item"><span class="rcv-ico">📐</span> Layout Plans</div><div class="rcv-item"><span class="rcv-ico">💰</span> Full Pricing</div><div class="rcv-item"><span class="rcv-ico">🏦</span> Loan Info</div><div class="rcv-item"><span class="rcv-ico">🎁</span> Furnishing Details</div><div class="rcv-item"><span class="rcv-ico">📊</span> Investment Brief</div><div class="rcv-item"><span class="rcv-ico">📈</span> ROI Projections</div></div></div>
+      <div class="fg"><label>Full Name</label><input type="text" placeholder="Your full name" autocomplete="name"></div>
+      <div class="fg fg-row"><div><label>Mobile</label><input type="tel" placeholder="012-345 6789" autocomplete="tel"></div><div><label>Email</label><input type="email" placeholder="you@email.com" autocomplete="email"></div></div>
+      <div class="fg"><label>I'm buying for:</label><div class="f-opts"><button class="f-opt on" onclick="fO(this)">Own-Stay</button><button class="f-opt" onclick="fO(this)">Investment</button><button class="f-opt" onclick="fO(this)">SG Commuter</button></div></div>
+      <div class="fg"><label>Preferred type:</label><div class="f-opts"><button class="f-opt on" onclick="fO(this)">Studio</button><button class="f-opt" onclick="fO(this)">1 Bed</button><button class="f-opt" onclick="fO(this)">2 Bed</button><button class="f-opt" onclick="fO(this)">Dual-Key</button><button class="f-opt" onclick="fO(this)">Not sure</button></div></div>
+      <label class="wa-chk"><input type="checkbox" checked> Send me updates via WhatsApp</label>
+      <button class="f-sub">Get My Investment Brief Now →</button>
+      <div class="f-trust"><span>🔒 No spam</span><span>·</span><span>Instant WhatsApp reply</span><span>·</span><span>Unsubscribe anytime</span></div>
+    </div>
+    <div>
+      <div class="proof"><div class="proof-src">The Star · August 2025</div><div class="proof-q">"Phase One of Tower A achieving a 90% take-up rate over a weekend"</div><div class="proof-dt">M Grand Minori — Mah Sing's first M Grand Series project</div></div>
+      <div class="proof" style="margin-top:16px;background:rgba(196,134,90,.08);border:1px solid rgba(196,134,90,.15)"><div class="proof-src" style="color:var(--copper2)">PropertyGuru Asia Awards 2025</div><div class="proof-q" style="color:var(--navy)">Winner — PropertyGuru Asia Awards Malaysia</div><div class="proof-dt" style="color:var(--tm)">Recognised for excellence in design and development</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:28px"><div class="eyebrow">FAQs</div><h2 class="stl">Common Questions</h2></div>
+    <div class="faq-list">
+      <div class="faq-item open"><div class="faq-q" onclick="togFaq(this)">What is the monthly instalment?<span class="faq-t">+</span></div><div class="faq-a">From approximately RM1,500/month for the studio (RM437k) based on 90% financing at 4.5% over 35 years. Cross-border earners in SGD will find this especially affordable.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">When does the RTS Link open?<span class="faq-t">+</span></div><div class="faq-a">The RTS Link connecting Bukit Chagar (JB) to Woodlands North (Singapore) is expected to be operational by Q1 2027. M Grand Minori is just 3km from the station, with a dedicated shuttle service planned.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">Can Singaporeans buy this property?<span class="faq-t">+</span></div><div class="faq-a">Yes. Foreigners can purchase properties above RM1M in Johor, but M Grand Minori's pricing under RM1M is accessible for Malaysians and PR holders. Contact our team for the latest foreign buyer policies.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">What's included in the RM32,000 package?<span class="faq-t">+</span></div><div class="faq-a">Kitchen cabinet with hob, hood and sink, air-conditioning, digital lock set, water heater, and 2-in-1 washer/dryer — everything you need to move in or rent out immediately.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">Is this freehold?<span class="faq-t">+</span></div><div class="faq-a">Yes — M Grand Minori is fully freehold. Permanent ownership with no lease renewal required, providing lasting investment security.</div></div>
+    </div>
+    <div style="text-align:center;margin-top:32px"><a href="#register" class="btn btn-s">Still have questions? Register →</a></div>
+  </div>
+</section>
+
+<!-- DEV TRUST -->
+<section class="dt">
+  <div class="dt-in">
+    <div><h3>A Development by Mah Sing Group Berhad</h3><p>Bursa Malaysia listed. M Grand Series inaugural project. Trusted by 100,000+ homeowners.</p></div>
+    <div class="dt-stats"><div><div class="ds-n">30+</div><div class="ds-l">Years</div></div><div><div class="ds-n">63</div><div class="ds-l">Projects</div></div><div><div class="ds-n">RM1.5B</div><div class="ds-l">GDV</div></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>M Grand Minori — A development by <a href="#">Mah Sing Group Berhad</a></p>
+  <p style="margin-top:6px">*Instalment based on 90% financing, 4.5% p.a., 35 years. Subject to bank approval. Prices subject to change. Exchange rates are indicative.</p>
+  <p style="margin-top:4px">Sales Gallery: Jalan Kuning, Taman Pelangi, 80400 JB · T: 07-291 3226 · Open 9:30am–9pm daily</p>
+</footer>
+
+<!-- WA FAB -->
+<a href="https://wa.me/60172913226?text=Hi%2C%20I'm%20interested%20in%20M%20Grand%20Minori" class="wa-fab" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp Us</a>
+
+<!-- STICKY -->
+<div class="sticky"><a href="#register" class="stk stk-r">Register Now</a><a href="https://wa.me/60172913226?text=Hi%2C%20I'm%20interested%20in%20M%20Grand%20Minori" class="stk stk-w" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a></div>
+
+<script>
+/* Instalment calc */
+var cP=document.getElementById('cP'),cD=document.getElementById('cD'),cT=document.getElementById('cT');
+function calc(){var p=+cP.value,d=+cD.value,y=+cT.value,l=p*(1-d/100),m=y*12,r=.045/12;var pmt=l*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);document.getElementById('cpL').textContent='RM '+p.toLocaleString();document.getElementById('cdL').textContent=d+'%';document.getElementById('ctL').textContent=y+' years';document.getElementById('cR').textContent='RM '+Math.round(pmt).toLocaleString()}
+cP.oninput=cD.oninput=cT.oninput=calc;calc();
+
+/* SGD calc */
+var sgdI=document.getElementById('sgdI'),sgdU=document.getElementById('sgdU');
+function sgdCalc(){var inc=+sgdI.value,price=+sgdU.value,rate=3.45;var loan=price*.9,m=35*12,r=.045/12;var pmt=loan*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);var pct=(pmt/(inc*rate))*100;document.getElementById('sgdL').textContent='SGD '+inc.toLocaleString();document.getElementById('sgdP').textContent='RM '+price.toLocaleString();document.getElementById('sgdR').textContent=pct.toFixed(1)+'%'}
+sgdI.oninput=sgdU.oninput=sgdCalc;sgdCalc();
+
+/* Floor plan flip */
+function flipCard(id){document.getElementById(id).classList.toggle('flipped')}
+/* Tabs */
+function showAm(b,id){document.querySelectorAll('.am-tab').forEach(function(t){t.classList.remove('on')});b.classList.add('on');['transport','schools','malls','health'].forEach(function(t){document.getElementById(t).style.display=t===id?'block':'none'})}
+/* FAQ */
+function togFaq(el){var it=el.closest('.faq-item'),w=it.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});if(!w)it.classList.add('open')}
+/* Form */
+function fO(b){b.parentElement.querySelectorAll('.f-opt').forEach(function(o){o.classList.remove('on')});b.classList.add('on')}
+/* Anim */
+var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('v')})},{threshold:.1});
+document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
+</script>
+</body>
+</html>
