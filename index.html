@@ -74,6 +74,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 @media(min-width:768px){:root{--pad:36px}}
 @media(min-width:1024px){:root{--pad:48px}}
+@media(max-width:372px){
+  .hero h1{font-size:22px}
+  .h-card-val{font-size:18px}
+  .h-card-lab,.h-card-sub{font-size:9px}
+  .h-tag{font-size:10px;padding:6px 12px}
+  .h-logo img{width:60px}
+  .hero-loc{font-size:11px;margin-bottom:16px}
+  .h-cards{margin-bottom:14px}
+  .h-spec{font-size:9px;padding:4px 8px}
+  h2.stl,.rts-head h2,.city-sec h2,.form-grid h2,.beam-right h2{font-size:22px}
+  .sdesc{font-size:12px}
+  .tr-num{font-size:16px}
+  .tr-lab{font-size:7.5px}
+  .btn{font-size:11px;padding:12px 18px}
+}
+@media(max-width:374px){
+  :root{--pad:14px}
+  .hero h1{font-size:26px}
+  .h-card-val{font-size:22px}
+  .h-card{padding:4px 12px}
+  .h-card-lab,.h-card-sub{font-size:10px}
+  .h-tag{font-size:11px;padding:7px 14px;gap:8px}
+  .h-spec{font-size:10px}
+  h2.stl,.rts-head h2,.city-sec h2,.form-grid h2,.beam-right h2{font-size:24px}
+  .u-price{font-size:22px}
+  .furn-val{font-size:30px}
+  .calc-out-val{font-size:28px}
+  .git-title{font-size:26px}
+  .ft-phone{font-size:24px;letter-spacing:1.5px}
+  .ft-brand{font-size:22px}
+  .trust{padding:18px 10px}
+  .trust-in{gap:10px;justify-content:space-between;min-width:0;width:100%}
+  .tr-item{min-width:0;flex:1;padding:0 2px}
+  .tr-num{font-size:18px}
+  .tr-lab{font-size:8px;letter-spacing:.2px;white-space:normal;line-height:1.25}
+  .am-tab{font-size:11px;padding:7px 10px}
+  .am-item{font-size:12px}
+  .btn{font-size:12px}
+  .sdesc{font-size:13px}
+  .loc-panel{padding:16px}
+  img,picture{max-width:100%}
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--fb);color:var(--cream);background:var(--navy);overflow-x:hidden;padding-bottom:calc(66px + var(--safe-b))}
@@ -108,40 +150,45 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 
 /* ===== NAV ===== */
 .nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--pad);background:rgba(21,19,40,.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(196,134,90,.12)}
-.nav-logo{font-family:var(--fd);font-size:20px;font-weight:500;color:var(--gold2);letter-spacing:1px}
-.nav-logo small{display:block;font-family:var(--fb);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--tl);font-weight:400}
-@media(min-width:1024px){.nav-logo{font-size:24px}}
+.nav-logo{display:flex;align-items:center}
+.nav-logo img{height:36px;width:auto;display:block}
+@media(min-width:1024px){.nav-logo img{height:44px}}
 .nav-links{display:none;list-style:none;gap:22px;align-items:center}
 @media(min-width:1024px){.nav-links{display:flex}}
 .nav-links a{font-size:12px;font-weight:400;color:var(--tl);transition:color .2s;letter-spacing:.3px}
 .nav-links a:hover{color:var(--copper3)}
 .nav-cta{background:var(--copper)!important;color:var(--white)!important;padding:8px 20px!important;border-radius:5px!important;font-weight:500!important}
 .nav-right{display:flex;align-items:center;gap:10px}
-.nav-reg{background:var(--copper);color:var(--white);padding:8px 16px;border-radius:5px;font-size:11px;font-weight:500}
-@media(min-width:1024px){.nav-reg{display:none}}
-.nav-ham{width:36px;height:36px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:none;cursor:pointer}
-.nav-ham span{width:18px;height:1.5px;background:var(--cream);border-radius:1px}
+.nav-reg{display:none}
+.nav-ham{width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:none;cursor:pointer;position:relative;z-index:101}
+.nav-ham span{width:22px;height:2px;background:var(--cream);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
+.nav-ham.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-ham.on span:nth-child(2){opacity:0}
+.nav-ham.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(min-width:1024px){.nav-ham{display:none}}
-.mah-b{display:none;font-size:10px;color:var(--tl);border-left:1px solid rgba(255,255,255,.1);padding-left:16px;letter-spacing:.3px}
-.mah-b strong{display:block;font-family:var(--fd);font-size:18px;color:var(--copper3);font-weight:500}
-@media(min-width:1024px){.mah-b{display:block}}
+.mob-drawer{position:fixed;inset:0;background:rgba(13,11,30,.96);backdrop-filter:blur(8px);z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s ease;display:flex;flex-direction:column;align-items:stretch;justify-content:center;padding:80px 24px 40px}
+.mob-drawer.on{opacity:1;pointer-events:auto}
+.mob-drawer a{display:block;padding:16px 8px;font-family:var(--fd);font-size:22px;color:var(--cream);border-bottom:1px solid rgba(255,255,255,.08);text-align:center;letter-spacing:.5px}
+.mob-drawer a.nav-cta{margin-top:20px;background:var(--copper);color:var(--white);border-radius:8px;border-bottom:none;font-size:16px;padding:14px}
+@media(min-width:1024px){.mob-drawer{display:none}}
+.mah-b{display:none;border-left:1px solid rgba(255,255,255,.1);padding-left:16px;align-items:center}
+.mah-b img{height:32px;width:auto;display:block}
+@media(min-width:1024px){.mah-b{display:flex}.mah-b img{height:38px}}
 
 /* ===== HERO ===== */
 .hero{position:relative;background:var(--navy);overflow:hidden}
 .hero-media{position:relative;width:100%;min-height:calc(100svh - 108px);background:url('assets/hero-bg-mobile-scaled.png') bottom center/cover no-repeat,var(--navy)}
 .hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(13,11,30,.1) 92%,var(--dark) 100%);pointer-events:none;z-index:2}
-@media(min-width:768px){.hero-media{min-height:calc(100svh - 108px);background:url('assets/hero-bg.png') right 80%/cover no-repeat,var(--navy)}.hero-media::after{background:linear-gradient(90deg,rgba(13,11,30,.2) 0%,rgba(13,11,30,.08) 30%,transparent 55%);z-index:2}}
+@media(min-width:1024px){.hero-media{background:url('assets/hero-bg.png') right 80%/cover no-repeat,var(--navy)}.hero-media::after{background:linear-gradient(90deg,rgba(13,11,30,.2) 0%,rgba(13,11,30,.08) 30%,transparent 55%);z-index:2}}
 @media(min-width:1024px){.hero-media{min-height:calc(100svh - 115px)}}
 .scroll-ind{display:none}
 @media(min-width:768px){.scroll-ind{display:flex;align-items:center;justify-content:center;position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:36px;height:36px;z-index:4;cursor:pointer;text-decoration:none}}
 .scroll-arrow{width:14px;height:14px;border-right:2px solid var(--copper3);border-bottom:2px solid var(--copper3);transform:rotate(45deg);animation:scrollBlink 1.8s ease-in-out infinite}
 @keyframes scrollBlink{0%,100%{opacity:1;transform:rotate(45deg) translate(-3px,-3px)}50%{opacity:.35;transform:rotate(45deg) translate(3px,3px)}}
 .hero-body{position:relative;z-index:2;padding:32px var(--pad) 40px;width:100%;max-width:var(--max);margin:0 auto}
-@media(min-width:768px){.hero-body{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:60px var(--pad);max-width:var(--max);margin:0 auto}}
-@media(min-width:1024px){.hero-body{padding:72px var(--pad)}}
+@media(min-width:1024px){.hero-body{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:72px var(--pad);max-width:var(--max);margin:0 auto}}
 .hero-inner{max-width:100%;text-align:center;margin:0 auto}
-@media(min-width:768px){.hero-inner{max-width:520px;text-align:center;margin:0}}
-@media(min-width:1024px){.hero-inner{max-width:560px}}
+@media(min-width:1024px){.hero-inner{max-width:500px;text-align:center;margin:0}}
 .h-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:18px}
 @media(min-width:768px){.h-logo{align-items:center;margin-bottom:22px}}
 .h-logo img{width:72px;height:auto;margin-bottom:6px}
@@ -184,7 +231,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 @media(min-width:1024px){.h-spec{font-size:12px;padding:8px 22px}}
 .hero-ctas{display:none;flex-direction:column;gap:10px;max-width:420px;margin:0 auto}
 @media(min-width:768px){.hero-ctas{display:flex;margin:0 auto}}
-@media(max-width:767px){.hero-media{display:flex;flex-direction:column}.hero-body{flex:1;display:flex;flex-direction:column;width:100%}.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;width:100%}.h-specs-wrap{margin-top:auto;margin-bottom:0;padding-top:24px;position:relative;z-index:3}.h-specs{background:rgba(13,11,30,.7);border-color:rgba(255,255,255,.22);box-shadow:0 4px 20px rgba(0,0,0,.4)}.h-spec{color:var(--cream)}}
+@media(max-width:1023px){.hero-media{display:flex;flex-direction:column}.hero-body{flex:1;display:flex;flex-direction:column;width:100%;padding:18px var(--pad) 32px}.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px}.hero-inner .h-logo{margin-bottom:10px}.hero-inner .h-tag{margin-bottom:12px}.hero-inner .hero-loc{margin-bottom:16px}.hero-inner .h-cards{margin-bottom:16px}.h-specs-wrap{margin-top:auto;margin-bottom:0;padding-top:24px;position:relative;z-index:3}.h-specs{background:rgba(13,11,30,.7);border-color:rgba(255,255,255,.22);box-shadow:0 4px 20px rgba(0,0,0,.4)}.h-spec{color:var(--cream)}}
 
 /* ===== TRUST ===== */
 .trust{background:var(--dark);padding:22px var(--pad);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid rgba(196,134,90,.1);border-bottom:1px solid rgba(196,134,90,.1)}
@@ -365,11 +412,11 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 @media(min-width:1024px){.loc-content{grid-template-columns:minmax(0,1.15fr) minmax(0,440px);gap:40px;align-items:center}}
 .loc-info{display:flex;flex-direction:column;gap:22px;order:2}
 @media(min-width:1024px){.loc-info{order:2}}
-.loc-map-bg{position:relative;width:100%;order:1;cursor:zoom-in;overflow:hidden;aspect-ratio:4/5;max-height:640px}
+.loc-map-bg{position:relative;width:100%;order:1;cursor:zoom-in;overflow:hidden;aspect-ratio:4/5;max-height:520px}
 @media(min-width:768px){.loc-map-bg{aspect-ratio:1/1}}
-@media(min-width:1024px){.loc-map-bg{order:1;margin-left:calc(var(--pad) * -1);width:calc(100% + var(--pad));aspect-ratio:auto;max-height:none;min-height:640px}}
-.loc-map-bg img{width:100%;height:100%;display:block;object-fit:cover;object-position:center right;transform:scale(1.35);transform-origin:center center;filter:drop-shadow(0 30px 60px rgba(0,0,0,.35))}
-@media(min-width:1024px){.loc-map-bg img{transform:scale(1.5);object-position:30% center}}
+@media(min-width:1024px){.loc-map-bg{order:1;aspect-ratio:auto;max-height:none;height:100%;align-self:stretch}}
+.loc-map-bg img{width:100%;height:100%;display:block;object-fit:cover;object-position:center right;transform:scale(1.2);transform-origin:center center;filter:drop-shadow(0 20px 40px rgba(0,0,0,.3))}
+@media(min-width:1024px){.loc-map-bg img{transform:scale(1.1);object-position:center center}}
 .loc-panel{background:rgba(13,11,30,.55);backdrop-filter:blur(12px);border:1px solid rgba(196,134,90,.18);border-radius:16px;padding:26px 22px}
 @media(min-width:1024px){.loc-panel{padding:32px 28px}}
 .am-tabs{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:14px;scrollbar-width:none;padding-bottom:4px;flex-wrap:wrap}
@@ -486,7 +533,14 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .wa-fab svg{flex-shrink:0}
 
 /* ===== STICKY ===== */
-.sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--navy);border-top:1px solid rgba(196,134,90,.15);padding:10px 16px calc(10px + var(--safe-b));display:grid;grid-template-columns:1fr;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+body.mob-open .sticky,body.mob-open .to-top{display:none}
+.sticky.on{opacity:1;pointer-events:auto;transform:translateY(0)}
+.to-top{position:fixed;right:16px;bottom:calc(78px + var(--safe-b));width:44px;height:44px;border-radius:50%;background:var(--copper);color:var(--white);border:none;cursor:pointer;z-index:998;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .25s,transform .25s}
+.to-top.on{opacity:1;pointer-events:auto;transform:translateY(0)}
+.to-top svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:1024px){.to-top{right:24px;bottom:24px;width:48px;height:48px}}
+body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:transparent;backdrop-filter:none}
+.sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;opacity:0;pointer-events:none;transform:translateY(100%);transition:opacity .3s ease,transform .3s ease;background:var(--navy);border-top:1px solid rgba(196,134,90,.15);padding:10px 16px calc(10px + var(--safe-b));display:grid;grid-template-columns:1fr;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
 @media(min-width:1024px){.sticky{display:none}}
 .stk{display:flex;align-items:center;justify-content:center;gap:6px;padding:14px;border-radius:8px;font-size:14px;font-weight:500;border:none;cursor:pointer;font-family:var(--fb);letter-spacing:.3px}
 .stk-r{background:var(--copper);color:var(--white)}
@@ -534,8 +588,10 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 @media(min-width:1024px){.iki-body p{font-size:12px;line-height:1.55}}
 
 /* ===== EXPERIENCE GALLERY ===== */
-.exp-grid{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:768px){.exp-grid{grid-template-columns:1fr 1fr;gap:18px}}
+.exp-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 14px;margin:0 calc(var(--pad) * -1);padding-left:var(--pad);padding-right:var(--pad)}
+.exp-grid::-webkit-scrollbar{display:none}
+.exp-grid>.exp-item{flex:0 0 88%;scroll-snap-align:start;aspect-ratio:3/4}
+@media(min-width:768px){.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;overflow:visible;margin:0;padding:0}.exp-grid>.exp-item{flex:unset}}
 @media(min-width:1024px){.exp-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
 .exp-item{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;border:1px solid rgba(196,134,90,.15);background:var(--navy3)}
 @media(min-width:768px){.exp-item{aspect-ratio:3/4}}
@@ -559,9 +615,9 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .pot-card:hover::before{transform:scale(1.06)}
 .pot-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,11,30,.05) 0%,rgba(13,11,30,.35) 45%,rgba(13,11,30,.92) 100%);z-index:1;pointer-events:none}
 .pot-card:hover{border-color:var(--copper)}
-.pot-card.pc-1::before{background-image:url('assets/strategic-location-bg.webp')}
-.pot-card.pc-2::before{background-image:url('assets/close-proximinity-bg.webp')}
-.pot-card.pc-3::before{background-image:url('assets/incredible-convineince-bg.webp')}
+.pot-card.pc-1::before{background-image:url('assets/6.jpg')}
+.pot-card.pc-2::before{background-image:url('assets/shoji-light-img1.webp')}
+.pot-card.pc-3::before{background-image:url('assets/residential-excellence-img2.webp')}
 .pot-body{position:absolute;left:20px;right:20px;bottom:20px;z-index:2;color:var(--cream);text-align:left}
 @media(min-width:1024px){.pot-body{left:24px;right:24px;bottom:24px}}
 .pot-num{display:inline-block;font-size:10px;color:var(--copper3);font-weight:500;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;padding:4px 10px;border:1px solid rgba(196,134,90,.45);border-radius:20px;background:rgba(13,11,30,.4);backdrop-filter:blur(6px)}
@@ -653,7 +709,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-logo">Grand Minori<small>by Mah Sing</small></div>
+  <a href="#" class="nav-logo" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})"><img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori"></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#rts">RTS Link</a></li>
@@ -665,10 +721,20 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
   </ul>
   <div class="nav-right">
     <a href="#register" class="nav-reg">Register →</a>
-    <button class="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
-    <div class="mah-b">A development by<strong>Mah Sing</strong></div>
+    <button class="nav-ham" id="navHam" aria-label="Menu" onclick="toggleMob()"><span></span><span></span><span></span></button>
+    <div class="mah-b"><img src="assets/mahsing-logo.webp" alt="Mah Sing"></div>
   </div>
 </nav>
+<div class="mob-drawer" id="mobDrawer" onclick="if(event.target===this)toggleMob()">
+  <a href="#about" onclick="toggleMob()">About</a>
+  <a href="#rts" onclick="toggleMob()">RTS Link</a>
+  <a href="#fac" onclick="toggleMob()">Facilities</a>
+  <a href="#units" onclick="toggleMob()">Units</a>
+  <a href="#invest" onclick="toggleMob()">Investment</a>
+  <a href="#loc" onclick="toggleMob()">Location</a>
+  <a href="#register" class="nav-cta" onclick="toggleMob()">Register Interest →</a>
+</div>
+<script>function toggleMob(){document.getElementById('navHam').classList.toggle('on');document.getElementById('mobDrawer').classList.toggle('on');var open=document.getElementById('mobDrawer').classList.contains('on');document.body.style.overflow=open?'hidden':'';document.body.classList.toggle('mob-open',open)}</script>
 
 <!-- HERO -->
 <section class="hero" id="about">
@@ -713,7 +779,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
     <div class="tr-item"><div class="tr-num">90%</div><div class="tr-lab">Tower A Sold</div></div>
     <div class="tr-item"><div class="tr-num">843</div><div class="tr-lab">Total Units</div></div>
     <div class="tr-item"><div class="tr-num">3km</div><div class="tr-lab">to RTS Station</div></div>
-    <div class="tr-item"><div class="tr-num">5 min</div><div class="tr-lab">to Singapore</div></div>
+    <div class="tr-item"><div class="tr-num">2030</div><div class="tr-lab">Completion</div></div>
     <div class="tr-item"><div class="tr-num">41</div><div class="tr-lab">Lifestyle Facilities</div></div>
     <div class="tr-item"><div class="tr-num">RM1.5B</div><div class="tr-lab">Total GDV</div></div>
   </div>
@@ -767,7 +833,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
       <div class="rts-spec-row"><span class="k">Hours</span><span class="v">6am – 12am &middot; Daily</span></div>
     </div>
 
-    <div class="center rts-cta"><a href="#register" class="btn btn-p">Get Investment Brief →</a></div>
+    <div class="center rts-cta"><a href="#register" class="btn btn-p">Register Interest →</a></div>
   </div>
 </section>
 
@@ -1027,7 +1093,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
             <div class="u-price-row"><span class="u-price">RM465k</span><span class="u-mo">~RM1,600/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-b')">View Floor Plan ↻</button>
-            <button class="u-vt">Virtual Tour →</button>
+            <a class="u-vt" href="https://my.matterport.com/show/?m=vc8sxwUcTV2" target="_blank" rel="noopener">Virtual Tour →</a>
           </div>
         </div>
         <div class="u-back">
@@ -1048,7 +1114,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
             <div class="u-price-row"><span class="u-price">RM591k</span><span class="u-mo">~RM2,030/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-c')">View Floor Plan ↻</button>
-            <button class="u-vt">Virtual Tour →</button>
+            <a class="u-vt" href="https://my.matterport.com/show/?m=a2EJR2WzANi" target="_blank" rel="noopener">Virtual Tour →</a>
           </div>
         </div>
         <div class="u-back">
@@ -1089,6 +1155,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
             <div class="u-price-row"><span class="u-price">RM769k</span><span class="u-mo">~RM2,650/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-e')">View Floor Plan ↻</button>
+            <a class="u-vt" href="https://my.matterport.com/show/?m=pyd1X2atKGu" target="_blank" rel="noopener">Virtual Tour →</a>
           </div>
         </div>
         <div class="u-back">
@@ -1141,7 +1208,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
         <div class="cg"><div class="cg-l"><span>Monthly SGD income</span><strong id="sgdL">SGD 4,000</strong></div><input type="range" class="cg-s" id="sgdI" min="2000" max="12000" step="500" value="4000"></div>
         <div class="cg"><div class="cg-l"><span>Unit price</span><strong id="sgdP">RM 500,000</strong></div><input type="range" class="cg-s" id="sgdU" min="390000" max="900000" step="5000" value="500000"></div>
         <div class="calc-out" style="background:var(--navy)"><div class="calc-out-lab" style="color:var(--gold)">Mortgage as % of SGD income</div><div class="calc-out-val" id="sgdR">12.5%</div><div class="calc-out-sub">Very affordable — recommended under 30%</div></div>
-        <div style="margin-top:12px;font-size:11px;color:var(--tl);text-align:center;font-weight:300">Exchange rate: 1 SGD ≈ 3.45 MYR*</div>
+        <div style="margin-top:12px;font-size:11px;color:var(--tl);text-align:center;font-weight:300">Exchange rate: 1 SGD ≈ 3.11 MYR*</div>
       </div>
     </div>
   </div>
@@ -1222,7 +1289,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
       <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D0o0000015t7i" method="POST">
         <input type="hidden" name="captcha_settings" value='{"keyname":"MGM_Recaptcha","fallback":"true","orgId":"00D0o0000015t7i","ts":""}'>
         <input type="hidden" name="oid" value="00D0o0000015t7i">
-        <input type="hidden" name="retURL" value="www.m-grandminori.com/2">
+        <input type="hidden" name="retURL" value="https://ver2.m-grandminori.com.my/thank-you.html">
         <input type="hidden" id="00N2j000000e0hv" name="00N2j000000e0hv" value="M Grand Minori Website 2">
         <input type="hidden" id="00N2j000000e0hw" name="00N2j000000e0hw" value="M Grand Minori">
         <input type="hidden" id="00N2j000000e0ho" name="00N2j000000e0ho" value="M Grand Minori Website">
@@ -1232,7 +1299,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
         <div class="fg"><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" maxlength="40" required placeholder="012-345 6789" autocomplete="tel"></div>
         <div class="fg"><label for="email">Email</label><input id="email" name="email" type="email" maxlength="80" required placeholder="you@email.com" autocomplete="email"></div>
         <div class="g-recaptcha" data-sitekey="6Lf7Q4QsAAAAAB5s7VUkFmk5fRDOX9BC2L6gmJRi" style="margin:16px 0 12px"></div>
-        <button type="submit" class="f-sub">Get My Investment Brief Now →</button>
+        <button type="submit" class="f-sub">Register Now →</button>
         <div class="f-trust"><span>No spam</span><span>·</span><span>Instant WhatsApp reply</span><span>·</span><span>Unsubscribe anytime</span></div>
       </form>
     </div>
@@ -1249,7 +1316,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
   <div class="wrap">
     <div class="center" style="margin-bottom:28px"><div class="eyebrow">FAQs</div><h2 class="stl">Common Questions</h2></div>
     <div class="faq-list">
-      <div class="faq-item open"><div class="faq-q" onclick="togFaq(this)">What is the monthly instalment?<span class="faq-t">+</span></div><div class="faq-a">From approximately RM1,500/month for the studio (RM437k) based on 90% financing at 4.5% over 35 years. Cross-border earners in SGD will find this especially affordable.</div></div>
+      <div class="faq-item open"><div class="faq-q" onclick="togFaq(this)">What is the monthly instalment?<span class="faq-t">+</span></div><div class="faq-a">From approximately RM1,500/month for the studio (RM437k) based on 90% financing at 4% over 35 years. Cross-border earners in SGD will find this especially affordable.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">When does the RTS Link open?<span class="faq-t">+</span></div><div class="faq-a">The RTS Link connecting Bukit Chagar (JB) to Woodlands North (Singapore) is scheduled to open on 31 December 2026. M Grand Minori is 3km (~5 min drive) from Bukit Chagar Station, with a dedicated shuttle service planned.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">Can Singaporeans buy this property?<span class="faq-t">+</span></div><div class="faq-a">Yes. Foreigners can purchase properties above RM1M in Johor, but M Grand Minori's pricing under RM1M is accessible for Malaysians and PR holders. Contact our team for the latest foreign buyer policies.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">What's included in the RM32,000 package?<span class="faq-t">+</span></div><div class="faq-a">Kitchen cabinet with hob, hood and sink, air-conditioning, digital lock set, water heater, and 2-in-1 washer/dryer — everything you need to move in or rent out immediately.</div></div>
@@ -1302,25 +1369,26 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
     <p>Dsara Sentral Sdn. Bhd. (200401006399 (644903-D)) · Jalan Kuning, Taman Pelangi, 80400 Johor Bahru, Johor · Developer License No: 9600/09-2026/0761 (A) · Validity Period: 03/09/2021-02/09/2026 · Serviced Apartment · Phase 1, Tower A (61 Floors) · 9600-6/08-2028/0716(A)-(S) · Validity Period: 29/08/2025-28/08/2028 · Approving Authority: Majlis Bandaraya Johor Bahru · Building Plan Approval No: MBJB/U/2025/14/BGN/105/KOM · Tenure of Land: Freehold · Land Encumbrances: Maybank Islamic Berhad · Expected Completion: July 2030 · Pricing: RM437,000 (Min) – RM896,000 (Max) · Total Unit: 843</p>
     <p>THIS ADVERTISEMENT HAS BEEN APPROVED BY THE NATIONAL HOUSING DEPARTMENT.</p>
     <p>DEVELOPMENT INFORMATION AND APPROVAL ADVERTISEMENT CAN BE CHECKED ON PORTAL TEDUH.KPKT.GOV.MY</p>
-    <p style="margin-top:12px;color:var(--tm)">*Instalment based on 90% financing, 4.5% p.a., 35 years. Subject to bank approval. Prices subject to change. Exchange rates are indicative.</p>
+    <p style="margin-top:12px;color:var(--tm)">*Instalment based on 90% financing, 4% p.a., 35 years. Subject to bank approval. Prices subject to change. Exchange rates are indicative.</p>
   </div>
 </footer>
 
-<!-- WA FAB -->
-<a href="https://wa.me/60172913226?text=Hi%2C%20I'm%20interested%20in%20M%20Grand%20Minori" class="wa-fab" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp Us</a>
+
 
 <!-- STICKY -->
 <div class="sticky"><a href="#register" class="stk stk-r">Register Now</a></div>
+<button class="to-top" id="toTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
+<script>window.addEventListener('scroll',function(){var s=window.scrollY>400;document.getElementById('toTop').classList.toggle('on',s);document.querySelector('.sticky').classList.toggle('on',s)},{passive:true});</script>
 
 <script>
 /* Instalment calc */
 var cP=document.getElementById('cP'),cD=document.getElementById('cD'),cT=document.getElementById('cT');
-function calc(){var p=+cP.value,d=+cD.value,y=+cT.value,l=p*(1-d/100),m=y*12,r=.045/12;var pmt=l*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);document.getElementById('cpL').textContent='RM '+p.toLocaleString();document.getElementById('cdL').textContent=d+'%';document.getElementById('ctL').textContent=y+' years';document.getElementById('cR').textContent='RM '+Math.round(pmt).toLocaleString()}
+function calc(){var p=+cP.value,d=+cD.value,y=+cT.value,l=p*(1-d/100),m=y*12,r=.04/12;var pmt=l*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);document.getElementById('cpL').textContent='RM '+p.toLocaleString();document.getElementById('cdL').textContent=d+'%';document.getElementById('ctL').textContent=y+' years';document.getElementById('cR').textContent='RM '+Math.round(pmt).toLocaleString()}
 cP.oninput=cD.oninput=cT.oninput=calc;calc();
 
 /* SGD calc */
 var sgdI=document.getElementById('sgdI'),sgdU=document.getElementById('sgdU');
-function sgdCalc(){var inc=+sgdI.value,price=+sgdU.value,rate=3.45;var loan=price*.9,m=35*12,r=.045/12;var pmt=loan*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);var pct=(pmt/(inc*rate))*100;document.getElementById('sgdL').textContent='SGD '+inc.toLocaleString();document.getElementById('sgdP').textContent='RM '+price.toLocaleString();document.getElementById('sgdR').textContent=pct.toFixed(1)+'%'}
+function sgdCalc(){var inc=+sgdI.value,price=+sgdU.value,rate=3.11;var loan=price*.9,m=35*12,r=.04/12;var pmt=loan*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);var pct=(pmt/(inc*rate))*100;document.getElementById('sgdL').textContent='SGD '+inc.toLocaleString();document.getElementById('sgdP').textContent='RM '+price.toLocaleString();document.getElementById('sgdR').textContent=pct.toFixed(1)+'%'}
 sgdI.oninput=sgdU.oninput=sgdCalc;sgdCalc();
 
 /* Floor plan flip */
