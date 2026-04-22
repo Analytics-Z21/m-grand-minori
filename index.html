@@ -117,7 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   img,picture{max-width:100%}
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:72px}
 body{font-family:var(--fb);color:var(--cream);background:var(--navy);overflow-x:hidden;padding-bottom:calc(66px + var(--safe-b))}
 @media(min-width:1024px){body{padding-bottom:0}}
 img{max-width:100%;display:block}
@@ -177,7 +177,8 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 
 /* ===== HERO ===== */
 .hero{position:relative;background:var(--navy);overflow:hidden}
-.hero-media{position:relative;width:100%;min-height:calc(100svh - 108px);background:url('assets/hero-bg-mobile-scaled.png') bottom center/cover no-repeat,var(--navy)}
+.hero-media{position:relative;width:100%;min-height:calc(100svh - 108px);max-height:780px;background:url('assets/hero-bg-mobile-scaled.png') bottom center/cover no-repeat,var(--navy)}
+@media(min-width:1024px){.hero-media{max-height:none}}
 .hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(13,11,30,.1) 92%,var(--dark) 100%);pointer-events:none;z-index:2}
 @media(min-width:1024px){.hero-media{background:url('assets/hero-bg.png') right 80%/cover no-repeat,var(--navy)}.hero-media::after{background:linear-gradient(90deg,rgba(13,11,30,.2) 0%,rgba(13,11,30,.08) 30%,transparent 55%);z-index:2}}
 @media(min-width:1024px){.hero-media{min-height:calc(100svh - 115px)}}
@@ -192,7 +193,8 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .h-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:18px}
 @media(min-width:768px){.h-logo{align-items:center;margin-bottom:22px}}
 .h-logo img{width:72px;height:auto;margin-bottom:6px}
-@media(min-width:1024px){.h-logo img{width:180px}}
+@media(min-width:1024px){.h-logo img{width:120px}}
+@media(min-width:1440px){.h-logo img{width:140px}}
 .h-logo-title{font-family:var(--fd);font-size:16px;font-weight:500;color:var(--cream);letter-spacing:4px;line-height:1;margin-top:2px}
 .h-logo-tag{font-size:8px;color:var(--copper3);letter-spacing:3px;text-transform:uppercase;margin-top:6px;font-weight:500}
 @media(min-width:1024px){.h-logo-title{font-size:20px;letter-spacing:5px}.h-logo-tag{font-size:9px;letter-spacing:3.5px}}
@@ -1378,7 +1380,12 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 <!-- STICKY -->
 <div class="sticky"><a href="#register" class="stk stk-r">Register Now</a></div>
 <button class="to-top" id="toTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
-<script>window.addEventListener('scroll',function(){var s=window.scrollY>400;document.getElementById('toTop').classList.toggle('on',s);document.querySelector('.sticky').classList.toggle('on',s)},{passive:true});</script>
+<script>
+(function(){var sticky=document.querySelector('.sticky'),toTop=document.getElementById('toTop'),formSec=document.getElementById('register'),formInView=false;
+window.addEventListener('scroll',function(){var s=window.scrollY>400;toTop.classList.toggle('on',s);sticky.classList.toggle('on',s&&!formInView)},{passive:true});
+if('IntersectionObserver' in window&&formSec){new IntersectionObserver(function(ents){formInView=ents[0].isIntersecting;sticky.classList.toggle('on',window.scrollY>400&&!formInView)},{threshold:.15}).observe(formSec)}
+})();
+</script>
 
 <script>
 /* Instalment calc */
