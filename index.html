@@ -44,10 +44,9 @@
 
 
 <!-- reCAPTCHA (for Salesforce Web-to-Lead) -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <script>
-  function timestamp(){var r=document.getElementById("g-recaptcha-response");if(r==null||r.value.trim()==""){var s=document.getElementsByName("captcha_settings");if(!s||!s[0])return;var e=JSON.parse(s[0].value);e["ts"]=JSON.stringify(new Date().getTime());s[0].value=JSON.stringify(e);}}
-  setInterval(timestamp,500);
+ function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") {var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500); 
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -313,7 +312,7 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .rts-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
 @media(min-width:768px){.rts-stats{grid-template-columns:repeat(4,1fr);gap:14px}}
 .rts-stat{background:rgba(255,255,255,.03);border:1px solid rgba(196,134,90,.18);border-radius:10px;padding:18px 16px;text-align:left}
-.rts-stat-val{font-family:var(--fd);font-size:22px;color:var(--copper3);font-weight:500;letter-spacing:.3px;line-height:1}
+.rts-stat-val{font-family:var(--fd);font-size:21px;color:var(--copper3);font-weight:500;letter-spacing:.3px;line-height:1}
 .rts-stat-val .u{font-size:13px;color:var(--copper3);font-family:var(--fb);font-weight:400;margin-left:3px}
 @media(min-width:1024px){.rts-stat-val{font-size:28px}.rts-stat-val .u{font-size:14px}}
 .rts-stat-lab{font-size:11px;color:var(--tl);margin-top:8px;font-weight:400;letter-spacing:.3px}
@@ -378,9 +377,11 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .u-name{font-family:var(--fd);font-size:22px;font-weight:500;color:var(--cream)}
 .u-body{padding:22px}
 .u-specs{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;margin-bottom:20px}
-.u-spec{font-size:13px;color:var(--tl);font-weight:300;line-height:1.3}
-.u-spec strong{color:var(--cream);font-weight:500;display:block;font-size:18px;font-family:var(--fd);margin-bottom:2px;line-height:1.15}
+.u-spec{font-size:13px;color:var(--tl);font-weight:300;line-height:1.3;min-width:0}
+.u-spec strong{color:var(--cream);font-weight:500;display:block;font-size:18px;font-family:var(--fd);margin-bottom:2px;line-height:1.15;word-break:break-word}
 @media(min-width:1024px){.u-spec{font-size:13.5px}.u-spec strong{font-size:20px}}
+.u-spec:last-child strong{font-size:14px;font-family:var(--fb);font-weight:500;letter-spacing:.2px;line-height:1.25}
+@media(min-width:1024px){.u-spec:last-child strong{font-size:15px}}
 .u-price-row{display:flex;align-items:baseline;justify-content:space-between;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);margin-top:4px}
 .u-price{font-family:var(--fd);font-size:26px;font-weight:500;color:var(--cream)}
 @media(min-width:1024px){.u-price{font-size:28px}}
@@ -427,6 +428,118 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .calc-out-val{font-family:var(--fd);font-size:34px;font-weight:500;color:var(--white)}
 @media(min-width:1024px){.calc-out-val{font-size:38px}}
 .calc-out-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+.calc-grid-single{grid-template-columns:1fr!important;max-width:640px;margin:0 auto}
+.calc-dual{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+@media(max-width:480px){.calc-dual{grid-template-columns:1fr}}
+.calc-dual-box{background:rgba(13,11,30,.55);border:1px solid rgba(196,134,90,.18);border-radius:12px;padding:18px 16px;text-align:center}
+.calc-dual-box.calc-dual-hero{background:var(--copper);border-color:var(--copper)}
+.calc-dual-lab{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--tm);margin-bottom:6px}
+.calc-dual-hero .calc-dual-lab{color:rgba(255,255,255,.75)}
+.calc-dual-val{font-family:var(--fd);font-size:28px;font-weight:500;color:var(--cream);line-height:1.1}
+.calc-dual-hero .calc-dual-val{color:var(--white)}
+@media(min-width:1024px){.calc-dual-val{font-size:32px}}
+/* Unit chip + ticks on property slider */
+.cg-unit-chip{display:inline-block;background:rgba(196,134,90,.18);border:1px solid rgba(196,134,90,.35);color:var(--copper3);font-size:11px;font-weight:500;letter-spacing:.3px;padding:4px 10px;border-radius:999px;margin-bottom:10px}
+.cg-ticks{position:relative;margin-top:10px;height:36px}
+.cg-tick{position:absolute;top:0;transform:translateX(-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;transition:opacity .2s}
+.cg-tick::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:2px;height:6px;background:rgba(196,134,90,.35);border-radius:1px}
+.cg-tick.active::before{background:var(--copper);height:8px;top:-12px}
+.cg-tick-k{font-size:10px;font-weight:500;color:var(--copper3);letter-spacing:.2px;line-height:1;opacity:0;transition:opacity .2s ease;white-space:nowrap}
+.cg-tick.active .cg-tick-k{opacity:1}
+.cg-tick-v{font-size:9px;color:var(--tl);font-weight:300;line-height:1.1;opacity:0;transition:opacity .2s ease;white-space:nowrap}
+.cg-tick.active .cg-tick-v{opacity:1}
+.cg-tick:nth-child(1){left:calc(12px + (100% - 24px) * .089)}
+.cg-tick:nth-child(2){left:calc(12px + (100% - 24px) * .267)}
+.cg-tick:nth-child(3){left:calc(12px + (100% - 24px) * .564)}
+.cg-tick:nth-child(4){left:calc(12px + (100% - 24px) * .606)}
+.cg-tick:nth-child(5){left:calc(12px + (100% - 24px) * .983)}
+@media(max-width:480px){.cg-tick-k{font-size:9px}.cg-tick-v{font-size:8px}}
+.calc-disclaimer{margin-top:18px;font-size:11.5px;color:var(--tl);line-height:1.55;font-style:italic;font-weight:300;text-align:center;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
+/* SGD output panel */
+.sgd-out{margin-top:20px;background:rgba(13,11,30,.55);border:1px solid rgba(196,134,90,.18);border-radius:12px;overflow:hidden}
+.sgd-out-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.05)}
+.sgd-out-row.sgd-out-hero{background:var(--copper);border-bottom:none}
+.sgd-out-lab{font-size:12px;color:var(--tm);letter-spacing:.3px}
+.sgd-out-row.sgd-out-hero .sgd-out-lab{color:rgba(255,255,255,.75)}
+.sgd-out-val{font-family:var(--fd);font-size:22px;font-weight:500;color:var(--cream)}
+.sgd-out-row.sgd-out-hero .sgd-out-val{color:var(--white);font-size:28px}
+@media(min-width:1024px){.sgd-out-val{font-size:24px}.sgd-out-row.sgd-out-hero .sgd-out-val{font-size:32px}}
+.sgd-dsr{padding:16px 18px 18px;background:rgba(255,255,255,.02)}
+.sgd-dsr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sgd-dsr-lab{font-size:12px;color:var(--tm);letter-spacing:.3px}
+.sgd-dsr-val{font-family:var(--fd);font-size:22px;font-weight:500;color:var(--copper3)}
+.sgd-dsr-bar{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:8px}
+.sgd-dsr-fill{position:absolute;left:0;top:0;bottom:0;background:#3BB273;transition:width .3s ease,background .3s ease;border-radius:3px}
+.sgd-dsr-fill.ok{background:#3BB273}
+.sgd-dsr-fill.warn{background:var(--copper3)}
+.sgd-dsr-fill.bad{background:#e06060}
+.sgd-dsr-mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:rgba(255,255,255,.4);border-radius:1px}
+.sgd-dsr-note{font-size:11px;color:var(--tl);line-height:1.4;font-weight:300}
+
+/* ===== INTERIOR SHOWCASE ===== */
+.int-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:40px;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none}
+.int-grid::-webkit-scrollbar{display:none}
+.int-grid.is-grabbing{cursor:grabbing}
+.int-item{position:relative;overflow:hidden;border-radius:12px;cursor:zoom-in;background:rgba(255,255,255,.04);flex:0 0 88%;aspect-ratio:3/4;scroll-snap-align:start;flex-shrink:0}
+@media(min-width:600px){.int-item{flex:0 0 70%;aspect-ratio:4/5}}
+@media(min-width:1024px){
+  .int-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:260px;gap:14px;overflow:visible;padding-bottom:0;cursor:default;grid-auto-flow:dense}
+  .int-grid.is-grabbing{cursor:default}
+  .int-item{flex:none;width:auto;height:auto;aspect-ratio:auto;scroll-snap-align:none}
+  .int-item.int-feature{grid-column:span 2;grid-row:span 2}
+  .int-item.int-wide{grid-column:span 2}
+}
+.int-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;pointer-events:none}
+.int-item:hover img{transform:scale(1.05)}
+.int-item::after{display:none}
+.int-cap{position:absolute;left:14px;bottom:12px;z-index:2;font-family:var(--fd);font-size:13px;color:var(--cream);letter-spacing:.3px;text-shadow:0 2px 8px rgba(0,0,0,.6);opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease;pointer-events:none}
+.int-item:hover .int-cap{opacity:1;transform:translateY(0)}
+@media(max-width:1023px){.int-cap{opacity:1;transform:none;font-size:12px}}
+.int-dots{display:flex;justify-content:center;gap:7px;margin-top:18px}
+@media(min-width:1024px){.int-dots{display:none}}
+.int-dot{width:7px;height:7px;border-radius:50%;background:rgba(196,134,90,.22);cursor:pointer;transition:background .25s,width .25s,border-radius .25s;flex-shrink:0}
+.int-dot.active{background:var(--copper);width:20px;border-radius:4px}
+
+/* ===== CGI GALLERY ===== */
+.cgi-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-top:40px;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none}
+.cgi-track::-webkit-scrollbar{display:none}
+.cgi-track.is-grabbing{cursor:grabbing}
+.cgi-item{position:relative;overflow:hidden;border-radius:12px;cursor:zoom-in;background:rgba(255,255,255,.05);flex:0 0 88%;aspect-ratio:3/4;scroll-snap-align:start;flex-shrink:0;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+@media(min-width:600px){.cgi-item{flex:0 0 70%;aspect-ratio:4/5}}
+/* Desktop: CSS grid */
+@media(min-width:1024px){
+  .cgi-track{display:grid !important;grid-template-columns:repeat(3,1fr)!important;grid-auto-rows:220px;gap:14px!important;column-gap:14px!important;row-gap:14px!important;overflow:visible;padding-bottom:0;cursor:default;grid-auto-flow:row;max-width:1040px;margin-left:auto;margin-right:auto}
+  .cgi-track.is-grabbing{cursor:default}
+  .cgi-item{flex:none;width:auto;height:auto;min-height:unset;max-height:unset;aspect-ratio:auto;scroll-snap-align:none;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+  .cgi-item:first-child{grid-column:span 2}
+  .cgi-item:nth-child(7){grid-column:span 2}
+}
+@media(min-width:1280px){
+  .cgi-track{grid-auto-rows:240px;max-width:1120px}
+}
+.cgi-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;pointer-events:none}
+.cgi-item:hover img{transform:scale(1.05)}
+.cgi-item::after{display:none}
+/* Dot indicators — mobile only */
+.cgi-dots{display:flex;justify-content:center;gap:7px;margin-top:18px}
+@media(min-width:1024px){.cgi-dots{display:none}}
+.cgi-dot{width:7px;height:7px;border-radius:50%;background:rgba(196,134,90,.22);cursor:pointer;transition:background .25s,width .25s,border-radius .25s;flex-shrink:0}
+.cgi-dot.active{background:var(--copper);width:20px;border-radius:4px}
+/* CGI Lightbox */
+.cgi-lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,9,20,.95);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;touch-action:pan-y}
+.cgi-lb.open{display:flex}
+.cgi-lb-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cgi-lb-img{max-width:92vw;max-height:88vh;width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 12px 60px rgba(0,0,0,.8);user-select:none;-webkit-user-drag:none;transition:opacity .25s ease;opacity:1}
+.cgi-lb-img.fading{opacity:0}
+.cgi-lb-bar{position:absolute;top:16px;right:16px;display:flex;gap:8px;z-index:3}
+.cgi-lb-close{min-width:42px;height:42px;padding:0 12px;border:1px solid rgba(196,134,90,.35);background:rgba(21,19,40,.7);color:var(--cream);border-radius:8px;font-size:18px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .2s;font-family:var(--fb)}
+.cgi-lb-close:hover{background:rgba(196,134,90,.2);border-color:var(--copper)}
+.cgi-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid rgba(196,134,90,.35);background:rgba(21,19,40,.7);color:var(--cream);font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3}
+.cgi-lb-nav:hover{background:rgba(196,134,90,.2);border-color:var(--copper)}
+.cgi-lb-prev{left:16px}
+.cgi-lb-next{right:16px}
+.cgi-lb-count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--tl);letter-spacing:.4px;z-index:2;pointer-events:none;font-family:var(--fb)}
+@media(max-width:640px){.cgi-lb-nav{width:40px;height:40px;font-size:18px}.cgi-lb-prev{left:8px}.cgi-lb-next{right:8px}}
 
 /* ===== LOCATION ===== */
 .loc-hero{position:relative;overflow:hidden;background:var(--navy);padding:56px var(--pad)}
@@ -724,8 +837,8 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 <!-- ANNOUNCE (auto marquee) -->
 <div class="ann">
   <div class="ann-track">
-    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM437,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS</div>
-    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM437,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS</div>
+    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM332,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS</div>
+    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM332,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS</div>
   </div>
 </div>
 
@@ -766,24 +879,24 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
         <div class="h-logo">
           <img src="assets/new-logo.png" alt="Grand Minori">
         </div>
-        <div class="h-tag"><span class="dot"></span>Show unit open<span class="sep">·</span>Taman Pelangi</div>
+        <div class="h-tag"><span class="dot"></span>Sales Gallery open everyday: 9.30am to 9pm</div>
         <h1><em>Exclusive</em> Lifestyle Awaits</h1>
         <p class="hero-loc">@ <strong>Taman Pelangi</strong></p>
         <div class="h-cards">
           <div class="h-card">
             <div class="h-card-lab">Starting from</div>
-            <div class="h-card-val">RM 437,000</div>
+            <div class="h-card-val">RM 332K</div>
             <div class="h-card-sub">Freehold · Type A</div>
           </div>
           <div class="h-card">
-            <div class="h-card-lab">Completion</div>
-            <div class="h-card-val">July 2030</div>
-            <div class="h-card-sub">Phase 1 · Tower A</div>
+            <div class="h-card-lab">To RTS Station</div>
+            <div class="h-card-val">3 km</div>
+            <div class="h-card-sub">Bukit Chagar · Cross-Border</div>
           </div>
         </div>
         <div class="h-specs-wrap">
           <div class="h-specs">
-            <span class="h-spec">3km - RTS</span><span class="h-spec">41 Facility</span><span class="h-spec">Freehold</span><span class="h-spec">GreenRE</span>
+            <span class="h-spec">Tower B Now Open</span><span class="h-spec">Tower A Limited Unit</span>
           </div>
         </div>
         <div class="hero-ctas">
@@ -798,11 +911,10 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 <!-- TRUST -->
 <div class="trust" id="trust">
   <div class="trust-in">
-    <div class="tr-item"><div class="tr-num">90%</div><div class="tr-lab">Tower A Sold</div></div>
-    <div class="tr-item"><div class="tr-num">843</div><div class="tr-lab">Total Units</div></div>
-    <div class="tr-item"><div class="tr-num">3km</div><div class="tr-lab">to RTS Station</div></div>
-    <div class="tr-item"><div class="tr-num">2030</div><div class="tr-lab">Completion</div></div>
+    <div class="tr-item"><div class="tr-num">90%</div><div class="tr-lab">Tower A Take-up Rate</div></div>
+    <div class="tr-item"><div class="tr-num">Freehold</div><div class="tr-lab">Tenure</div></div>
     <div class="tr-item"><div class="tr-num">41</div><div class="tr-lab">Lifestyle Facilities</div></div>
+    <div class="tr-item"><div class="tr-num">59</div><div class="tr-lab">Storeys</div></div>
     <div class="tr-item"><div class="tr-num">RM1.5B</div><div class="tr-lab">Total GDV</div></div>
   </div>
 </div>
@@ -824,6 +936,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 <!-- RTS / CROSS-BORDER -->
 <section class="sec" id="rts">
   <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  
   <div class="wrap">
     <div class="center rts-head">
       <div class="eyebrow">Why Invest Now</div>
@@ -835,25 +948,22 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
       <img src="assets/potential-and-life-img.webp" alt="RTS Link cross-border connectivity" onerror="this.style.display='none'">
       
       <div class="rts-overlay">
-        <div class="rts-overlay-big">5<span>min</span></div>
-        <div class="rts-overlay-lab">drive from M Grand Minori<br>to Bukit Chagar RTS Station</div>
+        <div class="rts-overlay-big">3<span>km</span></div>
+        <div class="rts-overlay-lab">from M Grand Minori<br>to Bukit Chagar RTS Station</div>
       </div>
     </div>
 
     <div class="rts-note">RTS-adjacent projects have seen significant capital uplift since announcement</div>
 
     <div class="rts-stats">
-      <div class="rts-stat"><div class="rts-stat-val">3 km</div><div class="rts-stat-lab">To RTS Station</div></div>
       <div class="rts-stat"><div class="rts-stat-val">31 Dec 2026</div><div class="rts-stat-lab">RTS Opens</div></div>
-      <div class="rts-stat"><div class="rts-stat-val">10,000<span class="u">/hr</span></div><div class="rts-stat-lab">Pax per direction</div></div>
       <div class="rts-stat"><div class="rts-stat-val">3.6<span class="u">min</span></div><div class="rts-stat-lab">Peak frequency</div></div>
+      <div class="rts-stat"><div class="rts-stat-val">6<span class="u">am - </span>12<span class="u">am</span></div><div class="rts-stat-lab">Operating hours</div></div>
+      <div class="rts-stat"><div class="rts-stat-val">10,000<span class="u">/hr</span></div><div class="rts-stat-lab">Pax per direction</div></div>
+      
     </div>
 
-    <div class="rts-specs-list">
-      <div class="rts-spec-row"><span class="k">Stations</span><span class="v">Bukit Chagar (JB) &rarr; Woodlands North (SG)</span></div>
-      <div class="rts-spec-row"><span class="k">Parking</span><span class="v">800 cars &middot; 1,000 motorcycles</span></div>
-      <div class="rts-spec-row"><span class="k">Hours</span><span class="v">6am – 12am &middot; Daily</span></div>
-    </div>
+
 
     <div class="center rts-cta"><a href="#register" class="btn btn-p">Register Interest →</a></div>
   </div>
@@ -861,6 +971,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 
 <!-- FACILITIES -->
 <section class="sec sec-mid" id="fac">
+  
   <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
   <div class="wrap">
     <div class="center">
@@ -928,9 +1039,85 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
   </div>
 </section>
 
+<!-- CGI GALLERY -->
+<section class="sec sec-mid" id="cgi">
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Facilities Visual</div>
+      <h2 class="stl">Life, <em>Rendered</em></h2>
+      <p class="sdesc">CGI renders of selected facilities across the development.</p>
+    </div>
+    <div class="cgi-track fi" id="cgiTrack">
+      <div class="cgi-item" data-src="assets/1.jpg"><img src="assets/1.jpg" alt="Facility render" loading="lazy"></div>
+      <div class="cgi-item" data-src="assets/4.jpg"><img src="assets/4.jpg" alt="Facility render" loading="lazy"></div>
+      <div class="cgi-item" data-src="assets/6.jpg"><img src="assets/6.jpg" alt="Facility render" loading="lazy"></div>
+      <div class="cgi-item" data-src="assets/9.jpg"><img src="assets/9.jpg" alt="Facility render" loading="lazy"></div>
+      <div class="cgi-item" data-src="assets/13.jpg"><img src="assets/13.jpg" alt="Facility render" loading="lazy"></div>
+      <div class="cgi-item" data-src="assets/14.jpg"><img src="assets/14.jpg" alt="Facility render" loading="lazy"></div>
+      <div class="cgi-item" data-src="assets/30.jpg"><img src="assets/30.jpg" alt="Facility render" loading="lazy"></div>
+    </div>
+    <div class="cgi-dots" id="cgiDots">
+      <div class="cgi-dot active"></div>
+      <div class="cgi-dot"></div>
+      <div class="cgi-dot"></div>
+      <div class="cgi-dot"></div>
+      <div class="cgi-dot"></div>
+      <div class="cgi-dot"></div>
+      <div class="cgi-dot"></div>
+    </div>
+  </div>
+</section>
+<!-- CGI LIGHTBOX -->
+<div class="cgi-lb" id="cgiLb">
+  <div class="cgi-lb-bar">
+    <button class="cgi-lb-close" id="cgiLbClose" aria-label="Close">✕</button>
+  </div>
+  <button class="cgi-lb-nav cgi-lb-prev" id="cgiLbPrev" aria-label="Previous">‹</button>
+  <div class="cgi-lb-stage">
+    <img class="cgi-lb-img" id="cgiLbImg" src="" alt="Facility CGI render">
+  </div>
+  <button class="cgi-lb-nav cgi-lb-next" id="cgiLbNext" aria-label="Next">›</button>
+  <div class="cgi-lb-count" id="cgiLbCount"></div>
+</div>
+
+<!-- INTERIOR SHOWCASE -->
+<section class="sec sec-mid" id="interior">
+  
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Interior Showcase</div>
+      <h2 class="stl">Inside <em>the Residence</em></h2>
+      <p class="sdesc">A closer look at the crafted interiors — curated finishes, natural light, and considered spaces.</p>
+    </div>
+    <div class="int-grid fi" id="intGrid">
+      <div class="int-item int-feature" data-src="assets/img-09175-scaled.jpg"><img src="assets/img-09175-scaled.jpg" alt="Interior view" loading="lazy"></div>
+      <div class="int-item" data-src="assets/img-09210-scaled.jpg"><img src="assets/img-09210-scaled.jpg" alt="Interior view" loading="lazy"></div>
+      <div class="int-item" data-src="assets/img-09258-scaled.jpg"><img src="assets/img-09258-scaled.jpg" alt="Interior view" loading="lazy"></div>
+      <div class="int-item" data-src="assets/img-09323-scaled.jpg"><img src="assets/img-09323-scaled.jpg" alt="Interior view" loading="lazy"></div>
+      <div class="int-item" data-src="assets/img-09361-scaled.jpg"><img src="assets/img-09361-scaled.jpg" alt="Interior view" loading="lazy"></div>
+      <div class="int-item" data-src="assets/img-09395-scaled.jpg"><img src="assets/img-09395-scaled.jpg" alt="Interior view" loading="lazy"></div>
+    </div>
+    <div class="int-dots" id="intDots">
+      <div class="int-dot active"></div><div class="int-dot"></div><div class="int-dot"></div><div class="int-dot"></div><div class="int-dot"></div><div class="int-dot"></div>
+    </div>
+  </div>
+</section>
+<!-- INTERIOR LIGHTBOX -->
+<div class="cgi-lb" id="intLb">
+  <div class="cgi-lb-bar"><button class="cgi-lb-close" id="intLbClose" aria-label="Close">✕</button></div>
+  <button class="cgi-lb-nav cgi-lb-prev" id="intLbPrev" aria-label="Previous">‹</button>
+  <div class="cgi-lb-stage"><img class="cgi-lb-img" id="intLbImg" src="" alt="Interior view"></div>
+  <button class="cgi-lb-nav cgi-lb-next" id="intLbNext" aria-label="Next">›</button>
+  <div class="cgi-lb-count" id="intLbCount"></div>
+</div>
+
 <!-- ILLUMINATED LIFESTYLE — 4 IKI PILLARS -->
 <section class="sec" style="position:relative;overflow:hidden">
   <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  
   <div class="wrap">
     <div style="margin-bottom:36px">
       <div class="eyebrow">Passage to an</div>
@@ -973,6 +1160,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 
 <!-- EXPERIENCE GALLERY -->
 <section class="sec sec-mid">
+  
   <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
   <div class="wrap">
     <div class="center" style="margin-bottom:28px">
@@ -1004,6 +1192,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 <!-- POTENTIAL & LIFE — 3 PILLARS -->
 <section class="sec sec-mid">
   <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  
   <div class="wrap">
     <div class="center" style="margin-bottom:32px">
       <div class="eyebrow">Radiant with</div>
@@ -1058,6 +1247,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 
 <!-- FURNISHING PACKAGE -->
 <section class="sec">
+  
   <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
   <div class="wrap">
     <div class="furn fi">
@@ -1080,6 +1270,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 <!-- UNITS -->
 <section class="sec sec-mid" id="units">
   <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  
   <div class="wrap">
     <div class="center">
       <div class="eyebrow">6 Layout Options</div>
@@ -1088,11 +1279,11 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
     </div>
     <div class="unit-scroll" id="uScroll">
       <div class="u-card fi" id="uc-a">
-        <div class="u-header"><span class="u-type">Type A</span><span class="u-name">Studio</span></div>
+        <div class="u-header"><span class="u-type">Type A</span></div>
         <div class="u-front">
           <div class="u-body">
-            <div class="u-specs"><div class="u-spec"><strong>403</strong>sq.ft</div><div class="u-spec"><strong>Studio</strong>Layout</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Singles / Rental</div></div>
-            <div class="u-price-row"><span class="u-price">RM437k</span><span class="u-mo">~RM1,500/mo</span></div>
+            <div class="u-specs"><div class="u-spec"><strong>403</strong>sq.ft</div><div class="u-spec"><strong>Studio</strong>Layout</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Singles / Rental</strong>Ideal for</div></div>
+            <div class="u-price-row"><span class="u-price">RM332k</span><span class="u-mo">~RM1,500/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-a')">View Floor Plan ↻</button>
           </div>
@@ -1108,11 +1299,11 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
       </div>
 
       <div class="u-card feat fi" id="uc-b">
-        <div class="u-header"><span class="u-tags"><span class="u-type">Type B</span><span class="u-pop">Popular</span></span><span class="u-name">1 Bed + 1 Bath</span></div>
+        <div class="u-header"><span class="u-tags"><span class="u-type">Type B</span><span class="u-pop">Popular</span></span></div>
         <div class="u-front">
           <div class="u-body">
-            <div class="u-specs"><div class="u-spec"><strong>496</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Couples / Investors</div></div>
-            <div class="u-price-row"><span class="u-price">RM465k</span><span class="u-mo">~RM1,600/mo</span></div>
+            <div class="u-specs"><div class="u-spec"><strong>496</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Couples / Investors</strong>Ideal for</div></div>
+            <div class="u-price-row"><span class="u-price">RM396k</span><span class="u-mo">~RM1,600/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-b')">View Floor Plan ↻</button>
             <a class="u-vt" href="https://my.matterport.com/show/?m=vc8sxwUcTV2" target="_blank" rel="noopener">Virtual Tour →</a>
@@ -1129,11 +1320,11 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
       </div>
 
       <div class="u-card fi" id="uc-c">
-        <div class="u-header"><span class="u-type">Type C</span><span class="u-name">1 Bed + Powder</span></div>
+        <div class="u-header"><span class="u-type">Type C</span></div>
         <div class="u-front">
           <div class="u-body">
-            <div class="u-specs"><div class="u-spec"><strong>624</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1+1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Couples / WFH</div></div>
-            <div class="u-price-row"><span class="u-price">RM591k</span><span class="u-mo">~RM2,030/mo</span></div>
+            <div class="u-specs"><div class="u-spec"><strong>624</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1+1</strong>Bath</div><div class="u-spec"><strong>Couples / WFH</strong>Ideal for</div></div>
+            <div class="u-price-row"><span class="u-price">RM503k</span><span class="u-mo">~RM2,030/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-c')">View Floor Plan ↻</button>
             <a class="u-vt" href="https://my.matterport.com/show/?m=a2EJR2WzANi" target="_blank" rel="noopener">Virtual Tour →</a>
@@ -1150,11 +1341,11 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
       </div>
 
       <div class="u-card fi" id="uc-d">
-        <div class="u-header"><span class="u-type">Type D</span><span class="u-name">1 Bed · 630 sqft</span></div>
+        <div class="u-header"><span class="u-type">Type D</span></div>
         <div class="u-front">
           <div class="u-body">
-            <div class="u-specs"><div class="u-spec"><strong>630</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Families / WFH</div></div>
-            <div class="u-price-row"><span class="u-price">RM609k</span><span class="u-mo">~RM2,100/mo</span></div>
+            <div class="u-specs"><div class="u-spec"><strong>630</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Families / WFH</strong>Ideal for</div></div>
+            <div class="u-price-row"><span class="u-price">RM518k</span><span class="u-mo">~RM2,100/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-d')">View Floor Plan ↻</button>
           </div>
@@ -1170,11 +1361,11 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
       </div>
 
       <div class="u-card fi" id="uc-e">
-        <div class="u-header"><span class="u-type">Type E</span><span class="u-name">3 Bed Dual-Key</span></div>
+        <div class="u-header"><span class="u-type">Type E</span></div>
         <div class="u-front">
           <div class="u-body">
-            <div class="u-specs"><div class="u-spec"><strong>835</strong>sq.ft</div><div class="u-spec"><strong>3</strong>Bedrooms</div><div class="u-spec"><strong>2</strong>Bath</div><div class="u-spec"><strong>Ideal</strong>Dual-key income</div></div>
-            <div class="u-price-row"><span class="u-price">RM769k</span><span class="u-mo">~RM2,650/mo</span></div>
+            <div class="u-specs"><div class="u-spec"><strong>835</strong>sq.ft</div><div class="u-spec"><strong>3</strong>Bedrooms</div><div class="u-spec"><strong>2</strong>Bath</div><div class="u-spec"><strong>Dual-key income</strong>Ideal for</div></div>
+            <div class="u-price-row"><span class="u-price">RM654k</span><span class="u-mo">~RM2,650/mo</span></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-e')">View Floor Plan ↻</button>
             <a class="u-vt" href="https://my.matterport.com/show/?m=pyd1X2atKGu" target="_blank" rel="noopener">Virtual Tour →</a>
@@ -1209,28 +1400,37 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 
 <!-- CALCULATORS -->
 <section class="sec" id="invest">
+  
   <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
   <div class="wrap">
     <div class="center" style="margin-bottom:36px">
       <div class="eyebrow">Investment tools</div>
       <h2 class="stl">Crunch the Numbers</h2>
     </div>
-    <div class="calc-grid">
+    <div class="calc-grid calc-grid-single">
       <div class="calc-box">
         <h3>Monthly Instalment</h3>
-        <p>Estimate your RM repayment.</p>
-        <div class="cg"><div class="cg-l"><span>Property price</span><strong id="cpL">RM 500,000</strong></div><input type="range" class="cg-s" id="cP" min="390000" max="900000" step="5000" value="500000"></div>
+        <p>Estimate your repayment — shown in both RM and SGD.</p>
+        <div class="cg">
+          <div class="cg-l"><span>Property price</span><strong id="cpL">RM 396,000</strong></div>
+          <div class="cg-unit-chip" id="cpChip">Type B · 1 Bed + 1 Bath</div>
+          <input type="range" class="cg-s cg-s-unit" id="cP" min="300000" max="660000" step="500" value="396000">
+          <div class="cg-ticks" id="cpTicks">
+            <div class="cg-tick" data-price="332000"><span class="cg-tick-k">Type A</span><span class="cg-tick-v">RM 332k</span></div>
+            <div class="cg-tick" data-price="396000"><span class="cg-tick-k">Type B</span><span class="cg-tick-v">RM 396k</span></div>
+            <div class="cg-tick" data-price="503000"><span class="cg-tick-k">Type C</span><span class="cg-tick-v">RM 503k</span></div>
+            <div class="cg-tick" data-price="518000"><span class="cg-tick-k">Type D</span><span class="cg-tick-v">RM 518k</span></div>
+            <div class="cg-tick" data-price="654000"><span class="cg-tick-k">Type E</span><span class="cg-tick-v">RM 654k</span></div>
+          </div>
+        </div>
         <div class="cg"><div class="cg-l"><span>Down payment</span><strong id="cdL">10%</strong></div><input type="range" class="cg-s" id="cD" min="5" max="30" step="1" value="10"></div>
-        <div class="cg"><div class="cg-l"><span>Tenure</span><strong id="ctL">35 years</strong></div><input type="range" class="cg-s" id="cT" min="20" max="35" step="1" value="35"></div>
-        <div class="calc-out"><div class="calc-out-lab">Est. monthly instalment</div><div class="calc-out-val" id="cR">RM 1,720</div><div class="calc-out-sub">Based on 4.5% interest*</div></div>
-      </div>
-      <div class="calc-box">
-        <h3>SGD Income Calculator</h3>
-        <p>Earning in Singapore? See how affordable this is.</p>
-        <div class="cg"><div class="cg-l"><span>Monthly SGD income</span><strong id="sgdL">SGD 4,000</strong></div><input type="range" class="cg-s" id="sgdI" min="2000" max="12000" step="500" value="4000"></div>
-        <div class="cg"><div class="cg-l"><span>Unit price</span><strong id="sgdP">RM 500,000</strong></div><input type="range" class="cg-s" id="sgdU" min="390000" max="900000" step="5000" value="500000"></div>
-        <div class="calc-out" style="background:var(--navy)"><div class="calc-out-lab" style="color:var(--gold)">Mortgage as % of SGD income</div><div class="calc-out-val" id="sgdR">12.5%</div><div class="calc-out-sub">Very affordable — recommended under 30%</div></div>
-        <div style="margin-top:12px;font-size:11px;color:var(--tl);text-align:center;font-weight:300">Exchange rate: 1 SGD ≈ 3.11 MYR*</div>
+        <div class="cg"><div class="cg-l"><span>Loan tenure</span><strong id="ctL">35 years</strong></div><input type="range" class="cg-s" id="cT" min="20" max="35" step="1" value="35"></div>
+        <div class="calc-dual">
+          <div class="calc-dual-box"><div class="calc-dual-lab">Monthly (MYR)</div><div class="calc-dual-val" id="cR">RM 1,720</div></div>
+          <div class="calc-dual-box calc-dual-hero"><div class="calc-dual-lab">Monthly (SGD)</div><div class="calc-dual-val" id="cRSgd">SGD 553</div></div>
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:var(--tl);text-align:center;font-weight:300">Based on 4% p.a. · 1 SGD ≈ 3.11 MYR*</div>
+        <p class="calc-disclaimer">Please note: The calculation provided is for reference purposes only. For accurate pricing, kindly refer to our professional sales staff.</p>
       </div>
     </div>
   </div>
@@ -1317,11 +1517,12 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
         <input type="hidden" id="00N2j000000e0ho" name="00N2j000000e0ho" value="M Grand Minori Website 2">
         <input type="hidden" id="00N2j000000e0hp" name="00N2j000000e0hp" value="Website">
         <input type="hidden" id="00N2j000000e0hR" name="00N2j000000e0hR" value="1">
+        <input type=hidden id="00N2j000000e0hR" name="00N2j000000e0hR" type="checkbox" value="1" check="checked"/><br>
         <div class="fg"><label for="last_name">Full Name</label><input id="last_name" name="last_name" type="text" maxlength="80" required placeholder="Your full name" autocomplete="name"></div>
         <div class="fg"><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" maxlength="40" required placeholder="012-345 6789" autocomplete="tel"></div>
         <div class="fg"><label for="email">Email</label><input id="email" name="email" type="email" maxlength="80" required placeholder="you@email.com" autocomplete="email"></div>
         <div class="g-recaptcha" data-sitekey="6Lf7Q4QsAAAAAB5s7VUkFmk5fRDOX9BC2L6gmJRi" style="margin:16px 0 12px"></div>
-        <button type="submit" class="f-sub">Register Now →</button>
+        <input type="submit" class="f-sub" value="Register Now →">
         <div class="f-trust"><span>No spam</span><span>·</span><span>Instant WhatsApp reply</span><span>·</span><span>Unsubscribe anytime</span></div>
       </form>
     </div>
@@ -1332,21 +1533,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="sec">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
-  <div class="wrap">
-    <div class="center" style="margin-bottom:28px"><div class="eyebrow">FAQs</div><h2 class="stl">Common Questions</h2></div>
-    <div class="faq-list">
-      <div class="faq-item open"><div class="faq-q" onclick="togFaq(this)">What is the monthly instalment?<span class="faq-t">+</span></div><div class="faq-a">From approximately RM1,500/month for the studio (RM437k) based on 90% financing at 4% over 35 years. Cross-border earners in SGD will find this especially affordable.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">When does the RTS Link open?<span class="faq-t">+</span></div><div class="faq-a">The RTS Link connecting Bukit Chagar (JB) to Woodlands North (Singapore) is scheduled to open on 31 December 2026. M Grand Minori is 3km (~5 min drive) from Bukit Chagar Station, with a dedicated shuttle service planned.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">Can Singaporeans buy this property?<span class="faq-t">+</span></div><div class="faq-a">Yes. Foreigners can purchase properties above RM1M in Johor, but M Grand Minori's pricing under RM1M is accessible for Malaysians and PR holders. Contact our team for the latest foreign buyer policies.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">What's included in the RM32,000 package?<span class="faq-t">+</span></div><div class="faq-a">Kitchen cabinet with hob, hood and sink, air-conditioning, digital lock set, water heater, and 2-in-1 washer/dryer — everything you need to move in or rent out immediately.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)">Is this freehold?<span class="faq-t">+</span></div><div class="faq-a">Yes — M Grand Minori is fully freehold. Permanent ownership with no lease renewal required, providing lasting investment security.</div></div>
-    </div>
-    <div style="text-align:center;margin-top:32px"><a href="#register" class="btn btn-s">Still have questions? Register →</a></div>
-  </div>
-</section>
+
 
 <!-- GET IN TOUCH -->
 <section class="git" id="contact">
@@ -1410,13 +1597,181 @@ if('IntersectionObserver' in window&&formSec){new IntersectionObserver(function(
 <script>
 /* Instalment calc */
 var cP=document.getElementById('cP'),cD=document.getElementById('cD'),cT=document.getElementById('cT');
-function calc(){var p=+cP.value,d=+cD.value,y=+cT.value,l=p*(1-d/100),m=y*12,r=.04/12;var pmt=l*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);document.getElementById('cpL').textContent='RM '+p.toLocaleString();document.getElementById('cdL').textContent=d+'%';document.getElementById('ctL').textContent=y+' years';document.getElementById('cR').textContent='RM '+Math.round(pmt).toLocaleString()}
-cP.oninput=cD.oninput=cT.oninput=calc;calc();
+var unitTypes=[
+  {price:332000,type:'Type A',desc:'Studio · 403 sqft'},
+  {price:396000,type:'Type B',desc:'1 Bed + 1 Bath · 496 sqft'},
+  {price:503000,type:'Type C',desc:'1 Bed + Powder · 624 sqft'},
+  {price:518000,type:'Type D',desc:'1 Bed · 630 sqft'},
+  {price:654000,type:'Type E',desc:'3 Bed Dual-Key · 835 sqft'}
+];
+function calc(){
+  var p=+cP.value,d=+cD.value,y=+cT.value,l=p*(1-d/100),m=y*12,r=.04/12,rate=3.11;
+  var pmt=l*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);
+  document.getElementById('cpL').textContent='RM '+p.toLocaleString();
+  document.getElementById('cdL').textContent=d+'%';
+  document.getElementById('ctL').textContent=y+' years';
+  document.getElementById('cR').textContent='RM '+Math.round(pmt).toLocaleString();
+  document.getElementById('cRSgd').textContent='SGD '+Math.round(pmt/rate).toLocaleString();
+  /* Find closest unit type */
+  var closest=0,minDiff=Infinity;
+  unitTypes.forEach(function(u,i){var diff=Math.abs(u.price-p);if(diff<minDiff){minDiff=diff;closest=i}});
+  document.getElementById('cpChip').textContent=unitTypes[closest].type+' · '+unitTypes[closest].desc;
+  document.querySelectorAll('#cpTicks .cg-tick').forEach(function(t,i){t.classList.toggle('active',i===closest)});
+}
+cP.oninput=cD.oninput=cT.oninput=calc;
+/* Snap to unit price on tick click */
+document.querySelectorAll('#cpTicks .cg-tick').forEach(function(t){
+  t.addEventListener('click',function(){cP.value=t.getAttribute('data-price');calc()});
+});
+calc();
 
-/* SGD calc */
-var sgdI=document.getElementById('sgdI'),sgdU=document.getElementById('sgdU');
-function sgdCalc(){var inc=+sgdI.value,price=+sgdU.value,rate=3.11;var loan=price*.9,m=35*12,r=.04/12;var pmt=loan*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);var pct=(pmt/(inc*rate))*100;document.getElementById('sgdL').textContent='SGD '+inc.toLocaleString();document.getElementById('sgdP').textContent='RM '+price.toLocaleString();document.getElementById('sgdR').textContent=pct.toFixed(1)+'%'}
-sgdI.oninput=sgdU.oninput=sgdCalc;sgdCalc();
+/* CGI Gallery */
+(function(){
+  var track=document.getElementById('cgiTrack');
+  var lb=document.getElementById('cgiLb');
+  var lbImg=document.getElementById('cgiLbImg');
+  var lbClose=document.getElementById('cgiLbClose');
+  var lbPrev=document.getElementById('cgiLbPrev');
+  var lbNext=document.getElementById('cgiLbNext');
+  var lbCount=document.getElementById('cgiLbCount');
+  var dots=document.querySelectorAll('#cgiDots .cgi-dot');
+  if(!track)return;
+
+  /* Lightbox with swipe navigation */
+  var cgiItems=Array.prototype.slice.call(track.querySelectorAll('.cgi-item'));
+  var cgiSources=cgiItems.map(function(it){return{src:it.getAttribute('data-src'),alt:(it.querySelector('img')||{}).alt||'Facility render'}});
+  var curIdx=0;
+  function showAt(i){
+    if(!cgiSources.length)return;
+    curIdx=(i+cgiSources.length)%cgiSources.length;
+    lbImg.classList.add('fading');
+    setTimeout(function(){
+      lbImg.src=cgiSources[curIdx].src;
+      lbImg.alt=cgiSources[curIdx].alt;
+      lbImg.classList.remove('fading');
+    },120);
+    lbCount.textContent=(curIdx+1)+' / '+cgiSources.length;
+  }
+  function openLb(i){showAt(i);lb.classList.add('open');document.body.style.overflow='hidden'}
+  function closeLb(){lb.classList.remove('open');document.body.style.overflow=''}
+  lbClose.addEventListener('click',function(e){e.stopPropagation();closeLb()});
+  lbPrev.addEventListener('click',function(e){e.stopPropagation();showAt(curIdx-1)});
+  lbNext.addEventListener('click',function(e){e.stopPropagation();showAt(curIdx+1)});
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('cgi-lb-stage'))closeLb()});
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape')closeLb();
+    else if(e.key==='ArrowLeft')showAt(curIdx-1);
+    else if(e.key==='ArrowRight')showAt(curIdx+1);
+  });
+  /* Swipe */
+  var swStart=null;
+  lb.addEventListener('touchstart',function(e){if(e.touches.length===1)swStart={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
+  lb.addEventListener('touchend',function(e){
+    if(!swStart)return;
+    var t=e.changedTouches[0],dx=t.clientX-swStart.x,dy=t.clientY-swStart.y;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx<0)showAt(curIdx+1);else showAt(curIdx-1)}
+    swStart=null;
+  },{passive:true});
+
+  /* Click with drag guard */
+  var dragDist=0,pointerStart={x:0,y:0};
+  track.addEventListener('pointerdown',function(e){pointerStart={x:e.clientX,y:e.clientY};dragDist=0});
+  track.addEventListener('pointermove',function(e){dragDist=Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)});
+  cgiItems.forEach(function(item,idx){
+    item.addEventListener('click',function(){
+      if(dragDist>6)return;
+      openLb(idx);
+    });
+  });
+
+  /* Mouse drag-to-scroll (desktop) */
+  var isDown=false,startX,scrollL;
+  track.addEventListener('mousedown',function(e){isDown=true;track.classList.add('is-grabbing');startX=e.pageX-track.offsetLeft;scrollL=track.scrollLeft});
+  document.addEventListener('mouseup',function(){isDown=false;track.classList.remove('is-grabbing')});
+  track.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();track.scrollLeft=scrollL-(e.pageX-track.offsetLeft-startX)*1.1});
+
+  /* Dot sync */
+  function syncDots(){
+    var items=track.querySelectorAll('.cgi-item');
+    var center=track.scrollLeft+track.offsetWidth/2;
+    var closest=0,minDist=Infinity;
+    items.forEach(function(el,i){
+      var dist=Math.abs(el.offsetLeft+el.offsetWidth/2-center);
+      if(dist<minDist){minDist=dist;closest=i}
+    });
+    dots.forEach(function(d,i){d.classList.toggle('active',i===closest)});
+  }
+  track.addEventListener('scroll',syncDots,{passive:true});
+
+  /* Dot click */
+  dots.forEach(function(dot,i){
+    dot.addEventListener('click',function(){
+      var items=track.querySelectorAll('.cgi-item');
+      var item=items[i];
+      if(!item)return;
+      track.scrollTo({left:item.offsetLeft-(track.offsetWidth-item.offsetWidth)/2,behavior:'smooth'});
+    });
+  });
+})();
+
+/* Interior Showcase — mirrors CGI gallery behaviour */
+(function(){
+  var track=document.getElementById('intGrid');
+  var lb=document.getElementById('intLb');
+  var lbImg=document.getElementById('intLbImg');
+  var lbClose=document.getElementById('intLbClose');
+  var lbPrev=document.getElementById('intLbPrev');
+  var lbNext=document.getElementById('intLbNext');
+  var lbCount=document.getElementById('intLbCount');
+  var dots=document.querySelectorAll('#intDots .int-dot');
+  if(!track)return;
+  var items=Array.prototype.slice.call(track.querySelectorAll('.int-item'));
+  var sources=items.map(function(it){return{src:it.getAttribute('data-src'),alt:(it.querySelector('img')||{}).alt||'Interior view'}});
+  var curIdx=0;
+  function showAt(i){
+    if(!sources.length)return;
+    curIdx=(i+sources.length)%sources.length;
+    lbImg.classList.add('fading');
+    setTimeout(function(){lbImg.src=sources[curIdx].src;lbImg.alt=sources[curIdx].alt;lbImg.classList.remove('fading')},120);
+    lbCount.textContent=(curIdx+1)+' / '+sources.length;
+  }
+  function openLb(i){showAt(i);lb.classList.add('open');document.body.style.overflow='hidden'}
+  function closeLb(){lb.classList.remove('open');document.body.style.overflow=''}
+  lbClose.addEventListener('click',function(e){e.stopPropagation();closeLb()});
+  lbPrev.addEventListener('click',function(e){e.stopPropagation();showAt(curIdx-1)});
+  lbNext.addEventListener('click',function(e){e.stopPropagation();showAt(curIdx+1)});
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('cgi-lb-stage'))closeLb()});
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape')closeLb();
+    else if(e.key==='ArrowLeft')showAt(curIdx-1);
+    else if(e.key==='ArrowRight')showAt(curIdx+1);
+  });
+  var swStart=null;
+  lb.addEventListener('touchstart',function(e){if(e.touches.length===1)swStart={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
+  lb.addEventListener('touchend',function(e){
+    if(!swStart)return;
+    var t=e.changedTouches[0],dx=t.clientX-swStart.x,dy=t.clientY-swStart.y;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){if(dx<0)showAt(curIdx+1);else showAt(curIdx-1)}
+    swStart=null;
+  },{passive:true});
+  var dragDist=0,pointerStart={x:0,y:0};
+  track.addEventListener('pointerdown',function(e){pointerStart={x:e.clientX,y:e.clientY};dragDist=0});
+  track.addEventListener('pointermove',function(e){dragDist=Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)});
+  items.forEach(function(item,idx){item.addEventListener('click',function(){if(dragDist>6)return;openLb(idx)})});
+  var isDown=false,startX,scrollL;
+  track.addEventListener('mousedown',function(e){isDown=true;track.classList.add('is-grabbing');startX=e.pageX-track.offsetLeft;scrollL=track.scrollLeft});
+  document.addEventListener('mouseup',function(){isDown=false;track.classList.remove('is-grabbing')});
+  track.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();track.scrollLeft=scrollL-(e.pageX-track.offsetLeft-startX)*1.1});
+  function syncDots(){
+    var center=track.scrollLeft+track.offsetWidth/2,closest=0,minDist=Infinity;
+    items.forEach(function(el,i){var dist=Math.abs(el.offsetLeft+el.offsetWidth/2-center);if(dist<minDist){minDist=dist;closest=i}});
+    dots.forEach(function(d,i){d.classList.toggle('active',i===closest)});
+  }
+  track.addEventListener('scroll',syncDots,{passive:true});
+  dots.forEach(function(dot,i){dot.addEventListener('click',function(){var item=items[i];if(!item)return;track.scrollTo({left:item.offsetLeft-(track.offsetWidth-item.offsetWidth)/2,behavior:'smooth'})})});
+})();
 
 /* Floor plan flip */
 function flipCard(id){document.getElementById(id).classList.toggle('flipped')}
