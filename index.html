@@ -386,7 +386,9 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .u-price-row{display:flex;align-items:baseline;justify-content:space-between;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);margin-top:4px}
 .u-price{font-family:var(--fd);font-size:26px;font-weight:500;color:var(--cream)}
 @media(min-width:1024px){.u-price{font-size:28px}}
-.u-mo{font-size:11px;color:var(--copper3);font-weight:500}
+.u-calc-cta{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--copper);font-weight:600;background:rgba(196,134,90,.14);border:1px solid rgba(196,134,90,.45);padding:6px 12px;border-radius:999px;cursor:pointer;font-family:inherit;transition:all .2s;letter-spacing:.3px;white-space:nowrap;line-height:1}
+.u-calc-cta:hover{background:var(--copper);color:var(--white);border-color:var(--copper)}
+.u-calc-cta svg{width:11px;height:11px;flex-shrink:0}
 .u-cta{display:block;width:100%;text-align:center;background:var(--copper);color:var(--white);padding:12px;border-radius:6px;font-size:13px;font-weight:500;border:none;cursor:pointer;font-family:var(--fb);margin-top:14px;transition:background .2s;letter-spacing:.3px}
 .u-cta:hover{background:var(--copper2)}
 
@@ -440,21 +442,15 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .calc-dual-hero .calc-dual-val{color:var(--white)}
 @media(min-width:1024px){.calc-dual-val{font-size:32px}}
 /* Unit chip + ticks on property slider */
-.cg-unit-chip{display:inline-block;background:rgba(196,134,90,.18);border:1px solid rgba(196,134,90,.35);color:var(--copper3);font-size:11px;font-weight:500;letter-spacing:.3px;padding:4px 10px;border-radius:999px;margin-bottom:10px}
-.cg-ticks{position:relative;margin-top:10px;height:36px}
-.cg-tick{position:absolute;top:0;transform:translateX(-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;transition:opacity .2s}
-.cg-tick::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:2px;height:6px;background:rgba(196,134,90,.35);border-radius:1px}
-.cg-tick.active::before{background:var(--copper);height:8px;top:-12px}
-.cg-tick-k{font-size:10px;font-weight:500;color:var(--copper3);letter-spacing:.2px;line-height:1;opacity:0;transition:opacity .2s ease;white-space:nowrap}
-.cg-tick.active .cg-tick-k{opacity:1}
-.cg-tick-v{font-size:9px;color:var(--tl);font-weight:300;line-height:1.1;opacity:0;transition:opacity .2s ease;white-space:nowrap}
-.cg-tick.active .cg-tick-v{opacity:1}
-.cg-tick:nth-child(1){left:calc(12px + (100% - 24px) * .089)}
-.cg-tick:nth-child(2){left:calc(12px + (100% - 24px) * .267)}
-.cg-tick:nth-child(3){left:calc(12px + (100% - 24px) * .564)}
-.cg-tick:nth-child(4){left:calc(12px + (100% - 24px) * .606)}
-.cg-tick:nth-child(5){left:calc(12px + (100% - 24px) * .983)}
-@media(max-width:480px){.cg-tick-k{font-size:9px}.cg-tick-v{font-size:8px}}
+.cg-pills{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
+.cg-pill{background:rgba(255,255,255,.04);border:1px solid rgba(196,134,90,.25);color:var(--tl);padding:10px 6px;border-radius:10px;cursor:pointer;text-align:center;transition:all .2s ease;font-family:inherit}
+.cg-pill:hover{background:rgba(196,134,90,.1);border-color:rgba(196,134,90,.5)}
+.cg-pill.on{background:rgba(196,134,90,.2);border-color:var(--copper);color:var(--cream)}
+.cg-pill-k{display:block;font-size:11px;font-weight:600;color:var(--copper3);letter-spacing:.3px;line-height:1;margin-bottom:4px}
+.cg-pill.on .cg-pill-k{color:var(--copper)}
+.cg-pill-v{display:block;font-size:10px;font-weight:300;line-height:1.1;white-space:nowrap}
+.cg-pill-d{display:block;font-size:9px;font-weight:300;color:var(--tl);opacity:.7;line-height:1.1;margin-top:2px}
+@media(max-width:480px){.cg-pills{gap:4px}.cg-pill{padding:8px 3px}.cg-pill-k{font-size:10px}.cg-pill-v{font-size:9px}.cg-pill-d{display:none}}
 .calc-disclaimer{margin-top:18px;font-size:11.5px;color:var(--tl);line-height:1.55;font-style:italic;font-weight:300;text-align:center;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
 /* SGD output panel */
 .sgd-out{margin-top:20px;background:rgba(13,11,30,.55);border:1px solid rgba(196,134,90,.18);border-radius:12px;overflow:hidden}
@@ -1287,7 +1283,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="u-front">
           <div class="u-body">
             <div class="u-specs"><div class="u-spec"><strong>403</strong>sq.ft</div><div class="u-spec"><strong>Studio</strong>Layout</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Singles / Rental</strong>Ideal for</div></div>
-            <div class="u-price-row"><span class="u-price">RM332k</span><span class="u-mo">~RM1,500/mo</span></div>
+            <div class="u-price-row"><span class="u-price">RM332k</span><button type="button" class="u-calc-cta" data-price="332000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-a')">View Floor Plan ↻</button>
           </div>
@@ -1307,7 +1303,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="u-front">
           <div class="u-body">
             <div class="u-specs"><div class="u-spec"><strong>496</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Couples / Investors</strong>Ideal for</div></div>
-            <div class="u-price-row"><span class="u-price">RM396k</span><span class="u-mo">~RM1,600/mo</span></div>
+            <div class="u-price-row"><span class="u-price">RM396k</span><button type="button" class="u-calc-cta" data-price="396000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-b')">View Floor Plan ↻</button>
             <a class="u-vt" href="https://my.matterport.com/show/?m=vc8sxwUcTV2" target="_blank" rel="noopener">Virtual Tour →</a>
@@ -1328,7 +1324,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="u-front">
           <div class="u-body">
             <div class="u-specs"><div class="u-spec"><strong>624</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1+1</strong>Bath</div><div class="u-spec"><strong>Couples / WFH</strong>Ideal for</div></div>
-            <div class="u-price-row"><span class="u-price">RM503k</span><span class="u-mo">~RM2,030/mo</span></div>
+            <div class="u-price-row"><span class="u-price">RM503k</span><button type="button" class="u-calc-cta" data-price="503000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-c')">View Floor Plan ↻</button>
             <a class="u-vt" href="https://my.matterport.com/show/?m=a2EJR2WzANi" target="_blank" rel="noopener">Virtual Tour →</a>
@@ -1349,7 +1345,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="u-front">
           <div class="u-body">
             <div class="u-specs"><div class="u-spec"><strong>630</strong>sq.ft</div><div class="u-spec"><strong>1</strong>Bedroom</div><div class="u-spec"><strong>1</strong>Bath</div><div class="u-spec"><strong>Families / WFH</strong>Ideal for</div></div>
-            <div class="u-price-row"><span class="u-price">RM518k</span><span class="u-mo">~RM2,100/mo</span></div>
+            <div class="u-price-row"><span class="u-price">RM518k</span><button type="button" class="u-calc-cta" data-price="518000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-d')">View Floor Plan ↻</button>
           </div>
@@ -1369,7 +1365,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="u-front">
           <div class="u-body">
             <div class="u-specs"><div class="u-spec"><strong>835</strong>sq.ft</div><div class="u-spec"><strong>3</strong>Bedrooms</div><div class="u-spec"><strong>2</strong>Bath</div><div class="u-spec"><strong>Dual-key income</strong>Ideal for</div></div>
-            <div class="u-price-row"><span class="u-price">RM654k</span><span class="u-mo">~RM2,650/mo</span></div>
+            <div class="u-price-row"><span class="u-price">RM654k</span><button type="button" class="u-calc-cta" data-price="654000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-e')">View Floor Plan ↻</button>
             <a class="u-vt" href="https://my.matterport.com/show/?m=pyd1X2atKGu" target="_blank" rel="noopener">Virtual Tour →</a>
@@ -1417,17 +1413,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Estimate your repayment — shown in both RM and SGD.</p>
         <div class="cg">
           <div class="cg-l"><span>Property price</span><strong id="cpL">RM 396,000</strong></div>
-          <div class="cg-unit-chip" id="cpChip">Type B · 1 Bed + 1 Bath</div>
-          <input type="range" class="cg-s cg-s-unit" id="cP" min="300000" max="660000" step="500" value="396000">
-          <div class="cg-ticks" id="cpTicks">
-            <div class="cg-tick" data-price="332000"><span class="cg-tick-k">Type A</span><span class="cg-tick-v">RM 332k</span></div>
-            <div class="cg-tick" data-price="396000"><span class="cg-tick-k">Type B</span><span class="cg-tick-v">RM 396k</span></div>
-            <div class="cg-tick" data-price="503000"><span class="cg-tick-k">Type C</span><span class="cg-tick-v">RM 503k</span></div>
-            <div class="cg-tick" data-price="518000"><span class="cg-tick-k">Type D</span><span class="cg-tick-v">RM 518k</span></div>
-            <div class="cg-tick" data-price="654000"><span class="cg-tick-k">Type E</span><span class="cg-tick-v">RM 654k</span></div>
+          <div class="cg-pills" id="cpPills">
+            <button type="button" class="cg-pill" data-price="332000" data-desc="Studio · 403 sqft"><span class="cg-pill-k">Type A</span><span class="cg-pill-v">RM 332k</span><span class="cg-pill-d">Studio</span></button>
+            <button type="button" class="cg-pill on" data-price="396000" data-desc="1 Bed + 1 Bath · 496 sqft"><span class="cg-pill-k">Type B</span><span class="cg-pill-v">RM 396k</span><span class="cg-pill-d">1B1B</span></button>
+            <button type="button" class="cg-pill" data-price="503000" data-desc="1 Bed + Powder · 624 sqft"><span class="cg-pill-k">Type C</span><span class="cg-pill-v">RM 503k</span><span class="cg-pill-d">1B+P</span></button>
+            <button type="button" class="cg-pill" data-price="518000" data-desc="1 Bed · 630 sqft"><span class="cg-pill-k">Type D</span><span class="cg-pill-v">RM 518k</span><span class="cg-pill-d">1 Bed</span></button>
+            <button type="button" class="cg-pill" data-price="654000" data-desc="3 Bed Dual-Key · 835 sqft"><span class="cg-pill-k">Type E</span><span class="cg-pill-v">RM 654k</span><span class="cg-pill-d">Dual-Key</span></button>
           </div>
         </div>
-        <div class="cg"><div class="cg-l"><span>Down payment</span><strong id="cdL">10%</strong></div><input type="range" class="cg-s" id="cD" min="5" max="30" step="1" value="10"></div>
+        <div class="cg"><div class="cg-l"><span>Loan amount</span><strong id="cdL">RM 356,400 (90%)</strong></div><input type="range" class="cg-s" id="cD" min="70" max="95" step="1" value="90"></div>
         <div class="cg"><div class="cg-l"><span>Loan tenure</span><strong id="ctL">35 years</strong></div><input type="range" class="cg-s" id="cT" min="20" max="35" step="1" value="35"></div>
         <div class="calc-dual">
           <div class="calc-dual-box"><div class="calc-dual-lab">Monthly (MYR)</div><div class="calc-dual-val" id="cR">RM 1,720</div></div>
@@ -1597,33 +1591,34 @@ if('IntersectionObserver' in window&&formSec){new IntersectionObserver(function(
 
 <script>
 /* Instalment calc */
-var cP=document.getElementById('cP'),cD=document.getElementById('cD'),cT=document.getElementById('cT');
-var unitTypes=[
-  {price:332000,type:'Type A',desc:'Studio · 403 sqft'},
-  {price:396000,type:'Type B',desc:'1 Bed + 1 Bath · 496 sqft'},
-  {price:503000,type:'Type C',desc:'1 Bed + Powder · 624 sqft'},
-  {price:518000,type:'Type D',desc:'1 Bed · 630 sqft'},
-  {price:654000,type:'Type E',desc:'3 Bed Dual-Key · 835 sqft'}
-];
+var cD=document.getElementById('cD'),cT=document.getElementById('cT');
+var currentPrice=396000;
 function calc(){
-  var p=+cP.value,d=+cD.value,y=+cT.value,l=p*(1-d/100),m=y*12,r=.04/12,rate=3.11;
+  var p=currentPrice,loanPct=+cD.value,y=+cT.value,l=p*(loanPct/100),m=y*12,r=.04/12,rate=3.11;
   var pmt=l*(r*Math.pow(1+r,m))/(Math.pow(1+r,m)-1);
   document.getElementById('cpL').textContent='RM '+p.toLocaleString();
-  document.getElementById('cdL').textContent=d+'%';
+  document.getElementById('cdL').textContent='RM '+Math.round(l).toLocaleString()+' ('+loanPct+'%)';
   document.getElementById('ctL').textContent=y+' years';
   document.getElementById('cR').textContent='RM '+Math.round(pmt).toLocaleString();
   document.getElementById('cRSgd').textContent='SGD '+Math.round(pmt/rate).toLocaleString();
-  /* Find closest unit type */
-  var closest=0,minDiff=Infinity;
-  unitTypes.forEach(function(u,i){var diff=Math.abs(u.price-p);if(diff<minDiff){minDiff=diff;closest=i}});
-  document.getElementById('cpChip').textContent=unitTypes[closest].type+' · '+unitTypes[closest].desc;
-  document.querySelectorAll('#cpTicks .cg-tick').forEach(function(t,i){t.classList.toggle('active',i===closest)});
 }
-cP.oninput=cD.oninput=cT.oninput=calc;
-/* Snap to unit price on tick click */
-document.querySelectorAll('#cpTicks .cg-tick').forEach(function(t){
-  t.addEventListener('click',function(){cP.value=t.getAttribute('data-price');calc()});
+cD.oninput=cT.oninput=calc;
+/* Pill button selection */
+function setUnit(price){
+  currentPrice=price;
+  document.querySelectorAll('#cpPills .cg-pill').forEach(function(x){
+    x.classList.toggle('on',+x.getAttribute('data-price')===price);
+  });
+  calc();
+}
+document.querySelectorAll('#cpPills .cg-pill').forEach(function(b){
+  b.addEventListener('click',function(){setUnit(+b.getAttribute('data-price'))});
 });
+/* Unit card → calculator preset */
+function goToCalc(btn){
+  setUnit(+btn.getAttribute('data-price'));
+  document.getElementById('invest').scrollIntoView({behavior:'smooth'});
+}
 calc();
 
 /* CGI Gallery */
