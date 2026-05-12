@@ -1506,7 +1506,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2>Register & Get Price List</h2>
       <p>Fill in your details — instant WhatsApp reply with full investment brief.</p>
       <div class="rcv"><h3>You'll Receive:</h3><div class="rcv-grid"><div class="rcv-item"><span class="rcv-ico">✓</span> Layout Plans</div><div class="rcv-item"><span class="rcv-ico">✓</span> Full Pricing</div><div class="rcv-item"><span class="rcv-ico">✓</span> Loan Assistance</div></div></div>
-      <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D0o0000015t7i" method="POST">
+      <form id="mgmRegisterForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmFormSubmit(this)">
         <input type="hidden" name="oid" value="00D0o0000015t7i">
         <input type="hidden" name="retURL" value="https://ver2.m-grandminori.com.my/thank-you.html">
         <input type="hidden" id="00N2j000000e0hv" name="00N2j000000e0hv" value="M Grand Minori Website 2">
@@ -1515,8 +1515,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="hidden" id="00N2j000000e0hp" name="00N2j000000e0hp" value="Website">
         <input type="hidden" id="00N2j000000e0hR" name="00N2j000000e0hR" value="1">
         <div class="fg"><label for="last_name">Full Name</label><input id="last_name" name="last_name" type="text" maxlength="80" required placeholder="Your full name" autocomplete="name"></div>
-        <div class="fg"><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" maxlength="40" required placeholder="012-345 6789" autocomplete="tel"></div>
+        <div class="fg"><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" maxlength="20" required placeholder="012-345 6789" inputmode="tel" autocomplete="tel" data-my-phone></div>
         <div class="fg"><label for="email">Email</label><input id="email" name="email" type="email" maxlength="80" required placeholder="you@email.com" autocomplete="email"></div>
+        <div class="mgm-form-error" data-form-error style="display:none; font-size:13px; color:#c0392b; margin:-6px 0 10px;"></div>
         <input type="submit" class="f-sub" value="Register Now →">
         <div class="f-trust"><span>No spam</span><span>·</span><span>Instant WhatsApp reply</span><span>·</span><span>Unsubscribe anytime</span></div>
       </form>
@@ -1870,6 +1871,137 @@ function fO(b){b.parentElement.querySelectorAll('.f-opt').forEach(function(o){o.
 /* Anim */
 var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('v')})},{threshold:.1});
 document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
+</script>
+
+<!-- ============================================================
+     LEAD FORM VALIDATION + PHONE AUTO-DASH
+     Mirrors the rules used on m-legasi.html so junk leads don't
+     reach Salesforce.
+       - Email: must look like name@domain.tld (TLD >= 2 chars)
+       - Phone: 9-13 digits after stripping non-digits.
+                If "60" country code present, next digit must be "1"
+                (Malaysian mobile prefix). Rejects 14+ digit bot phones.
+       - Phone field auto-formats to 012-345 6789 / +60 12-345 6789
+     ============================================================ -->
+<script>
+(function () {
+  // ---- Shared validators (exposed for any future forms) ----
+  window.isValidLeadEmail = function (email) {
+    if (!email) return false;
+    return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim());
+  };
+
+  window.isValidMyPhone = function (phone) {
+    if (!phone) return false;
+    var digits = String(phone).replace(/\D/g, '');
+    if (digits.length < 9 || digits.length > 13) return false;
+    if (digits.indexOf('60') === 0 && digits.length >= 11) {
+      if (digits.charAt(2) !== '1') return false;
+    }
+    return true;
+  };
+
+  window.showLeadFormError = function (form, msg) {
+    form.classList.add('has-error');
+    var slot = form.querySelector('[data-form-error]');
+    if (slot) { slot.textContent = msg; slot.style.display = 'block'; }
+  };
+  window.clearLeadFormError = function (form) {
+    form.classList.remove('has-error');
+    var slot = form.querySelector('[data-form-error]');
+    if (slot) slot.style.display = 'none';
+  };
+
+  window.validateLeadFields = function (name, email, mobile) {
+    if (!name || !email || !mobile) {
+      return 'Please fill in your name, email, and phone number.';
+    }
+    if (!window.isValidLeadEmail(email)) {
+      return 'Please enter a valid email address (e.g. name@example.com).';
+    }
+    if (!window.isValidMyPhone(mobile)) {
+      return 'Please enter a valid Malaysian phone number (e.g. 012-345 6789).';
+    }
+    return null;
+  };
+
+  // ---- Form submit handler ----
+  window.handleMgmFormSubmit = function (form) {
+    var name = (form.querySelector('input[name="last_name"]') || {}).value || '';
+    var email = (form.querySelector('input[name="email"]') || {}).value || '';
+    var mobile = (form.querySelector('input[name="mobile"]') || {}).value || '';
+    name = name.trim(); email = email.trim(); mobile = mobile.trim();
+
+    var err = window.validateLeadFields(name, email, mobile);
+    if (err) {
+      window.showLeadFormError(form, err);
+      return false;
+    }
+    window.clearLeadFormError(form);
+
+    // GTM lead event (matches the convention used on m-legasi)
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'generate_lead',
+      lead_type: 'form_submission',
+      form_name: 'M Grand Minori Registration'
+    });
+
+    return true; // allow native POST to Salesforce
+  };
+
+  // ---- Malaysian phone auto-formatter ----
+  function formatMyPhone(input) {
+    var raw = input.value || '';
+    var hasPlus = raw.trim().charAt(0) === '+';
+    var digits = raw.replace(/\D/g, '');
+    if (digits.length > 13) digits = digits.slice(0, 13);
+
+    var prefix = '';
+    var local = digits;
+    if (digits.indexOf('60') === 0 && digits.length > 2) {
+      prefix = '+60 ';
+      local = digits.slice(2);
+    } else if (hasPlus) {
+      prefix = '+';
+      local = digits;
+    }
+
+    var formatted;
+    if (local.length === 0)       formatted = '';
+    else if (local.length <= 3)   formatted = local;
+    else if (local.length <= 6)   formatted = local.slice(0, 3) + '-' + local.slice(3);
+    else if (local.length <= 10)  formatted = local.slice(0, 3) + '-' + local.slice(3, 6) + ' ' + local.slice(6);
+    else                          formatted = local.slice(0, 3) + '-' + local.slice(3, 7) + ' ' + local.slice(7);
+
+    input.value = prefix + formatted;
+  }
+
+  document.querySelectorAll('input[data-my-phone]').forEach(function (input) {
+    input.addEventListener('input', function () { formatMyPhone(input); });
+    input.addEventListener('blur', function () {
+      formatMyPhone(input);
+      if (input.value && !window.isValidMyPhone(input.value)) {
+        input.setCustomValidity('Please enter a valid Malaysian phone number.');
+      } else {
+        input.setCustomValidity('');
+      }
+    });
+  });
+
+  // Email blur hint
+  document.querySelectorAll('input[type="email"]').forEach(function (input) {
+    input.addEventListener('blur', function () {
+      var v = (input.value || '').trim();
+      if (v && !window.isValidLeadEmail(v)) {
+        input.setCustomValidity('Please enter a valid email address (e.g. name@example.com).');
+      } else {
+        input.setCustomValidity('');
+      }
+    });
+    input.addEventListener('input', function () { input.setCustomValidity(''); });
+  });
+})();
 </script>
 </body>
 </html>
