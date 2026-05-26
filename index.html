@@ -134,12 +134,15 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 @media(min-width:1024px){h2.stl{font-size:42px}}
 .sdesc{font-size:14px;color:var(--tl);line-height:1.6;margin-bottom:24px;font-weight:300}
 
-/* ===== ANNOUNCE (auto marquee) ===== */
+/* ===== ANNOUNCE (auto marquee) =====
+   Seamless loop: each .ann-item carries its own trailing separator so the
+   rhythm continues across the join between the two duplicated copies.
+   Outer padding removed so the seam-gap matches intra-item spacing. */
 .ann{background:var(--copper);color:var(--white);padding:10px 0;font-size:12px;font-weight:500;letter-spacing:.4px;overflow:hidden;white-space:nowrap;position:relative}
 .ann-track{display:inline-flex;animation:marq 32s linear infinite;will-change:transform}
 .ann-track:hover{animation-play-state:paused}
-.ann-item{padding:0 28px;display:inline-flex;align-items:center;gap:14px}
-.ann-sep{opacity:.55;display:inline-block}
+.ann-item{padding:0;display:inline-flex;align-items:center;gap:14px}
+.ann-sep{opacity:.55;display:inline-block;padding:0 4px}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ===== NAV (m-legasi pattern, mgm palette: navy + copper) =====
@@ -1061,8 +1064,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ANNOUNCE (auto marquee) -->
 <div class="ann">
   <div class="ann-track">
-    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM332,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS</div>
-    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM332,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS</div>
+    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM332,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS<span class="ann-sep">|</span></div>
+    <div class="ann-item">Tower B Now Open for Sale<span class="ann-sep">|</span>Tower A: 90% Taken Up<span class="ann-sep">|</span>From RM332,000<span class="ann-sep">|</span>3km · 5 Min Drive to Bukit Chagar RTS<span class="ann-sep">|</span></div>
   </div>
 </div>
 
