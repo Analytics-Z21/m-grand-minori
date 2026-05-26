@@ -142,32 +142,185 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .ann-sep{opacity:.55;display:inline-block}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ===== NAV ===== */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px var(--pad);background:rgba(21,19,40,.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(196,134,90,.12)}
+/* ===== NAV (m-legasi pattern, mgm palette: navy + copper) =====
+   Transparent at the top (over hero), translucent navy with backdrop blur
+   on scroll. Centered pill nav for desktop; slide-in drawer for mobile. */
+.nav{
+  position:sticky;top:0;
+  display:grid;
+  grid-template-columns:1fr auto; /* mobile: logo left, nav-right pinned to right */
+  align-items:center;
+  padding:18px var(--pad);
+  background:transparent;
+  border-bottom:none;
+  z-index:100;
+  transition:background .25s ease,box-shadow .25s ease,padding .25s ease;
+}
+@media(min-width:1024px){
+  /* Desktop: 3 columns so the pill nav sits dead-centre */
+  .nav{grid-template-columns:1fr auto 1fr}
+}
+.nav.is-scrolled{
+  background:rgba(21,19,40,.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 2px 16px rgba(0,0,0,.18);
+  padding:12px var(--pad);
+  border-bottom:1px solid rgba(196,134,90,.12);
+}
 .nav-logo{display:flex;align-items:center}
 .nav-logo img{height:36px;width:auto;display:block}
 @media(min-width:1024px){.nav-logo img{height:44px}}
-.nav-links{display:none;list-style:none;gap:22px;align-items:center}
-@media(min-width:1024px){.nav-links{display:flex}}
-.nav-links a{font-size:12px;font-weight:400;color:var(--tl);transition:color .2s;letter-spacing:.3px}
-.nav-links a:hover{color:var(--copper3)}
-.nav-cta{background:var(--copper)!important;color:var(--white)!important;padding:8px 20px!important;border-radius:5px!important;font-weight:500!important}
-.nav-right{display:flex;align-items:center;gap:10px}
-.nav-reg{display:none}
-.nav-ham{width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:none;cursor:pointer;position:relative;z-index:101}
-.nav-ham span{width:22px;height:2px;background:var(--cream);border-radius:1px;transition:transform .25s ease,opacity .2s ease}
-.nav-ham.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-ham.on span:nth-child(2){opacity:0}
-.nav-ham.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-@media(min-width:1024px){.nav-ham{display:none}}
-.mob-drawer{position:fixed;inset:0;background:rgba(13,11,30,.96);backdrop-filter:blur(8px);z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s ease;display:flex;flex-direction:column;align-items:stretch;justify-content:center;padding:80px 24px 40px}
-.mob-drawer.on{opacity:1;pointer-events:auto}
-.mob-drawer a{display:block;padding:16px 8px;font-family:var(--fd);font-size:22px;color:var(--cream);border-bottom:1px solid rgba(255,255,255,.08);text-align:center;letter-spacing:.5px}
-.mob-drawer a.nav-cta{margin-top:20px;background:var(--copper);color:var(--white);border-radius:8px;border-bottom:none;font-size:16px;padding:14px}
-@media(min-width:1024px){.mob-drawer{display:none}}
-.mah-b{display:none;border-left:1px solid rgba(255,255,255,.1);padding-left:16px;align-items:center}
-.mah-b img{height:32px;width:auto;display:block}
-@media(min-width:1024px){.mah-b{display:flex}.mah-b img{height:38px}}
+.nav .nav-right{justify-self:end}
+
+/* Pill nav (centered, dark navy pill with copper accents) */
+.nav-pill{
+  display:none;align-items:center;gap:2px;
+  background:rgba(21,19,40,.86);
+  border-radius:36px;padding:6px;
+  list-style:none;margin:0;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(196,134,90,.18);
+  justify-self:center;
+}
+@media(min-width:1024px){.nav-pill{display:inline-flex}}
+.nav-pill a{
+  font-family:var(--fb);
+  display:inline-flex;align-items:center;
+  padding:10px 20px;border-radius:28px;
+  color:rgba(255,255,255,.92);
+  text-decoration:none;
+  font-size:13px;font-weight:500;letter-spacing:.01em;
+  transition:background .2s,color .2s;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.nav-pill a:hover{color:#fff;background:rgba(196,134,90,.20)}
+.nav-pill a.is-active{
+  background:var(--cream);color:var(--navy);
+  font-weight:600;
+}
+.nav-pill a.pill-cta{
+  background:var(--copper);color:#fff;font-weight:600;
+  margin-left:4px;
+}
+.nav-pill a.pill-cta:hover{background:var(--copper3);color:#fff}
+
+/* Legacy .nav-links hidden — kept for backward semantic fallback only */
+.nav .nav-links{display:none!important}
+
+.nav-right{display:flex;align-items:center;gap:12px}
+
+/* Mah Sing badge */
+.mah-sing-badge{display:none;align-items:center;border-left:1px solid rgba(255,255,255,.18);padding-left:14px}
+.mah-sing-badge img{height:32px;width:auto;display:block}
+@media(min-width:1024px){.mah-sing-badge{display:flex}.mah-sing-badge img{height:38px}}
+
+/* Hamburger */
+.hamburger{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;width:40px;height:40px;
+  background:none;border:none;cursor:pointer;
+  padding:8px;position:relative;z-index:101;
+}
+@media(min-width:1024px){.hamburger{display:none}}
+.hamburger span{
+  display:block;width:22px;height:2px;
+  background:var(--cream);border-radius:1px;
+  transition:transform .32s cubic-bezier(.7,0,.3,1),opacity .2s;
+  transform-origin:center;
+}
+.nav.is-scrolled .hamburger span{background:var(--cream)}
+.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ===== MOBILE DRAWER (slide-in from right) ===== */
+.mobile-menu-backdrop{
+  position:fixed;inset:0;
+  background:rgba(13,11,30,.55);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;
+  z-index:998;
+  transition:opacity .32s ease;
+}
+.mobile-menu-backdrop.open{opacity:1;pointer-events:auto}
+.mobile-menu-overlay{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(360px,86vw);
+  background:var(--cream);
+  z-index:999;
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .36s cubic-bezier(.22,.61,.36,1);
+  box-shadow:-20px 0 50px rgba(13,11,30,.32);
+}
+.mobile-menu-overlay.open{transform:translateX(0)}
+.mobile-drawer-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;
+  border-bottom:1px solid rgba(21,19,40,.08);
+  background:var(--navy);
+}
+.mobile-drawer-brand img{height:32px;width:auto;display:block}
+.mobile-menu-close{
+  background:rgba(255,255,255,.08);border:0;
+  width:36px;height:36px;border-radius:50%;
+  font-size:22px;line-height:1;
+  color:var(--cream);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s;
+}
+.mobile-menu-close:hover{background:var(--copper);color:#fff}
+.mobile-drawer-nav{flex:1;overflow-y:auto;padding:12px 16px 24px}
+.mobile-drawer-group{padding:12px 0}
+.mobile-drawer-group + .mobile-drawer-group{border-top:1px solid rgba(21,19,40,.08)}
+.mobile-drawer-label{
+  font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--tm);
+  padding:0 8px 8px;font-family:var(--fb);
+}
+.mobile-menu-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.mobile-menu-links li{margin:0}
+.mobile-menu-links a{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 12px;
+  font-family:var(--fb);font-size:16px;font-weight:500;
+  color:var(--navy);text-decoration:none;
+  border-radius:8px;
+  transition:background .2s,color .2s;
+}
+.mobile-menu-links a::after{
+  content:'→';font-size:14px;
+  opacity:0;transform:translateX(-4px);
+  transition:opacity .2s,transform .2s;
+  color:var(--copper);
+}
+.mobile-menu-links a:hover{background:rgba(196,134,90,.10);color:var(--copper)}
+.mobile-menu-links a:hover::after{opacity:1;transform:translateX(0)}
+.mobile-drawer-footer{
+  padding:16px 20px 22px;
+  border-top:1px solid rgba(21,19,40,.08);
+  background:#fff;
+}
+.mobile-cta{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;padding:14px 18px;
+  background:var(--copper);color:#fff;
+  border:0;border-radius:10px;
+  font-family:var(--fb);font-size:15px;font-weight:600;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 8px 20px rgba(196,134,90,.30);
+  transition:background .2s,transform .15s;
+}
+.mobile-cta:hover{background:var(--copper3);color:#fff;transform:translateY(-1px)}
+
+/* Pull hero up under transparent nav so the hero image extends behind it.
+   Negative margin-bottom on nav so we hit the boundary regardless of nav height. */
+.nav{margin-bottom:-80px}
+@media(min-width:1024px){.nav{margin-bottom:-88px}}
 
 /* ===== HERO ===== */
 .hero{position:relative;background:var(--navy);overflow:hidden}
@@ -827,6 +980,77 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 /* ===== ANIM ===== */
 .fi{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .fi.v{opacity:1;transform:translateY(0)}
+
+/* ===== QUICK FORM (under hero) — navy bg, copper accents ===== */
+.qf-section{background:var(--navy);padding:56px var(--pad);position:relative;border-top:1px solid rgba(196,134,90,.18);border-bottom:1px solid rgba(196,134,90,.18)}
+.qf-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(196,134,90,.10) 0%,transparent 60%);pointer-events:none}
+.qf-inner{position:relative;max-width:720px;margin:0 auto;text-align:center}
+.qf-badge{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:rgba(196,134,90,.14);border:1px solid rgba(196,134,90,.32);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--copper3);margin-bottom:18px;font-family:var(--fb)}
+.qf-badge .dim{color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.04em;text-transform:none}
+.qf-headline{font-family:var(--fd);font-size:36px;font-weight:500;color:var(--white);line-height:1.15;margin-bottom:10px}
+.qf-headline em{font-style:italic;color:var(--copper3)}
+.qf-desc{font-size:15px;line-height:1.6;color:rgba(255,255,255,.7);margin:0 auto 22px;max-width:520px;font-family:var(--fb)}
+.qf-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:26px}
+.qf-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);font-size:13px;color:rgba(255,255,255,.85);font-family:var(--fb)}
+.qf-chip::before{content:'✓';color:var(--copper3);font-weight:700;font-size:13px}
+.qf{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}
+.qf-input-phone{grid-column:1 / -1}
+.qf-input{height:56px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);width:100%;padding:0 18px;color:var(--white);font-family:var(--fb);font-size:15px;transition:border-color .2s,background .2s,box-shadow .2s}
+.qf-input::placeholder{color:rgba(255,255,255,.4)}
+.qf-input:focus{outline:none;border-color:rgba(196,134,90,.6);background:rgba(255,255,255,.10);box-shadow:0 0 0 3px rgba(196,134,90,.18)}
+.qf-submit{grid-column:1 / -1;height:60px;border:0;border-radius:12px;background:var(--copper);color:var(--white);font-family:var(--fb);font-size:16px;font-weight:600;cursor:pointer;margin-top:4px;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 12px 28px rgba(196,134,90,.30)}
+.qf-submit:hover{background:var(--copper2);transform:translateY(-1px);box-shadow:0 16px 34px rgba(196,134,90,.40)}
+.qf-submit:active{transform:translateY(0)}
+.qf-error{grid-column:1 / -1;display:none;font-size:12px;color:#ffb1a0;margin-top:-2px}
+.qf.has-error .qf-error{display:block}
+.qf-trust{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:12px;color:rgba(255,255,255,.55);font-family:var(--fb)}
+.qf-trust .sep{color:rgba(255,255,255,.25)}
+.qf-trust .lock::before{content:'🔒';margin-right:6px;filter:grayscale(1) opacity(.7)}
+.qf-trust .wa{color:#5EE07B;font-weight:600}
+@media(max-width:640px){.qf-section{padding:40px 20px}.qf-headline{font-size:28px}.qf-desc{font-size:14px;margin-bottom:18px}.qf{grid-template-columns:1fr}}
+
+/* ===== LEAD DRAWER (slide-in desktop / bottom sheet mobile) ===== */
+.lead-drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:1100}
+.lead-drawer-backdrop.open{opacity:1;pointer-events:auto}
+.lead-drawer{position:fixed;top:0;right:0;width:520px;max-width:100vw;height:100vh;background:#fff;box-shadow:-24px 0 64px rgba(0,0,0,.30);transform:translateX(100%);transition:transform .35s cubic-bezier(.32,.72,0,1);overflow-y:auto;-webkit-overflow-scrolling:touch;z-index:1101;display:flex;flex-direction:column;color:var(--td)}
+.lead-drawer.open{transform:translateX(0)}
+.lead-drawer-close{position:absolute;top:20px;right:20px;width:36px;height:36px;background:#f4ede4;border:none;border-radius:50%;color:var(--td);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .2s;z-index:2}
+.lead-drawer-close:hover{background:#e8ddcd}
+.lead-drawer-inner{padding:32px 36px 40px;flex:1}
+.lead-drawer-title{font-family:var(--fd);font-size:30px;font-weight:600;color:var(--td);margin:0 0 12px;line-height:1.18;letter-spacing:-.012em}
+.lead-drawer-sub{font-family:var(--fb);font-size:14px;line-height:1.5;color:var(--tm);margin:0 0 22px}
+.lead-drawer-receive{margin-bottom:16px}
+.lead-drawer-receive-label{font-family:var(--fb);font-size:15px;font-weight:700;color:var(--td);margin-bottom:14px}
+.lead-drawer-benefits{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
+.lead-drawer-benefit{display:inline-flex;align-items:center;gap:10px;font-family:var(--fb);font-size:14px;font-weight:500;color:var(--td)}
+.lead-drawer-benefit .ck{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--copper);background:rgba(196,134,90,.15);color:var(--copper);font-size:12px;font-weight:700;flex-shrink:0}
+.lead-drawer-progress{display:flex;gap:6px;margin:4px 0 20px}
+.lead-drawer-bar{flex:1;height:4px;border-radius:2px;background:var(--cream2);opacity:.6}
+.lead-drawer-bar.is-active{background:var(--copper);opacity:1}
+.lead-drawer-divider{border:none;border-top:1px solid #e8ddcd;margin:0 0 20px}
+.lead-form{display:flex;flex-direction:column}
+.lead-form .fg{margin-bottom:14px}
+.lead-form .fg label{display:block;font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--tm);text-transform:uppercase;margin-bottom:6px}
+.lead-form .fg input{display:block;width:100%;border:1px solid #e8ddcd;background:#faf6f0;border-radius:10px;padding:14px 14px;font-family:var(--fb);font-size:14px;color:var(--td);outline:none;transition:border-color .2s,background .2s}
+.lead-form .fg input:focus{border-color:var(--copper);background:#fff;box-shadow:0 0 0 3px rgba(196,134,90,.12)}
+.lead-form .fg input::placeholder{color:#b5a895}
+.lead-tc{font-family:var(--fb);font-size:12px;line-height:1.5;color:var(--tm);margin:4px 0 18px}
+.lead-tc-link{color:var(--copper);text-decoration:underline;font-weight:500}
+.lead-tc-link:hover{color:var(--copper2)}
+.lead-submit{background:var(--navy);color:#fff;font-family:var(--fb);font-size:14px;font-weight:600;padding:18px;border:none;border-radius:12px;cursor:pointer;transition:background .2s,transform .2s}
+.lead-submit:hover{background:var(--navy2);transform:translateY(-1px)}
+.lead-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.lead-trust-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--fb);font-size:12px;color:var(--tm);margin-top:14px}
+.lead-trust-row .dot{color:var(--tm);opacity:.5}
+@media(max-width:768px){
+  .lead-drawer{width:100%;max-width:100%;height:auto;max-height:92vh;top:auto;bottom:0;border-radius:24px 24px 0 0;transform:translateY(100%)}
+  .lead-drawer.open{transform:translateY(0)}
+  .lead-drawer-inner{padding:28px 22px 32px}
+  .lead-drawer-title{font-size:24px}
+  .lead-drawer-benefit{font-size:13px;gap:8px}
+  .lead-drawer-benefit .ck{width:20px;height:20px;font-size:11px}
+  .lead-drawer-benefits{gap:12px 16px}
+}
 </style>
 </head>
 <body>
@@ -843,33 +1067,67 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="#" class="nav-logo" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})"><img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori"></a>
-  <ul class="nav-links">
+<!-- NAV (m-legasi pattern: transparent over hero, blurred-navy on scroll, centered pill + drawer) -->
+<nav class="nav" id="siteNav">
+  <a href="#" class="nav-logo" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
+    <img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori">
+  </a>
+
+  <ul class="nav-pill" aria-label="Primary">
+    <li><a href="#about" data-nav="home" class="is-active">Home</a></li>
+    <li><a href="#fac" data-nav="facilities">Facilities</a></li>
+    <li><a href="#units" data-nav="units">Floor Plan</a></li>
+    <li><a href="#invest" data-nav="invest">Investment</a></li>
+    <li><a href="#loc" data-nav="location">Location</a></li>
+    <li><a href="#" class="pill-cta" data-open-lead="nav" data-nav="register">Register Now</a></li>
+  </ul>
+
+  <!-- Legacy semantic fallback (hidden) -->
+  <ul class="nav-links" aria-hidden="true">
     <li><a href="#about">About</a></li>
     <li><a href="#rts">RTS Link</a></li>
     <li><a href="#fac">Facilities</a></li>
     <li><a href="#units">Units</a></li>
     <li><a href="#invest">Investment</a></li>
     <li><a href="#loc">Location</a></li>
-    <li><a href="#register" class="nav-cta">Register Interest →</a></li>
   </ul>
+
   <div class="nav-right">
-    <a href="#register" class="nav-reg">Register →</a>
-    <button class="nav-ham" id="navHam" aria-label="Menu" onclick="toggleMob()"><span></span><span></span><span></span></button>
-    <div class="mah-b"><img src="assets/mahsing-logo.webp" alt="Mah Sing"></div>
+    <div class="mah-sing-badge">
+      <img src="assets/mahsing-logo.webp" alt="Mah Sing">
+    </div>
+    <button class="hamburger" id="navHam" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
-<div class="mob-drawer" id="mobDrawer" onclick="if(event.target===this)toggleMob()">
-  <a href="#about" onclick="toggleMob()">About</a>
-  <a href="#rts" onclick="toggleMob()">RTS Link</a>
-  <a href="#fac" onclick="toggleMob()">Facilities</a>
-  <a href="#units" onclick="toggleMob()">Units</a>
-  <a href="#invest" onclick="toggleMob()">Investment</a>
-  <a href="#loc" onclick="toggleMob()">Location</a>
-  <a href="#register" class="nav-cta" onclick="toggleMob()">Register Interest →</a>
-</div>
-<script>function toggleMob(){document.getElementById('navHam').classList.toggle('on');document.getElementById('mobDrawer').classList.toggle('on');var open=document.getElementById('mobDrawer').classList.contains('on');document.body.style.overflow=open?'hidden':'';document.body.classList.toggle('mob-open',open)}</script>
+
+<!-- Mobile menu drawer -->
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop" aria-hidden="true"></div>
+<aside class="mobile-menu-overlay" id="mobileMenu" aria-label="Site navigation" aria-hidden="true">
+  <div class="mobile-drawer-header">
+    <div class="mobile-drawer-brand">
+      <img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori">
+    </div>
+    <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    <div class="mobile-drawer-group">
+      <div class="mobile-drawer-label">Explore</div>
+      <ul class="mobile-menu-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#rts">RTS Link</a></li>
+        <li><a href="#fac">Facilities</a></li>
+        <li><a href="#units">Units</a></li>
+        <li><a href="#invest">Investment</a></li>
+        <li><a href="#loc">Location</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="mobile-drawer-footer">
+    <button type="button" class="mobile-cta" data-open-lead="mobile-menu">Register Interest →</button>
+  </div>
+</aside>
 
 <!-- HERO -->
 <section class="hero" id="about">
@@ -900,11 +1158,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="hero-ctas">
-          <a href="#register" class="btn btn-p">Register & Get Price List →</a>
+          <button type="button" class="btn btn-p" data-open-lead="hero">Register & Get Price List →</button>
         </div>
       </div>
     </div>
     <a href="#trust" class="scroll-ind" aria-label="Scroll down"><span class="scroll-arrow"></span></a>
+  </div>
+</section>
+
+<!-- QUICK REGISTRATION (low-friction subform under hero) -->
+<section class="qf-section" id="quickRegister">
+  <div class="qf-inner">
+    <div class="qf-badge">30 SEC · 1 STEP<span class="dim"> · No spam</span></div>
+    <h2 class="qf-headline">Get the price list <em>now</em></h2>
+    <p class="qf-desc">Enter your details — we'll WhatsApp the layout, pricing &amp; availability instantly.</p>
+    <div class="qf-chips">
+      <span class="qf-chip">Layout plan</span>
+      <span class="qf-chip">Full pricing</span>
+      <span class="qf-chip">Loan calc</span>
+      <span class="qf-chip">Availability</span>
+    </div>
+    <form class="qf" id="mgmQuickForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" target="sf-hidden-frame" onsubmit="return handleMgmQuickFormSubmit(this)" novalidate>
+      <input type="hidden" name="oid" value="00D0o0000015t7i">
+      <input type="hidden" name="retURL" value="https://ver2.m-grandminori.com.my/thank-you.html">
+      <input type="hidden" name="00N2j000000e0hv" value="M Grand Minori Website 2">
+      <input type="hidden" name="00N2j000000e0hw" value="M Grand Minori">
+      <input type="hidden" name="00N2j000000e0ho" value="M Grand Minori Website 2 - Quick Form">
+      <input type="hidden" name="00N2j000000e0hp" value="Website">
+      <input type="hidden" name="00N2j000000e0hR" value="1">
+
+      <input class="qf-input" type="text" name="last_name" placeholder="Full name" maxlength="80" required autocomplete="name">
+      <input class="qf-input" type="email" name="email" placeholder="Email address" maxlength="80" required autocomplete="email">
+      <input class="qf-input qf-input-phone" type="tel" name="mobile" placeholder="012-345 6789" maxlength="20" required autocomplete="tel" inputmode="tel" data-my-phone>
+      <button class="qf-submit" type="submit">Send Me the Price List  →</button>
+      <div class="qf-error" data-form-error>Please fill in your name, email, and phone number.</div>
+    </form>
+    <div class="qf-trust">
+      <span class="lock">PDPA secured</span>
+      <span class="sep">·</span>
+      <span>Instant reply</span>
+      <span class="sep">·</span>
+      <span class="wa">WhatsApp</span>
+    </div>
   </div>
 </section>
 
@@ -1580,8 +1875,87 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
+<!-- Hidden iframe target so quick form + drawer can POST to Salesforce without leaving the page -->
+<iframe name="sf-hidden-frame" id="sfHiddenFrame" style="display:none;"></iframe>
+
+<!-- LEAD DRAWER (slide-in) -->
+<div class="lead-drawer-backdrop" id="leadDrawerBackdrop" aria-hidden="true"></div>
+<aside class="lead-drawer" id="leadDrawer" role="dialog" aria-modal="true" aria-labelledby="leadDrawerTitle" aria-hidden="true">
+  <button type="button" class="lead-drawer-close" aria-label="Close form">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+  </button>
+  <div class="lead-drawer-inner">
+    <h2 id="leadDrawerTitle" class="lead-drawer-title">Register &amp; Get Your Price List</h2>
+    <p class="lead-drawer-sub">Fill in your details — we'll WhatsApp you the layout, pricing &amp; investment brief.</p>
+
+    <div class="lead-drawer-receive">
+      <div class="lead-drawer-receive-label">You'll Receive:</div>
+      <div class="lead-drawer-benefits">
+        <span class="lead-drawer-benefit"><span class="ck">✓</span>Layout Plans</span>
+        <span class="lead-drawer-benefit"><span class="ck">✓</span>Full Pricing</span>
+        <span class="lead-drawer-benefit"><span class="ck">✓</span>Loan Assistance</span>
+      </div>
+    </div>
+
+    <div class="lead-drawer-progress" aria-hidden="true">
+      <span class="lead-drawer-bar is-active"></span>
+      <span class="lead-drawer-bar is-active"></span>
+      <span class="lead-drawer-bar"></span>
+    </div>
+
+    <hr class="lead-drawer-divider">
+
+    <form class="lead-form" id="mgmLeadDrawerForm"
+          action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i"
+          method="POST"
+          target="sf-hidden-frame"
+          onsubmit="return handleMgmDrawerFormSubmit(this)"
+          novalidate>
+      <input type="hidden" name="oid" value="00D0o0000015t7i">
+      <input type="hidden" name="retURL" value="https://ver2.m-grandminori.com.my/thank-you.html">
+      <input type="hidden" name="00N2j000000e0hv" value="M Grand Minori Website 2">
+      <input type="hidden" name="00N2j000000e0hw" value="M Grand Minori">
+      <input type="hidden" name="00N2j000000e0ho" value="M Grand Minori Website 2 - Drawer">
+      <input type="hidden" name="00N2j000000e0hp" value="Website">
+      <input type="hidden" name="00N2j000000e0hR" value="1">
+
+      <div class="fg">
+        <label for="ld_last_name">Full Name</label>
+        <input id="ld_last_name" type="text" name="last_name" maxlength="80" placeholder="Your full name" autocomplete="name" required>
+      </div>
+      <div class="fg">
+        <label for="ld_mobile">Phone Number</label>
+        <input id="ld_mobile" type="tel" name="mobile" maxlength="20" placeholder="012-345 6789" inputmode="tel" autocomplete="tel" data-my-phone required>
+      </div>
+      <div class="fg">
+        <label for="ld_email">Email</label>
+        <input id="ld_email" type="email" name="email" maxlength="80" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="lead-drawer-form-error" data-form-error style="display:none; font-size:13px; color:#c0392b; margin:-4px 0 8px;"></div>
+
+      <p class="lead-tc">
+        I have read and agreed to the
+        <a href="#" class="lead-tc-link">Terms &amp; Conditions</a>
+        and
+        <a href="#" class="lead-tc-link">PDPA Notice</a>.
+      </p>
+
+      <button type="submit" class="lead-submit">Get My Price List Now &nbsp;→</button>
+
+      <div class="lead-trust-row">
+        <span>No spam</span>
+        <span class="dot">·</span>
+        <span>Instant WhatsApp reply</span>
+        <span class="dot">·</span>
+        <span>Unsubscribe anytime</span>
+      </div>
+    </form>
+  </div>
+</aside>
+
 <!-- STICKY -->
-<div class="sticky"><a href="#register" class="stk stk-r">Register Now</a></div>
+<div class="sticky"><button type="button" class="stk stk-r" data-open-lead="sticky">Register Now</button></div>
 <button class="to-top" id="toTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
 <script>
 (function(){var sticky=document.querySelector('.sticky'),toTop=document.getElementById('toTop'),formSec=document.getElementById('register'),formInView=false;
@@ -1925,7 +2299,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     return null;
   };
 
-  // ---- Form submit handler ----
+  // ---- Form submit handler (main #register section) ----
   window.handleMgmFormSubmit = function (form) {
     var name = (form.querySelector('input[name="last_name"]') || {}).value || '';
     var email = (form.querySelector('input[name="email"]') || {}).value || '';
@@ -1939,7 +2313,6 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     }
     window.clearLeadFormError(form);
 
-    // GTM lead event (matches the convention used on m-legasi)
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: 'generate_lead',
@@ -1950,8 +2323,218 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     return true; // allow native POST to Salesforce
   };
 
+  // ---- Quick form (under hero) submit handler ----
+  // Posts via hidden iframe → redirect to thank-you after a short delay.
+  window.handleMgmQuickFormSubmit = function (form) {
+    var name = (form.querySelector('input[name="last_name"]') || {}).value || '';
+    var email = (form.querySelector('input[name="email"]') || {}).value || '';
+    var mobile = (form.querySelector('input[name="mobile"]') || {}).value || '';
+    name = name.trim(); email = email.trim(); mobile = mobile.trim();
+
+    var err = window.validateLeadFields(name, email, mobile);
+    if (err) {
+      window.showLeadFormError(form, err);
+      return false;
+    }
+    window.clearLeadFormError(form);
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'generate_lead',
+      lead_type: 'form_submission',
+      form_name: 'M Grand Minori Quick Form'
+    });
+
+    // Form POSTs to hidden iframe; redirect us so SF gets the data first
+    setTimeout(function () {
+      window.location.href = 'https://ver2.m-grandminori.com.my/thank-you.html';
+    }, 500);
+
+    return true;
+  };
+
+  // ---- Drawer form submit handler ----
+  window.handleMgmDrawerFormSubmit = function (form) {
+    var name = (form.querySelector('input[name="last_name"]') || {}).value || '';
+    var email = (form.querySelector('input[name="email"]') || {}).value || '';
+    var mobile = (form.querySelector('input[name="mobile"]') || {}).value || '';
+    name = name.trim(); email = email.trim(); mobile = mobile.trim();
+
+    var err = window.validateLeadFields(name, email, mobile);
+    if (err) {
+      window.showLeadFormError(form, err);
+      return false;
+    }
+    window.clearLeadFormError(form);
+
+    var trigger = window._mgmDrawerSource || 'unknown';
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'generate_lead',
+      lead_type: 'form_submission',
+      form_name: 'M Grand Minori Drawer Form',
+      lead_source: trigger
+    });
+
+    var submitBtn = form.querySelector('.lead-submit');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+    }
+
+    setTimeout(function () {
+      window.location.href = 'https://ver2.m-grandminori.com.my/thank-you.html';
+    }, 500);
+
+    return true;
+  };
+
+  // ---- Lead drawer open/close + global triggers ----
+  var drawer = document.getElementById('leadDrawer');
+  var backdrop = document.getElementById('leadDrawerBackdrop');
+  if (drawer && backdrop) {
+    var closeBtn = drawer.querySelector('.lead-drawer-close');
+    var lastFocus = null;
+
+    function openDrawer(e) {
+      if (e) e.preventDefault();
+      lastFocus = document.activeElement;
+      // Capture which CTA fired the drawer for funnel granularity
+      var source = 'unknown';
+      if (e && e.currentTarget) {
+        source = e.currentTarget.getAttribute('data-open-lead');
+        if (!source) {
+          var sec = e.currentTarget.closest && e.currentTarget.closest('section[id]');
+          source = sec ? sec.id : 'page';
+        }
+      }
+      window._mgmDrawerSource = source;
+
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'lead_drawer_open', trigger_source: source });
+
+      // Focus the first visible input for a11y / fast keyboard flow
+      var first = drawer.querySelector('input[name="last_name"]');
+      if (first) setTimeout(function () { first.focus(); }, 220);
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }
+
+    // Bind explicit triggers (sticky bar, hero CTA, any data-open-lead element)
+    document.querySelectorAll('[data-open-lead]').forEach(function (el) {
+      el.addEventListener('click', openDrawer);
+    });
+
+    // Hijack any remaining a[href="#register"] anchors so they open the drawer
+    // instead of scrolling to the bottom register section. The #register section
+    // itself stays intact for direct deep-links and the desktop view.
+    document.querySelectorAll('a[href="#register"]').forEach(function (el) {
+      el.addEventListener('click', openDrawer);
+    });
+
+    closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+  }
+
+  // ---- Navigation: scroll-aware background + mobile menu drawer ----
+  var siteNav = document.getElementById('siteNav');
+  var hamburger = document.getElementById('navHam');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+  var mobileMenuClose = mobileMenu && mobileMenu.querySelector('.mobile-menu-close');
+
+  // 1. Scroll-aware nav background — transparent at top, blurred navy when scrolled
+  if (siteNav) {
+    var lastScrollState = null;
+    function updateNavScrollState() {
+      var scrolled = window.scrollY > 20;
+      if (scrolled === lastScrollState) return;
+      lastScrollState = scrolled;
+      siteNav.classList.toggle('is-scrolled', scrolled);
+    }
+    window.addEventListener('scroll', updateNavScrollState, { passive: true });
+    updateNavScrollState();
+  }
+
+  // 2. Mobile menu drawer — hamburger toggle + close handlers
+  if (hamburger && mobileMenu && mobileMenuBackdrop) {
+    function openMobileMenu() {
+      mobileMenu.classList.add('open');
+      mobileMenuBackdrop.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      mobileMenuBackdrop.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', function () {
+      if (mobileMenu.classList.contains('open')) closeMobileMenu();
+      else openMobileMenu();
+    });
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+    mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu();
+    });
+    // Auto-close mobile menu when any internal link is tapped (so the
+    // scroll target is reachable and the user isn't trapped in the drawer)
+    mobileMenu.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', closeMobileMenu);
+    });
+  }
+
+  // 3. Pill nav active-state tracking based on scroll position
+  var pillLinks = document.querySelectorAll('.nav-pill a[href^="#"]');
+  if (pillLinks.length && 'IntersectionObserver' in window) {
+    var sectionMap = {};
+    pillLinks.forEach(function (link) {
+      var id = link.getAttribute('href').slice(1);
+      if (id) {
+        var sec = document.getElementById(id);
+        if (sec) sectionMap[id] = link;
+      }
+    });
+    var navObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          pillLinks.forEach(function (l) { l.classList.remove('is-active'); });
+          var match = sectionMap[entry.target.id];
+          if (match) match.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    Object.keys(sectionMap).forEach(function (id) {
+      var sec = document.getElementById(id);
+      if (sec) navObserver.observe(sec);
+    });
+  }
+
   // ---- Malaysian phone auto-formatter ----
-  function formatMyPhone(input) {
+  // During typing → format as-is (012-345 6789 OR +60 X-XXX XXXX).
+  // On blur      → if user entered local 0XX… (no +60), auto-promote to
+  //                "+60 1X-XXX XXXX" so the value going to Salesforce is
+  //                always WhatsApp-routable.
+  function formatMyPhone(input, options) {
     var raw = input.value || '';
     var hasPlus = raw.trim().charAt(0) === '+';
     var digits = raw.replace(/\D/g, '');
@@ -1965,6 +2548,10 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     } else if (hasPlus) {
       prefix = '+';
       local = digits;
+    } else if (options && options.normalise && digits.charAt(0) === '0' && digits.length >= 9) {
+      // On blur only: promote local 0XX… to +60 form
+      prefix = '+60 ';
+      local = digits.slice(1);
     }
 
     var formatted;
@@ -1978,9 +2565,9 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
   }
 
   document.querySelectorAll('input[data-my-phone]').forEach(function (input) {
-    input.addEventListener('input', function () { formatMyPhone(input); });
+    input.addEventListener('input', function () { formatMyPhone(input, { normalise: false }); });
     input.addEventListener('blur', function () {
-      formatMyPhone(input);
+      formatMyPhone(input, { normalise: true }); // auto +60 here
       if (input.value && !window.isValidMyPhone(input.value)) {
         input.setCustomValidity('Please enter a valid Malaysian phone number.');
       } else {
@@ -1989,19 +2576,128 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     });
   });
 
-  // Email blur hint
+  // ---- Email: structural validation + inline typo suggestion ----
+  // Catches the long tail of fat-finger domain typos (gmial.com, yahoo.cm
+  // etc.) that currently slip through structural validation and bounce in
+  // Salesforce.
+  var TYPO_MAP = {
+    // Gmail
+    'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com', 'gmal.com': 'gmail.com',
+    'gmali.com': 'gmail.com', 'gnail.com': 'gmail.com', 'gmaill.com': 'gmail.com',
+    'gmail.co': 'gmail.com', 'gmail.cm': 'gmail.com', 'gmail.con': 'gmail.com',
+    'gmail.comm': 'gmail.com', 'gmail.om': 'gmail.com', 'gmial.co': 'gmail.com',
+    // Yahoo
+    'yahooo.com': 'yahoo.com', 'yhoo.com': 'yahoo.com', 'yaho.com': 'yahoo.com',
+    'yahoo.cm': 'yahoo.com', 'yahoo.co': 'yahoo.com', 'yahoo.con': 'yahoo.com',
+    // Hotmail
+    'hotmial.com': 'hotmail.com', 'hotmai.com': 'hotmail.com',
+    'hotmal.com': 'hotmail.com', 'hotmail.co': 'hotmail.com',
+    'hotmail.cm': 'hotmail.com', 'hotmail.con': 'hotmail.com',
+    // Outlook
+    'outlok.com': 'outlook.com', 'outloook.com': 'outlook.com',
+    'outlook.co': 'outlook.com', 'outlook.cm': 'outlook.com',
+    // iCloud / Live
+    'iclod.com': 'icloud.com', 'icoud.com': 'icloud.com', 'icloud.co': 'icloud.com',
+    'live.co': 'live.com', 'live.cm': 'live.com'
+  };
+
+  function suggestEmailFix(email) {
+    var at = email.lastIndexOf('@');
+    if (at < 1) return null;
+    var local = email.slice(0, at);
+    var domain = email.slice(at + 1).toLowerCase();
+    if (TYPO_MAP[domain]) return local + '@' + TYPO_MAP[domain];
+    return null;
+  }
+
+  function ensureHintEl(input) {
+    if (input._leadHint && input._leadHint.isConnected) return input._leadHint;
+    var hint = document.createElement('div');
+    hint.className = 'lead-field-hint';
+    hint.setAttribute('aria-live', 'polite');
+
+    // Form layouts we need to handle:
+    //  1. Main register form (#register)  → .fg wrapper       → after wrapper
+    //  2. Drawer form (#mgmLeadDrawerForm) → .fg wrapper       → after wrapper
+    //  3. Quick form (#mgmQuickForm, .qf)  → direct grid child → span row via grid-column
+    var wrapper = input.closest('.fg, .form-group, .lead-field');
+    if (wrapper && wrapper !== input) {
+      wrapper.parentNode.insertBefore(hint, wrapper.nextSibling);
+    } else if (input.parentNode && input.parentNode.classList.contains('qf')) {
+      hint.style.gridColumn = '1 / -1';
+      input.parentNode.insertBefore(hint, input.nextSibling);
+    } else {
+      input.parentNode.insertBefore(hint, input.nextSibling);
+    }
+
+    input._leadHint = hint;
+    return hint;
+  }
+
   document.querySelectorAll('input[type="email"]').forEach(function (input) {
-    input.addEventListener('blur', function () {
+    var hint = ensureHintEl(input);
+
+    function checkEmail() {
       var v = (input.value || '').trim();
       if (v && !window.isValidLeadEmail(v)) {
         input.setCustomValidity('Please enter a valid email address (e.g. name@example.com).');
       } else {
         input.setCustomValidity('');
       }
+      var fix = v ? suggestEmailFix(v) : null;
+      if (fix && fix.toLowerCase() !== v.toLowerCase()) {
+        hint.innerHTML = 'Did you mean <strong>' + fix.replace(/</g, '&lt;') + '</strong>? <button type="button" class="hint-apply">Yes, fix it</button>';
+        hint.classList.add('show');
+        var applyBtn = hint.querySelector('.hint-apply');
+        applyBtn.onclick = function () {
+          input.value = fix;
+          hint.classList.remove('show');
+          input.setCustomValidity('');
+          input.focus();
+        };
+      } else {
+        hint.classList.remove('show');
+      }
+    }
+
+    input.addEventListener('blur', checkEmail);
+    input.addEventListener('input', function () {
+      input.setCustomValidity('');
+      if (hint.classList.contains('show')) hint.classList.remove('show');
     });
-    input.addEventListener('input', function () { input.setCustomValidity(''); });
   });
 })();
 </script>
+
+<style>
+/* Inline lead-field hint (email typo suggestion). Amber notice — high
+   contrast on both light and dark form backgrounds. Sits directly under
+   the input's wrapper. Click "Yes, fix it" to apply the correction. */
+.lead-field-hint {
+  display: none;
+  margin: 6px 0 10px;
+  padding: 8px 12px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #78350f;
+  line-height: 1.4;
+  font-weight: 500;
+}
+.lead-field-hint.show { display: block; }
+.lead-field-hint strong { color: #78350f; }
+.lead-field-hint .hint-apply {
+  background: none;
+  border: none;
+  color: #b45309;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 0 0 4px;
+  font-size: 12px;
+  text-decoration: underline;
+}
+.lead-field-hint .hint-apply:hover { color: #92400e; }
+</style>
 </body>
 </html>
