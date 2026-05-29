@@ -2302,6 +2302,80 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     return null;
   };
 
+  // ─────────────────────────────────────────────────────────────
+  // Diagnostic capture — parallel copy of every form submission
+  // to n8n (Phase 1 safety net). Failure here MUST NOT block the
+  // Salesforce submission. Returns the submission_id (UUID v4) or
+  // null if anything went wrong, so the caller can stamp it into
+  // the dataLayer for GA4 reconciliation in Phase 2.
+  // Content-Type is text/plain (not application/json) to avoid the
+  // CORS preflight credentials check that sendBeacon would otherwise
+  // trigger. The n8n Code node parses the JSON from the string body.
+  // ─────────────────────────────────────────────────────────────
+  window.MGM_DIAGNOSTIC_WEBHOOK = 'https://n8n.srv1218666.hstgr.cloud/webhook/REPLACE_WITH_MGM_WEBHOOK_PATH';
+
+  window.captureFormDiagnostic = function (form, formId) {
+    try {
+      // 1. Generate UUID v4 (native, with fallback for older browsers)
+      var submissionId = (window.crypto && window.crypto.randomUUID)
+        ? window.crypto.randomUUID()
+        : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0;
+            var v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+
+      // 2. Stamp the UUID into a hidden input on the form so that — once
+      //    Salesforce custom field 'submission_id__c' exists in Phase 2 —
+      //    the SF lead carries the same UUID as the Sheet row.
+      var hidden = form.querySelector('input[name="submission_id"]');
+      if (!hidden) {
+        hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = 'submission_id';
+        form.appendChild(hidden);
+      }
+      hidden.value = submissionId;
+
+      // 3. Build the diagnostic payload
+      var formData = new FormData(form);
+      var fields = {};
+      formData.forEach(function (value, key) { fields[key] = value; });
+
+      var payload = {
+        submission_id: submissionId,
+        timestamp: new Date().toISOString(),
+        form_id: formId,
+        page_url: window.location.href,
+        referrer: document.referrer || '',
+        user_agent: navigator.userAgent,
+        fields: fields
+      };
+
+      // 4. Fire-and-forget to n8n via sendBeacon (survives the thankyou redirect).
+      //    text/plain avoids the CORS preflight + credentials-mode mismatch.
+      var blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(window.MGM_DIAGNOSTIC_WEBHOOK, blob);
+      } else {
+        // Fallback for browsers without sendBeacon
+        fetch(window.MGM_DIAGNOSTIC_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+          credentials: 'omit'
+        })['catch'](function () {});
+      }
+
+      return submissionId;
+    } catch (err) {
+      // Diagnostic must never break Salesforce submission
+      if (window.console && console.warn) console.warn('[diagnostic-capture] failed:', err);
+      return null;
+    }
+  };
+
   // ---- Form submit handler (main #register section) ----
   window.handleMgmFormSubmit = function (form) {
     var name = (form.querySelector('input[name="last_name"]') || {}).value || '';
@@ -2316,11 +2390,15 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     }
     window.clearLeadFormError(form);
 
+    // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
+    var submissionId = window.captureFormDiagnostic(form, 'mgmRegisterForm');
+
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: 'generate_lead',
       lead_type: 'form_submission',
-      form_name: 'M Grand Minori Registration'
+      form_name: 'M Grand Minori Registration',
+      submission_id: submissionId
     });
 
     return true; // allow native POST to Salesforce
@@ -2341,11 +2419,15 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     }
     window.clearLeadFormError(form);
 
+    // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
+    var submissionId = window.captureFormDiagnostic(form, 'mgmQuickForm');
+
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: 'generate_lead',
       lead_type: 'form_submission',
-      form_name: 'M Grand Minori Quick Form'
+      form_name: 'M Grand Minori Quick Form',
+      submission_id: submissionId
     });
 
     // Form POSTs to hidden iframe; redirect us so SF gets the data first
@@ -2372,12 +2454,16 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 
     var trigger = window._mgmDrawerSource || 'unknown';
 
+    // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
+    var submissionId = window.captureFormDiagnostic(form, 'mgmLeadDrawer');
+
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: 'generate_lead',
       lead_type: 'form_submission',
       form_name: 'M Grand Minori Drawer Form',
-      lead_source: trigger
+      lead_source: trigger,
+      submission_id: submissionId
     });
 
     var submitBtn = form.querySelector('.lead-submit');
@@ -2545,24 +2631,28 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 
     var prefix = '';
     var local = digits;
+
+    // Output format target: +60XX-XXXXXXX  (no spaces anywhere)
     if (digits.indexOf('60') === 0 && digits.length > 2) {
-      prefix = '+60 ';
+      prefix = '+60';
       local = digits.slice(2);
     } else if (hasPlus) {
       prefix = '+';
       local = digits;
     } else if (options && options.normalise && digits.charAt(0) === '0' && digits.length >= 9) {
       // On blur only: promote local 0XX… to +60 form
-      prefix = '+60 ';
+      prefix = '+60';
       local = digits.slice(1);
     }
 
+    // Split logic for Malaysian mobile:
+    //   9 digits after country code  → 2-7 split  → "10-9331233"   (010 / 012 / 016 etc.)
+    //   10 digits after country code → 3-7 split  → "111-2345678"  (newer 011X prefixes)
     var formatted;
     if (local.length === 0)       formatted = '';
-    else if (local.length <= 3)   formatted = local;
-    else if (local.length <= 6)   formatted = local.slice(0, 3) + '-' + local.slice(3);
-    else if (local.length <= 10)  formatted = local.slice(0, 3) + '-' + local.slice(3, 6) + ' ' + local.slice(6);
-    else                          formatted = local.slice(0, 3) + '-' + local.slice(3, 7) + ' ' + local.slice(7);
+    else if (local.length <= 2)   formatted = local;
+    else if (local.length <= 9)   formatted = local.slice(0, 2) + '-' + local.slice(2);
+    else                          formatted = local.slice(0, 3) + '-' + local.slice(3);
 
     input.value = prefix + formatted;
   }
