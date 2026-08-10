@@ -1382,7 +1382,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <button class="cgi-lb-nav cgi-lb-prev" id="cgiLbPrev" aria-label="Previous">‹</button>
   <div class="cgi-lb-stage">
-    <img class="cgi-lb-img" id="cgiLbImg" src="" alt="Facility CGI render">
+    <img class="cgi-lb-img" id="cgiLbImg" alt="Facility CGI render">
   </div>
   <button class="cgi-lb-nav cgi-lb-next" id="cgiLbNext" aria-label="Next">›</button>
   <div class="cgi-lb-count" id="cgiLbCount"></div>
@@ -1415,7 +1415,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="cgi-lb" id="intLb">
   <div class="cgi-lb-bar"><button class="cgi-lb-close" id="intLbClose" aria-label="Close">✕</button></div>
   <button class="cgi-lb-nav cgi-lb-prev" id="intLbPrev" aria-label="Previous">‹</button>
-  <div class="cgi-lb-stage"><img class="cgi-lb-img" id="intLbImg" src="" alt="Interior view"></div>
+  <div class="cgi-lb-stage"><img class="cgi-lb-img" id="intLbImg" alt="Interior view"></div>
   <button class="cgi-lb-nav cgi-lb-next" id="intLbNext" aria-label="Next">›</button>
   <div class="cgi-lb-count" id="intLbCount"></div>
 </div>
@@ -2281,14 +2281,37 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
   }
   if(!('IntersectionObserver' in window)){imgs.forEach(load);return;}
   try{
+    /* An image on a hidden card face (.u-back is display:none until flipped) has
+       no box of its own, so it can never intersect and would only start loading
+       at the moment of the flip. Watch its nearest laid-out ancestor instead, so
+       the floor plan is already in cache by the time the card turns. */
+    var watch=[];                      // [target, [imgs...]]
+    function targetFor(img){
+      var r=img.getBoundingClientRect();
+      if(r.width||r.height)return img;
+      var el=img.parentElement;
+      while(el&&el!==document.body){
+        var er=el.getBoundingClientRect();
+        if(er.width||er.height)return el;
+        el=el.parentElement;
+      }
+      return img;
+    }
+    imgs.forEach(function(img){
+      var t=targetFor(img);
+      for(var i=0;i<watch.length;i++){if(watch[i][0]===t){watch[i][1].push(img);return}}
+      watch.push([t,[img]]);
+    });
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(en){
         if(!en.isIntersecting)return;
         io.unobserve(en.target);
-        load(en.target);
+        for(var i=0;i<watch.length;i++){
+          if(watch[i][0]===en.target){watch[i][1].forEach(load);return}
+        }
       });
     },{rootMargin:'400px 500px'});
-    imgs.forEach(function(i){io.observe(i)});
+    watch.forEach(function(w){io.observe(w[0])});
   }catch(e){imgs.forEach(load)}
 })();
 </script>
