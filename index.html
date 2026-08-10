@@ -327,10 +327,10 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 
 /* ===== HERO ===== */
 .hero{position:relative;background:var(--navy);overflow:hidden}
-.hero-media{position:relative;width:100%;aspect-ratio:1/2;min-height:calc(100svh - 108px);background:url('assets/hero-bg-mobile-scaled.png') bottom center/100% 100% no-repeat,var(--navy)}
+.hero-media{position:relative;width:100%;aspect-ratio:1/2;min-height:calc(100svh - 108px);background:url('assets/hero-bg-mobile.webp') bottom center/100% 100% no-repeat,var(--navy)}
 @media(min-width:1024px){.hero-media{aspect-ratio:auto;min-height:calc(100svh - 20px)}}
 .hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(13,11,30,.1) 92%,var(--dark) 100%);pointer-events:none;z-index:2}
-@media(min-width:1024px){.hero-media{background:url('assets/hero-bg.png') right 80%/cover no-repeat,var(--navy)}.hero-media::after{background:linear-gradient(90deg,rgba(13,11,30,.2) 0%,rgba(13,11,30,.08) 30%,transparent 55%);z-index:2}}
+@media(min-width:1024px){.hero-media{background:url('assets/hero-bg.webp') right 80%/cover no-repeat,var(--navy)}.hero-media::after{background:linear-gradient(90deg,rgba(13,11,30,.2) 0%,rgba(13,11,30,.08) 30%,transparent 55%);z-index:2}}
 @media(min-width:1024px){.hero-media{min-height:calc(100svh - 20px)}}
 .scroll-ind{display:none}
 @media(min-width:768px){.scroll-ind{display:flex;align-items:center;justify-content:center;position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:36px;height:36px;z-index:4;cursor:pointer;text-decoration:none}}
@@ -664,8 +664,8 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
   .cgi-track{display:grid !important;grid-template-columns:repeat(3,1fr)!important;grid-auto-rows:220px;gap:14px!important;column-gap:14px!important;row-gap:14px!important;overflow:visible;padding-bottom:0;cursor:default;grid-auto-flow:row;max-width:1040px;margin-left:auto;margin-right:auto}
   .cgi-track.is-grabbing{cursor:default}
   .cgi-item{flex:none;width:auto;height:auto;min-height:unset;max-height:unset;aspect-ratio:auto;scroll-snap-align:none;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+  /* 14 renders + one double-width cell = 15 grid cells, a clean 5 x 3 block */
   .cgi-item:first-child{grid-column:span 2}
-  .cgi-item:nth-child(7){grid-column:span 2}
 }
 @media(min-width:1280px){
   .cgi-track{grid-auto-rows:240px;max-width:1120px}
@@ -905,7 +905,7 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 .pot-card:hover::before{transform:scale(1.06)}
 .pot-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,11,30,.05) 0%,rgba(13,11,30,.35) 45%,rgba(13,11,30,.92) 100%);z-index:1;pointer-events:none}
 .pot-card:hover{border-color:var(--copper)}
-.pot-card.pc-1::before{background-image:url('assets/6.jpg')}
+.pot-card.pc-1::before{background-image:url('assets/cgi-6-full.webp')}
 .pot-card.pc-2::before{background-image:url('assets/shoji-light-img1.webp')}
 .pot-card.pc-3::before{background-image:url('assets/residential-excellence-img2.webp')}
 .pot-body{position:absolute;left:20px;right:20px;bottom:20px;z-index:2;color:var(--cream);text-align:left}
@@ -919,8 +919,8 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 @media(hover:none){.pot-card p{max-height:160px;opacity:1;margin-top:4px}}
 
 /* ===== 15-MIN CITY ===== */
-.city-sec{position:relative;overflow:hidden;padding:72px var(--pad) 62vw;background:linear-gradient(180deg,var(--cream) 0%,var(--cream) 55%,rgba(248,244,239,.85) 70%,rgba(248,244,239,0) 92%),url('assets/investment-bg-mobile-scaled.png') center bottom/100% auto no-repeat,var(--cream)}
-@media(min-width:768px){.city-sec{padding:80px var(--pad) 380px;background:linear-gradient(180deg,var(--cream) 0%,var(--cream) 5%,rgba(248,244,239,.85) 20%,rgba(248,244,239,0) 40%),url('assets/investment-bg.png') center bottom/100% auto no-repeat,var(--cream)}}
+.city-sec{position:relative;overflow:hidden;padding:72px var(--pad) 62vw;background:linear-gradient(180deg,var(--cream) 0%,var(--cream) 55%,rgba(248,244,239,.85) 70%,rgba(248,244,239,0) 92%),url('assets/investment-bg-mobile.webp') center bottom/100% auto no-repeat,var(--cream)}
+@media(min-width:768px){.city-sec{padding:80px var(--pad) 380px;background:linear-gradient(180deg,var(--cream) 0%,var(--cream) 5%,rgba(248,244,239,.85) 20%,rgba(248,244,239,0) 40%),url('assets/investment-bg.webp') center bottom/100% auto no-repeat,var(--cream)}}
 @media(min-width:1024px){.city-sec{padding:110px var(--pad) 460px}}
 .city-sec::before{content:'';position:absolute;inset:0;pointer-events:none}
 .city-body{position:relative;z-index:2;max-width:var(--max);margin:0 auto}
@@ -981,6 +981,11 @@ body.mob-open .nav{z-index:1001;background:transparent;border-bottom-color:trans
 .u-vt{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border:1px solid var(--copper);border-radius:5px;background:var(--copper);color:var(--white);font-size:10px;font-weight:500;margin-top:8px;cursor:pointer;font-family:var(--fb);letter-spacing:.3px}
 
 /* ===== ANIM ===== */
+/* Deferred gallery images: hidden until their real src is swapped in, so an
+   unpainted slide shows the card's own dark surface rather than a broken-image box. */
+img[data-lazy]{opacity:0}
+img.lz-in{animation:lzIn .35s ease forwards}
+@keyframes lzIn{from{opacity:0}to{opacity:1}}
 .fi{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .fi.v{opacity:1;transform:translateY(0)}
 
@@ -1073,7 +1078,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- NAV (m-legasi pattern: transparent over hero, blurred-navy on scroll, centered pill + drawer) -->
 <nav class="nav" id="siteNav">
   <a href="#" class="nav-logo" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
-    <img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori">
+    <img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori" width="201" height="194">
   </a>
 
   <ul class="nav-pill" aria-label="Primary">
@@ -1097,7 +1102,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="nav-right">
     <div class="mah-sing-badge">
-      <img src="assets/mahsing-logo.webp" alt="Mah Sing">
+      <img src="assets/mahsing-logo.webp" alt="Mah Sing" width="571" height="177">
     </div>
     <button class="hamburger" id="navHam" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -1110,7 +1115,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <aside class="mobile-menu-overlay" id="mobileMenu" aria-label="Site navigation" aria-hidden="true">
   <div class="mobile-drawer-header">
     <div class="mobile-drawer-brand">
-      <img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori">
+      <img src="assets/grand-minorii-logo-white.webp" alt="Grand Minori" width="201" height="194">
     </div>
     <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
   </div>
@@ -1138,7 +1143,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-body">
       <div class="hero-inner">
         <div class="h-logo">
-          <img src="assets/new-logo.png" alt="Grand Minori">
+          <img src="assets/new-logo.png" alt="Grand Minori" width="414" height="398">
         </div>
         <div class="h-tag"><span class="dot"></span>Sales Gallery open everyday: 9.30am to 9pm</div>
         <h1><em>Exclusive</em> Lifestyle Awaits</h1>
@@ -1233,7 +1238,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- RTS / CROSS-BORDER -->
 <section class="sec" id="rts">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" width="700" height="1035"></div>
   
   <div class="wrap">
     <div class="center rts-head">
@@ -1243,7 +1248,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="rts-visual">
-      <img src="assets/potential-and-life-img.webp" alt="RTS Link cross-border connectivity" onerror="this.style.display='none'">
+      <img src="assets/potential-and-life-img.webp" alt="RTS Link cross-border connectivity" onerror="this.style.display='none'" width="1200" height="1025">
       
       <div class="rts-overlay">
         <div class="rts-overlay-big">3<span>km</span></div>
@@ -1270,7 +1275,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- FACILITIES -->
 <section class="sec sec-mid" id="fac">
   
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" width="643" height="1024"></div>
   <div class="wrap">
     <div class="center">
       <div class="eyebrow">41 Lifestyle Facilities</div>
@@ -1279,11 +1284,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="fac-map-wrap fi">
       <div class="fac-map-img">
-        <img src="assets/facilities-map-e1762424695357.png" alt="Facilities Overview Map" class="fac-base" id="fac-base">
-        <img src="assets/water-amenities.png" alt="Water Amenities" class="fac-layer" id="fac-water">
-        <img src="assets/fitness.png" alt="Fitness Facilities" class="fac-layer" id="fac-fitness">
-        <img src="assets/gardens.png" alt="Garden & Nature" class="fac-layer" id="fac-gardens">
-        <img src="assets/leisure.png" alt="Leisure & Social" class="fac-layer" id="fac-leisure">
+        <img src="assets/facilities-map.webp" alt="Facilities Overview Map" class="fac-base" id="fac-base" width="1500" height="1022">
+        <img src="assets/fac-water.webp" alt="Water Amenities" class="fac-layer" id="fac-water" width="1200" height="817">
+        <img src="assets/fac-fitness.webp" alt="Fitness Facilities" class="fac-layer" id="fac-fitness" width="1200" height="817">
+        <img src="assets/fac-gardens.webp" alt="Garden & Nature" class="fac-layer" id="fac-gardens" width="1200" height="817">
+        <img src="assets/fac-leisure.webp" alt="Leisure & Social" class="fac-layer" id="fac-leisure" width="1200" height="818">
       </div>
     </div>
 
@@ -1339,31 +1344,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- CGI GALLERY -->
 <section class="sec sec-mid" id="cgi">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" width="700" height="1035"></div>
   
   <div class="wrap">
     <div class="center">
       <div class="eyebrow">Facilities Visual</div>
       <h2 class="stl">Life, <em>Rendered</em></h2>
-      <p class="sdesc">CGI renders of selected facilities across the development.</p>
+      <p class="sdesc">CGI renders across the development: pools and gardens, indoor facilities, and the retail street at ground level.</p>
     </div>
     <div class="cgi-track fi" id="cgiTrack">
-      <div class="cgi-item" data-src="assets/1.jpg"><img src="assets/1.jpg" alt="Facility render" loading="lazy"></div>
-      <div class="cgi-item" data-src="assets/4.jpg"><img src="assets/4.jpg" alt="Facility render" loading="lazy"></div>
-      <div class="cgi-item" data-src="assets/6.jpg"><img src="assets/6.jpg" alt="Facility render" loading="lazy"></div>
-      <div class="cgi-item" data-src="assets/9.jpg"><img src="assets/9.jpg" alt="Facility render" loading="lazy"></div>
-      <div class="cgi-item" data-src="assets/13.jpg"><img src="assets/13.jpg" alt="Facility render" loading="lazy"></div>
-      <div class="cgi-item" data-src="assets/14.jpg"><img src="assets/14.jpg" alt="Facility render" loading="lazy"></div>
-      <div class="cgi-item" data-src="assets/30.jpg"><img src="assets/30.jpg" alt="Facility render" loading="lazy"></div>
+      <div class="cgi-item" data-src="assets/cgi-arrival-drop-off-full.webp"><img src="assets/cgi-arrival-drop-off.webp" alt="Tower B arrival drop-off and residents' lobby at M Grand Minori" width="1400" height="788" loading="lazy" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-6-full.webp"><img data-lazy="assets/cgi-6.webp" alt="Main swimming pool and sun deck" width="1400" height="1050" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-1-full.webp"><img data-lazy="assets/cgi-1.webp" alt="Elevated pool deck and cabanas overlooking the city" width="1400" height="1050" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-gymnasium-full.webp"><img data-lazy="assets/cgi-gymnasium.webp" alt="Fully equipped gymnasium with garden outlook" width="1400" height="788" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-games-room-full.webp"><img data-lazy="assets/cgi-games-room.webp" alt="Residents' games room and arcade lounge" width="1400" height="875" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-gourmet-kitchen-full.webp"><img data-lazy="assets/cgi-gourmet-kitchen.webp" alt="Gourmet kitchen and private dining room for residents" width="1400" height="787" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-4-full.webp"><img data-lazy="assets/cgi-4.webp" alt="Children's splash pad and water play area" width="1400" height="875" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-kids-play-room-full.webp"><img data-lazy="assets/cgi-kids-play-room.webp" alt="Indoor children's play room" width="1400" height="788" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-13-full.webp"><img data-lazy="assets/cgi-13.webp" alt="Outdoor children's playground" width="1400" height="875" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-9-full.webp"><img data-lazy="assets/cgi-9.webp" alt="Zen garden and reflective landscaped courtyard" width="1400" height="2000" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-14-full.webp"><img data-lazy="assets/cgi-14.webp" alt="Hammock lawn and shaded relaxation deck" width="1400" height="875" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-30-full.webp"><img data-lazy="assets/cgi-30.webp" alt="Outdoor fitness station and jogging deck" width="1400" height="1050" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-retail-street-full.webp"><img data-lazy="assets/cgi-retail-street.webp" alt="Street-level retail frontage within the development" width="1400" height="933" decoding="async"></div>
+      <div class="cgi-item" data-src="assets/cgi-retail-promenade-full.webp"><img data-lazy="assets/cgi-retail-promenade.webp" alt="Retail promenade with shops and grocer on the ground floor" width="1400" height="933" decoding="async"></div>
     </div>
     <div class="cgi-dots" id="cgiDots">
-      <div class="cgi-dot active"></div>
-      <div class="cgi-dot"></div>
-      <div class="cgi-dot"></div>
-      <div class="cgi-dot"></div>
-      <div class="cgi-dot"></div>
-      <div class="cgi-dot"></div>
-      <div class="cgi-dot"></div>
+      <div class="cgi-dot active"></div><div class="cgi-dot"></div><div class="cgi-dot"></div><div class="cgi-dot"></div><div class="cgi-dot"></div>
+      <div class="cgi-dot"></div><div class="cgi-dot"></div><div class="cgi-dot"></div><div class="cgi-dot"></div><div class="cgi-dot"></div>
+      <div class="cgi-dot"></div><div class="cgi-dot"></div><div class="cgi-dot"></div><div class="cgi-dot"></div>
     </div>
   </div>
 </section>
@@ -1383,7 +1391,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- INTERIOR SHOWCASE -->
 <section class="sec sec-mid" id="interior">
   
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" width="643" height="1024"></div>
   <div class="wrap">
     <div class="center">
       <div class="eyebrow">Interior Showcase</div>
@@ -1391,12 +1399,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="sdesc">A closer look at the crafted interiors — curated finishes, natural light, and considered spaces.</p>
     </div>
     <div class="int-grid fi" id="intGrid">
-      <div class="int-item int-feature" data-src="assets/DSC05155.webp"><img src="assets/DSC05155.webp" alt="Interior view" loading="lazy"></div>
-      <div class="int-item" data-src="assets/DSC05093.webp"><img src="assets/DSC05093.webp" alt="Interior view" loading="lazy"></div>
-      <div class="int-item" data-src="assets/DSC05149.webp"><img src="assets/DSC05149.webp" alt="Interior view" loading="lazy"></div>
-      <div class="int-item" data-src="assets/DSC05086.webp"><img src="assets/DSC05086.webp" alt="Interior view" loading="lazy"></div>
-      <div class="int-item" data-src="assets/DSC05158.webp"><img src="assets/DSC05158.webp" alt="Interior view" loading="lazy"></div>
-      <div class="int-item" data-src="assets/DSC05178.webp"><img src="assets/DSC05178.webp" alt="Interior view" loading="lazy"></div>
+      <div class="int-item int-feature" data-src="assets/int-dsc05155-full.webp"><img src="assets/int-dsc05155.webp" alt="Show unit living and dining area with natural light" width="1400" height="933" loading="lazy" decoding="async"></div>
+      <div class="int-item" data-src="assets/int-dsc05093-full.webp"><img data-lazy="assets/int-dsc05093.webp" alt="Show unit bedroom with fitted wardrobe" width="1400" height="933" decoding="async"></div>
+      <div class="int-item" data-src="assets/int-dsc05149-full.webp"><img data-lazy="assets/int-dsc05149.webp" alt="Show unit kitchen with fitted cabinetry" width="1400" height="933" decoding="async"></div>
+      <div class="int-item" data-src="assets/int-dsc05086-full.webp"><img data-lazy="assets/int-dsc05086.webp" alt="Show unit interior detail and finishes" width="1400" height="933" decoding="async"></div>
+      <div class="int-item" data-src="assets/int-dsc05158-full.webp"><img data-lazy="assets/int-dsc05158.webp" alt="Show unit bathroom with full-height tiling" width="1400" height="933" decoding="async"></div>
+      <div class="int-item" data-src="assets/int-dsc05178-full.webp"><img data-lazy="assets/int-dsc05178.webp" alt="Show unit living space and window outlook" width="1400" height="933" decoding="async"></div>
     </div>
     <div class="int-dots" id="intDots">
       <div class="int-dot active"></div><div class="int-dot"></div><div class="int-dot"></div><div class="int-dot"></div><div class="int-dot"></div><div class="int-dot"></div>
@@ -1414,7 +1422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ILLUMINATED LIFESTYLE — 4 IKI PILLARS -->
 <section class="sec" style="position:relative;overflow:hidden">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" width="700" height="1035"></div>
   
   <div class="wrap">
     <div style="margin-bottom:36px">
@@ -1459,7 +1467,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- EXPERIENCE GALLERY -->
 <section class="sec sec-mid">
   
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" width="643" height="1024"></div>
   <div class="wrap">
     <div class="center" style="margin-bottom:28px">
       <div class="eyebrow">Inside the Residences</div>
@@ -1468,19 +1476,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="exp-grid">
       <div class="exp-item fi">
-        <img src="assets/residential-excellence-img1.webp" alt="Residential Excellence" loading="lazy">
+        <img src="assets/residential-excellence-img1.webp" alt="Residential Excellence" loading="lazy" width="900" height="1012">
         <div class="exp-cap"><div class="k">Residential Excellence</div><div class="v">Premium finishes throughout</div></div>
       </div>
       <div class="exp-item fi">
-        <img src="assets/practical-layout-img1.webp" alt="Practical Layouts" loading="lazy">
+        <img src="assets/practical-layout-img1.webp" alt="Practical Layouts" loading="lazy" width="900" height="1008">
         <div class="exp-cap"><div class="k">Practical Layouts</div><div class="v">Flexible for living or rental</div></div>
       </div>
       <div class="exp-item fi">
-        <img src="assets/immersive-experience-img3.webp" alt="Immersive Experience" loading="lazy">
+        <img src="assets/immersive-experience-img3.webp" alt="Immersive Experience" loading="lazy" width="900" height="1315">
         <div class="exp-cap"><div class="k">Immersive Spaces</div><div class="v">Natural light &middot; wide views</div></div>
       </div>
       <div class="exp-item fi">
-        <img src="assets/eco-conscious-img1.webp" alt="Eco-Conscious" loading="lazy">
+        <img src="assets/eco-conscious-img1.webp" alt="Eco-Conscious" loading="lazy" width="900" height="992">
         <div class="exp-cap"><div class="k">Eco-Conscious</div><div class="v">GreenRE-certified design</div></div>
       </div>
     </div>
@@ -1489,7 +1497,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- POTENTIAL & LIFE — 3 PILLARS -->
 <section class="sec sec-mid">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" width="700" height="1035"></div>
   
   <div class="wrap">
     <div class="center" style="margin-bottom:32px">
@@ -1530,15 +1538,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>The '15-Minute City' isn't a dream — it's a reality.</h2>
     <p class="city-sub">Everything you need for daily life — curated within a 15-minute reach of your front door.</p>
     <div class="city-grid">
-      <div class="city-item"><img class="city-ico" src="assets/facilities.png" alt="41 Luxurious Facilities" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/greenRE.png" alt="GreenRE Certification" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/retail.png" alt="Retail Convenience Onsite" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/ramp.png" alt="Speed Ramp to Carpark" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/stream.png" alt="STREAM Auto Waste" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/layouts.png" alt="Flexible Layouts" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/EV.png" alt="EV Charging Points" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/concierge.png" alt="Concierge Support" loading="lazy"></div>
-      <div class="city-item"><img class="city-ico" src="assets/shuttle.png" alt="Shuttle Bus Service" loading="lazy"></div>
+      <div class="city-item"><img class="city-ico" src="assets/facilities.png" alt="41 Luxurious Facilities" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/greenRE.png" alt="GreenRE Certification" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/retail.png" alt="Retail Convenience Onsite" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/ramp.png" alt="Speed Ramp to Carpark" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/stream.png" alt="STREAM Auto Waste" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/layouts.png" alt="Flexible Layouts" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/EV.png" alt="EV Charging Points" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/concierge.png" alt="Concierge Support" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/shuttle.png" alt="Shuttle Bus Service" loading="lazy" width="451" height="458"></div>
     </div>
   </div>
 </section>
@@ -1546,18 +1554,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- FURNISHING PACKAGE -->
 <section class="sec">
   
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" width="643" height="1024"></div>
   <div class="wrap">
     <div class="furn fi">
       <div class="eyebrow">Included with every unit</div>
       <div class="furn-val">Up to RM32,000</div>
       <div class="furn-sub">worth of fittings included — move in or rent out immediately</div>
       <div class="furn-items">
-        <div class="furn-item"><span class="furn-item-icon"><img src="assets/kitchen.png" alt="Kitchen" loading="lazy"></span><strong>Kitchen</strong><span class="furn-desc">Cabinet + Hob + Hood</span></div>
-        <div class="furn-item"><span class="furn-item-icon"><img src="assets/aircond.png" alt="Aircond" loading="lazy"></span><strong>Aircond</strong><span class="furn-desc">Pre-installed</span></div>
-        <div class="furn-item"><span class="furn-item-icon"><img src="assets/digital-lock.png" alt="Digital Lock" loading="lazy"></span><strong>Digital Lock</strong><span class="furn-desc">Smart entry</span></div>
-        <div class="furn-item"><span class="furn-item-icon"><img src="assets/water-heater.png" alt="Water Heater" loading="lazy"></span><strong>Water Heater</strong><span class="furn-desc">Ready to use</span></div>
-        <div class="furn-item"><span class="furn-item-icon"><img src="assets/dryer.png" alt="Washer/Dryer" loading="lazy"></span><strong>Washer/Dryer</strong><span class="furn-desc">2-in-1 unit</span></div>
+        <div class="furn-item"><span class="furn-item-icon"><img src="assets/kitchen.png" alt="Kitchen" loading="lazy" width="207" height="169"></span><strong>Kitchen</strong><span class="furn-desc">Cabinet + Hob + Hood</span></div>
+        <div class="furn-item"><span class="furn-item-icon"><img src="assets/aircond.png" alt="Aircond" loading="lazy" width="159" height="137"></span><strong>Aircond</strong><span class="furn-desc">Pre-installed</span></div>
+        <div class="furn-item"><span class="furn-item-icon"><img src="assets/digital-lock.png" alt="Digital Lock" loading="lazy" width="167" height="123"></span><strong>Digital Lock</strong><span class="furn-desc">Smart entry</span></div>
+        <div class="furn-item"><span class="furn-item-icon"><img src="assets/water-heater.png" alt="Water Heater" loading="lazy" width="156" height="124"></span><strong>Water Heater</strong><span class="furn-desc">Ready to use</span></div>
+        <div class="furn-item"><span class="furn-item-icon"><img src="assets/dryer.png" alt="Washer/Dryer" loading="lazy" width="133" height="132"></span><strong>Washer/Dryer</strong><span class="furn-desc">2-in-1 unit</span></div>
       </div>
       <div class="furn-ready">"Ready to move in — or let it out immediately"</div>
       <a href="#register" class="btn btn-p">Register & Get Price List →</a>
@@ -1567,11 +1575,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- UNITS -->
 <section class="sec sec-mid" id="units">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt=""></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" width="700" height="1035"></div>
   
   <div class="wrap">
     <div class="center">
-      <div class="eyebrow">6 Layout Options</div>
+      <div class="eyebrow">5 Layout Options</div>
       <h2 class="stl">Smartly Designed For Living & Investing</h2>
       <p class="sdesc">From compact studios to spacious dual-key — flexibility for every buyer profile.</p>
     </div>
@@ -1588,8 +1596,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="u-back">
           <div class="u-back-title">Type A · Studio · 403 sq.ft</div>
-          <div class="u-floorplan" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-            <img src="assets/Type-A.jpg" alt="Type A Floor Plan" loading="lazy">
+          <div class="u-floorplan" data-full="assets/fp-type-a-full.webp" onclick="var i=this.querySelector('img');fpOpen(this.getAttribute('data-full')||i.currentSrc||i.src,i.alt)">
+            <img data-lazy="assets/fp-type-a.webp" alt="Type A Floor Plan" width="1100" height="1556" decoding="async">
           </div>
           <div class="u-back-specs">403 sq.ft · 1 Bath · Kitchen · Dining · Foyer</div>
           <button class="u-back-close" onclick="flipCard('uc-a')">← Back to specs</button>
@@ -1604,13 +1612,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="u-price-row"><span class="u-price">RM396k</span><button type="button" class="u-calc-cta" data-price="396000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-b')">View Floor Plan ↻</button>
-            <a class="u-vt" href="https://my.matterport.com/show/?m=vc8sxwUcTV2" target="_blank" rel="noopener">Virtual Tour →</a>
+            <a class="u-vt" href="https://my.matterport.com/show/?m=LRVbShV1xez" target="_blank" rel="noopener">Virtual Tour →</a>
           </div>
         </div>
         <div class="u-back">
           <div class="u-back-title">Type B · 1 Bed 1 Bath · 496 sq.ft</div>
-          <div class="u-floorplan" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-            <img src="assets/Type-B.jpg" alt="Type B Floor Plan" loading="lazy">
+          <div class="u-floorplan" data-full="assets/fp-type-b-full.webp" onclick="var i=this.querySelector('img');fpOpen(this.getAttribute('data-full')||i.currentSrc||i.src,i.alt)">
+            <img data-lazy="assets/fp-type-b.webp" alt="Type B Floor Plan" width="1100" height="1556" decoding="async">
           </div>
           <div class="u-back-specs">496 sq.ft · 1 Bed · 1 Bath · Living · Kitchen · Yard</div>
           <button class="u-back-close" onclick="flipCard('uc-b')">← Back to specs</button>
@@ -1625,13 +1633,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="u-price-row"><span class="u-price">RM503k</span><button type="button" class="u-calc-cta" data-price="503000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-c')">View Floor Plan ↻</button>
-            <a class="u-vt" href="https://my.matterport.com/show/?m=a2EJR2WzANi" target="_blank" rel="noopener">Virtual Tour →</a>
+            <a class="u-vt" href="https://my.matterport.com/show/?m=VYbZF57CG2g" target="_blank" rel="noopener">Virtual Tour →</a>
           </div>
         </div>
         <div class="u-back">
           <div class="u-back-title">Type C · 1 Bed 1 Bath + Powder · 624 sq.ft</div>
-          <div class="u-floorplan" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-            <img src="assets/Type-C.jpg" alt="Type C Floor Plan" loading="lazy">
+          <div class="u-floorplan" data-full="assets/fp-type-c-full.webp" onclick="var i=this.querySelector('img');fpOpen(this.getAttribute('data-full')||i.currentSrc||i.src,i.alt)">
+            <img data-lazy="assets/fp-type-c.webp" alt="Type C Floor Plan" width="1100" height="1556" decoding="async">
           </div>
           <div class="u-back-specs">624 sq.ft · 1 Bed · Bath + Powder Room · Living · Kitchen</div>
           <button class="u-back-close" onclick="flipCard('uc-c')">← Back to specs</button>
@@ -1646,12 +1654,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="u-price-row"><span class="u-price">RM518k</span><button type="button" class="u-calc-cta" data-price="518000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-d')">View Floor Plan ↻</button>
+            <a class="u-vt" href="https://m-grandminori.com.my/virtualtour/type-d/" target="_blank" rel="noopener">Virtual Tour →</a>
           </div>
         </div>
         <div class="u-back">
           <div class="u-back-title">Type D · 1 Bed 1 Bath · 630 sq.ft</div>
-          <div class="u-floorplan" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-            <img src="assets/Type_D.jpg" alt="Type D Floor Plan" loading="lazy">
+          <div class="u-floorplan" data-full="assets/fp-type-d-full.webp" onclick="var i=this.querySelector('img');fpOpen(this.getAttribute('data-full')||i.currentSrc||i.src,i.alt)">
+            <img data-lazy="assets/fp-type-d.webp" alt="Type D Floor Plan" width="1100" height="1556" decoding="async">
           </div>
           <div class="u-back-specs">630 sq.ft · 1 Bed · 1 Bath · Living · Kitchen · Dining</div>
           <button class="u-back-close" onclick="flipCard('uc-d')">← Back to specs</button>
@@ -1666,13 +1675,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="u-price-row"><span class="u-price">RM654k</span><button type="button" class="u-calc-cta" data-price="654000" onclick="goToCalc(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>Calc My Instalment →</button></div>
             <button class="u-cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Get Full Price List →</button>
             <button class="u-fp-btn" onclick="flipCard('uc-e')">View Floor Plan ↻</button>
-            <a class="u-vt" href="https://my.matterport.com/show/?m=pyd1X2atKGu" target="_blank" rel="noopener">Virtual Tour →</a>
+            <a class="u-vt" href="https://my.matterport.com/show/?m=KbWfBVYuZBb" target="_blank" rel="noopener">Virtual Tour →</a>
           </div>
         </div>
         <div class="u-back">
           <div class="u-back-title">Type E · 3 Bed 2 Bath · 835 sq.ft</div>
-          <div class="u-floorplan" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-            <img src="assets/Type-E-scaled.jpg" alt="Type E Floor Plan" loading="lazy">
+          <div class="u-floorplan" data-full="assets/fp-type-e-full.webp" onclick="var i=this.querySelector('img');fpOpen(this.getAttribute('data-full')||i.currentSrc||i.src,i.alt)">
+            <img data-lazy="assets/fp-type-e.webp" alt="Type E Floor Plan" width="1100" height="1556" decoding="async">
           </div>
           <div class="u-back-specs">835 sq.ft · 3 Bed · 2 Bath · Dual-Key · Living · Kitchen</div>
           <button class="u-back-close" onclick="flipCard('uc-e')">← Back to specs</button>
@@ -1699,7 +1708,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- CALCULATORS -->
 <section class="sec" id="invest">
   
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt=""></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" width="643" height="1024"></div>
   <div class="wrap">
     <div class="center" style="margin-bottom:36px">
       <div class="eyebrow">Investment tools</div>
@@ -1792,7 +1801,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="loc-map-bg" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-      <img src="assets/mapv2.png" alt="M Grand Minori location map" loading="lazy">
+      <img src="assets/map-facilities.webp" alt="M Grand Minori location map" loading="lazy" width="1500" height="1411">
     </div>
   </div>
 </section>
@@ -2248,6 +2257,40 @@ function fO(b){b.parentElement.querySelectorAll('.f-opt').forEach(function(o){o.
 /* Anim */
 var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('v')})},{threshold:.1});
 document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
+
+/* ---------------------------------------------------------------------------
+   Deferred image loading for the galleries.
+
+   Native loading="lazy" fetches anything within Chrome's distance-from-viewport
+   heuristic, which runs to ~3000px on a slow connection. Inside a horizontal
+   carousel every slide sits inside that window, so scrolling into the section
+   fired all of them at once: a multi-megabyte burst that left the visible tiles
+   blank while it drained. IntersectionObserver respects the track's own overflow
+   clipping, so only slides actually near the viewport are fetched.
+   --------------------------------------------------------------------------- */
+(function(){
+  var imgs=Array.prototype.slice.call(document.querySelectorAll('img[data-lazy]'));
+  if(!imgs.length)return;
+  function load(img){
+    var src=img.getAttribute('data-lazy');
+    if(!src)return;
+    img.removeAttribute('data-lazy');
+    img.addEventListener('load',function(){img.classList.add('lz-in')},{once:true});
+    img.addEventListener('error',function(){img.classList.add('lz-in')},{once:true});
+    img.src=src;
+  }
+  if(!('IntersectionObserver' in window)){imgs.forEach(load);return;}
+  try{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting)return;
+        io.unobserve(en.target);
+        load(en.target);
+      });
+    },{rootMargin:'400px 500px'});
+    imgs.forEach(function(i){io.observe(i)});
+  }catch(e){imgs.forEach(load)}
+})();
 </script>
 
 <!-- ============================================================
