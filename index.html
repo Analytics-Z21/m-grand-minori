@@ -1186,7 +1186,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="qf-chip">Loan calc</span>
       <span class="qf-chip">Availability</span>
     </div>
-    <form class="qf" id="mgmQuickForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" target="sf-hidden-frame" onsubmit="return handleMgmQuickFormSubmit(this)" novalidate>
+    <form class="qf" id="mgmQuickForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmQuickFormSubmit(this)" novalidate>
       <input type="hidden" name="oid" value="00D0o0000015t7i">
       <input type="hidden" name="retURL" value="https://ver2.m-grandminori.com.my/thank-you.html">
       <input type="hidden" name="00N2j000000e0hv" value="M Grand Minori Website 2">
@@ -1887,9 +1887,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
-<!-- Hidden iframe target so quick form + drawer can POST to Salesforce without leaving the page -->
-<iframe name="sf-hidden-frame" id="sfHiddenFrame" style="display:none;"></iframe>
-
 <!-- LEAD DRAWER (slide-in) -->
 <div class="lead-drawer-backdrop" id="leadDrawerBackdrop" aria-hidden="true"></div>
 <aside class="lead-drawer" id="leadDrawer" role="dialog" aria-modal="true" aria-labelledby="leadDrawerTitle" aria-hidden="true">
@@ -1920,7 +1917,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <form class="lead-form" id="mgmLeadDrawerForm"
           action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i"
           method="POST"
-          target="sf-hidden-frame"
           onsubmit="return handleMgmDrawerFormSubmit(this)"
           novalidate>
       <input type="hidden" name="oid" value="00D0o0000015t7i">
@@ -2471,7 +2467,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
   };
 
   // ---- Quick form (under hero) submit handler ----
-  // Posts via hidden iframe → redirect to thank-you after a short delay.
+  // Native top-level POST — Salesforce redirects to retURL once the lead lands.
   window.handleMgmQuickFormSubmit = function (form) {
     var name = (form.querySelector('input[name="last_name"]') || {}).value || '';
     var email = (form.querySelector('input[name="email"]') || {}).value || '';
@@ -2496,12 +2492,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
       submission_id: submissionId
     });
 
-    // Form POSTs to hidden iframe; redirect us so SF gets the data first
-    setTimeout(function () {
-      window.location.href = 'https://ver2.m-grandminori.com.my/thank-you.html';
-    }, 500);
-
-    return true;
+    return true; // allow native POST to Salesforce
   };
 
   // ---- Drawer form submit handler ----
@@ -2538,11 +2529,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
       submitBtn.textContent = 'Sending...';
     }
 
-    setTimeout(function () {
-      window.location.href = 'https://ver2.m-grandminori.com.my/thank-you.html';
-    }, 500);
-
-    return true;
+    return true; // allow native POST to Salesforce
   };
 
   // ---- Lead drawer open/close + global triggers ----
