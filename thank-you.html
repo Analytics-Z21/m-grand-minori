@@ -8,6 +8,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5CG9TXKM');</script>
 <!-- End Google Tag Manager -->
+<!-- GA4 direct channel for the confirmation event. GTM on this page already
+     sends page_view, so send_page_view is false here to avoid a second one.
+     This page is only reachable via the Salesforce retURL redirect, which
+     Salesforce performs ONLY after it has accepted the lead. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2MFJ76RZX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-D2MFJ76RZX', { send_page_view: false });
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Thank You — M Grand Minori</title>
@@ -84,5 +96,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </main>
 <footer class="ty-foot">© 2026 M Grand Minori · A development by <a href="https://www.mahsing.com.my" target="_blank" rel="noopener">Mah Sing Group</a></footer>
+<!-- lead_confirmed: the navigation-proof counterpart to generate_lead.
+     generate_lead fires on submit, before Salesforce has confirmed anything.
+     This page is only reachable via the Salesforce retURL redirect, which
+     Salesforce performs ONLY after it has accepted the lead, so the gap
+     between the two events is the submit-to-Salesforce drop-off, and this one
+     is directly comparable with the original site's thank-you-page event.
+
+     Fires via a readiness poll rather than a bare inline call: gtag.js is
+     async, so an inline call at parse time races its initialisation and was
+     observed firing only intermittently. The poll waits for a real gtag,
+     fires exactly once, and gives up after 6s. The dataLayer push is kept
+     unconditionally so any GTM tag can also pick the event up. -->
+<script>
+(function(){
+  var sent=false, tries=0;
+  var params={ lead_type:'form_submission', page_location:location.href };
+  try{
+    window.dataLayer=window.dataLayer||[];
+    window.dataLayer.push({ event:'lead_confirmed', lead_type:'form_submission' });
+  }catch(e){}
+  function fire(){
+    if(sent) return true;
+    try{
+      if(typeof window.gtag==='function'){
+        window.gtag('event','lead_confirmed',params);
+        sent=true; return true;
+      }
+    }catch(e){ sent=true; return true; }
+    return false;
+  }
+  function poll(){
+    if(fire()) return;
+    if(++tries>30) return;              /* ~6s ceiling */
+    setTimeout(poll,200);
+  }
+  if(document.readyState==='complete') poll();
+  else window.addEventListener('load',poll);
+  setTimeout(poll,400);                 /* also try early, in case load is slow */
+})();
+</script>
 </body>
 </html>

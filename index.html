@@ -3571,7 +3571,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     window.clearLeadFormError(form);
 
     // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
-    var submissionId = window.captureFormDiagnostic(form, 'mgmRegisterForm');
+    var submissionId = window.captureFormDiagnostic(form, 'mainRegisterForm');
 
     window.mgmTrackLead({
       event: 'generate_lead',
@@ -3598,7 +3598,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     window.clearLeadFormError(form);
 
     // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
-    var submissionId = window.captureFormDiagnostic(form, 'mgmQuickForm');
+    var submissionId = window.captureFormDiagnostic(form, 'quickRegisterForm');
 
     window.mgmTrackLead({
       event: 'generate_lead',
@@ -3635,7 +3635,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     var trigger = window._mgmDrawerSource || 'unknown';
 
     // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
-    var submissionId = window.captureFormDiagnostic(form, 'mgmLeadDrawer');
+    var submissionId = window.captureFormDiagnostic(form, 'leadFormDrawer');
 
     window.mgmTrackLead({
       event: 'generate_lead',
