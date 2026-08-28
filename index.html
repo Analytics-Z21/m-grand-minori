@@ -1606,6 +1606,7 @@ html.js .nx .rv{opacity:1;transform:none;transition:none}
 .nx .lb.on{display:flex}
 .nx .lb-in{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:100%}
 .nx .lb img{max-width:100%;max-height:82vh;width:auto}
+.nx .lb-legend[hidden]{display:none}
 .nx .lb-legend{display:flex;align-items:center;gap:8px;font:500 12.5px/1.35 var(--fb);color:var(--cream2)}
 .nx .lb-legend i{flex:none;width:28px;height:0;border-top:2px dashed #F5EE5C}
 .nx .lb-legend small{font:400 12px/1.4 var(--fb);color:var(--tl)}
@@ -1679,7 +1680,7 @@ section[id]{scroll-margin-top:calc(var(--nav-h) + 50px)}
 .nx .fit-hero b{display:block;font:500 24px/1.1 var(--fd);font-weight:500;color:var(--gold2);margin-top:4px}
 .nx .unit-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 4px}
 .nx .ushot{padding:0;border:1px solid var(--mullion);background:var(--dark);cursor:zoom-in;overflow:hidden}
-.nx .ushot img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .45s}
+.nx .ushot img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;transition:transform .45s}
 .nx .ushot:hover img{transform:scale(1.05)}
 .nx .ushot-note{grid-column:1/-1;font:500 11px/1.5 var(--fb);color:var(--cream2);opacity:.66}
 /* tokens the transplanted sections use that ver3 does not define */
@@ -2308,12 +2309,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="price-val num" id="uSgd">SGD 425 /mo</div>
             </div>
           </div>
-        <div class="unit-shots">
-            <button class="ushot" type="button" data-src="assets/int-dsc05155.webp"><img src="assets/int-dsc05155.webp" alt="Show unit living and dining area" loading="lazy"></button>
-            <button class="ushot" type="button" data-src="assets/int-dsc05093.webp"><img src="assets/int-dsc05093.webp" alt="Show unit kitchen" loading="lazy"></button>
-            <button class="ushot" type="button" data-src="assets/int-dsc05086.webp"><img src="assets/int-dsc05086.webp" alt="Show unit bedroom" loading="lazy"></button>
-            <span class="ushot-note">Show unit photography. Tap to view.</span>
-          </div>
+        <!-- Built per type by render(). Only the active type's six thumbs are ever in the
+             DOM, so switching type costs six ~18KB requests and the default view (Type A,
+             which has no photography) costs none. -->
+        <div class="unit-shots" id="uShots"></div>
           <div class="unit-acts">
           <button class="btn btn-p" id="uCta" data-open-lead="unit_card" data-unit="Type A">Get the Type A price &amp; layout</button>
           </div>
@@ -4046,7 +4045,7 @@ window.mgmTrackLead = function (payload) {
 </script>
 
 <div class="nx">
-<div class="lb" id="lb"><button class="lb-x" id="lbX" aria-label="Close">&#10005;</button><div class="lb-in"><img id="lbImg" alt=""><span class="lb-legend"><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span></div></div>
+<div class="lb" id="lb"><button class="lb-x" id="lbX" aria-label="Close">&#10005;</button><div class="lb-in"><img id="lbImg" alt=""><span class="lb-legend" id="lbKey" hidden><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span></div></div>
 </div>
 <script>
 (function(){
@@ -4057,15 +4056,15 @@ window.mgmTrackLead = function (payload) {
   /* Prices are the client-confirmed figures. The permit band is reproduced in the footer. */
   var UNITS={
     A:{layout:'Studio',bath:'1',size:403,price:332000,cfg:'Ideal for singles and rental',
-       plan:'assets/fp-type-a-card.webp',full:'assets/fp-type-a-full.webp',vt:''},
+       plan:'assets/fp-type-a-card.webp',full:'assets/fp-type-a-full.webp',shots:[],vt:''},
     B:{layout:'1 Bed',bath:'1',size:496,price:396000,cfg:'The only layout with a private yard, and a full separate bedroom',
-       plan:'assets/fp-type-b-card.webp',full:'assets/fp-type-b-full.webp',vt:'https://my.matterport.com/show/?m=LRVbShV1xez'},
+       plan:'assets/fp-type-b-card.webp',full:'assets/fp-type-b-full.webp',shots:[['unit-b-1','Type B show unit, living and dining area'],['unit-b-2','Type B show unit, bedroom'],['unit-b-3','Type B show unit, living area looking through to the kitchen'],['unit-b-4','Type B show unit, kitchen and bathroom'],['unit-b-5','Type B show unit, bedroom with fitted wardrobe'],['unit-b-6','Type B show unit, living area and feature wall']],vt:'https://my.matterport.com/show/?m=LRVbShV1xez'},
     C:{layout:'1 Bed',bath:'1+1',size:624,price:503000,cfg:'Dual-key: two lockable rooms off one entry. Live in one, let the other',
-       plan:'assets/fp-type-c-card.webp',full:'assets/fp-type-c-full.webp',vt:'https://my.matterport.com/show/?m=VYbZF57CG2g'},
+       plan:'assets/fp-type-c-card.webp',full:'assets/fp-type-c-full.webp',shots:[['unit-c-1','Type C show unit, the living side with its own seating and dining'],['unit-c-2','Type C show unit, the bedroom side, lockable separately'],['unit-c-3','Type C show unit, the living side with the kitchen beyond'],['unit-c-4','Type C show unit, the bedroom side with its own counter'],['unit-c-5','Type C show unit, the living side media wall'],['unit-c-6','Type C show unit, bathroom off the bedroom side']],vt:'https://my.matterport.com/show/?m=VYbZF57CG2g'},
     D:{layout:'1 Bed',bath:'1',size:630,price:518000,cfg:'Larger built-up with a walk-in closet. Room for a small family',
-       plan:'assets/fp-type-d-card.webp',full:'assets/fp-type-d-full.webp',vt:''},
+       plan:'assets/fp-type-d-card.webp',full:'assets/fp-type-d-full.webp',shots:[],vt:''},
     E:{layout:'3 Bed',bath:'2',size:835,price:654000,cfg:'Three bedroom dual-key, an income layout',
-       plan:'assets/fp-type-e-card.webp',full:'assets/fp-type-e-full.webp',vt:'https://my.matterport.com/show/?m=KbWfBVYuZBb'}
+       plan:'assets/fp-type-e-card.webp',full:'assets/fp-type-e-full.webp',shots:[['unit-e-1','Type E show unit, living and dining area'],['unit-e-2','Type E show unit, master bedroom with walk-in wardrobe'],['unit-e-3','Type E show unit, dining area and kitchen'],['unit-e-4','Type E show unit, second bedroom'],['unit-e-5','Type E show unit, third bedroom'],['unit-e-6','Type E show unit, kitchen']],vt:'https://my.matterport.com/show/?m=KbWfBVYuZBb'}
   };
   var ORDER=['A','B','C','D','E'], cur='A', RATE=0.04, SGD=3.11, WA='6073317319';
   var fmt=function(n){return Math.round(n).toLocaleString('en-MY');};
@@ -4093,10 +4092,29 @@ window.mgmTrackLead = function (payload) {
     $('planWrap').setAttribute('data-full',u.full);
     var cta=$('uCta'); cta.setAttribute('data-unit','Type '+cur);
     cta.textContent='Get the Type '+cur+' price & layout';
+    renderShots(u);
     Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(t){
       t.setAttribute('aria-selected',String(t.getAttribute('data-type')===cur));});
     calc();
   }
+  /* Show-unit photography, rebuilt per type. Thumbs are 480px WebP (~18KB) against
+     20-28MB camera originals; the 1800px WebP behind each one is fetched only when the
+     lightbox opens. Types with no photography say so rather than borrowing another
+     type's rooms, which is what the old hardcoded strip did. */
+  function renderShots(u){
+    var box=$('uShots'); if(!box)return;
+    var sh=u.shots||[], html='';
+    sh.forEach(function(p){
+      html+='<button class="ushot" type="button" data-src="assets/'+p[0]+'.webp">'+
+            '<img src="assets/'+p[0]+'-thumb.webp" alt="'+p[1]+'" loading="lazy" '+
+            'width="480" height="320" decoding="async"></button>';
+    });
+    html+='<span class="ushot-note">'+(sh.length
+      ? 'Type '+cur+' show unit, '+sh.length+' photographs. Tap any photo to enlarge.'
+      : 'Show unit photography is available for Types B, C and E.')+'</span>';
+    box.innerHTML=html;
+  }
+
   function calc(){
     var u=UNITS[cur],pct=+$('cLoan').value,yrs=+$('cTen').value,m=monthly(u.price,pct,yrs);
     $('cPrice').textContent='RM '+fmt(u.price); $('cType').textContent=cur;
@@ -4116,10 +4134,11 @@ window.mgmTrackLead = function (payload) {
     document.querySelector('#tabs .tab[aria-selected="true"]').scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
   });
 
-  /* lightbox */
+  /* lightbox. The third argument controls the Renovation Package key: it belongs to the
+     floor plans only, not to the facilities plan, the CGI gallery or the show-unit photos,
+     all of which open this same lightbox. */
   $('planWrap').addEventListener('click',function(){
-    $('lbImg').src=this.getAttribute('data-full')||$('planImg').src;
-    $('lbImg').alt=$('planImg').alt; $('lb').classList.add('on'); document.body.style.overflow='hidden';});
+    openLb(this.getAttribute('data-full')||$('planImg').src, $('planImg').alt, true);});
   function closeLb(){$('lb').classList.remove('on');document.body.style.overflow='';}
   $('lbX').addEventListener('click',closeLb);
   $('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
@@ -4163,16 +4182,21 @@ window.mgmTrackLead = function (payload) {
   window.addEventListener('scroll',function(){window.requestAnimationFrame(setNavH);},{passive:true});
 
   /* item 2: the facilities plan and every gallery frame open in the lightbox */
-  function openLb(src,alt){
-    $('lbImg').src=src; $('lbImg').alt=alt||''; $('lb').classList.add('on'); document.body.style.overflow='hidden';
+  function openLb(src,alt,showKey){
+    $('lbImg').src=src; $('lbImg').alt=alt||'';
+    var k=$('lbKey'); if(k)k.hidden=!showKey;
+    $('lb').classList.add('on'); document.body.style.overflow='hidden';
   }
   var fp=$('facPlan');
   if(fp)fp.addEventListener('click',function(){openLb(fp.getAttribute('data-full'),'Facilities plan');});
   Array.prototype.forEach.call(document.querySelectorAll('#gal figure'),function(f){
     f.addEventListener('click',function(){var i=f.querySelector('img');openLb(i.src,i.alt);});
   });
-  Array.prototype.forEach.call(document.querySelectorAll('.ushot'),function(bt){
-    bt.addEventListener('click',function(){var im=bt.querySelector('img');openLb(bt.getAttribute('data-src')||im.src,im.alt);});
+  var shotsBox=$('uShots');
+  if(shotsBox)shotsBox.addEventListener('click',function(e){
+    var bt=e.target.closest('.ushot'); if(!bt)return;
+    var im=bt.querySelector('img');
+    openLb(bt.getAttribute('data-src')||im.src,im.alt,false);
   });
 
   /* item 3: interiors carousel, auto-advancing, pauses on hover and when off-screen */
