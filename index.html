@@ -83,7 +83,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --fc:"Balt Optima Medium","Montserrat",sans-serif;
   --pad:20px;--max:1200px;
   --safe-b:env(safe-area-inset-bottom,0px);
-  --hero-top:31px;
 }
 @media(min-width:768px){:root{--pad:36px}}
 @media(min-width:1024px){:root{--pad:48px}}
@@ -347,59 +346,45 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 /* ===== HERO ===== */
 .hero{position:relative;background:var(--navy);overflow:hidden}
 .hero-media{position:relative;width:100%;
-  /* Height is capped at 200vw because the artwork is a 1:2 portrait. Fitting it to WIDTH
-     (below) is non-negotiable: its "Tower B Open for Sale" and "Tower A Limited Unit"
-     labels are baked in only 1.3% from the left edge and 4.0% from the right, so any
-     horizontal crop clips them. `cover` cropped ~2% a side and `auto 107%` cropped ~5.8%.
-     Capping at 200vw means the image always covers the box, so fitting to width leaves
-     no gap to paper over and no seam. Taller viewports simply see the section below. */
-  min-height:min(calc(100svh - var(--hero-top)), 200vw);
+  /* The hero height is derived from WIDTH only. It is never a function of viewport height.
+     Tying it to 100svh collapsed the banner on every short viewport: at 390x600 the box
+     dropped to 569px while the bottom-anchored artwork still rendered 780px, so the tower
+     slid up over the price cards; at 1440x620 the baked-in "Tower B Open for Sale" label
+     was clipped off the top; rotated to 844x390 the box became 359px against a 1688px
+     image and the copy sat on bare tower. Width-derived means the composition holds at
+     every viewport height and a short screen simply scrolls.
+     200vw is the artwork's own ratio (hero-bg-mobile.webp is 1080x2160, exactly 1:2), so
+     fitting it to width leaves no gap to paper over and no seam. Fitting to WIDTH is
+     non-negotiable: the "Tower B Open for Sale" and "Tower A Limited Unit" labels are
+     baked in only 1.3% from the left edge and 4.0% from the right, so any horizontal crop
+     clips them. `cover` cropped ~2% a side and `auto 107%` cropped ~5.8%. */
+  min-height:200vw;
   background:url('assets/hero-bg-mobile.webp') center bottom/100% auto no-repeat,#2A113C}
-@media(min-width:1024px){.hero-media{aspect-ratio:auto;min-height:calc(100svh - 20px)}}
+/* 700px is where the frame stops being portrait-shaped (tablet portrait, phone rotated).
+   A 1:2 portrait artwork would be 1688px tall on an 844px-wide screen, so from here up the
+   page uses the landscape artwork AND the side-by-side layout. Height stays width-derived. */
+@media(min-width:700px){.hero-media{min-height:min(62vw,600px)}}
+@media(min-width:1024px){.hero-media{aspect-ratio:auto;min-height:clamp(600px,61vw,840px)}}
 .hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(13,11,30,.1) 92%,var(--dark) 100%);pointer-events:none;z-index:2}
-@media(min-width:1024px){.hero-media{background:url('assets/hero-bg.webp') right 80%/cover no-repeat,var(--navy)}.hero-media::after{background:linear-gradient(90deg,rgba(13,11,30,.2) 0%,rgba(13,11,30,.08) 30%,transparent 55%);z-index:2}}
-@media(min-width:1024px){.hero-media{min-height:calc(100svh - 20px)}}
+@media(min-width:700px){.hero-media{background:url('assets/hero-bg.webp') right 80%/cover no-repeat,var(--navy)}.hero-media::after{background:linear-gradient(90deg,rgba(13,11,30,.42) 0%,rgba(13,11,30,.18) 34%,transparent 60%);z-index:2}}
+@media(min-width:1024px){.hero-media{min-height:clamp(600px,61vw,840px)}}
 .scroll-ind{display:none}
 @media(min-width:768px){.scroll-ind{display:flex;align-items:center;justify-content:center;position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:36px;height:36px;z-index:4;cursor:pointer;text-decoration:none}}
 .scroll-arrow{width:14px;height:14px;border-right:2px solid var(--copper3);border-bottom:2px solid var(--copper3);transform:rotate(45deg);animation:scrollBlink 1.8s ease-in-out infinite}
 @keyframes scrollBlink{0%,100%{opacity:1;transform:rotate(45deg) translate(-3px,-3px)}50%{opacity:.35;transform:rotate(45deg) translate(3px,3px)}}
 .hero-body{position:relative;z-index:2;padding:32px var(--pad) 40px;width:100%;max-width:var(--max);margin:0 auto}
-@media(min-width:1024px){.hero-body{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:72px var(--pad);max-width:var(--max);margin:0 auto}}
+@media(min-width:700px){.hero-body{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:72px var(--pad);max-width:var(--max);margin:0 auto}}
 .hero-inner{max-width:100%;text-align:center;margin:0 auto}
-@media(min-width:1024px){.hero-inner{max-width:500px;text-align:center;margin:0}}
+@media(min-width:700px){.hero-inner{max-width:500px;text-align:center;margin:0}}
 .h-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:18px}
 @media(min-width:768px){.h-logo{align-items:center;margin-bottom:22px}}
 .h-logo img{width:90px;height:auto;margin-bottom:6px;}
 @media(min-width:1024px){.h-logo img{width:90px}}
 @media(min-width:1440px){.h-logo img{width:140px}}
-@media(min-width:1024px) and (max-height:820px){
-  .hero-media{min-height:calc(100svh - 90px)}
-  .hero-body{padding:40px var(--pad)!important;justify-content:center}
-  .h-logo{margin-bottom:10px!important}
-  .hero h1{font-size:38px}
-  .h-tag{font-size:12px;padding:7px 18px;margin-bottom:12px}
-  .hero-loc{font-size:12px;margin-bottom:14px}
-  .h-cards{margin-bottom:14px}
-  .h-card-val{font-size:26px}
-  .h-card-lab,.h-card-sub{font-size:10px}
-  .h-spec{font-size:11px;padding:6px 16px}
-  .h-specs-wrap{margin-bottom:14px}
-  .hero-ctas .btn{font-size:13px;padding:12px 10px}
-}
-@media(min-width:1024px) and (max-height:720px){
-  .hero h1{font-size:30px}
-  .h-card-val{font-size:22px}
-  .h-tag{font-size:11px}
-  .hero-loc{font-size:11px}
-}
-@media(max-width:1023px) and (max-height:720px){
-  .hero-media{min-height:620px;max-height:720px}
-  .hero h1{font-size:24px}
-  .h-card-val{font-size:20px}
-  .h-tag{font-size:11px;padding:6px 14px;margin-bottom:10px}
-  .h-cards{margin-bottom:12px}
-  .hero-loc{font-size:11px;margin-bottom:14px}
-}
+/* The three (max-height:...) blocks that used to live here shrank the hero type and the
+   box itself on short viewports. They are gone on purpose: viewport height no longer
+   changes the hero at all. Narrow-WIDTH adaptations are handled by the max-width:372px
+   and max-width:374px blocks near the top of this stylesheet. */
 .h-logo-title{font-family:var(--fd);font-size:16px;font-weight:500;color:var(--cream);letter-spacing:4px;line-height:1;margin-top:2px}
 .h-logo-tag{font-size:8px;color:var(--copper3);letter-spacing:3px;text-transform:uppercase;margin-top:6px;font-weight:500}
 @media(min-width:1024px){.h-logo-title{font-size:20px;letter-spacing:5px}.h-logo-tag{font-size:9px;letter-spacing:3.5px}}
@@ -437,11 +422,27 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 .h-spec+.h-spec::before{content:'';position:absolute;left:0;top:25%;bottom:25%;width:1px;background:rgba(255,255,255,.18)}
 @media(min-width:1024px){.h-spec{font-size:12px;padding:8px 22px}}
 /* The CTA sits under the banner now that the banner owns the full first screen. */
+/* 700-1023: same composition as desktop, in a box only ~62vw tall, so the type comes
+   down to fit. Every value here is width-keyed; nothing reads viewport height. */
+@media(min-width:700px) and (max-width:1023px){
+  .hero-body{padding:36px var(--pad)!important}
+  .hero-inner{max-width:min(50vw,470px)}
+  .h-logo{margin-bottom:8px}
+  .h-logo img{width:66px}
+  .h-tag{font-size:11px;padding:6px 14px;margin-bottom:10px}
+  .hero h1{font-size:31px}
+  .h-place{margin-bottom:12px}
+  .h-cards{margin-bottom:14px}
+  .h-card{padding:4px 16px}
+  .h-card-val{font-size:23px}
+  .hero-ctas{max-width:400px;gap:9px}
+  .hero-ctas .btn{font-size:12.5px;padding:11px 9px}
+}
 .hero-ctas{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:9px;max-width:460px;margin:0 auto}
 .hero-ctas .btn-p{min-width:0;padding:13px 10px;font-size:13.5px;text-align:center;line-height:1.35;
   text-wrap:balance;-webkit-hyphens:none;hyphens:none}
 @media(min-width:768px){.hero-ctas{max-width:480px;gap:12px}.hero-ctas .btn-p{padding:14px 16px;font-size:14.5px}}
-@media(max-width:1023px){.hero-media{display:flex;flex-direction:column}.hero-body{flex:1;display:flex;flex-direction:column;width:100%;padding:14px var(--pad) 20px}.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px}.hero-inner .h-logo{margin-bottom:8px;margin-top:10px}.hero-inner .h-tag{margin-bottom:12px}.hero-inner .hero-loc{margin-bottom:16px}.hero-inner .h-cards{margin-bottom:16px}.hero-ctas{margin-top:auto;margin-bottom:0;padding-top:24px;position:relative;z-index:3;width:100%}.h-specs{background:rgba(13,11,30,.7);border-color:rgba(255,255,255,.22);box-shadow:0 4px 20px rgba(0,0,0,.4)}.h-spec{color:var(--cream)}}
+@media(max-width:699px){.hero-media{display:flex;flex-direction:column}.hero-body{flex:1;display:flex;flex-direction:column;width:100%;padding:14px var(--pad) 20px}.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;max-width:600px}.hero-inner .h-logo{margin-bottom:8px;margin-top:10px}.hero-inner .h-tag{margin-bottom:12px}.hero-inner .hero-loc{margin-bottom:16px}.hero-inner .h-cards{margin-bottom:16px}.hero-ctas{margin-top:auto;margin-bottom:0;padding-top:24px;position:relative;z-index:3;width:100%}.h-specs{background:rgba(13,11,30,.7);border-color:rgba(255,255,255,.22);box-shadow:0 4px 20px rgba(0,0,0,.4)}.h-spec{color:var(--cream)}}
 
 /* ===== TRUST ===== */
 .trust{background:var(--dark);padding:22px var(--pad);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid rgba(196,134,90,.1);border-bottom:1px solid rgba(196,134,90,.1)}
@@ -1362,6 +1363,19 @@ html.js .nx .rv{opacity:1;transform:none;transition:none}
 @media(min-width:1024px){
 .nx .unit-plan img{max-height:540px}
 }
+/* The Renovation Package key is drawn here rather than baked into the artwork: the plan
+   cards are cropped tight to the drawing, so the yellow outlines survive the crop but the
+   key that explains them does not. The dash colour is sampled from the artwork (#F7F061),
+   not from the brand palette, because it has to read as the same yellow. */
+.nx .unit-legend{position:absolute;left:14px;bottom:12px;display:flex;flex-direction:column;
+  gap:2px;font:500 12px/1.35 var(--fb);color:var(--cream2);pointer-events:none;text-align:left}
+.nx .unit-legend i{display:block;width:26px;height:0;border-top:2px dashed #F5EE5C;margin-bottom:4px}
+.nx .unit-legend small{font:400 12px/1.4 var(--fb);color:var(--tl)}
+@media(min-width:1024px){
+.nx .unit-legend{left:20px;bottom:18px;font-size:12.5px}
+.nx .unit-legend i{width:32px}
+.nx .unit-legend small{font-size:12.5px}
+}
 .nx .unit-zoom{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:7px;
   padding:7px 12px;border-radius:2px;background:rgba(13,11,30,.8);border:1px solid var(--mullion);
   font:600 11.5px/1.3 var(--fb);color:var(--cream2);pointer-events:none}
@@ -1463,6 +1477,11 @@ html.js .nx .rv{opacity:1;transform:none;transition:none}
 .nx .stat:last-child{border-right:none}
 }
 .nx .stat b{display:block;font:500 clamp(26px,4.4vw,38px)/1.05 var(--fd);color:var(--gold2)}
+/* Attribution for third-party figures. Deliberately quiet but selectable and linked, so a
+   buyer or a regulator can check every number in the block above it. */
+.nx .src-note{font:400 12px/1.65 var(--fb);color:var(--tl);max-width:66ch}
+.nx .src-note a{color:var(--copper3);text-decoration:underline;text-underline-offset:2px}
+@media(min-width:1024px){.nx .src-note{font-size:12.5px}}
 .nx .stat span{display:block;font:600 11px/1.6 var(--fb);letter-spacing:.1em;text-transform:uppercase;color:var(--cream2);opacity:.78;margin-top:5px}
 .nx .sg-grid{display:grid;gap:1px;background:var(--mullion);border:1px solid var(--mullion);margin-top:26px}
 @media(min-width:760px){
@@ -1585,7 +1604,11 @@ html.js .nx .rv{opacity:1;transform:none;transition:none}
 @keyframes rt{from{transform:translateX(100%)}to{transform:none}}
 .nx .lb{position:fixed;inset:0;background:rgba(10,9,20,.95);z-index:90;display:none;align-items:center;justify-content:center;padding:20px}
 .nx .lb.on{display:flex}
-.nx .lb img{max-width:100%;max-height:88vh;width:auto}
+.nx .lb-in{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:100%}
+.nx .lb img{max-width:100%;max-height:82vh;width:auto}
+.nx .lb-legend{display:flex;align-items:center;gap:8px;font:500 12.5px/1.35 var(--fb);color:var(--cream2)}
+.nx .lb-legend i{flex:none;width:28px;height:0;border-top:2px dashed #F5EE5C}
+.nx .lb-legend small{font:400 12px/1.4 var(--fb);color:var(--tl)}
 .nx .lb-x{position:absolute;top:18px;right:18px;width:42px;height:42px;border:1px solid var(--mullion);
   background:rgba(21,19,40,.8);color:var(--cream);display:grid;place-items:center;font-size:19px}
 section[id]{scroll-margin-top:calc(var(--nav-h) + 50px)}
@@ -2255,7 +2278,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="tabs" id="tabs" role="tablist" aria-label="Unit layouts">
       <button class="tab" role="tab" data-type="A" aria-selected="true">Type A<em>Studio</em></button>
       <button class="tab" role="tab" data-type="B" aria-selected="false">Type B<em>1 Bed</em><span class="pop">Popular</span></button>
-      <button class="tab" role="tab" data-type="C" aria-selected="false">Type C<em>1 Bed + P</em></button>
+      <button class="tab" role="tab" data-type="C" aria-selected="false">Type C<em>Dual-key</em></button>
       <button class="tab" role="tab" data-type="D" aria-selected="false">Type D<em>1 Bed</em></button>
       <button class="tab" role="tab" data-type="E" aria-selected="false">Type E<em>Dual-key</em></button>
     </div>
@@ -2264,6 +2287,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="unit-plan" id="planWrap">
         <span class="unit-zoom"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg>Tap to enlarge</span>
         <img id="planImg" src="assets/fp-type-a-card.webp" alt="Type A floor plan, 403 sq ft studio" width="729" height="1018">
+        <span class="unit-legend"><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span>
       </div>
       <div class="unit-info">
         <h3>Type <span id="uName">A</span></h3>
@@ -2292,7 +2316,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="unit-acts">
           <button class="btn btn-p" id="uCta" data-open-lead="unit_card" data-unit="Type A">Get the Type A price &amp; layout</button>
-            <a class="btn btn-o" id="uVt" href="https://framemakers-creative.com/mgrandminori/" target="_blank" rel="noopener">360&deg; Virtual Tour</a>
           </div>
         
       </div>
@@ -2361,13 +2384,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="split-body">
       <span class="eyebrow">The Rapid Transit System (RTS) Link</span>
       <h2>Three kilometres from the <span class="em">crossing</span></h2>
-      <p class="copy">Bukit Chagar station sits 3 km away. When the Rapid Transit System opens, the trip under the Straits takes about five minutes, on a service built to move ten thousand people an hour in each direction.</p>
+      <p class="copy">Bukit Chagar station sits 3 km away. Once the Rapid Transit System begins passenger service, the trip across the Straits takes about five minutes, on a shuttle built to move ten thousand people an hour in each direction.</p>
       <div class="stats">
-        <div class="stat"><b>31 Dec 2026</b><span>RTS opens</span></div>
-        <div class="stat"><b>3.6 min</b><span>Peak frequency</span></div>
-        <div class="stat"><b>6am&ndash;12am</b><span>Operating hours</span></div>
-        <div class="stat"><b class="num" data-count="10000">10,000</b><span>Passengers per hour</span></div>
+        <div class="stat"><b>End 2026</b><span>Passenger service target</span></div>
+        <div class="stat"><b>About 5 min</b><span>To Woodlands North</span></div>
+        <div class="stat"><b>6am&ndash;12am</b><span>Planned operating hours</span></div>
+        <div class="stat"><b class="num" data-count="10000">10,000</b><span>Passengers per hour, each way</span></div>
       </div>
+      <p class="src-note">Sources: journey time, capacity and the end-2026 service target are as published by the <a href="https://www.lta.gov.sg/content/ltagov/en/upcoming_projects/rail_expansion/JB-Singapore_RTS_link.html" target="_blank" rel="noopener">Land Transport Authority, Singapore</a> and <a href="https://www.mymrt.com.my/projects/rts-link/" target="_blank" rel="noopener">MRT Corp, Malaysia</a>. Operating hours are those stated by Singapore's <a href="https://www.mot.gov.sg/news-resources/newsroom/written-reply-to-parliamentary-question-on-extending-the-operating-hours-of-the-johor-singapore-rapid-transit-system-beyond-6-00-am-to-12-00-am/" target="_blank" rel="noopener">Ministry of Transport</a>. These are the authorities' stated targets and plans, not guarantees, and the opening date has not been jointly confirmed. Checked 28 August 2026.</p>
     </div>
   </div>
 </section>
@@ -2800,7 +2824,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <a class="btn btn-o" href="https://maps.app.goo.gl/8D6pQSJu3Yv5zfoF7" target="_blank" rel="noopener">Google Maps</a>
-          <button class="btn btn-o" type="button" data-imod="https://m-grandminori.com.my/wp-content/uploads/2026/07/M-Grand-Minori-Sales-Kit-July-2026.pdf" data-imod-title="M Grand Minori e-brochure">E-Brochure</button>
+          <button class="btn btn-o" type="button" data-imod="assets/M-Grand-Minori-Brochure-2026-08.pdf" data-imod-title="M Grand Minori e-brochure (August 2026)">E-Brochure</button>
         </div>
       </div>
       <div class="form-card">
@@ -2960,11 +2984,11 @@ if('IntersectionObserver' in window&&formSec){new IntersectionObserver(function(
 var MGM_UNITS = {
   A:{layout:'Studio', bath:'1',   size:403, price:332000, cfg:'Ideal for singles and rental',
      plan:'assets/fp-type-a-card.webp', pw:670, ph:1100, full:'assets/fp-type-a-full.webp', vt:''},
-  B:{layout:'1 Bed',  bath:'1',   size:496, price:396000, cfg:'One bedroom, couples and investors',
+  B:{layout:'1 Bed',  bath:'1',   size:496, price:396000, cfg:'The only layout with a private yard, and a full separate bedroom',
      plan:'assets/fp-type-b-card.webp', pw:898, ph:1100, full:'assets/fp-type-b-full.webp', vt:'https://my.matterport.com/show/?m=LRVbShV1xez'},
-  C:{layout:'1 Bed',  bath:'1+1', size:624, price:503000, cfg:'One bedroom with powder room, couples and WFH',
+  C:{layout:'1 Bed',  bath:'1+1', size:624, price:503000, cfg:'Dual-key: two lockable rooms off one entry. Live in one, let the other',
      plan:'assets/fp-type-c-card.webp', pw:898, ph:1100, full:'assets/fp-type-c-full.webp', vt:'https://my.matterport.com/show/?m=VYbZF57CG2g'},
-  D:{layout:'1 Bed',  bath:'1',   size:630, price:518000, cfg:'One bedroom, larger built-up, families and WFH',
+  D:{layout:'1 Bed',  bath:'1',   size:630, price:518000, cfg:'Larger built-up with a walk-in closet. Room for a small family',
      plan:'assets/fp-type-d-card.webp', pw:802, ph:1100, full:'assets/fp-type-d-full.webp', vt:'https://m-grandminori.com.my/virtualtour/type-d/'},
   E:{layout:'3 Bed',  bath:'2',   size:835, price:654000, cfg:'Three bedroom dual-key, income layout',
      plan:'assets/fp-type-e-card.webp', pw:985, ph:1100, full:'assets/fp-type-e-full.webp', vt:'https://my.matterport.com/show/?m=KbWfBVYuZBb'}
@@ -4022,7 +4046,7 @@ window.mgmTrackLead = function (payload) {
 </script>
 
 <div class="nx">
-<div class="lb" id="lb"><button class="lb-x" id="lbX" aria-label="Close">&#10005;</button><img id="lbImg" alt=""></div>
+<div class="lb" id="lb"><button class="lb-x" id="lbX" aria-label="Close">&#10005;</button><div class="lb-in"><img id="lbImg" alt=""><span class="lb-legend"><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span></div></div>
 </div>
 <script>
 (function(){
@@ -4034,11 +4058,11 @@ window.mgmTrackLead = function (payload) {
   var UNITS={
     A:{layout:'Studio',bath:'1',size:403,price:332000,cfg:'Ideal for singles and rental',
        plan:'assets/fp-type-a-card.webp',full:'assets/fp-type-a-full.webp',vt:''},
-    B:{layout:'1 Bed',bath:'1',size:496,price:396000,cfg:'One bedroom, for couples and investors',
+    B:{layout:'1 Bed',bath:'1',size:496,price:396000,cfg:'The only layout with a private yard, and a full separate bedroom',
        plan:'assets/fp-type-b-card.webp',full:'assets/fp-type-b-full.webp',vt:'https://my.matterport.com/show/?m=LRVbShV1xez'},
-    C:{layout:'1 Bed',bath:'1+1',size:624,price:503000,cfg:'One bedroom with a powder room',
+    C:{layout:'1 Bed',bath:'1+1',size:624,price:503000,cfg:'Dual-key: two lockable rooms off one entry. Live in one, let the other',
        plan:'assets/fp-type-c-card.webp',full:'assets/fp-type-c-full.webp',vt:'https://my.matterport.com/show/?m=VYbZF57CG2g'},
-    D:{layout:'1 Bed',bath:'1',size:630,price:518000,cfg:'One bedroom, larger built-up',
+    D:{layout:'1 Bed',bath:'1',size:630,price:518000,cfg:'Larger built-up with a walk-in closet. Room for a small family',
        plan:'assets/fp-type-d-card.webp',full:'assets/fp-type-d-full.webp',vt:''},
     E:{layout:'3 Bed',bath:'2',size:835,price:654000,cfg:'Three bedroom dual-key, an income layout',
        plan:'assets/fp-type-e-card.webp',full:'assets/fp-type-e-full.webp',vt:'https://my.matterport.com/show/?m=KbWfBVYuZBb'}
@@ -4069,7 +4093,6 @@ window.mgmTrackLead = function (payload) {
     $('planWrap').setAttribute('data-full',u.full);
     var cta=$('uCta'); cta.setAttribute('data-unit','Type '+cur);
     cta.textContent='Get the Type '+cur+' price & layout';
-        var vt=$('uVt'); vt.href=u.vt||'https://framemakers-creative.com/mgrandminori/';
     Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(t){
       t.setAttribute('aria-selected',String(t.getAttribute('data-type')===cur));});
     calc();
