@@ -1368,7 +1368,11 @@ html.js .nx .rv{opacity:1;transform:none;transition:none}
    key that explains them does not. The dash colour is sampled from the artwork (#F7F061),
    not from the brand palette, because it has to read as the same yellow. */
 .nx .unit-legend{position:absolute;left:14px;bottom:12px;display:flex;flex-direction:column;
-  gap:2px;font:500 12px/1.35 var(--fb);color:var(--cream2);pointer-events:none;text-align:left}
+  gap:2px;font:500 12px/1.35 var(--fb);color:var(--cream2);pointer-events:none;text-align:left;
+  /* Same treatment as .unit-zoom: the key is absolutely positioned over the plan and was
+     landing on the drawing's bottom-left dimension line, so it carries the panel ground
+     with it rather than competing with the linework. */
+  background:rgba(13,11,30,.82);border:1px solid var(--mullion);border-radius:2px;padding:8px 11px}
 .nx .unit-legend i{display:block;width:26px;height:0;border-top:2px dashed #F5EE5C;margin-bottom:4px}
 .nx .unit-legend small{font:400 12px/1.4 var(--fb);color:var(--tl)}
 @media(min-width:1024px){
