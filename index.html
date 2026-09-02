@@ -2320,7 +2320,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="unit-acts">
           <button class="btn btn-p" id="uCta" data-open-lead="unit_card" data-unit="Type A">Get the Type A price &amp; layout</button>
           </div>
-        
+        <!-- 360 walk-through. Opens in the same in-page iframe modal the location 360 and
+             the e-brochure already use ([data-imod]), so the visitor never leaves the page.
+             The attributes are rewritten per type by render(); the modal's click handler
+             reads data-imod at click time, so the one static binding is enough.
+             Types with no tour hide this rather than linking to another type's unit. -->
+        <button class="vt-link" id="uVt" type="button" data-imod="" data-imod-title="" hidden>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5c4.7 0 8.5-1.6 8.5-3.5S16.7 13.5 12 13.5 3.5 15.1 3.5 17s3.8 3.5 8.5 3.5Z"/><path d="M12 13.5V9.8"/><circle cx="12" cy="6.3" r="2.8"/><path d="m8.9 17.6 1.7-1.2M15.1 17.6l-1.7-1.2"/></svg>
+          <span id="uVtT">Walk through the Type A show unit in 360&deg;</span>
+        </button>
       </div>
     </div>
 
@@ -4066,7 +4074,7 @@ window.mgmTrackLead = function (payload) {
     C:{layout:'1 Bed',bath:'1+1',size:624,price:503000,cfg:'Dual-key: two lockable rooms off one entry. Live in one, let the other',
        plan:'assets/fp-type-c-card.webp',full:'assets/fp-type-c-full.webp',shots:[['unit-c-1','Type C show unit, the living side with its own seating and dining'],['unit-c-2','Type C show unit, the bedroom side, lockable separately'],['unit-c-3','Type C show unit, the living side with the kitchen beyond'],['unit-c-4','Type C show unit, the bedroom side with its own counter'],['unit-c-5','Type C show unit, the living side media wall'],['unit-c-6','Type C show unit, bathroom off the bedroom side']],vt:'https://my.matterport.com/show/?m=VYbZF57CG2g'},
     D:{layout:'1 Bed',bath:'1',size:630,price:518000,cfg:'Larger built-up with a walk-in closet. Room for a small family',
-       plan:'assets/fp-type-d-card.webp',full:'assets/fp-type-d-full.webp',shots:[],vt:''},
+       plan:'assets/fp-type-d-card.webp',full:'assets/fp-type-d-full.webp',shots:[],vt:'https://www.arsgather.com/360/MGM1-TD/'},
     E:{layout:'3 Bed',bath:'2',size:835,price:654000,cfg:'Three bedroom dual-key, an income layout',
        plan:'assets/fp-type-e-card.webp',full:'assets/fp-type-e-full.webp',shots:[['unit-e-1','Type E show unit, living and dining area'],['unit-e-2','Type E show unit, master bedroom with walk-in wardrobe'],['unit-e-3','Type E show unit, dining area and kitchen'],['unit-e-4','Type E show unit, second bedroom'],['unit-e-5','Type E show unit, third bedroom'],['unit-e-6','Type E show unit, kitchen']],vt:'https://my.matterport.com/show/?m=KbWfBVYuZBb'}
   };
@@ -4096,6 +4104,18 @@ window.mgmTrackLead = function (payload) {
     $('planWrap').setAttribute('data-full',u.full);
     var cta=$('uCta'); cta.setAttribute('data-unit','Type '+cur);
     cta.textContent='Get the Type '+cur+' price & layout';
+    var vt=$('uVt');
+    if(vt){
+      if(u.vt){
+        vt.setAttribute('data-imod',u.vt);
+        vt.setAttribute('data-imod-title','Type '+cur+' show unit, 360° walk-through');
+        $('uVtT').textContent='Walk through the Type '+cur+' show unit in 360°';
+        vt.hidden=false;
+      } else {
+        vt.setAttribute('data-imod','');
+        vt.hidden=true;
+      }
+    }
     renderShots(u);
     Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(t){
       t.setAttribute('aria-selected',String(t.getAttribute('data-type')===cur));});
@@ -4130,6 +4150,19 @@ window.mgmTrackLead = function (payload) {
   window.setType=function(t){ if(UNITS[t]){cur=t;render();} };
   Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(tab){
     tab.addEventListener('click',function(){window.setType(tab.getAttribute('data-type'));});});
+
+  /* Opening a 360 walk-through is a high-intent signal and needs to be readable next to
+     generate_lead, so it reports the type it was opened for. Additive only: this is a new
+     event name and touches nothing the URL test already measures. The modal itself is
+     opened by the shared [data-imod] handler; this listener only reports. */
+  (function(){
+    var vt=$('uVt'); if(!vt) return;
+    vt.addEventListener('click',function(){
+      if(typeof window.mgmTrackLead!=='function') return;
+      window.mgmTrackLead({event:'virtual_tour_open', unit_interest:'Type '+cur,
+        tour_url:UNITS[cur].vt||'', tour_source:'unit_card'});
+    });
+  })();
   ['cLoan','cTen'].forEach(function(id){$(id).addEventListener('input',calc);});
 
   /* price picker cycles the type, keeping the calculator and the card in step */
