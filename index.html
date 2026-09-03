@@ -58,14 +58,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="https://m-grandminori.com.my/wp-content/uploads/2025/08/cropped-MGM-website-logo-192x192.jpg" sizes="192x192">
 <link rel="apple-touch-icon" href="https://m-grandminori.com.my/wp-content/uploads/2025/08/cropped-MGM-website-logo-180x180.jpg">
 
-<!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2MFJ76RZX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-D2MFJ76RZX');
-</script>
+<!-- GA4: intentionally NO bare gtag on this page. GTM-5CG9TXKM owns G-D2MFJ76RZX
+     and holds the Google tag, the generate_lead tag, the Meta Pixel and the ver2_*
+     click tags. Two owners of one measurement id is a race: while both were present
+     this page logged 3 generate_lead against 39 automatic form_submit. Do not
+     re-add a gtag config here. Matches the M Legasi ver2 pattern. 2026-09-04 -->
 
 
 
@@ -4052,25 +4049,25 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 </style>
 
 <script>
-/* ===== ROUND 1: lead tracking =====================================================
-   SITE-1: the dataLayer.push({event:'generate_lead'}) calls below were never reaching
-   GA4 because no GTM tag forwards them. mgmTrackLead now ALSO calls gtag() directly,
-   which lands in G-D2MFJ76RZX regardless of container config.
-   SITE-4: 'generate_lead' is the single canonical lead event. The original site must
-   be changed to fire the same name before the head-to-head URL test, or the two arms
-   cannot be compared.
-   Keep the dataLayer.push so any existing GTM work continues to receive it.
+/* ===== lead tracking (revised 2026-09-04) =========================================
+   dataLayer ONLY. GTM-5CG9TXKM v6 carries a generate_lead Custom Event trigger and a
+   GA4 Event tag, so the push below reaches G-D2MFJ76RZX through the container.
+
+   The direct gtag() call that used to sit here was added in Round 1 to work around
+   'no GTM tag forwards them'. That tag now exists, and the workaround had become the
+   problem: gtag() is only a dataLayer push, so with the container also claiming
+   G-D2MFJ76RZX the two raced and most leads were dropped. Measured over 30 days
+   before this change: 3 generate_lead against 39 automatic form_submit, while
+   M Legasi on the container-only pattern recorded 95 against 93.
+
+   SITE-4 still open: 'generate_lead' is the single canonical lead event, and the
+   ORIGINAL site must be changed to fire the same name before the head-to-head URL
+   test, or the two arms cannot be compared.
 =================================================================================== */
 window.mgmTrackLead = function (payload) {
   try {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(payload);
-    if (typeof window.gtag === 'function') {
-      var name = payload.event;
-      var params = {};
-      for (var k in payload) { if (k !== 'event' && payload.hasOwnProperty(k)) params[k] = payload[k]; }
-      window.gtag('event', name, params);
-    }
   } catch (err) { /* never let tracking break a submit */ }
 };
 </script>
