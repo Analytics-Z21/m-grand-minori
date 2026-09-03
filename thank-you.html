@@ -8,17 +8,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5CG9TXKM');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 direct channel for the confirmation event. GTM on this page already
-     sends page_view, so send_page_view is false here to avoid a second one.
-     This page is only reachable via the Salesforce retURL redirect, which
-     Salesforce performs ONLY after it has accepted the lead. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2MFJ76RZX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-D2MFJ76RZX', { send_page_view: false });
-</script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -96,44 +85,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </main>
 <footer class="ty-foot">© 2026 M Grand Minori · A development by <a href="https://www.mahsing.com.my" target="_blank" rel="noopener">Mah Sing Group</a></footer>
-<!-- lead_confirmed: the navigation-proof counterpart to generate_lead.
-     generate_lead fires on submit, before Salesforce has confirmed anything.
-     This page is only reachable via the Salesforce retURL redirect, which
-     Salesforce performs ONLY after it has accepted the lead, so the gap
-     between the two events is the submit-to-Salesforce drop-off, and this one
-     is directly comparable with the original site's thank-you-page event.
+<!-- lead_confirmed: dataLayer push ONLY on this project. Read this before
+     "fixing" it by adding a gtag() call, because that is what was just removed.
 
-     Fires via a readiness poll rather than a bare inline call: gtag.js is
-     async, so an inline call at parse time races its initialisation and was
-     observed firing only intermittently. The poll waits for a real gtag,
-     fires exactly once, and gives up after 6s. The dataLayer push is kept
-     unconditionally so any GTM tag can also pick the event up. -->
+     GTM-5CG9TXKM on this page already configures G-D2MFJ76RZX, the ver2 stream
+     itself. A second gtag config for the same measurement id does not create a
+     second processor: it races the container's config and the loser is deduped.
+     Measured on the live page 2026-09-03: a perfect inversion, never both. In
+     the trials where our config won, page_view went to NOTHING, and
+     lead_thankyou_page is a registered key event on property 499233629 that
+     triggers on this pageview. So the gtag call was costing real thank-you
+     conversions to deliver an event nothing counts yet.
+
+     M Aria, M Amaya and M Aurora do not have this problem: on those pages the
+     page owns a measurement id no on-page container configures.
+
+     To make this reach GA4, add a GA4 Event tag in GTM-5CG9TXKM triggered on
+     the custom event 'lead_confirmed', targeting G-D2MFJ76RZX. No code change
+     needed here: the push below is already in the right shape and starts
+     working the moment that tag exists. -->
 <script>
 (function(){
-  var sent=false, tries=0;
-  var params={ lead_type:'form_submission', page_location:location.href };
   try{
     window.dataLayer=window.dataLayer||[];
-    window.dataLayer.push({ event:'lead_confirmed', lead_type:'form_submission' });
+    window.dataLayer.push({
+      event:'lead_confirmed',
+      lead_type:'form_submission',
+      page_location:location.href
+    });
   }catch(e){}
-  function fire(){
-    if(sent) return true;
-    try{
-      if(typeof window.gtag==='function'){
-        window.gtag('event','lead_confirmed',params);
-        sent=true; return true;
-      }
-    }catch(e){ sent=true; return true; }
-    return false;
-  }
-  function poll(){
-    if(fire()) return;
-    if(++tries>30) return;              /* ~6s ceiling */
-    setTimeout(poll,200);
-  }
-  if(document.readyState==='complete') poll();
-  else window.addEventListener('load',poll);
-  setTimeout(poll,400);                 /* also try early, in case load is slow */
 })();
 </script>
 </body>
