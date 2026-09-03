@@ -3,6 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Varify A/B testing. Install ID 6318 is DELIBERATELY the same as m-grandminori.com.my,
+     the paired original site: a split URL test is one experiment spanning both URLs,
+     so this page must load the same Varify project to recognise the va-red exposure
+     handoff and record that this visitor was sent here as the variant arm.
+     Without this snippet the variant arm logs no exposure and only the control arm
+     is measurable.
+
+     No experiment targets www.ver2.m-grandminori.com.my, so nothing on this page is altered and no
+     redirect fires. Varify's auto GTM container loads here but sends no GA4 hit:
+     verified 2026-09-04 by comparing collect requests with and without the snippet,
+     identical on all five ver2 sites.
+
+     Keep this hardcoded in the head. Do NOT move it into a GTM container. -->
+<script>
+  window.varify = window.varify || {};
+  window.varify.iid = 6318;
+</script>
+<script src="https://app.varify.io/varify.js"></script>
+
 <meta name="robots" content="index, nofollow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
