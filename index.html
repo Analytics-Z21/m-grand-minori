@@ -2395,7 +2395,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="field"><label class="f-label" for="q-name">Full name</label>
             <input class="f-input" id="q-name" name="last_name" type="text" maxlength="80" placeholder="Your full name" required autocomplete="name"></div>
           <div class="field"><label class="f-label" for="q-phone">Phone number</label>
-            <input class="f-input" id="q-phone" name="mobile" type="tel" maxlength="20" placeholder="012-345 6789" required autocomplete="tel" inputmode="tel"></div>
+            <input class="f-input" id="q-phone" name="mobile" type="tel" maxlength="20" placeholder="012-345 6789 or 9123 4567" required autocomplete="tel" inputmode="tel" data-my-phone></div>
           <div class="field"><label class="f-label" for="q-email">Email</label>
             <input class="f-input" id="q-email" name="email" type="email" maxlength="80" placeholder="you@example.com" required autocomplete="email"></div>
           <button class="btn btn-p" type="submit" style="width:100%">Get the price list</button>
@@ -2866,7 +2866,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="field"><label class="f-label" for="v-name">Full name</label>
             <input class="f-input" id="v-name" name="last_name" maxlength="80" type="text" placeholder="Your full name" required autocomplete="name"></div>
           <div class="field"><label class="f-label" for="v-phone">Phone number</label>
-            <input class="f-input" id="v-phone" name="mobile" maxlength="20" type="tel" placeholder="012-345 6789" required autocomplete="tel" inputmode="tel"></div>
+            <input class="f-input" id="v-phone" name="mobile" maxlength="20" type="tel" placeholder="012-345 6789 or 9123 4567" required autocomplete="tel" inputmode="tel" data-my-phone></div>
           <div class="field"><label class="f-label" for="v-email">Email</label>
             <input class="f-input" id="v-email" name="email" maxlength="80" type="email" placeholder="you@example.com" required autocomplete="email"></div>
           <button class="btn btn-p" type="submit" style="width:100%">Register &amp; get the price list</button>
@@ -2975,7 +2975,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="field">
         <label class="f-label" for="ld_mobile">Phone number</label>
-        <input class="f-input" id="ld_mobile" type="tel" name="mobile" maxlength="20" placeholder="012-345 6789" inputmode="tel" autocomplete="tel" data-my-phone required>
+        <input class="f-input" id="ld_mobile" type="tel" name="mobile" maxlength="20" placeholder="012-345 6789 or 9123 4567" inputmode="tel" autocomplete="tel" data-my-phone required>
       </div>
       <div class="field">
         <label class="f-label" for="ld_email">Email</label>
@@ -3499,15 +3499,22 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim());
   };
 
-  window.isValidMyPhone = function (phone) {
-    if (!phone) return false;
-    var digits = String(phone).replace(/\D/g, '');
-    if (digits.length < 9 || digits.length > 13) return false;
-    if (digits.indexOf('60') === 0 && digits.length >= 11) {
-      if (digits.charAt(2) !== '1') return false;
-    }
-    return true;
+  // Malaysia or Singapore (2026-09-25). MGM sells to Singapore buyers across the RTS Link, and the old
+  // Malaysia-only rule rejected an 8-digit Singapore number typed without +65 and mangled +65 numbers.
+  //   SG: 8 digits starting 3/6/8/9, with or without 65 in front. An 8-digit number is never a valid
+  //       Malaysian mobile (those are 01X, 10-11 digits), so a bare 8-digit number is read as Singapore.
+  //   MY: 01X local (10-11 digits), 601X (11-12 digits), or a landline 0[2-9] / 60[2-9].
+  //   Anything else with a leading + stays accepted at 9-13 digits (other countries).
+  window.phoneCountry = function (phone) {
+    var raw = String(phone || '').trim(), d = raw.replace(/\D/g, '');
+    if (/^[3689]\d{7}$/.test(d)) return 'SG';
+    if (/^65[3689]\d{7}$/.test(d)) return 'SG';
+    if (/^01\d{8,9}$/.test(d) || /^601\d{8,9}$/.test(d)) return 'MY';
+    if (/^0[2-9]\d{7,8}$/.test(d) || /^60[2-9]\d{7,8}$/.test(d)) return 'MY';  // landline, local or +60
+    if (raw.charAt(0) === '+' && d.length >= 9 && d.length <= 13 && d.indexOf('60') !== 0 && d.indexOf('65') !== 0) return 'OTHER';
+    return null;
   };
+  window.isValidMyPhone = function (phone) { return !!window.phoneCountry(phone); };
 
   window.showLeadFormError = function (form, msg) {
     form.classList.add('has-error');
@@ -3528,7 +3535,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
       return 'Please enter a valid email address (e.g. name@example.com).';
     }
     if (!window.isValidMyPhone(mobile)) {
-      return 'Please enter a valid Malaysian phone number (e.g. 012-345 6789).';
+      return 'Please enter a valid Malaysian or Singapore phone number (e.g. 012-345 6789 or 9123 4567).';
     }
     return null;
   };
@@ -3883,32 +3890,31 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     var hasPlus = raw.trim().charAt(0) === '+';
     var digits = raw.replace(/\D/g, '');
     if (digits.length > 13) digits = digits.slice(0, 13);
+    var normalise = options && options.normalise;
+    var country = normalise ? window.phoneCountry(raw) : null;
 
-    var prefix = '';
-    var local = digits;
-
-    // Output format target: +60XX-XXXXXXX  (no spaces anywhere)
-    if (digits.indexOf('60') === 0 && digits.length > 2) {
-      prefix = '+60';
-      local = digits.slice(2);
-    } else if (hasPlus) {
-      prefix = '+';
-      local = digits;
-    } else if (options && options.normalise && digits.charAt(0) === '0' && digits.length >= 9) {
-      // On blur only: promote local 0XX… to +60 form
-      prefix = '+60';
-      local = digits.slice(1);
+    // On blur: settle to one canonical, WhatsApp-routable form per country.
+    //   SG  +65XXXX-XXXX      MY  +601X-XXXXXXX / +6011X-XXXXXXX (unchanged from before)
+    if (country === 'SG') {
+      var sg = digits.length === 10 ? digits.slice(2) : digits;
+      input.value = '+65' + sg.slice(0, 4) + '-' + sg.slice(4);
+      return;
     }
+    if (country === 'OTHER') { input.value = '+' + digits; return; }
 
-    // Split logic for Malaysian mobile:
-    //   9 digits after country code  → 2-7 split  → "10-9331233"   (010 / 012 / 016 etc.)
-    //   10 digits after country code → 3-7 split  → "111-2345678"  (newer 011X prefixes)
+    // While typing (and for Malaysian numbers on blur): the original Malaysian formatting.
+    var prefix = '', local = digits;
+    if (digits.indexOf('60') === 0 && digits.length > 2) { prefix = '+60'; local = digits.slice(2); }
+    else if (digits.indexOf('65') === 0 && hasPlus) { prefix = '+65'; local = digits.slice(2); }
+    else if (hasPlus) { prefix = '+'; local = digits; }
+    else if (normalise && digits.charAt(0) === '0' && digits.length >= 9) { prefix = '+60'; local = digits.slice(1); }
+
     var formatted;
-    if (local.length === 0)       formatted = '';
-    else if (local.length <= 2)   formatted = local;
-    else if (local.length <= 9)   formatted = local.slice(0, 2) + '-' + local.slice(2);
-    else                          formatted = local.slice(0, 3) + '-' + local.slice(3);
-
+    if (prefix === '+65') formatted = local.length <= 4 ? local : local.slice(0, 4) + '-' + local.slice(4);
+    else if (local.length === 0) formatted = '';
+    else if (local.length <= 2) formatted = local;
+    else if (local.length <= 9) formatted = local.slice(0, 2) + '-' + local.slice(2);
+    else formatted = local.slice(0, 3) + '-' + local.slice(3);
     input.value = prefix + formatted;
   }
 
@@ -3917,7 +3923,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     input.addEventListener('blur', function () {
       formatMyPhone(input, { normalise: true }); // auto +60 here
       if (input.value && !window.isValidMyPhone(input.value)) {
-        input.setCustomValidity('Please enter a valid Malaysian phone number.');
+        input.setCustomValidity('Please enter a valid Malaysian or Singapore phone number.');
       } else {
         input.setCustomValidity('');
       }
