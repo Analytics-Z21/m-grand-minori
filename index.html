@@ -2127,7 +2127,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="#layouts" data-nav="units">Floor Plan</a></li>
     <li><a href="#rts" data-nav="invest">RTS Link</a></li>
     <li><a href="#loc" data-nav="location">Location</a></li>
-    <li><a href="#" class="pill-cta" data-open-lead="nav" data-nav="register">Register Now</a></li>
+    <li><a href="#" class="pill-cta" data-open-lead="nav" data-nav="register" data-cta-id="nav_register">Register Now</a></li>
   </ul>
   <nav class="nav-rail" aria-label="Sections">
     <a href="#layouts" data-rail>Layouts</a>
@@ -2155,7 +2155,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </ul>
 
   <div class="nav-right">
-    <a href="#" class="pill-cta nav-reg" data-open-lead="nav" data-nav="register">Register Now</a>
+    <a href="#" class="pill-cta nav-reg" data-open-lead="nav" data-nav="register" data-cta-id="nav_register">Register Now</a>
     <div class="mah-sing-badge">
       <img src="assets/mahsing-logo.webp" alt="Mah Sing" width="571" height="177">
     </div>
@@ -2213,7 +2213,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </nav>
   <div class="mobile-drawer-footer">
-    <button type="button" class="mobile-cta" data-open-lead="mobile-menu">Register Now</button>
+    <button type="button" class="mobile-cta" data-open-lead="mobile-menu" data-cta-id="mobile_menu_register">Register Now</button>
   </div>
 </aside>
 
@@ -2252,8 +2252,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
              These MUST live inside .hero-inner: in a .hero-actions wrapper outside
              .hero-media they rendered below the banner and never reached the fold. -->
         <div class="hero-ctas">
-          <button type="button" class="btn btn-p" data-open-lead="hero">Register Now</button>
-          <a class="btn btn-s" href="#layouts">
+          <button type="button" class="btn btn-p" data-open-lead="hero" data-cta-id="hero_register">Register Now</button>
+          <a class="btn btn-s" href="#layouts" data-cta-id="hero_layouts">
             <span class="btn-s-n">5 layouts</span>
             <span class="btn-s-t">403-835 sq.ft</span>
           </a>
@@ -2334,7 +2334,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
              which has no photography) costs none. -->
         <div class="unit-shots" id="uShots"></div>
           <div class="unit-acts">
-          <button class="btn btn-p" id="uCta" data-open-lead="unit_card" data-unit="Type A">Get the Type A price &amp; layout</button>
+          <button class="btn btn-p" id="uCta" data-open-lead="unit_card" data-unit="Type A" data-cta-id="units_price_list">Get the Type A price &amp; layout</button>
           </div>
         <!-- 360 walk-through. Opens in the same in-page iframe modal the location 360 and
              the e-brochure already use ([data-imod]), so the visitor never leaves the page.
@@ -2834,7 +2834,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-a"><div><p>Taman Pelangi continues to attract attention because of its authenticity, accessibility, and established identity within Johor Bahru. Recent market reports indicate a 20% year-on-year price surge for Johor Bahru serviced apartments, proving the strong capital appreciation potential of this freehold development in the Town Area.</p>
 <p>For buyers exploring apartment or condo options within a proven neighbourhood, developments such as M Grand Minori provide a balance between contemporary comfort and city practicality.</p>
 <p>In a region that is gradually strengthening cross-border collaboration and infrastructure through initiatives like the JS-SEZ, established residential areas with strong fundamentals remain central to long-term residential appeal.</p>
-<p>Secure your unit in Taman Pelangi today to lock in the best value before market demand rises further. <a href="#visit">Contact our sales team</a> to view the show unit and discover how M Grand Minori combines luxury, convenience, and sustainability for your portfolio.</p></div></div></div>
+<p>Secure your unit in Taman Pelangi today to lock in the best value before market demand rises further. <a href="#visit" data-cta-id="faq_contact_sales">Contact our sales team</a> to view the show unit and discover how M Grand Minori combines luxury, convenience, and sustainability for your portfolio.</p></div></div></div>
     </div>
   </div>
 </section>
@@ -2851,7 +2851,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <a class="btn btn-o" href="https://maps.app.goo.gl/8D6pQSJu3Yv5zfoF7" target="_blank" rel="noopener">Google Maps</a>
-          <button class="btn btn-o" type="button" data-imod="assets/M-Grand-Minori-Brochure-2026-08.pdf" data-imod-title="M Grand Minori e-brochure (August 2026)">E-Brochure</button>
+          <button class="btn btn-o" type="button" data-cta-id="form_brochure" data-imod="assets/M-Grand-Minori-Brochure-2026-08.pdf" data-imod-title="M Grand Minori e-brochure (August 2026)">E-Brochure</button>
         </div>
       </div>
       <div class="form-card">
@@ -2992,7 +2992,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </aside>
 
 <!-- STICKY -->
-<div class="sticky"><button type="button" class="stk stk-r" data-open-lead="sticky">Register Now</button></div>
+<div class="sticky"><button type="button" class="stk stk-r" data-open-lead="sticky" data-cta-id="sticky_register">Register Now</button></div>
 <button class="to-top" id="toTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
 <script>
 (function(){var sticky=document.querySelector('.sticky'),toTop=document.getElementById('toTop'),formSec=document.getElementById('register'),formInView=false;
@@ -3078,6 +3078,9 @@ var mgmType = 'A';
     });
   }
 
+  /* DEAD on this page (2026-10-06): #fpTabs, #cpMenu, #fpPlanWrap and #cD/#cT do not exist, so
+     nothing calls mgmSetType. The live controls are #tabs and #cPick, which call setType();
+     unit_select is sent from the GA4 click-events block at the end of the page. */
   window.mgmSetType=function(t,src){
     if(!MGM_UNITS[t]) return;
     mgmType=t; renderCard(); calc();
@@ -4173,18 +4176,9 @@ window.mgmTrackLead = function (payload) {
   Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(tab){
     tab.addEventListener('click',function(){window.setType(tab.getAttribute('data-type'));});});
 
-  /* Opening a 360 walk-through is a high-intent signal and needs to be readable next to
-     generate_lead, so it reports the type it was opened for. Additive only: this is a new
-     event name and touches nothing the URL test already measures. The modal itself is
-     opened by the shared [data-imod] handler; this listener only reports. */
-  (function(){
-    var vt=$('uVt'); if(!vt) return;
-    vt.addEventListener('click',function(){
-      if(typeof window.mgmTrackLead!=='function') return;
-      window.mgmTrackLead({event:'virtual_tour_open', unit_interest:'Type '+cur,
-        tour_url:UNITS[cur].vt||'', tour_source:'unit_card'});
-    });
-  })();
+  /* virtual_tour_open for this button now comes from the GA4 click-events block at the end
+     of the page (2026-10-06), with the location 360 and tour_mode alongside. Do not add a
+     second listener here or the event fires twice. */
   ['cLoan','cTen'].forEach(function(id){$(id).addEventListener('input',calc);});
 
   /* price picker cycles the type, keeping the calculator and the card in step */
@@ -4414,6 +4408,168 @@ window.mgmTrackLead = function (payload) {
       if(!was)c.classList.add('read');
     });
   });
+})();
+</script>
+<script>
+/* ===== GA4 click events (2026-10-06) =============================================
+   Spec: Convx workspace projects/mahsing/audit/2026-10-06_ver2-ga4-event-spec.md.
+
+   Events: cta_click, nav_click, contact_click, unit_select, gallery_open,
+   virtual_tour_open, faq_open, calculator_interact. lead_drawer_open is unchanged
+   (it is pushed by openDrawer above, right after this file's cta_click).
+
+   Transport: mgmTrackLead, i.e. a dataLayer push ONLY. Nothing here reaches GA4 until
+   GTM-5CG9TXKM has a GA4 Event tag on these event names (Custom Event trigger, see
+   2026-10-06_mgm-gtm-change-spec.md). Do NOT add gtag.js to fix that: the container
+   owns G-D2MFJ76RZX and a second config races it (measured 2026-09-03 and 09-04).
+
+   Every push carries the full parameter set, with the ones that do not apply set to
+   undefined. GTM's data layer model is persistent, so without this reset a shared
+   GA4 tag would send the previous event's cta_id or nav_item on the next event.
+
+   Guardrails: capture-phase listeners on document, trusted events only, never
+   preventDefault or stopPropagation, every path inside try/catch. Tracking cannot
+   break the lead drawer, a form, Varify or navigation.
+=================================================================================== */
+(function(){
+  'use strict';
+  var KEYS=['cta_id','section','cta_text','nav_item','nav_target','nav_surface','contact_type',
+    'unit_interest','select_source','trigger_source','gallery','item_index','item_label',
+    'tour_source','tour_mode','faq_question','calc_input'];
+  function send(name,params){
+    try{
+      var p={event:name},k,i;
+      for(i=0;i<KEYS.length;i++)p[KEYS[i]]=undefined;
+      for(k in params){if(Object.prototype.hasOwnProperty.call(params,k))p[k]=params[k];}
+      if(typeof window.mgmTrackLead==='function')window.mgmTrackLead(p);
+      else{window.dataLayer=window.dataLayer||[];window.dataLayer.push(p);}
+    }catch(err){}
+  }
+  var seen={};
+  function first(key){if(seen[key])return false;seen[key]=1;return true;}
+  function txt(el,max){return String(el&&el.textContent||'').replace(/\s+/g,' ').trim().slice(0,max);}
+  function alt(el){var im=el&&el.querySelector&&el.querySelector('img');return String(im&&im.alt||'').slice(0,60);}
+  function slug(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,40);}
+  function idx(el,sel){return Array.prototype.indexOf.call(document.querySelectorAll(sel),el)+1;}
+  function curType(){return txt(document.getElementById('uName'),2);}
+
+  /* section vocabulary shared by the five ver2 sites */
+  var SEC={about:'hero',trust:'overview',layouts:'units',quickRegister:'form',rts:'location',
+    story:'overview',fac:'facilities',gallery:'gallery',interiors:'gallery',city:'overview',
+    loc:'location',developer:'overview',faq:'faq',visit:'form',contact:'footer'};
+  function sectionOf(el){
+    var d=el.closest('[data-section]'); if(d)return d.getAttribute('data-section');
+    if(el.closest('#mobileMenu'))return 'mobile_menu';
+    if(el.closest('#siteNav,#rail'))return 'nav';
+    if(el.closest('.sticky'))return 'sticky';
+    if(el.closest('#leadDrawer'))return 'form';
+    if(el.closest('.calc'))return 'calculator';
+    if(el.closest('footer'))return 'footer';
+    var s=el.closest('section[id],#trust');
+    return (s&&SEC[s.id])||'page';
+  }
+  function contactType(href){
+    var h=String(href||'').toLowerCase();
+    if(h.indexOf('tel:')===0)return 'phone';
+    if(h.indexOf('mailto:')===0)return 'email';
+    if(/api\.whatsapp\.com\/|\/\/wa\.me\//.test(h))return 'whatsapp';
+    if(/waze\.com\//.test(h))return 'waze';
+    if(/google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps|maps\.google\./.test(h))return 'map';
+    return null;
+  }
+
+  document.addEventListener('click',function(e){
+    try{
+      if(!e.isTrusted)return;
+      var t=e.target; if(t&&t.nodeType!==1)t=t.parentElement;
+      if(!t||!t.closest)return;
+      var el,sec,h;
+
+      /* 1. lead and conversion CTAs. Not the form submit buttons. */
+      if((el=t.closest('[data-cta-id],[data-open-lead],a[href="#register"]'))){
+        sec=sectionOf(el);
+        send('cta_click',{cta_id:el.getAttribute('data-cta-id')||(sec+'_'+slug(txt(el,60))),
+          section:sec,cta_text:txt(el,60)});
+        return;
+      }
+      /* 2. phone, email, WhatsApp, Google Maps, Waze */
+      if((el=t.closest('a[href]'))&&(h=contactType(el.getAttribute('href')))){
+        send('contact_click',{contact_type:h,section:sectionOf(el)});
+        return;
+      }
+      /* 3. 360 tours. Every remaining [data-imod] opener is a 360 (the e-brochure is a CTA). */
+      if((el=t.closest('[data-imod]'))){
+        var unit=el.id==='uVt', s3=sectionOf(el);
+        send('virtual_tour_open',{
+          tour_source:unit?'unit_card':(s3==='location'||s3==='gallery'||s3==='hero'||s3==='nav'?s3:'inline'),
+          unit_interest:unit?('Type '+curType()):undefined,tour_mode:'modal'});
+        return;
+      }
+      /* 4. anchor nav: header (desktop rail), section rail (mobile), mobile menu, logo */
+      if((el=t.closest('#siteNav a,#rail a,#mobileMenu a'))){
+        h=el.getAttribute('href')||'';
+        send('nav_click',{nav_item:el.classList.contains('nav-logo')?'Logo':txt(el,40),
+          nav_target:(h===''||h==='#')?'top':h,
+          nav_surface:el.closest('#mobileMenu')?'mobile_menu':'header'});
+        return;
+      }
+      /* 5. unit type. The real controls are #tabs and #cPick, both calling setType(). */
+      if((el=t.closest('#tabs .tab'))){
+        send('unit_select',{unit_interest:'Type '+el.getAttribute('data-type'),select_source:'tab'});
+        return;
+      }
+      if((el=t.closest('#cPick'))){
+        if(first('calc_unit'))send('calculator_interact',{calc_input:'unit'});
+        /* the picker cycles to the next type in its own handler: read the result after it */
+        setTimeout(function(){
+          send('unit_select',{unit_interest:'Type '+txt(document.getElementById('cType'),2),
+            select_source:'calc_dropdown'});
+        },0);
+        return;
+      }
+      /* 6. images and plans opened in a lightbox, and the facilities map categories */
+      if((el=t.closest('#gal figure'))){
+        send('gallery_open',{gallery:'gallery',item_index:idx(el,'#gal figure'),
+          item_label:txt(el.querySelector('figcaption'),60)||alt(el)});
+        return;
+      }
+      if((el=t.closest('#uShots .ushot'))){
+        send('gallery_open',{gallery:'gallery',item_index:idx(el,'#uShots .ushot'),item_label:alt(el)});
+        return;
+      }
+      if((el=t.closest('#planWrap'))){
+        send('gallery_open',{gallery:'floorplan',item_index:'ABCDE'.indexOf(curType())+1,item_label:alt(el)});
+        return;
+      }
+      if((el=t.closest('.loc-map-bg'))){
+        send('gallery_open',{gallery:'map',item_index:1,item_label:alt(el)});
+        return;
+      }
+      if((el=t.closest('.fac-btn'))){
+        send('gallery_open',{gallery:'facilities',item_index:idx(el,'.fac-btn'),
+          item_label:txt(el.querySelector('.fac-btn-name'),60)});
+        return;
+      }
+      /* 7. FAQ: first open of each item per page view. Capture runs before the toggle. */
+      if((el=t.closest('.faq-q'))){
+        var item=el.closest('.faq-item');
+        if(item&&!item.classList.contains('on')&&first('faq_'+idx(item,'.faq-item')))
+          send('faq_open',{faq_question:txt(el,80)});
+        return;
+      }
+    }catch(err){}
+  },true);
+
+  /* 8. calculator sliders: first interaction per page view with each.
+     Loan margin is reported as downpayment (margin = 100% minus downpayment). */
+  var CALC={cLoan:'downpayment',cTen:'tenure'};
+  document.addEventListener('input',function(e){
+    try{
+      if(!e.isTrusted||!e.target)return;
+      var k=CALC[e.target.id];
+      if(k&&first('calc_'+k))send('calculator_interact',{calc_input:k});
+    }catch(err){}
+  },true);
 })();
 </script>
 </body>

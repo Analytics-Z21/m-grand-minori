@@ -116,5 +116,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }catch(e){}
 })();
 </script>
+<script>
+/* GA4 click events (2026-10-06): contact_click on the thank-you page, same event and
+   parameter set as index.html. dataLayer push ONLY, like lead_confirmed above: it reaches
+   GA4 once GTM-5CG9TXKM's GA4 Event tag lists contact_click. The container's own
+   ver2_whatsapp_click link-click tag is untouched and keeps firing alongside.
+   Capture phase, trusted clicks only, no preventDefault, never throws. */
+(function(){
+  'use strict';
+  var KEYS=['cta_id','section','cta_text','nav_item','nav_target','nav_surface','contact_type',
+    'unit_interest','select_source','trigger_source','gallery','item_index','item_label',
+    'tour_source','tour_mode','faq_question','calc_input'];
+  function contactType(href){
+    var h=String(href||'').toLowerCase();
+    if(h.indexOf('tel:')===0)return 'phone';
+    if(h.indexOf('mailto:')===0)return 'email';
+    if(/api\.whatsapp\.com\/|\/\/wa\.me\//.test(h))return 'whatsapp';
+    if(/waze\.com\//.test(h))return 'waze';
+    if(/google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps|maps\.google\./.test(h))return 'map';
+    return null;
+  }
+  document.addEventListener('click',function(e){
+    try{
+      if(!e.isTrusted)return;
+      var t=e.target; if(t&&t.nodeType!==1)t=t.parentElement;
+      var a=t&&t.closest&&t.closest('a[href]'); if(!a)return;
+      var ct=contactType(a.getAttribute('href')); if(!ct)return;
+      var p={event:'contact_click'};
+      for(var i=0;i<KEYS.length;i++)p[KEYS[i]]=undefined;
+      p.contact_type=ct; p.section='thank_you';
+      window.dataLayer=window.dataLayer||[]; window.dataLayer.push(p);
+    }catch(err){}
+  },true);
+})();
+</script>
 </body>
 </html>
