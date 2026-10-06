@@ -871,6 +871,8 @@ h2.stl{font-family:var(--fd);font-size:28px;font-weight:400;color:var(--cream);l
 
 /* ===== STICKY ===== */
 body.mob-open .sticky,body.mob-open .to-top{display:none}
+/* open mobile menu: the sticky bar (z 999, later in the DOM) would sit over the menu's own Register */
+body.menu-open .sticky{display:none}
 .sticky.on{opacity:1;pointer-events:auto;transform:translateY(0)}
 .to-top{position:fixed;right:16px;bottom:calc(78px + var(--safe-b));width:44px;height:44px;border-radius:50%;background:var(--copper);color:var(--white);border:none;cursor:pointer;z-index:998;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .25s,transform .25s}
 .to-top.on{opacity:1;pointer-events:auto;transform:translateY(0)}
@@ -1622,7 +1624,8 @@ html.js .nx .rv{opacity:1;transform:none;transition:none}
 }
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
 @keyframes rt{from{transform:translateX(100%)}to{transform:none}}
-.nx .lb{position:fixed;inset:0;background:rgba(10,9,20,.95);z-index:90;display:none;align-items:center;justify-content:center;padding:20px}
+/* z 1200: above the nav (100), the sticky bar and back-to-top (998/999), so the X is tappable */
+.nx .lb{position:fixed;inset:0;background:rgba(10,9,20,.95);z-index:1200;display:none;align-items:center;justify-content:center;padding:20px}
 .nx .lb.on{display:flex}
 .nx .lb-in{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:100%}
 .nx .lb img{max-width:100%;max-height:82vh;width:auto}
@@ -3833,6 +3836,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
       mobileMenu.setAttribute('aria-hidden', 'false');
       hamburger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('menu-open');
     }
     function closeMobileMenu() {
       mobileMenu.classList.remove('open');
@@ -3840,6 +3844,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
       mobileMenu.setAttribute('aria-hidden', 'true');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
     }
     hamburger.addEventListener('click', function () {
       if (mobileMenu.classList.contains('open')) closeMobileMenu();
