@@ -4113,6 +4113,22 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     font: 500 10px/1 var(--fb); letter-spacing: .02em; color: rgba(254,252,247,.78); text-shadow: 0 1px 4px rgba(0,0,0,.65);
   }
 }
+/* PHONES WITH HEIGHT TO SPARE (700px+ visible: most Androids, iPhone Pro Max/Plus): built like the Original
+   (Justin 2026-10-07: "move the content right above the tower, and the empty space above, build like the Original,
+   a bigger logo on top of the content"). The copy starts under the nav band, the big centred Grand Minori logo sits
+   on top of it, and the copy sits directly on the tower. Any height left over opens ABOVE the logo, over the sky and
+   branch artwork, never mid-screen. The tower band gives up some height for the logo (it is flexible, min 150px).
+   Shorter screens (iPhone 12 to 15, SE) have no spare height: the logo stays compact in the nav band there so the
+   tower keeps its size. */
+@media (max-width: 699px) and (min-height: 700px) {
+  .hero-body { padding-top: 86px; }
+  .h-logo, .hero-inner .h-logo { margin: auto 0 14px !important; }
+  .h-logo img { width: auto; height: 80px; }
+  .hero-inner .h-tag { margin-top: 0; }
+}
+@media (max-width: 699px) and (min-height: 800px) {
+  .h-logo img { height: 108px; }
+}
 /* narrow phones: the sales-gallery pill wrapped to two lines at 360-375px, taking height from the tower */
 @media (max-width: 420px) {
   .hero-inner .h-tag { font-size: 11px; padding: 6px 12px; letter-spacing: 0; }
