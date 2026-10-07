@@ -2998,9 +2998,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="sticky"><button type="button" class="stk stk-r" data-open-lead="sticky" data-cta-id="sticky_register">Get Price List Now</button></div>
 <button class="to-top" id="toTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
 <script>
-(function(){var sticky=document.querySelector('.sticky'),toTop=document.getElementById('toTop'),formSec=document.getElementById('register'),formInView=false;
-window.addEventListener('scroll',function(){var s=window.scrollY>400;toTop.classList.toggle('on',s);sticky.classList.toggle('on',s&&!formInView)},{passive:true});
-if('IntersectionObserver' in window&&formSec){new IntersectionObserver(function(ents){formInView=ents[0].isIntersecting;sticky.classList.toggle('on',window.scrollY>400&&!formInView)},{threshold:.15}).observe(formSec)}
+(function(){var sticky=document.querySelector('.sticky'),toTop=document.getElementById('toTop'),formSec=document.getElementById('register'),formInView=false,
+  heroCtas=document.querySelector('.hero-ctas'),heroCtaInView=null,io='IntersectionObserver' in window;
+/* 2026-10-07: the sticky price bar shows whenever the hero buttons are out of view, not only after 400px of scroll,
+   so short iPhones (hero buttons below the first screen in the Original-style hero) still get the ask on screen 1 */
+function upd(){var past=heroCtaInView===null?window.scrollY>400:!heroCtaInView;sticky.classList.toggle('on',past&&!formInView)}
+window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.scrollY>400);upd()},{passive:true});
+if(io&&formSec){new IntersectionObserver(function(ents){formInView=ents[0].isIntersecting;upd()},{threshold:.15}).observe(formSec)}
+if(io&&heroCtas){new IntersectionObserver(function(ents){heroCtaInView=ents[0].intersectionRatio>=.98;upd()},{threshold:[0,.5,.98,1]}).observe(heroCtas)}
 })();
 </script>
 
@@ -4064,87 +4069,44 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 /* ===== ATF + PRICE CTA (2026-10-07, branch atf-price-cta). Justin: the hero is full screen above the fold
    and its CTA is on the first screen on every phone and laptop. Checked at Chrome 390x844, Android
    360x740, iPhone 15 Safari 393x659, iPhone SE (3rd gen) Safari ~375x553, 1440x900 and 1366x657. ===== */
-/* Phones: THE HERO IS THE SCREEN (2026-10-07, Justin: "the hero banner full screen on the viewport, right now
-   it seems shifted to the bottom"). The width-derived banner (200vw, 780px+ tall) always ran past the fold, so the
-   tower was cut and the CTA either sat under it (~750px down) or, with the Round 6 C1 port, pushed it further down.
-   Now the banner is exactly the screen below the ticker, in three bands:
-   - copy at the top, with the big centred logo shrunk into the nav band (it sat under the transparent nav and
-     pushed the copy to 159px);
-   - the tower, filling whatever height is left: the LANDSCAPE artwork (tower and both baked-in labels in its right
-     third) anchored right and fitted to the band's height, so the labels are never cropped at any phone width;
-   - the CTA row on the bottom edge, in the thumb zone, always on the first screen.
-   The portrait artwork stays behind the copy for its sky and branch, faded to the banner colour by 88vw so its
-   own tower (from 92vw down) never shows. */
+/* Phones: BUILT LIKE THE ORIGINAL (2026-10-07, Justin: "consider like the original website ... even though it is
+   not full screen, everything is aligned and symmetric"). Forcing the hero to exactly the screen height left spare
+   height with nowhere good to go (first an empty band mid-screen, then a seam where two artworks met). Now one
+   centred column over ONE uncut portrait artwork, width-derived like the Original, so it lines up the same on every
+   phone: logo, sales-gallery pill, the tower with both labels, then the headline, price tiles and buttons over its
+   base. The artwork is shifted up so its spire (93vw down the image) starts just under the pill, and its own sky sits
+   behind the logo. The podium is bright, so a dark fade starts under the Tower A label and carries the copy.
+   --hb is the tower's top in hero coordinates: 84px nav clearance + logo (--lh) + 12px + 28px pill + 8px.
+   On short iPhones the buttons fall below the first screen; the sticky "Get Price List Now" bar covers it (script). */
 @media (max-width: 699px) {
   .hero-media {
-    min-height: 0; height: calc(100svh - 34px);
-    background: url('assets/hero-bg-mobile.webp') center top / 100% auto no-repeat, #190E2C;
+    --lh: clamp(76px, 22.5vw, 92px);
+    --hb: calc(132px + var(--lh));
+    min-height: 0; height: auto;
+    background:
+      linear-gradient(180deg, rgba(21,11,32,0) calc(var(--hb) + 52vw), rgba(21,11,32,.86) calc(var(--hb) + 70vw), #150B20 calc(var(--hb) + 88vw)),
+      url('assets/hero-bg-mobile.webp') center calc(var(--hb) - 84vw) / 100% auto no-repeat,
+      #150B20;
   }
-  .hero-media::after { display: none; }
-  /* one continuous sky (Justin: the "cloud" between the price tiles and the tower). Both artworks share the same
-     glow, dark on the left and magenta on the right; it was flattened to one dark purple here, which made a dark
-     band against the tower art's brighter sky. The portrait art now blends into a left-to-right gradient sampled
-     from the tower art's own sky (rows 0-14%, the crop phones see), covering the portrait art's tower from 88vw. */
-  .hero-media::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(90deg, #1A0E2E 0%, #23103A 30%, #31113F 55%, #43154C 78%, #531B57 100%);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
-    mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
-  }
-  .hero-body { padding: 14px var(--pad) 16px; min-height: 0; }
-  .hero-inner { min-height: 0; }
-  .h-logo, .hero-inner .h-logo { margin: 0 0 10px !important; }
-  .h-logo img { width: 50px; margin-bottom: 0; }
-  .hero-inner { position: relative; }
-  /* the tower runs to the bottom edge of the screen, under the CTA row (Justin: the buttons sat on a purple strip
-     outside the banner); a soft dark fade at the foot keeps both buttons legible over the podium and trees */
+  .hero-media::after, .hero-media::before { display: none; }
+  .hero-body { padding: 84px var(--pad) 24px; min-height: 0; }
+  .hero-inner { min-height: 0; position: relative; }
+  .h-logo, .hero-inner .h-logo { order: -3; margin: 0 0 12px !important; }
+  .h-logo img { width: auto; height: var(--lh); margin-bottom: 0; }
+  .hero-inner .h-tag { order: -2; margin: 0 auto 8px !important; }
+  /* the tower: a spacer the artwork shows through, spire to just under the Tower A label (84vw to 150vw of the
+     image). The artwork's own "*Artist Impression" ends up under the fade, so it is restated at the tower's foot. */
   .hero-inner::after {
-    content: ''; order: 1; flex: 0 1 112vw; max-height: 112vw; min-height: 150px; align-self: stretch;
-    margin: 4px calc(-1 * var(--pad)) -16px;
-    /* the artwork is capped at 112vw tall: taller, it widens past the point where the right-anchored crop
-       clips the "Tower B" label (it starts ~57% across the image); a fade sized to the artwork blends its top
-       edge into the sky above when the band is taller than the cap */
-    background: linear-gradient(180deg, rgba(20,10,32,0) 58%, rgba(20,10,32,.72) 100%),
-                url('assets/hero-bg.webp') right bottom / auto min(100%, 112vw) no-repeat;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 26%);
-    mask-image: linear-gradient(180deg, transparent 0, #000 26%);
+    content: '*Artist Impression'; order: -1; flex: none; height: 66vw; align-self: stretch;
+    display: flex; align-items: flex-end; justify-content: flex-end; padding-bottom: 6px;
+    font: 500 10px/1 var(--fb); letter-spacing: .02em; color: rgba(254,252,247,.72); text-shadow: 0 1px 4px rgba(0,0,0,.6);
   }
-  .hero-ctas { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; margin: 0 !important; padding-top: 0 !important; width: 100%; }
-  /* tall phones: the tower band stops at 112vw (any taller and the crop clips "Tower B"), so the spare height went
-     between the price tiles and the tower and the middle of the screen read as empty (Justin). The copy now sits
-     directly on the tower and the spare height opens above it, under the logo, over the sky and branch artwork.
-     Short phones have no spare height, so nothing moves there. */
-  .hero-inner .h-tag { margin-top: auto; }
-  /* the artwork's own "*Artist Impression" sits under the right button now, so it is restated just above it */
-  .hero-ctas::before {
-    content: '*Artist Impression'; position: absolute; right: 2px; top: -17px;
-    font: 500 10px/1 var(--fb); letter-spacing: .02em; color: rgba(254,252,247,.78); text-shadow: 0 1px 4px rgba(0,0,0,.65);
-  }
+  .hero-inner .h-card { text-align: center; }
+  .hero-ctas { position: static; margin: 12px auto 0 !important; padding-top: 0 !important; width: 100%; }
 }
-/* PHONES WITH HEIGHT TO SPARE (700px+ visible: most Androids, iPhone Pro Max/Plus): built like the Original
-   (Justin 2026-10-07: "move the content right above the tower, and the empty space above, build like the Original,
-   a bigger logo on top of the content"). The copy starts under the nav band, the big centred Grand Minori logo sits
-   on top of it, and the copy sits directly on the tower. Any height left over opens ABOVE the logo, over the sky and
-   branch artwork, never mid-screen. The tower band gives up some height for the logo (it is flexible, min 150px).
-   Shorter screens (iPhone 12 to 15, SE) have no spare height: the logo stays compact in the nav band there so the
-   tower keeps its size. */
-@media (max-width: 699px) and (min-height: 700px) {
-  .hero-body { padding-top: 86px; }
-  .h-logo, .hero-inner .h-logo { margin: auto 0 14px !important; }
-  .h-logo img { width: auto; height: 80px; }
-  .hero-inner .h-tag { margin-top: 0; }
-}
-@media (max-width: 699px) and (min-height: 800px) {
-  .h-logo img { height: 108px; }
-}
-/* narrow phones: the sales-gallery pill wrapped to two lines at 360-375px, taking height from the tower */
+/* narrow phones: the sales-gallery pill stays on one line */
 @media (max-width: 420px) {
   .hero-inner .h-tag { font-size: 11px; padding: 6px 12px; letter-spacing: 0; }
-}
-/* the shortest screens (iPhone SE with Safari's bars): the tower band gives way first, so the CTA stays on screen */
-@media (max-width: 699px) and (max-height: 620px) {
-  .hero-inner::after { min-height: 132px; }
-  .hero-inner .h-cards { margin-bottom: 0 !important; }
 }
 /* Desktop: the width-derived banner (840px max) left the next section showing on a 1440x900 screen; it now
    reaches the fold too. Short laptops: the centred copy put the CTA on the fold line, so it top-aligns there. */
