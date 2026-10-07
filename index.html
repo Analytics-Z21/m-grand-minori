@@ -4069,40 +4069,34 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 /* ===== ATF + PRICE CTA (2026-10-07, branch atf-price-cta). Justin: the hero is full screen above the fold
    and its CTA is on the first screen on every phone and laptop. Checked at Chrome 390x844, Android
    360x740, iPhone 15 Safari 393x659, iPhone SE (3rd gen) Safari ~375x553, 1440x900 and 1366x657. ===== */
-/* Phones: BUILT LIKE THE ORIGINAL (2026-10-07, Justin: "consider like the original website ... even though it is
-   not full screen, everything is aligned and symmetric"). Forcing the hero to exactly the screen height left spare
-   height with nowhere good to go (first an empty band mid-screen, then a seam where two artworks met). Now one
-   centred column over ONE uncut portrait artwork, width-derived like the Original, so it lines up the same on every
-   phone: logo, sales-gallery pill, the tower with both labels, then the headline, price tiles and buttons over its
-   base. The artwork is shifted up so its spire (93vw down the image) starts just under the pill, and its own sky sits
-   behind the logo. The podium is bright, so a dark fade starts under the Tower A label and carries the copy.
-   --hb is the tower's top in hero coordinates: 84px nav clearance + logo (--lh) + 12px + 28px pill + 8px.
-   On short iPhones the buttons fall below the first screen; the sticky "Get Price List Now" bar covers it (script). */
+/* Phones: NO ARTWORK (2026-10-07, Justin: "remove the background from the hero banner, keep the CTA at the bottom and
+   move the content like Exclusive Lifestyle to the top"). The tower artwork kept fighting the copy on phones (an empty
+   band, a seam, then text over the tower), so the phone hero is now type on the brand's own sky colours: the big
+   centred logo, the sales-gallery pill, the headline, location and price tiles, then the two buttons at the foot.
+   The hero ends after the buttons rather than stretching to the screen, so there is no empty middle and the buttons
+   are on the first screen of every phone (iPhone SE included). The glow runs dark-left to magenta-right like the
+   artwork, and the foot fades into the next band (#0D0B1E). Tablet and desktop keep the artwork. */
 @media (max-width: 699px) {
   .hero-media {
-    --lh: clamp(76px, 22.5vw, 92px);
-    --hb: calc(132px + var(--lh));
+    --lh: clamp(84px, 24vw, 100px);
     min-height: 0; height: auto;
     background:
-      linear-gradient(180deg, rgba(21,11,32,0) calc(var(--hb) + 52vw), rgba(21,11,32,.86) calc(var(--hb) + 70vw), #150B20 calc(var(--hb) + 88vw)),
-      url('assets/hero-bg-mobile.webp') center calc(var(--hb) - 84vw) / 100% auto no-repeat,
-      #150B20;
+      radial-gradient(90% 60% at 100% 18%, rgba(92,29,92,.55) 0, rgba(92,29,92,0) 70%),
+      radial-gradient(70% 45% at 0% 0%, rgba(59,18,74,.45) 0, rgba(59,18,74,0) 70%),
+      linear-gradient(180deg, #24103A 0%, #2A1142 46%, #1B0F2E 82%, #0D0B1E 100%);
   }
   .hero-media::after, .hero-media::before { display: none; }
-  .hero-body { padding: 84px var(--pad) 24px; min-height: 0; }
+  .hero-body { padding: 84px var(--pad) 30px; min-height: 0; }
   .hero-inner { min-height: 0; position: relative; }
-  .h-logo, .hero-inner .h-logo { order: -3; margin: 0 0 12px !important; }
+  .h-logo, .hero-inner .h-logo { order: -3; margin: 0 0 16px !important; }
   .h-logo img { width: auto; height: var(--lh); margin-bottom: 0; }
-  .hero-inner .h-tag { order: -2; margin: 0 auto 8px !important; }
-  /* the tower: a spacer the artwork shows through, spire to just under the Tower A label (84vw to 150vw of the
-     image). The artwork's own "*Artist Impression" ends up under the fade, so it is restated at the tower's foot. */
-  .hero-inner::after {
-    content: '*Artist Impression'; order: -1; flex: none; height: 66vw; align-self: stretch;
-    display: flex; align-items: flex-end; justify-content: flex-end; padding-bottom: 6px;
-    font: 500 10px/1 var(--fb); letter-spacing: .02em; color: rgba(254,252,247,.72); text-shadow: 0 1px 4px rgba(0,0,0,.6);
-  }
+  .hero-inner .h-tag { order: -2; margin: 0 auto 18px !important; }
+  .hero-inner::after { content: none; }
+  .hero-inner h1 { font-size: clamp(25px, 7.4vw, 32px); margin-bottom: 10px; white-space: nowrap; }
+  .hero-inner .h-place { margin-bottom: 20px !important; }
+  .hero-inner .h-cards { margin-bottom: 0 !important; }
   .hero-inner .h-card { text-align: center; }
-  .hero-ctas { position: static; margin: 12px auto 0 !important; padding-top: 0 !important; width: 100%; }
+  .hero-ctas { position: static; margin: 26px auto 0 !important; padding-top: 0 !important; width: 100%; }
 }
 /* narrow phones: the sales-gallery pill stays on one line */
 @media (max-width: 420px) {
