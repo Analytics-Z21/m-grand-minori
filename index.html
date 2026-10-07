@@ -4078,10 +4078,19 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 @media (max-width: 699px) {
   .hero-media {
     min-height: 0; height: calc(100svh - 34px);
-    background: linear-gradient(180deg, rgba(42,17,60,0) 70vw, #2A113C 88vw),
-                url('assets/hero-bg-mobile.webp') center top / 100% auto no-repeat, #2A113C;
+    background: url('assets/hero-bg-mobile.webp') center top / 100% auto no-repeat, #190E2C;
   }
   .hero-media::after { display: none; }
+  /* one continuous sky (Justin: the "cloud" between the price tiles and the tower). Both artworks share the same
+     glow, dark on the left and magenta on the right; it was flattened to one dark purple here, which made a dark
+     band against the tower art's brighter sky. The portrait art now blends into a left-to-right gradient sampled
+     from the tower art's own sky (rows 0-14%, the crop phones see), covering the portrait art's tower from 88vw. */
+  .hero-media::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, #1A0E2E 0%, #23103A 30%, #31113F 55%, #43154C 78%, #531B57 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
+    mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
+  }
   .hero-body { padding: 14px var(--pad) 16px; min-height: 0; }
   .hero-inner { min-height: 0; }
   .h-logo, .hero-inner .h-logo { margin: 0 0 10px !important; }
@@ -4096,10 +4105,9 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
        clips the "Tower B" label (it starts ~57% across the image); a fade sized to the artwork blends its top
        edge into the sky above when the band is taller than the cap */
     background: linear-gradient(180deg, rgba(20,10,32,0) 58%, rgba(20,10,32,.72) 100%),
-                linear-gradient(180deg, #2A113C 0, rgba(42,17,60,0) 22%) right bottom / 100% min(100%, 112vw) no-repeat,
                 url('assets/hero-bg.webp') right bottom / auto min(100%, 112vw) no-repeat;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%);
-    mask-image: linear-gradient(180deg, transparent 0, #000 18%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 26%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 26%);
   }
   .hero-ctas { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; margin: 0 !important; padding-top: 0 !important; width: 100%; }
   /* tall phones: the tower band stops at 112vw (any taller and the crop clips "Tower B"), so the spare height went
