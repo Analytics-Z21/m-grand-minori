@@ -3004,8 +3004,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
    so short iPhones (hero buttons below the first screen in the Original-style hero) still get the ask on screen 1 */
 function upd(){var past=heroCtaInView===null?window.scrollY>400:!heroCtaInView;sticky.classList.toggle('on',past&&!formInView)}
 window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.scrollY>400);upd()},{passive:true});
-if(io&&formSec){new IntersectionObserver(function(ents){formInView=ents[0].isIntersecting;upd()},{threshold:.15}).observe(formSec)}
-if(io&&heroCtas){new IntersectionObserver(function(ents){heroCtaInView=ents[0].intersectionRatio>=.98;upd()},{threshold:[0,.5,.98,1]}).observe(heroCtas)}
+/* read the LAST entry: a layout shift (web fonts) can deliver two entries in one batch, and the first is stale */
+if(io&&formSec){new IntersectionObserver(function(ents){formInView=ents[ents.length-1].isIntersecting;upd()},{threshold:.15}).observe(formSec)}
+if(io&&heroCtas){new IntersectionObserver(function(ents){heroCtaInView=ents[ents.length-1].intersectionRatio>=.98;upd()},{threshold:[0,.5,.98,1]}).observe(heroCtas)}
 })();
 </script>
 
@@ -4069,34 +4070,53 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 /* ===== ATF + PRICE CTA (2026-10-07, branch atf-price-cta). Justin: the hero is full screen above the fold
    and its CTA is on the first screen on every phone and laptop. Checked at Chrome 390x844, Android
    360x740, iPhone 15 Safari 393x659, iPhone SE (3rd gen) Safari ~375x553, 1440x900 and 1366x657. ===== */
-/* Phones: NO ARTWORK (2026-10-07, Justin: "remove the background from the hero banner, keep the CTA at the bottom and
-   move the content like Exclusive Lifestyle to the top"). The tower artwork kept fighting the copy on phones (an empty
-   band, a seam, then text over the tower), so the phone hero is now type on the brand's own sky colours: the big
-   centred logo, the sales-gallery pill, the headline, location and price tiles, then the two buttons at the foot.
-   The hero ends after the buttons rather than stretching to the screen, so there is no empty middle and the buttons
-   are on the first screen of every phone (iPhone SE included). The glow runs dark-left to magenta-right like the
-   artwork, and the foot fades into the next band (#0D0B1E). Tablet and desktop keep the artwork. */
+/* Phones: JUSTIN'S SEQUENCE (2026-10-08): big logo, sales-gallery pill, headline, location, price tiles, THEN the
+   tower image, then the two buttons at the foot. "Background" meant the dark fade behind the copy, not the tower:
+   the copy now sits on the artwork's own purple sky with no scrim.
+   - Behind the logo and copy: the portrait artwork's sky and branch (top of the image). From 62vw it blends into a
+     left-to-right gradient sampled from the same artwork's sky just above the spire (86-92vw), so its own tower never
+     shows behind the copy.
+   - The tower: an in-flow block (not a background positioned by guesswork), the bottom 110vw of the same portrait
+     artwork, full width and uncut, so the spire, both Tower A/B labels and the podium always show; its top 3vw
+     feathers into the gradient above, which is the same sky row, so there is no seam.
+   - The buttons sit on the tower's foot (the ground strip), inside the banner. The artwork's own "*Artist Impression"
+     ends up under the right button, so it is restated just above it.
+   Taller than most iPhone screens, like the Original: the sticky "Get Price List Now" bar covers the first screen
+   whenever the hero buttons are not fully visible (script below). */
 @media (max-width: 699px) {
   .hero-media {
-    --lh: clamp(84px, 24vw, 100px);
+    --lh: clamp(74px, 20vw, 88px);
     min-height: 0; height: auto;
-    background:
-      radial-gradient(90% 60% at 100% 18%, rgba(92,29,92,.55) 0, rgba(92,29,92,0) 70%),
-      radial-gradient(70% 45% at 0% 0%, rgba(59,18,74,.45) 0, rgba(59,18,74,0) 70%),
-      linear-gradient(180deg, #24103A 0%, #2A1142 46%, #1B0F2E 82%, #0D0B1E 100%);
+    background: url('assets/hero-bg-mobile.webp') center top / 100% auto no-repeat, #18101F;
   }
-  .hero-media::after, .hero-media::before { display: none; }
-  .hero-body { padding: 84px var(--pad) 30px; min-height: 0; }
+  .hero-media::after { display: none; }
+  .hero-media::before {
+    content: ''; display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, #18101F 0%, #1A0E32 25%, #3D134A 50%, #612060 75%, #5B1D5B 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
+    mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
+  }
+  .hero-body { padding: 80px var(--pad) 0; min-height: 0; }
   .hero-inner { min-height: 0; position: relative; }
-  .h-logo, .hero-inner .h-logo { order: -3; margin: 0 0 16px !important; }
+  .h-logo, .hero-inner .h-logo { order: -3; margin: 0 0 12px !important; }
   .h-logo img { width: auto; height: var(--lh); margin-bottom: 0; }
-  .hero-inner .h-tag { order: -2; margin: 0 auto 18px !important; }
-  .hero-inner::after { content: none; }
-  .hero-inner h1 { font-size: clamp(25px, 7.4vw, 32px); margin-bottom: 10px; white-space: nowrap; }
-  .hero-inner .h-place { margin-bottom: 20px !important; }
+  .hero-inner .h-tag { order: -2; margin: 0 auto 12px !important; }
+  .hero-inner h1 { font-size: clamp(25px, 7.4vw, 32px); margin-bottom: 8px; white-space: nowrap; }
+  .hero-inner .h-place { margin-bottom: 14px !important; }
   .hero-inner .h-cards { margin-bottom: 0 !important; }
   .hero-inner .h-card { text-align: center; }
-  .hero-ctas { position: static; margin: 26px auto 0 !important; padding-top: 0 !important; width: 100%; }
+  .hero-inner::after {
+    content: ''; order: 1; flex: none; align-self: stretch; height: 110vw;
+    margin: 2px calc(-1 * var(--pad)) 0;
+    background: url('assets/hero-bg-mobile.webp') center bottom / 100% auto no-repeat;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 3vw);
+    mask-image: linear-gradient(180deg, transparent 0, #000 3vw);
+  }
+  .hero-ctas { position: absolute; left: 0; right: 0; bottom: 14px; z-index: 3; margin: 0 !important; padding-top: 0 !important; width: 100%; }
+  .hero-ctas::before {
+    content: '*Artist Impression'; position: absolute; right: 2px; top: -16px;
+    font: 500 10px/1 var(--fb); letter-spacing: .02em; color: rgba(254,252,247,.8); text-shadow: 0 1px 4px rgba(0,0,0,.7);
+  }
 }
 /* narrow phones: the sales-gallery pill stays on one line */
 @media (max-width: 420px) {
