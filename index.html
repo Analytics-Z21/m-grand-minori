@@ -4064,12 +4064,45 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 /* ===== ATF + PRICE CTA (2026-10-07, branch atf-price-cta). Justin: the hero is full screen above the fold
    and its CTA is on the first screen on every phone and laptop. Checked at Chrome 390x844, Android
    360x740, iPhone 15 Safari 393x659, iPhone SE (3rd gen) Safari ~375x553, 1440x900 and 1366x657. ===== */
-/* Phones: the CTA row sat under the tower artwork (~750px down, below the iPhone fold). Ported from the
-   Round 6 C1 placement (branch ver3-round6): the row follows the price tiles and the banner gains 140px of
-   matching sky above the bottom-anchored artwork, so the baked-in Tower A/B labels stay clear and uncropped. */
+/* Phones: THE HERO IS THE SCREEN (2026-10-07, Justin: "the hero banner full screen on the viewport, right now
+   it seems shifted to the bottom"). The width-derived banner (200vw, 780px+ tall) always ran past the fold, so the
+   tower was cut and the CTA either sat under it (~750px down) or, with the Round 6 C1 port, pushed it further down.
+   Now the banner is exactly the screen below the ticker, in three bands:
+   - copy at the top, with the big centred logo shrunk into the nav band (it sat under the transparent nav and
+     pushed the copy to 159px);
+   - the tower, filling whatever height is left: the LANDSCAPE artwork (tower and both baked-in labels in its right
+     third) anchored right and fitted to the band's height, so the labels are never cropped at any phone width;
+   - the CTA row on the bottom edge, in the thumb zone, always on the first screen.
+   The portrait artwork stays behind the copy for its sky and branch, faded to the banner colour by 88vw so its
+   own tower (from 92vw down) never shows. */
 @media (max-width: 699px) {
-  .hero-media { min-height: calc(200vw + 140px); background-color: #2A113C; }
-  .hero-ctas { margin-top: 6px; padding-top: 0; }
+  .hero-media {
+    min-height: 0; height: calc(100svh - 34px);
+    background: linear-gradient(180deg, rgba(42,17,60,0) 70vw, #2A113C 88vw),
+                url('assets/hero-bg-mobile.webp') center top / 100% auto no-repeat, #2A113C;
+  }
+  .hero-media::after { display: none; }
+  .hero-body { padding: 14px var(--pad) 16px; min-height: 0; }
+  .hero-inner { min-height: 0; }
+  .h-logo, .hero-inner .h-logo { margin: 0 0 10px !important; }
+  .h-logo img { width: 50px; margin-bottom: 0; }
+  .hero-inner::after {
+    content: ''; order: 1; flex: 1 1 auto; min-height: 120px; align-self: stretch;
+    margin: 4px calc(-1 * var(--pad)) 12px;
+    background: url('assets/hero-bg.webp') right bottom / auto 100% no-repeat, #24102F;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 18%);
+  }
+  .hero-ctas { order: 2; margin: 0 auto !important; width: 100%; }
+}
+/* narrow phones: the sales-gallery pill wrapped to two lines at 360-375px, taking height from the tower */
+@media (max-width: 420px) {
+  .hero-inner .h-tag { font-size: 11px; padding: 6px 12px; letter-spacing: 0; }
+}
+/* the shortest screens (iPhone SE with Safari's bars): the tower band gives way first, so the CTA stays on screen */
+@media (max-width: 699px) and (max-height: 620px) {
+  .hero-inner::after { min-height: 64px; margin-bottom: 10px; }
+  .hero-inner .h-cards { margin-bottom: 0 !important; }
 }
 /* Desktop: the width-derived banner (840px max) left the next section showing on a 1440x900 screen; it now
    reaches the fold too. Short laptops: the centred copy put the CTA on the fold line, so it top-aligns there. */
