@@ -4090,7 +4090,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
   /* the tower runs to the bottom edge of the screen, under the CTA row (Justin: the buttons sat on a purple strip
      outside the banner); a soft dark fade at the foot keeps both buttons legible over the podium and trees */
   .hero-inner::after {
-    content: ''; order: 1; flex: 1 1 auto; min-height: 150px; align-self: stretch;
+    content: ''; order: 1; flex: 0 1 112vw; max-height: 112vw; min-height: 150px; align-self: stretch;
     margin: 4px calc(-1 * var(--pad)) -16px;
     /* the artwork is capped at 112vw tall: taller, it widens past the point where the right-anchored crop
        clips the "Tower B" label (it starts ~57% across the image); a fade sized to the artwork blends its top
@@ -4102,6 +4102,11 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     mask-image: linear-gradient(180deg, transparent 0, #000 18%);
   }
   .hero-ctas { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; margin: 0 !important; padding-top: 0 !important; width: 100%; }
+  /* tall phones: the tower band stops at 112vw (any taller and the crop clips "Tower B"), so the spare height went
+     between the price tiles and the tower and the middle of the screen read as empty (Justin). The copy now sits
+     directly on the tower and the spare height opens above it, under the logo, over the sky and branch artwork.
+     Short phones have no spare height, so nothing moves there. */
+  .hero-inner .h-tag { margin-top: auto; }
   /* the artwork's own "*Artist Impression" sits under the right button now, so it is restated just above it */
   .hero-ctas::before {
     content: '*Artist Impression'; position: absolute; right: 2px; top: -17px;
