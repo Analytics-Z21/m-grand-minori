@@ -2111,6 +2111,9 @@ h1,h2{--fd:"Boska Medium","Boska",Georgia,serif}
    serif stays on words and on the facts strip. Montserrat sets about 26% wider than Boska, so font-size-adjust .46
    steps it down to about 0.85x of whatever size each breakpoint declares (Aurora stepped its prices down by hand). */
 .h-card-val,.price-val,.cpick-btn strong,.cout .v,.fit-lead b{font-family:var(--fb)!important;font-weight:700!important;letter-spacing:-.01em!important;font-size-adjust:.46}
+/* phone numbers never break across lines: Montserrat sets wider than the old body faces, and Amaya's contact
+   number "04 2024 269" had started to wrap at 390px */
+a[href^="tel:"]{white-space:nowrap}
 </style>
 </head>
 <body>
