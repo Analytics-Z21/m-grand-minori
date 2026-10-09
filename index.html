@@ -2110,10 +2110,35 @@ h1,h2{--fd:"Boska Medium","Boska",Georgia,serif}
    mixes prices with other figures (hero tiles, price pairs, overview stats) moves whole so it reads as one row. The
    serif stays on words and on the facts strip. Montserrat sets about 26% wider than Boska, so font-size-adjust .46
    steps it down to about 0.85x of whatever size each breakpoint declares (Aurora stepped its prices down by hand). */
-.h-card-val,.price-val,.cpick-btn strong,.cout .v,.fit-lead b{font-family:var(--fb)!important;font-weight:700!important;letter-spacing:-.01em!important;font-size-adjust:.46}
+.h-card-val,.price-val,.cpick-btn strong,.cout .v,.cout .s,.fit-lead b{font-family:var(--fb)!important;font-weight:700!important;letter-spacing:-.01em!important;font-size-adjust:.46}
 /* phone numbers never break across lines: Montserrat sets wider than the old body faces, and Amaya's contact
    number "04 2024 269" had started to wrap at 390px */
 a[href^="tel:"]{white-space:nowrap}
+/* CALCULATOR PRICE DROPDOWN (2026-10-10, Justin). The list opens under the price box, over the sliders. The old
+   .cp-menu / .cp-opt rules belong to a dead controller (#cpMenu never existed here), so this list is scoped to .cpick.
+   Phones: 22px between the price box and Loan margin (it sat flush); on desktop the calculator grid spaces it. */
+.nx .cpick{position:relative}
+.nx .cpick .cp-menu{position:absolute;top:calc(100% + 8px);left:0;z-index:40;display:block;margin:0;padding:0;gap:0;
+  width:max-content;min-width:290px;max-width:calc(100vw - 2*var(--pad));border-radius:0;
+  background:#1E1B3A;border:1px solid rgba(224,168,124,.32);box-shadow:0 18px 36px rgba(0,0,0,.55)}
+.nx .cpick .cp-menu[hidden]{display:none}
+.cp-opt2{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:12px 16px;
+  background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;text-align:left;color:var(--cream)}
+.cp-opt2:last-child{border-bottom:0}
+.cp-opt2:hover{background:rgba(196,134,90,.14)}
+.cp-opt2:focus-visible{outline:2px solid var(--copper3);outline-offset:-2px}
+.cp-opt2[aria-selected="true"]{background:rgba(196,134,90,.16);box-shadow:inset 3px 0 0 var(--copper)}
+.cp-opt2-t{display:flex;flex-direction:column;gap:2px}
+.cp-opt2-t strong{font:700 14px/1.2 var(--fb);color:#fff}
+.cp-opt2-t em{font-style:normal;font:500 12px/1.3 var(--fb);color:rgba(248,244,239,.7)}
+.cp-opt2 .num{font:700 14px/1.2 var(--fb);color:var(--copper3);white-space:nowrap}
+.nx .cpick-btn svg{transition:transform .18s}
+.nx .cpick-btn[aria-expanded="true"]{background:rgba(196,134,90,.22);border-color:var(--copper)}
+.nx .cpick-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+@media(max-width:1023px){.nx .cpick{margin-bottom:22px}}
+/* phones: the SGD block wraps under the RM figure; right-aligned (inline style, for the desktop row) it sat indented
+   under its own label, so it left-aligns there */
+@media(max-width:599px){.nx .cout>div+div{text-align:left!important}}
 </style>
 </head>
 <body>
@@ -2404,10 +2429,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h3>What it costs a month</h3>
       <div class="cpick">
         <span class="price-lab">Property price</span>
-        <button class="cpick-btn" id="cPick" type="button">
+        <button class="cpick-btn" id="cPick" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="cpMenu2">
           <strong class="num" id="cPrice">RM 332,000</strong><span>Type <b id="cType">A</b></span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </button>
+        <div class="cp-menu" id="cpMenu2" role="listbox" aria-label="Property price by layout" hidden>
+          <button type="button" role="option" class="cp-opt2" data-type="A" aria-selected="true">
+            <span class="cp-opt2-t"><strong>Type A</strong><em>Studio &middot; 403 sq ft</em></span>
+            <span class="num">RM 332,000</span>
+          </button>
+          <button type="button" role="option" class="cp-opt2" data-type="B" aria-selected="false">
+            <span class="cp-opt2-t"><strong>Type B</strong><em>1 Bed &middot; 496 sq ft</em></span>
+            <span class="num">RM 396,000</span>
+          </button>
+          <button type="button" role="option" class="cp-opt2" data-type="C" aria-selected="false">
+            <span class="cp-opt2-t"><strong>Type C</strong><em>1 Bed dual-key &middot; 624 sq ft</em></span>
+            <span class="num">RM 503,000</span>
+          </button>
+          <button type="button" role="option" class="cp-opt2" data-type="D" aria-selected="false">
+            <span class="cp-opt2-t"><strong>Type D</strong><em>1 Bed &middot; 630 sq ft</em></span>
+            <span class="num">RM 518,000</span>
+          </button>
+          <button type="button" role="option" class="cp-opt2" data-type="E" aria-selected="false">
+            <span class="cp-opt2-t"><strong>Type E</strong><em>3 Bed dual-key &middot; 835 sq ft</em></span>
+            <span class="num">RM 654,000</span>
+          </button>
+        </div>
       </div>
       <div class="cfield">
         <label for="cLoan">Loan margin <output id="cLoanOut" class="num">RM 298,800 &middot; 90%</output></label>
@@ -4240,6 +4287,9 @@ window.mgmTrackLead = function (payload) {
     renderShots(u);
     Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(t){
       t.setAttribute('aria-selected',String(t.getAttribute('data-type')===cur));});
+    Array.prototype.forEach.call(document.querySelectorAll('#cpMenu2 .cp-opt2'),function(o){
+      var ot=o.getAttribute('data-type'),ou=UNITS[ot],on=o.querySelector('.num');
+      o.setAttribute('aria-selected',String(ot===cur)); if(ou&&on)on.textContent='RM '+fmt(ou.price);});
     calc();
   }
   /* Show-unit photography, rebuilt per type. Thumbs are 480px WebP (~18KB) against
@@ -4277,11 +4327,20 @@ window.mgmTrackLead = function (payload) {
      second listener here or the event fires twice. */
   ['cLoan','cTen'].forEach(function(id){$(id).addEventListener('input',calc);});
 
-  /* price picker cycles the type, keeping the calculator and the card in step */
-  $('cPick').addEventListener('click',function(){
-    window.setType(ORDER[(ORDER.indexOf(cur)+1)%ORDER.length]);
-    document.querySelector('#tabs .tab[aria-selected="true"]').scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
-  });
+  /* price dropdown (2026-10-10, Justin: "fix the dropdown"). The box looked like a dropdown but cycled to the next
+     type on every tap. It now opens the list of all five types with their prices, as on Aria; picking one goes
+     through setType(), so the calculator, the tabs and the unit card stay in step. */
+  (function(){
+    var btn=$('cPick'),menu=$('cpMenu2'); if(!btn||!menu)return;
+    function setOpen(open){menu.hidden=!open;btn.setAttribute('aria-expanded',String(open));}
+    btn.addEventListener('click',function(e){e.stopPropagation();setOpen(menu.hidden);});
+    Array.prototype.forEach.call(menu.querySelectorAll('.cp-opt2'),function(o){
+      o.addEventListener('click',function(){window.setType(o.getAttribute('data-type'));setOpen(false);btn.focus();});
+    });
+    document.addEventListener('click',function(e){
+      if(!menu.hidden && !btn.contains(e.target) && !menu.contains(e.target))setOpen(false);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape' && !menu.hidden){setOpen(false);btn.focus();}});
+  })();
 
   /* lightbox. The third argument controls the Renovation Package key: it belongs to the
      floor plans only, not to the facilities plan, the CGI gallery or the show-unit photos,
@@ -4609,18 +4668,18 @@ window.mgmTrackLead = function (payload) {
           nav_surface:el.closest('#mobileMenu')?'mobile_menu':'header'});
         return;
       }
-      /* 5. unit type. The real controls are #tabs and #cPick, both calling setType(). */
+      /* 5. unit type. The real controls are #tabs and the #cpMenu2 price list, both calling setType(). */
       if((el=t.closest('#tabs .tab'))){
         send('unit_select',{unit_interest:'Type '+el.getAttribute('data-type'),select_source:'tab'});
         return;
       }
+      if((el=t.closest('#cpMenu2 .cp-opt2'))){
+        send('unit_select',{unit_interest:'Type '+el.getAttribute('data-type'),select_source:'calc_dropdown'});
+        return;
+      }
       if((el=t.closest('#cPick'))){
+        /* opens the price list (2026-10-10); the type is chosen in the list, sent as unit_select above */
         if(first('calc_unit'))send('calculator_interact',{calc_input:'unit'});
-        /* the picker cycles to the next type in its own handler: read the result after it */
-        setTimeout(function(){
-          send('unit_select',{unit_interest:'Type '+txt(document.getElementById('cType'),2),
-            select_source:'calc_dropdown'});
-        },0);
         return;
       }
       /* 6. images and plans opened in a lightbox, and the facilities map categories */
