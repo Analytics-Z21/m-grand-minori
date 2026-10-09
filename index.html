@@ -69,22 +69,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="assets/boska-500.woff2" crossorigin>
 <style>
-/* ROUND 1: type now matches the live site m-grandminori.com.my.
-   Self-hosted faces, byte-identical to the live site's own files:
-     Chronicle Display  headings, feature titles, prices
-     Balt Optima Medium body copy paragraphs
-     Montserrat         nav, buttons, forms, micro labels
-   The live site declares the family misspelt as "Chronicle Dsiplay"; both spellings are
-   declared so this drops straight into the child theme either way.
-   Chronicle ships upright Light + Semibold only, with NO italic, so every italic that sat
-   on the display face is now upright gold. A faux oblique on a serif of this contrast
-   reads as a rendering fault. */
-@font-face{font-family:"Chronicle Display";src:url("assets/chronicle-light.woff") format("woff");font-weight:300 400;font-display:swap}
-@font-face{font-family:"Chronicle Display";src:url("assets/chronicle-semibold.woff") format("woff");font-weight:500 700;font-display:swap}
-@font-face{font-family:"Chronicle Dsiplay";src:url("assets/chronicle-light.woff") format("woff");font-weight:300 400;font-display:swap}
-@font-face{font-family:"Chronicle Dsiplay";src:url("assets/chronicle-semibold.woff") format("woff");font-weight:500 700;font-display:swap}
-@font-face{font-family:"Balt Optima Medium";src:url("assets/baltoptima.woff") format("woff");font-weight:300 500;font-display:swap}
+/* TYPE FOLLOWS VER2 M AURORA (2026-10-09, Justin: "for the font selection please all follow how ver2 M Aurora").
+   Display serif = Boska (Indian Type Foundry, Fontshare licence, free for commercial use), the same self-hosted
+   files as M Aurora. As on Aurora: headlines (h1, h2) in Boska Medium, every other serif in Boska Bold, all body,
+   labels, buttons and prices in Montserrat. Two family names so the role decides the cut, not the weight each old
+   rule asked for: "Boska" is Bold at every weight, "Boska Medium" is Medium at every weight (h1/h2 point --fd at it).
+   The italics register after page load (script at the end of the page), as on Aurora. */
+@font-face{font-family:"Boska";src:url("assets/boska-700.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Boska Medium";src:url("assets/boska-500.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 </style>
 <style>
 :root{
@@ -94,9 +88,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --cream:#F8F4EF;--cream2:#EDE8E0;
   --white:#FFFFFF;--dark:#0D0B1E;
   --td:#1A1A18;--tm:#6A6A65;--tl:#9A9A92;
-  --fd:"Chronicle Display","Chronicle Dsiplay",Georgia,serif;
+  --fd:"Boska",Georgia,serif;
   --fb:"Montserrat",system-ui,sans-serif;
-  --fc:"Balt Optima Medium","Montserrat",sans-serif;
+  --fc:"Montserrat",system-ui,sans-serif;
   --pad:20px;--max:1200px;
   --safe-b:env(safe-area-inset-bottom,0px);
 }
@@ -2098,6 +2092,26 @@ a.nav-reg:hover{background:var(--copper2,#A8714A)}
 .nx .fit-lead b{display:inline;font:500 clamp(34px,4.6vw,48px)/1 var(--fd);
   color:var(--gold2);margin:0 3px;vertical-align:-2px}
 </style>
+<style id="aurora-type">
+/* 2026-10-09 (Justin). ONE HERO ASK: the layout button left the hero, so "Get Price List Now" is the only CTA and
+   spans the old two-button row on phones; from tablets up it takes its own width.
+   TYPE FOLLOWS VER2 M AURORA: h1/h2 point the display variable at Boska Medium; every other serif resolves to
+   Boska Bold. Buttons in Montserrat 700 as on Aurora. Boska defaults to old-style figures, so lining is forced
+   (!important because every `font:` shorthand resets font-variant-numeric); rules that asked for tabular figures
+   keep them. */
+h1,h2{--fd:"Boska Medium","Boska",Georgia,serif}
+*{font-variant-numeric:lining-nums!important}
+.nx .loc-item b,.nx .num,.num{font-variant-numeric:lining-nums tabular-nums!important}
+.btn{font-weight:700!important;letter-spacing:.02em}
+.hero .hero-ctas,.hero .hero-inner .hero-ctas{grid-template-columns:1fr}
+.hero .hero-ctas .btn{font-size:14px}
+@media(min-width:768px){.hero .hero-ctas,.hero .hero-inner .hero-ctas{grid-template-columns:1fr;max-width:300px}}
+/* PRICES IN SANS, as on Aurora: every RM figure that sat in the display serif moves to Montserrat 700; a row that
+   mixes prices with other figures (hero tiles, price pairs, overview stats) moves whole so it reads as one row. The
+   serif stays on words and on the facts strip. Montserrat sets about 26% wider than Boska, so font-size-adjust .46
+   steps it down to about 0.85x of whatever size each breakpoint declares (Aurora stepped its prices down by hand). */
+.h-card-val,.price-val,.cpick-btn strong,.cout .v,.fit-lead b{font-family:var(--fb)!important;font-weight:700!important;letter-spacing:-.01em!important;font-size-adjust:.46}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -2256,18 +2270,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
              .hero-media they rendered below the banner and never reached the fold. -->
         <div class="hero-ctas">
           <button type="button" class="btn btn-p" data-open-lead="hero" data-cta-id="hero_register">Get Price List Now</button>
-          <a class="btn btn-s" href="#layouts" data-cta-id="hero_layouts">
-            <span class="btn-s-n">5 layouts</span>
-            <span class="btn-s-t">403-835 sq.ft</span>
-          </a>
         </div>
       </div>
     </div>
-    <a href="#trust" class="scroll-ind" aria-label="Scroll down"><span class="scroll-arrow"></span></a>
+    <a href="#quickRegister" class="scroll-ind" aria-label="Scroll down"><span class="scroll-arrow"></span></a>
   </div>
 </section>
 
 <!-- QUICK REGISTRATION (low-friction subform under hero) -->
+<!-- 2026-10-09 (Justin): the quick form sits right below the hero. It keeps its .nx wrapper
+     so the scoped form styles still apply. -->
+<div class="nx">
+<section class="sec sec-alt" id="quickRegister">
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="qx rv">
+      <div class="qx-l">
+        <span class="eyebrow">Fast track</span>
+        <h2>Get the price list <span class="em">in one step</span></h2>
+        <p class="copy">Full pricing, current availability and the payment schedule for all five layouts, sent to you directly. No obligation.</p>
+        <div class="qx-points"><span>All 5 floor plans</span><span>Current availability</span><span>Loan guidance</span></div>
+      </div>
+      <div class="form-card">
+        <form id="quickForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmQuickFormSubmit(this)">
+          <input type="hidden" name="oid" value="00D0o0000015t7i">
+      <input type="hidden" name="retURL" value="https://www.ver2.m-grandminori.com.my/thank-you">
+      <input type="hidden" name="00N2j000000e0hv" value="M Grand Minori Website 2">
+      <input type="hidden" name="00N2j000000e0hw" value="M Grand Minori">
+      <input type="hidden" name="00N2j000000e0ho" value="M Grand Minori Website">
+      <input type="hidden" name="00N2j000000e0hp" value="Website">
+      <input type="hidden" name="00N2j000000e0hR" value="1">
+          <div class="field"><label class="f-label" for="q-name">Full name</label>
+            <input class="f-input" id="q-name" name="last_name" type="text" maxlength="80" placeholder="Your full name" required autocomplete="name"></div>
+          <div class="field"><label class="f-label" for="q-phone">Phone number</label>
+            <input class="f-input" id="q-phone" name="mobile" type="tel" maxlength="20" placeholder="012-345 6789 or 9123 4567" required autocomplete="tel" inputmode="tel" data-my-phone></div>
+          <div class="field"><label class="f-label" for="q-email">Email</label>
+            <input class="f-input" id="q-email" name="email" type="email" maxlength="80" placeholder="you@example.com" required autocomplete="email"></div>
+          <button class="btn btn-p" type="submit" style="width:100%">Get Price List Now</button>
+          <p class="f-consent">By submitting, you agree to our <a href="#">Terms &amp; Conditions</a> and <a href="#">PDPA Notice</a>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
 
 
 <!-- TRUST -->
@@ -2373,38 +2419,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="text-align:right"><div class="l">In Singapore dollars</div><div class="s num" id="cSg">SGD 425</div></div>
       </div>
       <p class="cnote">Estimates only, at 4.0% p.a. over the selected tenure, 1 SGD = 3.11 MYR. Subject to bank approval. Not an offer.</p>
-    </div>
-  </div>
-</section>
-<section class="sec sec-alt" id="quickRegister">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy"></div>
-  <div class="wrap">
-    <div class="qx rv">
-      <div class="qx-l">
-        <span class="eyebrow">Fast track</span>
-        <h2>Get the price list <span class="em">in one step</span></h2>
-        <p class="copy">Full pricing, current availability and the payment schedule for all five layouts, sent to you directly. No obligation.</p>
-        <div class="qx-points"><span>All 5 floor plans</span><span>Current availability</span><span>Loan guidance</span></div>
-      </div>
-      <div class="form-card">
-        <form id="quickForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmQuickFormSubmit(this)">
-          <input type="hidden" name="oid" value="00D0o0000015t7i">
-      <input type="hidden" name="retURL" value="https://www.ver2.m-grandminori.com.my/thank-you">
-      <input type="hidden" name="00N2j000000e0hv" value="M Grand Minori Website 2">
-      <input type="hidden" name="00N2j000000e0hw" value="M Grand Minori">
-      <input type="hidden" name="00N2j000000e0ho" value="M Grand Minori Website">
-      <input type="hidden" name="00N2j000000e0hp" value="Website">
-      <input type="hidden" name="00N2j000000e0hR" value="1">
-          <div class="field"><label class="f-label" for="q-name">Full name</label>
-            <input class="f-input" id="q-name" name="last_name" type="text" maxlength="80" placeholder="Your full name" required autocomplete="name"></div>
-          <div class="field"><label class="f-label" for="q-phone">Phone number</label>
-            <input class="f-input" id="q-phone" name="mobile" type="tel" maxlength="20" placeholder="012-345 6789 or 9123 4567" required autocomplete="tel" inputmode="tel" data-my-phone></div>
-          <div class="field"><label class="f-label" for="q-email">Email</label>
-            <input class="f-input" id="q-email" name="email" type="email" maxlength="80" placeholder="you@example.com" required autocomplete="email"></div>
-          <button class="btn btn-p" type="submit" style="width:100%">Get Price List Now</button>
-          <p class="f-consent">By submitting, you agree to our <a href="#">Terms &amp; Conditions</a> and <a href="#">PDPA Notice</a>.</p>
-        </form>
-      </div>
     </div>
   </div>
 </section>
@@ -3005,7 +3019,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 function upd(){var past=heroCtaInView===null?window.scrollY>400:!heroCtaInView;sticky.classList.toggle('on',past&&!formInView)}
 window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.scrollY>400);upd()},{passive:true});
 /* read the LAST entry: a layout shift (web fonts) can deliver two entries in one batch, and the first is stale */
-if(io&&formSec){new IntersectionObserver(function(ents){formInView=ents[ents.length-1].isIntersecting;upd()},{threshold:.15}).observe(formSec)}
+/* 2026-10-09: the bar steps aside while a form section is on screen: the quick form (now right under the hero), the
+   visit form and the closing contact band, so a view never carries two identical asks (as on Aurora). It watched
+   #register, an id this page does not have, so it never stepped aside before. */
+if(io){var seen={},fio=new IntersectionObserver(function(ents){ents.forEach(function(e){seen[e.target.id]=e.isIntersecting});formInView=Object.keys(seen).some(function(k){return seen[k]});upd()},{threshold:.15});
+  ['quickRegister','visit','contact'].forEach(function(id){var el=document.getElementById(id);if(el)fio.observe(el)})}
 if(io&&heroCtas){new IntersectionObserver(function(ents){heroCtaInView=ents[ents.length-1].intersectionRatio>=.98;upd()},{threshold:[0,.5,.98,1]}).observe(heroCtas)}
 })();
 </script>
@@ -4664,6 +4682,13 @@ window.mgmTrackLead = function (payload) {
     n.textContent = 'Preview link: the form is switched off here, so nothing was sent. On the live site this sends your details to Mah Sing’s sales team.';
   }, true);
 })();
+</script>
+<script>
+/* Boska italics, registered after load so they never compete with the hero (as on M Aurora). Registered only:
+   the browser fetches a file only if some serif text on the page is italic. */
+window.addEventListener('load',function(){if(!window.FontFace||!document.fonts)return;
+  [['Boska','assets/boska-700i.woff2'],['Boska Medium','assets/boska-500i.woff2']].forEach(function(d){
+    document.fonts.add(new FontFace(d[0],'url('+d[1]+') format("woff2")',{style:'italic',weight:'100 900',display:'swap'}));});});
 </script>
 </body>
 </html>

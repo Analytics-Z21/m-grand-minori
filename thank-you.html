@@ -15,9 +15,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#151328;--dark:#0d0b1e;--cream:#f4ece0;--cream2:#d9cdb8;--copper:#a86c43;--copper2:#8f5a38;--copper3:#d69f65;--gold:#c9a36a;--gold2:#d6b379;--tl:rgba(244,236,224,.58);--tm:rgba(244,236,224,.78);--white:#fff;--fd:'Playfair Display',serif;--fb:'Outfit',sans-serif;--safe-b:env(safe-area-inset-bottom,0px)}
+/* Type follows ver2 M Aurora (2026-10-09): Boska Medium on h1/h2, Boska Bold on other serif, Montserrat for the rest */
+@font-face{font-family:"Boska";src:url("assets/boska-700.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Boska Medium";src:url("assets/boska-500.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Boska";src:url("assets/boska-700i.woff2") format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Boska Medium";src:url("assets/boska-500i.woff2") format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+:root{--navy:#151328;--dark:#0d0b1e;--cream:#f4ece0;--cream2:#d9cdb8;--copper:#a86c43;--copper2:#8f5a38;--copper3:#d69f65;--gold:#c9a36a;--gold2:#d6b379;--tl:rgba(244,236,224,.58);--tm:rgba(244,236,224,.78);--white:#fff;--fd:"Boska",Georgia,serif;--fb:'Montserrat','Segoe UI',sans-serif;--safe-b:env(safe-area-inset-bottom,0px)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:var(--fb);color:var(--cream);background:var(--navy);min-height:100svh;display:flex;flex-direction:column;overflow-x:hidden}
@@ -53,6 +58,8 @@ h1.ty-title em{font-style:italic;color:var(--copper3)}
 .ty-btn svg{width:16px;height:16px;fill:currentColor}
 .ty-foot{position:relative;z-index:2;text-align:center;padding:18px 20px calc(18px + var(--safe-b));font-size:11px;color:var(--tl);letter-spacing:.3px}
 .ty-foot a{color:var(--copper3)}
+h1,h2{--fd:"Boska Medium","Boska",Georgia,serif}
+*{font-variant-numeric:lining-nums!important}
 </style>
 </head>
 <body>
