@@ -2140,6 +2140,13 @@ a[href^="tel:"]{white-space:nowrap}
    under its own label, so it left-aligns there */
 @media(max-width:599px){.nx .cout>div+div{text-align:left!important}}
 </style>
+<style>
+/* Lead-form fix (10 Oct 2026): each error sits under the field that failed, on a light pill that reads on any
+   ground; lead-form inputs are 16px on touch screens so iOS does not zoom the page. */
+.f-err{display:table;margin:6px 0 0;padding:3px 8px;border-radius:6px;background:#fdecea;color:#8c1d18;font-family:inherit;font-weight:600;font-size:14px;line-height:1.4;letter-spacing:0;text-transform:none;text-align:left}
+form input.f-invalid{border-color:#b3261e!important;box-shadow:0 0 0 1px #b3261e!important}
+@media (pointer:coarse){form[action*="salesforce"] input:not([type=hidden]):not([type=checkbox]):not([type=radio]),form[action*="salesforce"] select,form[action*="salesforce"] textarea{font-size:16px!important}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -2320,7 +2327,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="qx-points"><span>All 5 floor plans</span><span>Current availability</span><span>Loan guidance</span></div>
       </div>
       <div class="form-card">
-        <form id="quickForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmQuickFormSubmit(this)">
+        <form id="quickForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmQuickFormSubmit(this)" novalidate>
           <input type="hidden" name="oid" value="00D0o0000015t7i">
       <input type="hidden" name="retURL" value="https://www.ver2.m-grandminori.com.my/thank-you">
       <input type="hidden" name="00N2j000000e0hv" value="M Grand Minori Website 2">
@@ -2922,7 +2929,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="form-card">
-        <form id="visitForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmFormSubmit(this)">
+        <form id="visitForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00D0o0000015t7i" method="POST" onsubmit="return handleMgmFormSubmit(this)" novalidate>
             <input type="hidden" name="oid" value="00D0o0000015t7i">
       <input type="hidden" name="retURL" value="https://www.ver2.m-grandminori.com.my/thank-you">
       <input type="hidden" name="00N2j000000e0hv" value="M Grand Minori Website 2">
@@ -3620,6 +3627,80 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     return null;
   };
 
+
+  // ---- Per-field check (10 Oct 2026, same as M Amaya) ----
+  // One message under each field that failed, the first one scrolled into view and focused, and a GA4 form_error
+  // event naming the field and reason (never the value). If anything here throws, the old single-message check runs.
+  var Z21_FIELD_MSG = {
+    last_name: { empty: 'Please enter your name.' },
+    mobile: { empty: 'Please enter your phone number.', format: 'Please check your phone number, e.g. 012-345 6789.' },
+    email: { empty: 'Please enter your email.', format: 'Please check your email, e.g. name@gmail.com.' }
+  };
+  window.clearLeadFieldError = function (input) {
+    if (!input) return;
+    input.classList.remove('f-invalid');
+    input.removeAttribute('aria-invalid');
+    if (input._z21Err && input._z21Err.parentNode) input._z21Err.parentNode.removeChild(input._z21Err);
+    input._z21Err = null;
+  };
+  function z21PlaceError(input, el) {
+    var p = input.parentNode, cs = null;
+    try { cs = window.getComputedStyle(p); } catch (e0) { /* keep defaults */ }
+    if (cs && /grid/.test(cs.display)) { el.style.gridColumn = '1 / -1'; input.insertAdjacentElement('afterend', el); return; }
+    if (cs && /flex/.test(cs.display) && !/column/.test(cs.flexDirection)) {
+      if (p.tagName === 'FORM') { el.style.flexBasis = '100%'; input.insertAdjacentElement('afterend', el); }
+      else p.insertAdjacentElement('afterend', el);
+      return;
+    }
+    input.insertAdjacentElement('afterend', el);
+  }
+  window.checkLeadForm = function (form, formName, opts) {
+    try {
+      var phone = form.querySelector('input[data-my-phone]');
+      if (phone && phone.value && typeof window.formatMyPhone === 'function') window.formatMyPhone(phone, { normalise: true });
+      var inputs = form.querySelectorAll('input[name="last_name"], input[name="mobile"], input[name="email"]');
+      var errs = [];
+      Array.prototype.forEach.call(inputs, function (input) {
+        window.clearLeadFieldError(input);
+        var v = (input.value || '').trim(), reason = null;
+        if (!v) reason = 'empty';
+        else if (input.name === 'email' && !window.isValidLeadEmail(v)) reason = 'format';
+        else if (input.name === 'mobile' && !window.isValidMyPhone(v)) reason = 'format';
+        if (reason) errs.push({ input: input, field: input.name, reason: reason });
+      });
+      window.clearLeadFormError(form);
+      if (!errs.length) return true;
+      errs.forEach(function (x) {
+        x.input.classList.add('f-invalid');
+        x.input.setAttribute('aria-invalid', 'true');
+        var el = document.createElement('p');
+        el.className = 'f-err';
+        el.setAttribute('role', 'alert');
+        el.textContent = Z21_FIELD_MSG[x.field][x.reason];
+        x.input._z21Err = el;
+        z21PlaceError(x.input, el);
+      });
+      var first = errs[0].input;
+      try { first.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e1) { try { first.scrollIntoView(); } catch (e3) { /* hidden form */ } }
+      try { first.focus({ preventScroll: true }); } catch (e2) { /* focus is a courtesy */ }
+      form._z21Attempts = (form._z21Attempts || 0) + 1;
+      if (!(opts && opts.silent)) {
+        var ev = { form_name: formName, error_field: errs[0].field, error_reason: errs[0].reason,
+                   error_fields: errs.map(function (x) { return x.field; }).join(','),
+                   phone_digits: phone ? String(phone.value || '').replace(/\D/g, '').length : undefined, attempt: form._z21Attempts };
+        if (typeof window.z21Track === 'function') window.z21Track('form_error', ev);
+        else if (typeof window.mgmTrackLead === 'function') { ev.event = 'form_error'; window.mgmTrackLead(ev); }
+      }
+      return false;
+    } catch (err) {
+      var g = function (n) { return ((form.querySelector('input[name="' + n + '"]') || {}).value || '').trim(); };
+      var msg = window.validateLeadFields(g('last_name'), g('email'), g('mobile'));
+      if (msg) { window.showLeadFormError(form, msg); return false; }
+      window.clearLeadFormError(form);
+      return true;
+    }
+  };
+
   // ─────────────────────────────────────────────────────────────
   // Diagnostic capture — parallel copy of every form submission
   // to n8n (Phase 1 safety net). Failure here MUST NOT block the
@@ -3701,12 +3782,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     var mobile = (form.querySelector('input[name="mobile"]') || {}).value || '';
     name = name.trim(); email = email.trim(); mobile = mobile.trim();
 
-    var err = window.validateLeadFields(name, email, mobile);
-    if (err) {
-      window.showLeadFormError(form, err);
-      return false;
-    }
-    window.clearLeadFormError(form);
+    if (!window.checkLeadForm(form, 'M Grand Minori Registration')) return false;
 
     // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
     var submissionId = window.captureFormDiagnostic(form, 'mainRegisterForm');
@@ -3728,12 +3804,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     var mobile = (form.querySelector('input[name="mobile"]') || {}).value || '';
     name = name.trim(); email = email.trim(); mobile = mobile.trim();
 
-    var err = window.validateLeadFields(name, email, mobile);
-    if (err) {
-      window.showLeadFormError(form, err);
-      return false;
-    }
-    window.clearLeadFormError(form);
+    if (!window.checkLeadForm(form, 'M Grand Minori Quick Form')) return false;
 
     // Parallel capture to n8n (Phase 1 safety net) — returns UUID for dataLayer
     var submissionId = window.captureFormDiagnostic(form, 'quickRegisterForm');
@@ -3763,12 +3834,7 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     var mobile = (form.querySelector('input[name="mobile"]') || {}).value || '';
     name = name.trim(); email = email.trim(); mobile = mobile.trim();
 
-    var err = window.validateLeadFields(name, email, mobile);
-    if (err) {
-      window.showLeadFormError(form, err);
-      return false;
-    }
-    window.clearLeadFormError(form);
+    if (!window.checkLeadForm(form, 'M Grand Minori Drawer Form')) return false;
 
     var trigger = window._mgmDrawerSource || 'unknown';
 
@@ -4000,8 +4066,12 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
     input.value = prefix + formatted;
   }
 
+  window.formatMyPhone = formatMyPhone;
+  document.querySelectorAll('form input[name="last_name"], form input[name="email"]').forEach(function (i) {
+    i.addEventListener('input', function () { window.clearLeadFieldError(i); });
+  });
   document.querySelectorAll('input[data-my-phone]').forEach(function (input) {
-    input.addEventListener('input', function () { formatMyPhone(input, { normalise: false }); });
+    input.addEventListener('input', function () { window.clearLeadFieldError(input); }); // 10 Oct 2026: never reformatted while typing (broke composing Android keyboards)
     input.addEventListener('blur', function () {
       formatMyPhone(input, { normalise: true }); // auto +60 here
       if (input.value && !window.isValidMyPhone(input.value)) {
@@ -4735,6 +4805,8 @@ window.mgmTrackLead = function (payload) {
   if (!/\.pages\.dev$|^localhost$|^127\./.test(location.hostname)) return;
   document.addEventListener('submit', function (e) {
     var f = e.target; e.preventDefault(); e.stopImmediatePropagation();
+    // 10 Oct 2026: run the field check first so a reviewer sees the errors a visitor would; still nothing is sent.
+    if (typeof window.checkLeadForm === 'function' && !window.checkLeadForm(f, 'preview', { silent: true })) return;
     var n = f.querySelector('.preview-note');
     if (!n) {
       n = document.createElement('p'); n.className = 'preview-note'; n.setAttribute('role', 'status');
