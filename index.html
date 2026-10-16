@@ -2270,6 +2270,10 @@ html.js [data-stagger].rv.in>*{opacity:1;transform:none}
 .h-price b{font-family:var(--fb);font-weight:700;font-size:.8em;letter-spacing:-.025em;white-space:nowrap}
 .h-price sup{font-size:.42em;vertical-align:super;line-height:0}
 .h-fact{font:500 14.5px/1.5 var(--fb);color:var(--cream2);margin:0 0 14px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+/* round 2 (16 Oct): the place line after the fact line, pin in the copper accent, text in the hero cream with the
+   fact line's shadow. The base .h-place rule (round 1, ~line 1054) stays; this sets the hero's own spacing and shadow. */
+.hero .h-place{display:flex;align-items:center;gap:7px;margin:0 0 14px;color:var(--cream2);font:500 13px/1.5 var(--fb);letter-spacing:.04em;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.hero .h-place svg{flex:none;color:var(--copper3)}
 .h-beds{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
 .h-bed{min-height:44px;padding:0 14px;border:1.5px solid rgba(248,244,239,.42);border-radius:0;font:600 13.5px/1.2 var(--fb);color:var(--cream);
   background:rgba(13,11,30,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer;touch-action:manipulation;
@@ -2298,7 +2302,8 @@ html.js [data-stagger].rv.in>*{opacity:1;transform:none}
   .hero .h-logo img{height:84px}
   .hero h1{font-size:clamp(26px,2.4vw,34px)}
   .h-price{font-size:clamp(52px,5.6vw,80px);line-height:1.02;margin-bottom:12px}
-  .h-fact{font-size:17px;margin-bottom:18px}
+  .h-fact{font-size:17px;margin-bottom:14px}
+  .hero .h-place{font-size:14px;margin-bottom:20px}
   .h-beds{margin-bottom:24px}
   .h-trust{font-size:13px}
 }
@@ -2322,7 +2327,8 @@ html.js [data-stagger].rv.in>*{opacity:1;transform:none}
   .h-eyebrow{margin-bottom:8px}
   .hero h1,.hero .hero-inner h1{margin-bottom:6px}
   .h-price{font-size:clamp(34px,9vw,40px);margin-bottom:8px}
-  .h-fact{margin-bottom:12px}
+  .h-fact{margin-bottom:8px}
+  .hero .h-place{margin-bottom:12px}
   .h-beds{margin-bottom:16px}
   .h-trust{margin-top:10px}
   .hero-scrim{background:linear-gradient(180deg,rgba(13,11,30,.42) 0%,rgba(13,11,30,.24) 18%,rgba(13,11,30,.14) 46%,rgba(13,11,30,.26) 70%,rgba(13,11,30,.8) 92%,var(--night0) 100%)}
@@ -2430,19 +2436,44 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(169,108,6
 }
 .story-body .chp-head{margin-bottom:10px}
 .story-body h3{margin-bottom:18px}
-.iki-list{list-style:none;margin:0;padding:0;border-top:1px solid rgba(248,244,239,.14)}
-.iki-list li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(248,244,239,.14);align-items:start}
-.iki-list .chp-kanji{position:static;font:500 22px/1.1 var(--fd);color:var(--gold2);text-shadow:none;font-style:normal}
-.iki-list b{display:block;font:600 16.5px/1.3 var(--fd);color:var(--cream)}
-.iki-list span{display:block;font:400 13.5px/1.6 var(--fc);color:var(--cream2);margin-top:4px}
+/* round 2 (16 Oct, Justin): the four Iki items as image tiles. Each tile carries its own render behind a night scrim that
+   deepens towards the copy; kanji and name in the gold, the description in cream (the copy is the page's own, verbatim,
+   shown in full). One across on phones, two across from 768px; the glass card widens on desktop to give the pair room. */
+.iki-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:12px}
+.iki-list li{position:relative;display:block;padding:0;overflow:hidden;isolation:isolate;border:1px solid rgba(248,244,239,.14);background:var(--night1)}
+.iki-list li img{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.iki-list li::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(13,11,30,.12) 0%,rgba(13,11,30,.42) 30%,rgba(13,11,30,.86) 52%,rgba(13,11,30,.94) 100%)}
+.iki-list .iki-copy{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;min-height:300px;padding:132px 18px 18px}
+.iki-list .chp-kanji{position:static;font:500 24px/1.1 var(--fd);color:var(--gold2);font-style:normal;text-shadow:0 2px 10px rgba(13,11,30,.9)}
+.iki-list b{display:block;font:600 18px/1.25 var(--fd);font-variation-settings:'opsz' 18;color:var(--gold2);margin-top:8px;text-shadow:0 1px 8px rgba(13,11,30,.9)}
+.iki-list span{display:block;font:400 13.5px/1.6 var(--fc);color:var(--cream);margin-top:6px;text-shadow:0 1px 6px rgba(13,11,30,.9)}
+@media(min-width:768px){.iki-list{grid-template-columns:1fr 1fr;gap:14px}.iki-list .iki-copy{min-height:320px;padding-top:140px}}
+@media(min-width:1024px){.story-body{max-width:860px}.iki-list .iki-copy{padding:150px 20px 20px}}
 .chapters2{border:0;padding-top:clamp(48px,6vw,80px)}
 .chp{padding:0 0 clamp(40px,5vw,64px)}
-.chp+.chp{border-top:0}
+.chp+.chp{border-top:1px solid var(--line);padding-top:clamp(40px,5vw,64px)}
 .chp-n{color:var(--cream2)}
 .chp-k{color:var(--cream2)}
-@media(min-width:1024px){
-  .chapters2{display:grid;grid-template-columns:1fr 1fr;column-gap:64px;align-items:start}
-  .chp{padding-bottom:clamp(48px,6vw,80px)}
+/* round 2 (16 Oct, Justin): chapters 02 and 03 back on the live site's large-image tap-to-read cards, full width on every
+   size (the round-1 side-by-side lists shrank the renders to 64px thumbnails). The live .chp-grid / .chp-card / .chp-hint /
+   .chp-story rules and the tap JS still stand from round 1; these lines restyle them to the night tokens: hairline border,
+   cream title and sub-line, the copper hint badge, a night overlay for the story copy. */
+.chp h3{color:var(--cream)}
+.chp-card{border:1px solid var(--line);background:var(--night1)}
+.chp-card figcaption{background:linear-gradient(180deg,transparent 0%,rgba(13,11,30,.55) 40%,rgba(13,11,30,.94) 100%)}
+.chp-card b{color:var(--cream);font-weight:600;font-variation-settings:'opsz' 18}
+.chp-card span{color:var(--cream2)}
+.chp-hint{background:rgba(13,11,30,.92);border-color:rgba(196,134,90,.6);color:var(--copper3);font-size:11px} /* .92: the badge sits over the render; at .78 the copper label read 3.55:1 on the brighter renders. 11px: the lint's functional-text floor (live had 10px) */
+.chp-story{background:rgba(13,11,30,.92)}
+.chp-story b{color:var(--cream);font-weight:600}
+.chp-story p{color:var(--cream2)}
+/* Live-site bug fixed on the way: under the phone peek-scroll row (grid-auto-flow:column) the explicit repeat(2,1fr) and
+   repeat(1,1fr) columns collapse to 2px, so the first card of chapter 02 (two cards) and chapter 03 (one card) were
+   invisible on phones. All columns implicit at 76% now, and chapter 03's cards take the same 4/5 frame as chapter 02. */
+@media(max-width:759px){
+  .chp-grid--4,.chp-grid--3{grid-template-columns:none}
+  .chp-grid--3 .chp-card img{aspect-ratio:4/5}
 }
 /* reasons as an editorial numbered list: thumbnail, title, hairline rules, the number at the right edge */
 .usp-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;border-top:1px solid rgba(248,244,239,.14)}
@@ -2540,6 +2571,23 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(169,108,6
 .nx .loc-list,.nx .loc-item{border-color:var(--line)}
 .nx .loc-item b{color:var(--gold2)}
 #loc .loc-panel>div:last-child{border-top-color:var(--line)!important}
+/* round 2 (16 Oct, rule A2): one grid, DOM order on phones (title, tabs, map, details). The legacy order:1 on the map
+   and the .loc-info wrapper are retired. Desktop: heading and tabs span both columns, map left, details right, the map at
+   4/3 setting the row and the details panel stretching to it with the links docked at its foot. */
+#loc .loc-content{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+#loc .loc-head-float{margin-bottom:6px}
+#loc .loc-tabs .loc-cats{margin-bottom:0}
+#loc .loc-map-bg{order:0}
+#loc .loc-panel{display:flex;flex-direction:column}
+@media(min-width:1024px){
+  #loc .loc-content{grid-template-columns:minmax(0,1.15fr) minmax(0,440px);column-gap:40px;row-gap:24px;align-items:stretch}
+  #loc .loc-head-float,#loc .loc-tabs{grid-column:1/-1}
+  #loc .loc-head-float{margin-bottom:0}
+  #loc .loc-map-bg{grid-column:1;aspect-ratio:4/3;height:auto;max-height:none;align-self:stretch}
+  #loc .loc-panel{grid-column:2;align-self:stretch}
+  #loc .loc-panel>div:last-child{margin-top:auto!important;padding-top:20px}
+  #loc .loc-panel .nx{padding-bottom:20px}
+}
 
 /* ---------- developer and the answers on paper; the red Mah Sing mark needs a light ground ---------- */
 .nx #developer,.nx #faq{background:var(--paper);color:var(--ink-d)}
@@ -2772,10 +2820,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="h-logo">
           <img src="assets/new-logo.png" alt="Grand Minori" width="414" height="398">
         </div>
-        <span class="h-eyebrow">Open for Sale &middot; Taman Pelangi, Johor Bahru</span>
+        <span class="h-eyebrow">Open for Sale</span>
         <h1><em>Exclusive</em> Lifestyle Awaits</h1>
         <p class="h-price">Freehold from <b class="num">RM332K<sup>*</sup></b></p>
         <p class="h-fact">Two 61-storey towers, 403 to 835 sq ft</p>
+        <!-- round 2 (16 Oct): the place on its own line with a pin, out of the eyebrow (the M Amaya hero pattern) -->
+        <div class="h-place">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <span>Taman Pelangi, Johor Bahru</span>
+        </div>
         <div class="h-beds" role="group" aria-label="See layouts by bedrooms">
           <button type="button" class="h-bed" data-bed-type="A">Studio</button>
           <button type="button" class="h-bed" data-bed-type="B">1 bed</button>
@@ -2979,8 +3032,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- STORY (premium port, 2026-10-16): chapter 01 as the full-bleed arrival court with the copy on a glass card over it
-     (the Aurora story pattern); chapters 02 and 03 as editorial numbered lists with their own renders as thumbnails.
-     Every h2, h3, chapter mark and description is the page's existing text, verbatim. -->
+     (the Aurora story pattern). Round 2 (Justin's review, 16 Oct): inside the card the four Iki items are image tiles,
+     each with its own render behind a dark scrim, kanji and name in gold, the full description shown (no tap); two across
+     on desktop, one across on phones. Chapters 02 and 03 are back on the live site's large-image tap-to-read card grid
+     (.chp-grid / .chp-card / .chp-hint / .chp-story, the live CSS and tap JS were kept in round 1), restyled to the night
+     tokens. Every h2, h3, chapter mark and description is the page's existing text, verbatim. -->
 <section class="sec" id="story" style="padding-bottom:0">
   <div class="wrap">
     <div class="sec-head rv">
@@ -2993,11 +3049,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="story-body">
       <div class="chp-head"><span class="chp-n">01</span><span class="chp-k">Japanese-inspired elegance</span></div>
       <h3>Passage to an illuminated lifestyle</h3>
-      <ul class="iki-list">
-        <li><i class="chp-kanji">&#29572;&#38306;</i><div><b>Iki-Gen</b><span>Derived from genkan (&#29572;&#38306;), meaning entryway &mdash; emphasising a grand arrival experience, setting the tone for prestige from entrance to lobby.</span></div></li>
-        <li><i class="chp-kanji">&#24029;</i><div><b>Iki-Gawa</b><span>Inspired by gawa (&#24029;), meaning water &mdash; introducing a tranquil corridor experience, seamlessly blending serenity into a serviced apartment setting.</span></div></li>
-        <li><i class="chp-kanji">&#24237;</i><div><b>Iki-Niwa</b><span>Rooted in niwa (&#24237;), meaning garden &mdash; infusing the facilities deck and common areas with the sophistication of exquisite Japanese garden design.</span></div></li>
-        <li><i class="chp-kanji">&#31379;</i><div><b>Iki-Mado</b><span>Drawing from mado (&#31379;), meaning window &mdash; prioritising expansive window designs, inviting natural light to foster a luminous and airy living environment.</span></div></li>
+      <ul class="iki-list iki-tiles">
+        <li><img src="assets/iki-genv2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1209"><div class="iki-copy"><i class="chp-kanji">&#29572;&#38306;</i><b>Iki-Gen</b><span>Derived from genkan (&#29572;&#38306;), meaning entryway &mdash; emphasising a grand arrival experience, setting the tone for prestige from entrance to lobby.</span></div></li>
+        <li><img src="assets/iki-gawav2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1209"><div class="iki-copy"><i class="chp-kanji">&#24029;</i><b>Iki-Gawa</b><span>Inspired by gawa (&#24029;), meaning water &mdash; introducing a tranquil corridor experience, seamlessly blending serenity into a serviced apartment setting.</span></div></li>
+        <li><img src="assets/iki-niwav2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1209"><div class="iki-copy"><i class="chp-kanji">&#24237;</i><b>Iki-Niwa</b><span>Rooted in niwa (&#24237;), meaning garden &mdash; infusing the facilities deck and common areas with the sophistication of exquisite Japanese garden design.</span></div></li>
+        <li><img src="assets/iki-madov2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1171"><div class="iki-copy"><i class="chp-kanji">&#31379;</i><b>Iki-Mado</b><span>Drawing from mado (&#31379;), meaning window &mdash; prioritising expansive window designs, inviting natural light to foster a luminous and airy living environment.</span></div></li>
       </ul>
     </div>
   </div>
@@ -3006,21 +3062,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <article class="chp rv">
         <div class="chp-head"><span class="chp-n">02</span><span class="chp-k">Residential excellence</span></div>
         <h3>Designed to live, built to last</h3>
-        <ol class="usp-list rv" data-stagger>
-          <li><img class="usp-th" src="assets/int-dsc05155.webp" alt="" loading="lazy" decoding="async" width="64" height="64"><div><h4>Residential excellence</h4><p>Premium finishes throughout. Every detail serves daily life.</p></div><span class="n">01</span></li>
-          <li><img class="usp-th" src="assets/int-dsc05093.webp" alt="" loading="lazy" decoding="async" width="64" height="64"><div><h4>Practical layouts</h4><p>Considered layouts, flexible for living or rental.</p></div><span class="n">02</span></li>
-          <li><img class="usp-th" src="assets/int-dsc05086.webp" alt="" loading="lazy" decoding="async" width="64" height="64"><div><h4>Immersive spaces</h4><p>Natural light and wide views.</p></div><span class="n">03</span></li>
-          <li><img class="usp-th" src="assets/cgi-4.webp" alt="" loading="lazy" decoding="async" width="64" height="64"><div><h4>Eco-conscious</h4><p>GreenRE-certified design, with eco-conscious finishes.</p></div><span class="n">04</span></li>
-        </ol>
+        <div class="chp-grid chp-grid--4">
+          <figure class="chp-card">
+            <img src="assets/int-dsc05155.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <figcaption><b>Residential excellence</b><span>Premium finishes</span></figcaption>
+            <div class="chp-story"><b>Residential excellence</b><p>Premium finishes throughout. Every detail serves daily life.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/int-dsc05093.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <figcaption><b>Practical layouts</b><span>Living or rental</span></figcaption>
+            <div class="chp-story"><b>Practical layouts</b><p>Considered layouts, flexible for living or rental.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/int-dsc05086.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <figcaption><b>Immersive spaces</b><span>Light and views</span></figcaption>
+            <div class="chp-story"><b>Immersive spaces</b><p>Natural light and wide views.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/cgi-4.webp" alt="" loading="lazy" decoding="async" width="1400" height="875"><em class="chp-hint">Tap to read</em>
+            <figcaption><b>Eco-conscious</b><span>GreenRE-certified</span></figcaption>
+            <div class="chp-story"><b>Eco-conscious</b><p>GreenRE-certified design, with eco-conscious finishes.</p></div>
+          </figure>
+        </div>
       </article>
       <article class="chp rv">
         <div class="chp-head"><span class="chp-n">03</span><span class="chp-k">Location, proximity, convenience</span></div>
         <h3>Radiant with potential and life</h3>
-        <ol class="usp-list rv" data-stagger>
-          <li><img class="usp-th" src="assets/cgi-retail-street.webp" alt="" loading="lazy" decoding="async" width="64" height="64"><div><h4>Strategic location</h4><p>The mature township of Taman Pelangi &mdash; vibrant amenities that appeal to homeowners and attract cross-border investor interest.</p></div><span class="n">01</span></li>
-          <li><img class="usp-th" src="assets/cross-border-img1.webp" alt="" loading="lazy" decoding="async" width="64" height="64"><div><h4>Close proximity</h4><p>Well connected via major roads to the RTS, CIQ and key transport links &mdash; all within minutes.</p></div><span class="n">02</span></li>
-          <li><img class="usp-th" src="assets/cgi-retail-promenade.webp" alt="" loading="lazy" decoding="async" width="64" height="64"><div><h4>Incredible convenience</h4><p>Hospitals, schools, malls and direct RTS access within a 3 km radius &mdash; everything you need, close by.</p></div><span class="n">03</span></li>
-        </ol>
+        <div class="chp-grid chp-grid--3">
+          <figure class="chp-card">
+            <img src="assets/cgi-retail-street.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <figcaption><b>Strategic location</b><span>Taman Pelangi</span></figcaption>
+            <div class="chp-story"><b>Strategic location</b><p>The mature township of Taman Pelangi &mdash; vibrant amenities that appeal to homeowners and attract cross-border investor interest.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/cross-border-img1.webp" alt="" loading="lazy" decoding="async" width="1624" height="498"><em class="chp-hint">Tap to read</em>
+            <figcaption><b>Close proximity</b><span>RTS, CIQ, major roads</span></figcaption>
+            <div class="chp-story"><b>Close proximity</b><p>Well connected via major roads to the RTS, CIQ and key transport links &mdash; all within minutes.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/cgi-retail-promenade.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <figcaption><b>Incredible convenience</b><span>Everything within 3 km</span></figcaption>
+            <div class="chp-story"><b>Incredible convenience</b><p>Hospitals, schools, malls and direct RTS access within a 3 km radius &mdash; everything you need, close by.</p></div>
+          </figure>
+        </div>
       </article>
     </div>
   </div>
@@ -3261,36 +3345,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <!-- LOCATION -->
+<!-- round 2 (16 Oct, rule A2): reading order title, tabs, map, details. The four blocks are direct children of one grid
+     (.loc-content) in that DOM order; on desktop the heading and the tabs span both columns, the map sits left and the
+     details right. The tabs (#locCats), the list (#locList), the map's enlarge and the three buttons are the same elements,
+     moved, not rebuilt; the tabs keep their .nx wrapper so the scoped chip styles still apply. -->
 <section id="loc" class="loc-hero">
   <div class="loc-content">
-    <div class="loc-info">
-    <!-- heading -->
+    <!-- 1. heading -->
     <div class="loc-head-float">
       <div class="eyebrow">Strategic Location</div>
       <h2 class="stl">Heart of <em class="em">Taman Pelangi</em></h2>
       <p class="sdesc">Mature township surrounded by malls, schools, hospitals and Singapore-bound transport — with the RTS just 3 km away.</p>
     </div>
 
-    <!-- amenities panel -->
+    <!-- 2. category tabs -->
+    <div class="nx loc-tabs"><div class="loc-cats" id="locCats" role="tablist" aria-label="Nearby categories">
+        <button class="loc-cat" role="tab" aria-selected="true" data-cat="transport">Transport</button>
+        <button class="loc-cat" role="tab" aria-selected="false" data-cat="schools">Schools</button>
+        <button class="loc-cat" role="tab" aria-selected="false" data-cat="shopping">Shopping</button>
+        <button class="loc-cat" role="tab" aria-selected="false" data-cat="health">Health</button>
+      </div></div>
+
+    <!-- 3. the map (tap to enlarge) -->
+    <div class="loc-map-bg" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
+      <img src="assets/map-facilities.webp" alt="M Grand Minori location map" loading="lazy" decoding="async" width="1500" height="1411">
+    </div>
+
+    <!-- 4. details for the selected tab, then the map links -->
     <div class="loc-panel fi">
-      <div class="nx"><div class="loc-cats" id="locCats" role="tablist" aria-label="Nearby categories">
-          <button class="loc-cat" role="tab" aria-selected="true" data-cat="transport">Transport</button>
-          <button class="loc-cat" role="tab" aria-selected="false" data-cat="schools">Schools</button>
-          <button class="loc-cat" role="tab" aria-selected="false" data-cat="shopping">Shopping</button>
-          <button class="loc-cat" role="tab" aria-selected="false" data-cat="health">Health</button>
-        </div>
-        <div class="loc-list" id="locList"></div></div>
+      <div class="nx"><div class="loc-list" id="locList"></div></div>
       <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(196,134,90,.15);display:flex;gap:10px;flex-wrap:wrap">
         <a href="https://maps.app.goo.gl/8D6pQSJu3Yv5zfoF7" target="_blank" rel="noopener" class="btn btn-p" style="flex:1;min-width:120px;font-size:12px;padding:10px 16px">Google Maps →</a>
         <a href="https://ul.waze.com/ul?place=ChIJ7Znu3Udt2jERphr0MMUt8-A&ll=1.47832240%2C103.77286520&navigate=yes" target="_blank" rel="noopener" class="btn btn-s" style="flex:1;min-width:120px;font-size:12px;padding:10px 16px">Waze →</a>
           <button class="btn-vr360" type="button" data-imod="https://framemakers-creative.com/mgrandminori/" data-imod-title="360&deg; view of the location">View the site in 360&deg;</button>
       </div>
-    </div>
-
-    </div>
-
-    <div class="loc-map-bg" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-      <img src="assets/map-facilities.webp" alt="M Grand Minori location map" loading="lazy" decoding="async" width="1500" height="1411">
     </div>
   </div>
 </section>
