@@ -2411,6 +2411,59 @@ html.hero-more .nx #quickRegister{background:linear-gradient(180deg,rgba(13,11,3
   .nx .unit-plan{border-bottom:none;border-top:1px solid var(--line);min-height:380px}
   .nx #layouts .calc{margin:0 calc(var(--pad) * -1);border-left:0;border-right:0}
 }
+/* ---------- round 3 (16 Oct, Justin): the plan box carries a "Floor plan | Unit photos" toggle and the 360 pill ----------
+   A control band at the top (the toggle left, the zoom hint right) and one at the foot (the Renovation Package key or the
+   photo count left, the 360 pill right), so no control sits on the drawing. Selected state in cream (copper is for asks). */
+.nx #layouts #planWrap{padding:66px 20px 76px}
+@media(min-width:1024px){.nx #layouts #planWrap{padding:70px 34px 84px}}
+.nx #layouts #planWrap .unit-zoom{top:20px;right:14px}
+@media(min-width:1024px){.nx #layouts #planWrap .unit-zoom{top:24px;right:20px}}
+.plan-tog{position:absolute;top:14px;left:14px;z-index:3;display:inline-flex;padding:3px;background:rgba(13,11,30,.62);border:1px solid var(--line)}
+@media(min-width:1024px){.plan-tog{top:18px;left:20px}}
+.plan-tog-b{min-height:38px;padding:0 13px;border:0;border-radius:0;background:transparent;font:600 12.5px/1.2 var(--fb);color:var(--cream2);
+  white-space:nowrap;cursor:pointer;touch-action:manipulation;transition:background .15s,color .15s}
+.plan-tog-b[hidden]{display:none}
+/* narrow phones (under 375px): the toggle and the zoom hint share 332px, so both lose a little padding */
+@media(max-width:374px){.plan-tog-b{padding:0 10px}.nx #layouts #planWrap .unit-zoom{padding:7px 10px}}
+.plan-tog-b[aria-pressed="true"]{background:var(--cream);color:var(--night1)}
+@media(hover:hover) and (pointer:fine){.plan-tog-b:not([aria-pressed="true"]):hover{color:var(--cream);background:rgba(248,244,239,.1)}}
+.plan-tog-b:focus-visible,.plan-vt:focus-visible,.ushot:focus-visible,.ushot-nav:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
+#planWrap .plan-vt{position:absolute;right:14px;bottom:16px;z-index:3;display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 16px;
+  border-radius:999px;border:1px solid rgba(248,244,239,.22);background:rgba(13,11,30,.9);color:var(--cream);font:600 12.5px/1.2 var(--fb);
+  letter-spacing:.02em;white-space:nowrap;cursor:pointer;box-shadow:0 12px 24px -12px rgba(0,0,0,.7);transition:background .15s,border-color .15s}
+#planWrap .plan-vt[hidden]{display:none}
+#planWrap .plan-vt svg{flex:none;color:var(--cream2)}
+@media(hover:hover) and (pointer:fine){#planWrap .plan-vt:hover{background:var(--night2);border-color:rgba(248,244,239,.5)}}
+@media(min-width:1024px){#planWrap .plan-vt{right:20px;bottom:20px}}
+/* the photos view: the floor plan keeps its place (visibility only), so the box never changes height; the strip fills
+   the box between the two bands, one photo and the edge of the next in view, snapping photo by photo */
+.nx #planWrap[data-view="photos"]{cursor:default}
+.nx #planWrap[data-view="photos"] #planImg,.nx #planWrap[data-view="photos"] .unit-legend{visibility:hidden}
+.nx #planWrap #uShots{display:none}
+.nx #planWrap[data-view="photos"] #uShots{position:absolute;top:66px;left:0;right:0;bottom:76px;z-index:2;display:block;margin:0}
+.nx #planWrap .ushot-row{display:flex;gap:10px;height:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;padding:0 20px;scroll-padding:0 20px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nx #planWrap .ushot-row::-webkit-scrollbar{display:none}
+.nx #planWrap .ushot{flex:0 0 84%;height:100%;scroll-snap-align:start;border:1px solid var(--line);background:var(--night0);cursor:zoom-in}
+.nx #planWrap .ushot img{width:100%;height:100%;max-height:none;aspect-ratio:auto;object-fit:cover}
+.nx #planWrap .ushot-note{position:absolute;left:14px;bottom:-48px;font:500 12px/1.4 var(--fb);color:var(--cream2);opacity:1;pointer-events:none}
+@media(min-width:1024px){
+  .nx #planWrap[data-view="photos"] #uShots{top:70px;bottom:84px}
+  .nx #planWrap .ushot-row{gap:12px;padding:0 34px;scroll-padding:0 34px}
+  .nx #planWrap .ushot{flex-basis:80%}
+  .nx #planWrap .ushot-note{left:20px;bottom:-52px}
+}
+.ushot-nav{display:none}
+@media(hover:hover) and (pointer:fine){
+  .nx #planWrap[data-view="photos"] .ushot-nav{position:absolute;top:calc(50% - 3px);transform:translateY(-50%);z-index:3;display:inline-flex;
+    align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid rgba(248,244,239,.35);border-radius:0;
+    background:rgba(13,11,30,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--cream);cursor:pointer;
+    transition:background .2s,border-color .2s,opacity .2s}
+  .nx #planWrap[data-view="photos"] .ushot-nav:hover{background:rgba(248,244,239,.16);border-color:var(--cream)}
+  .nx #planWrap .ushot-prev{left:10px}
+  .nx #planWrap .ushot-next{right:10px}
+  .nx #planWrap[data-view="photos"] .ushot-nav[disabled]{opacity:0;pointer-events:none}
+}
 
 /* ---------- RTS: night, the stats in cream on hairlines ---------- */
 .nx #rts{background:var(--night0)}
@@ -2421,18 +2474,31 @@ html.hero-more .nx #quickRegister{background:linear-gradient(180deg,rgba(13,11,3
 
 /* ---------- the story: a full-bleed arrival court with the first chapter on a glass card, then two editorial lists ---------- */
 .nx #story{background:linear-gradient(180deg,var(--night0) 0%,var(--night1) 100%)}
-.story-split{position:relative;margin-top:-8px}
-.story-img{position:relative;min-height:min(82vh,760px);background:var(--night0);background-size:cover;background-position:center 35%;background-repeat:no-repeat}
-@media(max-width:1023px){.story-img{min-height:min(60vh,560px)}}
-html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(169,108,67,.34) 0%,rgba(169,108,67,0) 26%),
-  linear-gradient(0deg,var(--night0) 0%,rgba(13,11,30,0) 42%),url('assets/cgi-arrival-drop-off.webp')}
-.story-body{position:relative;z-index:2;max-width:620px;margin:-18vh 16px 0;padding:clamp(28px,4vw,52px);
+/* round 3 (16 Oct, Justin): the M Aurora story layout. The arrival court IS the background of the section's top, with
+   the eyebrow and heading over it; no flat band above the image. One grid, four rows: the heading, the open image,
+   the overlap, the rest of chapter 01. The image layer spans the first three rows; chapter 01's card spans the last
+   two, so it rides over the image's foot and carries on down the same night ground. The darkening is neutral night
+   (the Aurora rule): deep behind the heading for the text, open over the lobby, back to night0 at the foot. */
+.nx #story{padding-top:0}
+.story-split{position:relative;margin:0;display:grid;grid-template-columns:minmax(0,1fr);
+  grid-template-rows:auto clamp(190px,30svh,300px) clamp(110px,16svh,170px) auto}
+.story-img{grid-row:1/4;grid-column:1;position:relative;min-height:0;background:var(--night0);background-size:cover;background-position:44% 40%;background-repeat:no-repeat}
+html.hero-more .story-img{background-image:url('assets/cgi-arrival-drop-off.webp')}
+.story-img::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(13,11,30,.9) 0%,rgba(13,11,30,.8) 22%,rgba(13,11,30,.5) 36%,rgba(13,11,30,.1) 50%,rgba(13,11,30,.04) 62%,rgba(13,11,30,.5) 82%,var(--night0) 100%)}
+.story-head{grid-row:1;grid-column:1;position:relative;z-index:2;width:100%}
+#story .story-head{padding-top:64px;padding-bottom:30px}
+.nx #story .story-head .sec-head{margin:0}
+#story .story-head h2,#story .story-head .eyebrow{text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.story-body{grid-row:3/5;grid-column:1;position:relative;z-index:2;max-width:620px;margin:0 16px;padding:clamp(28px,4vw,52px);
   background:rgba(13,11,30,.95);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(248,244,239,.1)}
 @media(min-width:1024px){
-  html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(169,108,67,.34) 0%,rgba(169,108,67,0) 26%),
-    linear-gradient(0deg,var(--night0) 0%,rgba(13,11,30,0) 42%),linear-gradient(90deg,var(--night0) 0%,rgba(13,11,30,.86) 22%,rgba(13,11,30,0) 50%),
-    url('assets/cgi-arrival-drop-off.webp')}
-  .story-body{margin:-30vh auto 0 max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)));background:rgba(13,11,30,.86)}
+  .story-split{grid-template-rows:auto clamp(170px,24vh,260px) clamp(200px,27vh,290px) auto}
+  #story .story-head{padding-top:104px;padding-bottom:40px}
+  .story-img{background-position:center 40%}
+  .story-img::after{background:linear-gradient(180deg,rgba(13,11,30,.9) 0%,rgba(13,11,30,.78) 24%,rgba(13,11,30,.42) 38%,rgba(13,11,30,.06) 54%,rgba(13,11,30,.04) 64%,rgba(13,11,30,.5) 84%,var(--night0) 100%),
+    linear-gradient(90deg,rgba(13,11,30,.5) 0%,rgba(13,11,30,0) 46%)}
+  .story-body{margin:0 auto 0 max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)));background:rgba(13,11,30,.86)}
 }
 .story-body .chp-head{margin-bottom:10px}
 .story-body h3{margin-bottom:18px}
@@ -2680,7 +2746,8 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(169,108,6
     .nx #quickRegister{animation:mgm-par-bg linear both;animation-timeline:view()}
   }
 }
-@keyframes mgm-par{from{background-position:center 15%}to{background-position:center 75%}}
+/* round 3: vertical only, so the phone crop (44%) stays on the lobby and its M sign */
+@keyframes mgm-par{from{background-position-y:15%}to{background-position-y:75%}}
 @keyframes mgm-par-bg{from{background-position:center 0%,center 20%}to{background-position:center 0%,center 70%}}
 </style>
 
@@ -2923,10 +2990,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="unit rv">
-      <div class="unit-plan" id="planWrap">
+      <div class="unit-plan" id="planWrap" data-view="plan">
+        <!-- Round 3 (16 Oct, Justin): a "Floor plan | Unit photos" toggle inside the plan box. The photos view is the
+             unit's show-unit photography as a swipeable strip (#uShots, moved here from under the price; render()
+             rebuilds it per type), tap a photo for the lightbox with its price ask. Types with no photography (A, D)
+             hide the second option; switching unit resets to the floor plan. The 360 link (#uVt) is a pill at the foot
+             of the box, same id, attributes and modal binding. -->
+        <div class="plan-tog" role="group" aria-label="Plan view">
+          <button type="button" class="plan-tog-b" data-view="plan" aria-pressed="true">Floor plan</button>
+          <button type="button" class="plan-tog-b" data-view="photos" aria-pressed="false" hidden>Unit photos</button>
+        </div>
         <span class="unit-zoom"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg>Tap to enlarge</span>
         <img id="planImg" src="assets/fp-type-a-card.webp" alt="Type A floor plan, 403 sq ft studio" width="729" height="1018" decoding="async">
         <span class="unit-legend"><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span>
+        <!-- Built per type by render(). Only the active type's photos are ever in the DOM, and they load only once the
+             photos view is opened (the strip is display:none until then). -->
+        <div class="unit-shots" id="uShots"></div>
+        <button type="button" class="ushot-nav ushot-prev" id="uShotPrev" aria-controls="uShots" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="ushot-nav ushot-next" id="uShotNext" aria-controls="uShots" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <!-- R2 (2026-10-16) kept one filled price button on the card with the 360 walk-through as a text link; round 3 moves
+             that link into the plan box as a pill. It still opens the in-page iframe modal ([data-imod]); render() rewrites
+             its attributes per type and hides it for types with no tour. -->
+        <button class="plan-vt" id="uVt" type="button" data-imod="" data-imod-title="" data-tour-source="unit_card" hidden>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5c4.7 0 8.5-1.6 8.5-3.5S16.7 13.5 12 13.5 3.5 15.1 3.5 17s3.8 3.5 8.5 3.5Z"/><path d="M12 13.5V9.8"/><circle cx="12" cy="6.3" r="2.8"/><path d="m8.9 17.6 1.7-1.2M15.1 17.6l-1.7-1.2"/></svg>
+          <span id="uVtT">360&deg; tour</span>
+        </button>
       </div>
       <div class="unit-info">
         <h3>Type <span id="uName">A</span></h3>
@@ -2947,19 +3039,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="price-val num" id="uSgd">SGD 425 /mo</div>
             </div>
           </div>
-        <!-- Built per type by render(). Only the active type's six thumbs are ever in the
-             DOM, so switching type costs six ~18KB requests and the default view (Type A,
-             which has no photography) costs none. -->
-        <div class="unit-shots" id="uShots"></div>
-        <!-- R2 (2026-10-16): one filled price button; the 360 walk-through is a text link under it.
-             The tour still opens in the same in-page iframe modal the location 360 and the e-brochure use
-             ([data-imod]); render() rewrites its attributes per type and hides it for types with no tour. -->
+        <!-- R2 (2026-10-16): one filled price button. Round 3: the show-unit photos and the 360 tour now live in the
+             plan box (see #planWrap), so the card's ask stands alone. -->
           <div class="unit-acts">
           <button class="btn btn-p" id="uCta" data-open-lead="unit_card" data-unit="Type A" data-cta-id="units_price_list">Get Price List Now</button>
-          <button class="vt-link u-link" id="uVt" type="button" data-imod="" data-imod-title="" data-tour-source="unit_card" hidden>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5c4.7 0 8.5-1.6 8.5-3.5S16.7 13.5 12 13.5 3.5 15.1 3.5 17s3.8 3.5 8.5 3.5Z"/><path d="M12 13.5V9.8"/><circle cx="12" cy="6.3" r="2.8"/><path d="m8.9 17.6 1.7-1.2M15.1 17.6l-1.7-1.2"/></svg>
-            <span id="uVtT">Walk through the Type A show unit in 360&deg;</span>
-          </button>
           </div>
       </div>
     </div>
@@ -3036,17 +3119,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      each with its own render behind a dark scrim, kanji and name in gold, the full description shown (no tap); two across
      on desktop, one across on phones. Chapters 02 and 03 are back on the live site's large-image tap-to-read card grid
      (.chp-grid / .chp-card / .chp-hint / .chp-story, the live CSS and tap JS were kept in round 1), restyled to the night
-     tokens. Every h2, h3, chapter mark and description is the page's existing text, verbatim. -->
+     tokens. Every h2, h3, chapter mark and description is the page's existing text, verbatim.
+     Round 3 (Justin, 16 Oct): the M Aurora story layout. The arrival court is the background of the section's top: the
+     eyebrow and heading sit over it (no flat band above the image), chapter 01 rides over its lower part and carries on
+     down the same night ground. -->
 <section class="sec" id="story" style="padding-bottom:0">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow">The M Grand Minori story</span>
-      <h2>One address, <span class="em">three chapters</span></h2>
-    </div>
-  </div>
-  <div class="story-split rv" id="storySplit">
+  <div class="story-split" id="storySplit">
     <div class="story-img" role="img" aria-label="The arrival court and residents lobby at M Grand Minori"></div>
-    <div class="story-body">
+    <div class="wrap story-head">
+      <div class="sec-head rv">
+        <span class="eyebrow">The M Grand Minori story</span>
+        <h2>One address, <span class="em">three chapters</span></h2>
+      </div>
+    </div>
+    <div class="story-body rv">
       <div class="chp-head"><span class="chp-n">01</span><span class="chp-k">Japanese-inspired elegance</span></div>
       <h3>Passage to an illuminated lifestyle</h3>
       <ul class="iki-list iki-tiles">
@@ -4836,7 +4922,8 @@ window.mgmTrackLead = function (payload) {
       if(u.vt){
         vt.setAttribute('data-imod',u.vt);
         vt.setAttribute('data-imod-title','Type '+cur+' show unit, 360° walk-through');
-        $('uVtT').textContent='Walk through the Type '+cur+' show unit in 360°';
+        $('uVtT').textContent='360° tour';
+        vt.setAttribute('aria-label','Type '+cur+' show unit, 360° tour');
         vt.hidden=false;
       } else {
         vt.setAttribute('data-imod','');
@@ -4844,6 +4931,10 @@ window.mgmTrackLead = function (payload) {
       }
     }
     renderShots(u);
+    /* round 3: the photos option shows only for a type with photography; a new unit always opens on its floor plan */
+    var pb=document.querySelector('#planWrap .plan-tog-b[data-view="photos"]');
+    if(pb)pb.hidden=!(u.shots&&u.shots.length);
+    setPlanView('plan');
     Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(t){
       t.setAttribute('aria-selected',String(t.getAttribute('data-type')===cur));});
     Array.prototype.forEach.call(document.querySelectorAll('#cpMenu2 .cp-opt2'),function(o){
@@ -4855,18 +4946,40 @@ window.mgmTrackLead = function (payload) {
      20-28MB camera originals; the 1800px WebP behind each one is fetched only when the
      lightbox opens. Types with no photography say so rather than borrowing another
      type's rooms, which is what the old hardcoded strip did. */
+  /* Round 3 (16 Oct): the photos now fill the plan box as a swipeable strip, so each frame is about 330px wide on a
+     phone and 460px on a desktop. The 480px thumb serves a 1x desktop; a 2x or 3x phone takes the 1800px file, which
+     is also the one the lightbox opens, so the enlargement is already cached. Nothing loads until the photos view is
+     opened: the strip is display:none in the floor-plan view and the images are lazy. Types without photography
+     render nothing (their toggle hides the photos option). */
   function renderShots(u){
     var box=$('uShots'); if(!box)return;
     var sh=u.shots||[], html='';
+    if(!sh.length){box.innerHTML='';return;}
+    html+='<div class="ushot-row">';
     sh.forEach(function(p){
       html+='<button class="ushot" type="button" data-src="assets/'+p[0]+'.webp">'+
-            '<img src="assets/'+p[0]+'-thumb.webp" alt="'+p[1]+'" loading="lazy" '+
+            '<img src="assets/'+p[0]+'-thumb.webp" srcset="assets/'+p[0]+'-thumb.webp 480w, assets/'+p[0]+'.webp 1800w" '+
+            'sizes="(min-width:1024px) 460px, 84vw" alt="'+p[1]+'" loading="lazy" '+
             'width="480" height="320" decoding="async"></button>';
     });
-    html+='<span class="ushot-note">'+(sh.length
-      ? 'Type '+cur+' show unit, '+sh.length+' photographs. Tap any photo to enlarge.'
-      : 'Show unit photography is available for Types B, C and E.')+'</span>';
+    html+='</div><span class="ushot-note">Type '+cur+' show unit, '+sh.length+' photos</span>';
     box.innerHTML=html;
+  }
+  /* the plan box view: 'plan' (the floor plan, the default) or 'photos' (the strip). The floor plan keeps its place
+     (visibility only), so the box never changes height when the view switches. */
+  function syncShotNav(){
+    var r=document.querySelector('#uShots .ushot-row'),p=$('uShotPrev'),n=$('uShotNext'); if(!p||!n)return;
+    if(!r){p.disabled=n.disabled=true;return;}
+    var max=r.scrollWidth-r.clientWidth; p.disabled=r.scrollLeft<=2; n.disabled=r.scrollLeft>=max-2;
+  }
+  function setPlanView(v){
+    var w=$('planWrap'); if(!w)return;
+    var ph=v==='photos'&&!!(UNITS[cur].shots&&UNITS[cur].shots.length);
+    w.setAttribute('data-view',ph?'photos':'plan');
+    Array.prototype.forEach.call(w.querySelectorAll('.plan-tog-b'),function(b){
+      b.setAttribute('aria-pressed',String(b.getAttribute('data-view')===(ph?'photos':'plan')));});
+    var r=document.querySelector('#uShots .ushot-row'); if(r)r.scrollLeft=0;
+    syncShotNav();
   }
 
   function calc(){
@@ -4904,8 +5017,28 @@ window.mgmTrackLead = function (payload) {
   /* lightbox. The third argument controls the Renovation Package key: it belongs to the
      floor plans only, not to the facilities plan, the CGI gallery or the show-unit photos,
      all of which open this same lightbox. */
-  $('planWrap').addEventListener('click',function(){
+  $('planWrap').addEventListener('click',function(e){
+    /* round 3: the toggle, the strip (it opens its own photo), its arrows and the 360 pill are not an enlarge of the
+       plan, and nothing in the photos view enlarges the hidden plan */
+    if(e.target&&e.target.closest&&e.target.closest('.plan-tog, #uShots, .ushot-nav, #uVt'))return;
+    if(this.getAttribute('data-view')==='photos')return;
     openLb(this.getAttribute('data-full')||$('planImg').src, $('planImg').alt, true);});
+  Array.prototype.forEach.call(document.querySelectorAll('#planWrap .plan-tog-b'),function(b){
+    b.addEventListener('click',function(){
+      if(b.getAttribute('aria-pressed')==='true')return;
+      setPlanView(b.getAttribute('data-view'));
+    });
+  });
+  (function(){
+    var p=$('uShotPrev'),n=$('uShotNext'),box=$('uShots'); if(!p||!n||!box)return;
+    function row(){return box.querySelector('.ushot-row');}
+    function step(){var r=row(),f=r&&r.querySelector('.ushot');return f?f.getBoundingClientRect().width+10:200;}
+    p.addEventListener('click',function(){var r=row();if(r)r.scrollBy({left:-step(),behavior:'smooth'});});
+    n.addEventListener('click',function(){var r=row();if(r)r.scrollBy({left:step(),behavior:'smooth'});});
+    /* the row is rebuilt per type, so listen on the box (scroll does not bubble: capture it) */
+    box.addEventListener('scroll',syncShotNav,{passive:true,capture:true});
+    window.addEventListener('resize',syncShotNav);
+  })();
   function closeLb(){$('lb').classList.remove('on');document.body.style.overflow='';}
   $('lbX').addEventListener('click',closeLb);
   $('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
@@ -4949,11 +5082,15 @@ window.mgmTrackLead = function (payload) {
   window.addEventListener('scroll',function(){window.requestAnimationFrame(setNavH);},{passive:true});
 
   /* item 2: the facilities plan and every gallery frame open in the lightbox */
-  function openLb(src,alt,showKey){
+  function openLb(src,alt,showKey,unitPhoto){
     $('lbImg').src=src; $('lbImg').alt=alt||'';
     var k=$('lbKey'); if(k)k.hidden=!showKey;
-    /* the ask belongs to the floor plans only, like the Renovation Package key */
-    var a=$('lbAsk'); if(a){a.hidden=!showKey; if(showKey){a.setAttribute('data-unit','Type '+cur); a.textContent='Get the Type '+cur+' price list';}}
+    /* the ask belongs to the floor plans and (round 3) the unit's show-unit photos, both titled with the unit in view;
+       a photo reports its own cta_id and section, the drawer source stays floorplan_zoom */
+    var a=$('lbAsk'), ask=showKey||unitPhoto;
+    if(a){a.hidden=!ask; if(ask){a.setAttribute('data-unit','Type '+cur); a.textContent='Get the Type '+cur+' price list';
+      a.setAttribute('data-cta-id',unitPhoto?'unit_photo_get_price':'floorplan_zoom_get_price');
+      a.setAttribute('data-section',unitPhoto?'units':'floorplan');}}
     $('lb').classList.add('on'); document.body.style.overflow='hidden';
   }
   var fp=$('facPlan');
@@ -4965,7 +5102,7 @@ window.mgmTrackLead = function (payload) {
   if(shotsBox)shotsBox.addEventListener('click',function(e){
     var bt=e.target.closest('.ushot'); if(!bt)return;
     var im=bt.querySelector('img');
-    openLb(bt.getAttribute('data-src')||im.src,im.alt,false);
+    openLb(bt.getAttribute('data-src')||im.src,im.alt,false,true);
   });
 
   /* item 3: interiors carousel, auto-advancing, pauses on hover and when off-screen */
@@ -5311,12 +5448,23 @@ window.mgmTrackLead = function (payload) {
           item_label:txt(el.querySelector('figcaption'),60)||alt(el)});
         return;
       }
+      /* round 3 (16 Oct): the show-unit photos sit behind the plan box's "Unit photos" toggle and report as their own
+         gallery. Switching to the photos counts (the tracker runs before the page handler, so aria-pressed still reads
+         the old state and only a real switch is sent); switching back, the strip arrows and taps on the photos view's
+         empty ground are not opens. */
       if((el=t.closest('#uShots .ushot'))){
-        send('gallery_open',{gallery:'gallery',item_index:idx(el,'#uShots .ushot'),item_label:alt(el)});
+        send('gallery_open',{gallery:'unit_photos',item_index:idx(el,'#uShots .ushot'),item_label:alt(el)});
         return;
       }
+      if((el=t.closest('#planWrap .plan-tog-b'))){
+        if(el.getAttribute('data-view')==='photos'&&el.getAttribute('aria-pressed')!=='true')
+          send('gallery_open',{gallery:'unit_photos',item_index:'ABCDE'.indexOf(curType())+1,item_label:'Type '+curType()+' unit photos'});
+        return;
+      }
+      if(t.closest('#planWrap .ushot-nav'))return;
       if((el=t.closest('#planWrap'))){
-        send('gallery_open',{gallery:'floorplan',item_index:'ABCDE'.indexOf(curType())+1,item_label:alt(el)});
+        if(el.getAttribute('data-view')!=='photos'&&!t.closest('#uShots'))
+          send('gallery_open',{gallery:'floorplan',item_index:'ABCDE'.indexOf(curType())+1,item_label:alt(el)});
         return;
       }
       if((el=t.closest('.loc-map-bg'))){
