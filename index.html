@@ -2790,6 +2790,22 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
 .hero .h-place svg{flex:none;width:18px;height:18px}
 @media(min-width:1024px){.hero .h-place{font-size:16.5px;margin-bottom:16px}}
 @media(max-width:1023px) and (max-height:700px){.hero .h-place{margin-bottom:10px}}
+/* Round 5 (16 Oct 2026, Justin): the phone hero read cluttered with the ask in the stack, and the lockup was missing.
+   Phones: the M Grand Minori lockup returns at the top of the hero copy; the hero's ask leaves the stack and the bottom
+   bar carries it from the first screen (the bar shows whenever .hero-ctas is out of view, so hiding it is enough). */
+@media(max-width:699px){
+  .hero .h-logo,.hero .hero-inner .h-logo{display:block!important;margin:0 0 12px!important}
+  .hero .h-logo img{width:auto;height:58px}
+  .hero .hero-ctas,.hero .hero-inner .hero-ctas{display:none!important}
+  .h-beds{margin-bottom:12px}
+  .h-trust{margin-top:0}
+}
+@media(max-width:699px) and (max-height:700px){.hero .h-logo img{height:50px}.hero .h-logo,.hero .hero-inner .h-logo{margin-bottom:10px!important}}
+/* narrow phones (under 380 px): the artwork is pinned to the top at full width, so its baked-in "Tower B" label rises
+   as the screen narrows while the copy stack keeps its height; the trust line stays on one line, the lockup is a
+   touch smaller and the stack starts 16 px higher under the nav, so it ends above the label (360 and 375 measured; moving
+   or enlarging the artwork instead left a flat band under the nav or cut the side labels) */
+@media(max-width:379px){.hero .h-logo img{height:46px}.h-trust{font-size:clamp(11px,3.15vw,12.5px)}.hero .hero-body{padding-top:72px}}
 </style>
 
 </head>
@@ -2925,6 +2941,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-scrim" aria-hidden="true"></div>
     <div class="hero-body">
       <div class="hero-inner">
+        <!-- Round 5 (16 Oct 2026, Justin): the lockup shows on phones again; the hero ask moves to the bottom bar on phones -->
         <div class="h-logo">
           <img src="assets/new-logo.png" alt="Grand Minori" width="414" height="398">
         </div>
@@ -3756,6 +3773,13 @@ window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.s
 if(io){var seen={},fio=new IntersectionObserver(function(ents){ents.forEach(function(e){seen[e.target.id]=e.isIntersecting});formInView=Object.keys(seen).some(function(k){return seen[k]});upd()},{threshold:.15});
   ['quickRegister','visit','contact'].forEach(function(id){var el=document.getElementById(id);if(el)fio.observe(el)})}
 if(io&&heroCtas){new IntersectionObserver(function(ents){heroCtaInView=ents[ents.length-1].intersectionRatio>=.98;upd()},{threshold:[0,.5,.98,1]}).observe(heroCtas)}
+/* Round 5 (16 Oct 2026, Justin): on phones the hero's ask lives in this bar. While the hero is on screen and its own
+   button is hidden, the bar reports as the hero ask (cta_id hero_register, section hero, drawer source hero), so the
+   hero-ask read and the lead source stay comparable; below the hero it reports as the sticky bar again. */
+var heroSec=document.getElementById('about'),stk=sticky.querySelector('.stk-r');
+function asHero(on){if(on){sticky.setAttribute('data-section','hero');stk.setAttribute('data-open-lead','hero');stk.setAttribute('data-cta-id','hero_register')}
+  else{sticky.removeAttribute('data-section');stk.setAttribute('data-open-lead','sticky');stk.setAttribute('data-cta-id','sticky_register')}}
+if(io&&heroSec&&stk){new IntersectionObserver(function(ents){var e=ents[ents.length-1];asHero(e.isIntersecting&&!!heroCtas&&heroCtas.offsetParent===null)},{threshold:[0,.01]}).observe(heroSec)}
 })();
 </script>
 
