@@ -2472,50 +2472,84 @@ html.hero-more .nx #quickRegister{background:linear-gradient(180deg,rgba(13,11,3
 .nx .stat span{color:var(--cream2);opacity:.9}
 .nx .src-note a{color:var(--cream2)}
 
-/* ---------- the story: a full-bleed arrival court with the first chapter on a glass card, then two editorial lists ---------- */
+/* ---------- the story: the arrival court with chapter 01's four Iki cards over its foot, then two card rows ---------- */
 .nx #story{background:linear-gradient(180deg,var(--night0) 0%,var(--night1) 100%)}
-/* round 3 (16 Oct, Justin): the M Aurora story layout. The arrival court IS the background of the section's top, with
-   the eyebrow and heading over it; no flat band above the image. One grid, four rows: the heading, the open image,
-   the overlap, the rest of chapter 01. The image layer spans the first three rows; chapter 01's card spans the last
-   two, so it rides over the image's foot and carries on down the same night ground. The darkening is neutral night
-   (the Aurora rule): deep behind the heading for the text, open over the lobby, back to night0 at the foot. */
+/* round 4 (16 Oct, Justin: "can we do like this layout, show the 4 cards here", pointing at the M Amaya story). The
+   arrival court fills the section's top part as its background: the eyebrow and heading over its top, chapter 01's head
+   over it just above the cards, and the four Iki items as solid night cards in one row over its foot (two by two on
+   tablets, a swipe row on phones). Chapters 02 and 03 carry on below on the night ground.
+   The darkening is neutral night (the Aurora and Amaya rule) and is tied to the text blocks, not to percentages of the
+   image, so the contrast holds at every viewport: one wash from the section's top to just under the heading, one from
+   just above chapter 01's head down to the foot. The image is zoomed (--z) and lifted (--p, past 100% so its foot sits
+   above the section's foot) so the lobby and its M sign land in the open band between the washes; the ceiling glazing
+   is what gets cropped. A gradient layer the same size as the image fades the image's own foot into night0, so the
+   lift never shows an edge and chapter 02 continues with no seam. */
 .nx #story{padding-top:0}
-.story-split{position:relative;margin:0;display:grid;grid-template-columns:minmax(0,1fr);
-  grid-template-rows:auto clamp(190px,30svh,300px) clamp(110px,16svh,170px) auto}
-.story-img{grid-row:1/4;grid-column:1;position:relative;min-height:0;background:var(--night0);background-size:cover;background-position:44% 40%;background-repeat:no-repeat}
-html.hero-more .story-img{background-image:url('assets/cgi-arrival-drop-off.webp')}
-.story-img::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(13,11,30,.9) 0%,rgba(13,11,30,.8) 22%,rgba(13,11,30,.5) 36%,rgba(13,11,30,.1) 50%,rgba(13,11,30,.04) 62%,rgba(13,11,30,.5) 82%,var(--night0) 100%)}
-.story-head{grid-row:1;grid-column:1;position:relative;z-index:2;width:100%}
-#story .story-head{padding-top:64px;padding-bottom:30px}
+.story-split{position:relative;isolation:isolate;overflow:hidden;margin:0;display:flex;flex-direction:column;justify-content:space-between;
+  gap:clamp(220px,34svh,340px)}
+.story-img{--z:135%;--p:132%;position:absolute;inset:0;z-index:0;min-height:0;background-color:var(--night0);background-repeat:no-repeat;
+  background-size:auto var(--z),auto var(--z);background-position:34% var(--p),34% var(--p)}
+html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,0) 74%,var(--night0) 98%),url('assets/cgi-arrival-drop-off-full.webp')}
+/* width:100% because .wrap's auto margins switch off the flex column's stretch: without it the chapter 01 block
+   shrink-wraps to the card row's full scroll width (1200px on a phone) */
+.story-head,.story-body{position:relative;z-index:1;width:100%;min-width:0}
+.story-head::before,.story-body::before{content:'';position:absolute;z-index:-1;left:50%;width:100vw;margin-left:-50vw;pointer-events:none}
+.story-head::before{top:0;bottom:-90px;
+  background:linear-gradient(180deg,rgba(13,11,30,.9) 0,rgba(13,11,30,.84) calc(100% - 90px),rgba(13,11,30,.36) calc(100% - 44px),rgba(13,11,30,0) 100%)}
+.story-body::before{top:-90px;bottom:0;
+  background:linear-gradient(180deg,rgba(13,11,30,0) 0,rgba(13,11,30,.4) 44px,rgba(13,11,30,.8) 90px,rgba(13,11,30,.86) 100%)}
+#story .story-head{padding-top:60px}
 .nx #story .story-head .sec-head{margin:0}
-#story .story-head h2,#story .story-head .eyebrow{text-shadow:0 2px 14px rgba(0,0,0,.6)}
-.story-body{grid-row:3/5;grid-column:1;position:relative;z-index:2;max-width:620px;margin:0 16px;padding:clamp(28px,4vw,52px);
-  background:rgba(13,11,30,.95);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(248,244,239,.1)}
+#story .story-head h2,#story .story-head .eyebrow,#story .story-ch .chp-n,#story .story-ch .chp-k,#story .story-ch h3{text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.story-ch .chp-head{margin-bottom:10px}
+.story-ch h3{font:500 clamp(24px,3.4vw,38px)/1.12 var(--fd);font-variation-settings:'opsz' 18;color:var(--cream);margin:0 0 clamp(18px,2vw,26px)}
 @media(min-width:1024px){
-  .story-split{grid-template-rows:auto clamp(170px,24vh,260px) clamp(200px,27vh,290px) auto}
-  #story .story-head{padding-top:104px;padding-bottom:40px}
-  .story-img{background-position:center 40%}
-  .story-img::after{background:linear-gradient(180deg,rgba(13,11,30,.9) 0%,rgba(13,11,30,.78) 24%,rgba(13,11,30,.42) 38%,rgba(13,11,30,.06) 54%,rgba(13,11,30,.04) 64%,rgba(13,11,30,.5) 84%,var(--night0) 100%),
-    linear-gradient(90deg,rgba(13,11,30,.5) 0%,rgba(13,11,30,0) 46%)}
-  .story-body{margin:0 auto 0 max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)));background:rgba(13,11,30,.86)}
+  .story-split{min-height:min(calc(100vh - 65px),920px);gap:clamp(120px,20vh,280px)}
+  #story .story-head{padding-top:clamp(64px,10vh,104px)}
+  .story-img{--z:125%;--p:150%;background-size:auto var(--z),auto var(--z);
+    background-size:auto max(var(--z),56.25vw),auto max(var(--z),56.25vw);background-position:50% var(--p),50% var(--p)}
+  .story-head::before{bottom:-100px;background:linear-gradient(180deg,rgba(13,11,30,.9) 0,rgba(13,11,30,.82) calc(100% - 100px),rgba(13,11,30,.34) calc(100% - 50px),rgba(13,11,30,0) 100%)}
+  .story-body::before{top:-100px;background:linear-gradient(180deg,rgba(13,11,30,0) 0,rgba(13,11,30,.4) 50px,rgba(13,11,30,.78) 100px,rgba(13,11,30,.86) 100%)}
+  /* the section head's desktop grid lets the eyebrow span six rows, so five empty 18px row gaps sat under the h2 (90px);
+     closed here so the whole composition fits a 1440 x 900 screen */
+  .nx #story .story-head .sec-head{row-gap:0}
+  #story .story-body{padding-bottom:40px}
+  /* short desktop screens (a 1366 x 657 laptop): the open band is about 130px, so the washes ramp in 64px, not 100px,
+     and the image lifts further so the M sign sits between them. The alpha behind the text is unchanged. */
+  @media(max-height:780px){
+    .story-img{--p:175%}
+    .story-head::before{bottom:-64px;background:linear-gradient(180deg,rgba(13,11,30,.9) 0,rgba(13,11,30,.82) calc(100% - 64px),rgba(13,11,30,.3) calc(100% - 32px),rgba(13,11,30,0) 100%)}
+    .story-body::before{top:-64px;background:linear-gradient(180deg,rgba(13,11,30,0) 0,rgba(13,11,30,.36) 32px,rgba(13,11,30,.78) 64px,rgba(13,11,30,.86) 100%)}
+  }
+  /* chapter 01's head on the section head's grid: the mark and label left, the h3 right, under the eyebrow and h2 */
+  .story-ch{display:grid;grid-template-columns:minmax(200px,3fr) 9fr;column-gap:56px;align-items:baseline;margin-bottom:26px}
+  .story-ch .chp-head{margin:0}
+  .story-ch h3{margin:0}
 }
-.story-body .chp-head{margin-bottom:10px}
-.story-body h3{margin-bottom:18px}
-/* round 2 (16 Oct, Justin): the four Iki items as image tiles. Each tile carries its own render behind a night scrim that
-   deepens towards the copy; kanji and name in the gold, the description in cream (the copy is the page's own, verbatim,
-   shown in full). One across on phones, two across from 768px; the glass card widens on desktop to give the pair room. */
-.iki-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:12px}
-.iki-list li{position:relative;display:block;padding:0;overflow:hidden;isolation:isolate;border:1px solid rgba(248,244,239,.14);background:var(--night1)}
-.iki-list li img{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
-.iki-list li::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(13,11,30,.12) 0%,rgba(13,11,30,.42) 30%,rgba(13,11,30,.86) 52%,rgba(13,11,30,.94) 100%)}
-.iki-list .iki-copy{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;min-height:300px;padding:132px 18px 18px}
-.iki-list .chp-kanji{position:static;font:500 24px/1.1 var(--fd);color:var(--gold2);font-style:normal;text-shadow:0 2px 10px rgba(13,11,30,.9)}
-.iki-list b{display:block;font:600 18px/1.25 var(--fd);font-variation-settings:'opsz' 18;color:var(--gold2);margin-top:8px;text-shadow:0 1px 8px rgba(13,11,30,.9)}
-.iki-list span{display:block;font:400 13.5px/1.6 var(--fc);color:var(--cream);margin-top:6px;text-shadow:0 1px 6px rgba(13,11,30,.9)}
-@media(min-width:768px){.iki-list{grid-template-columns:1fr 1fr;gap:14px}.iki-list .iki-copy{min-height:320px;padding-top:140px}}
-@media(min-width:1024px){.story-body{max-width:860px}.iki-list .iki-copy{padding:150px 20px 20px}}
+/* round 4: the four Iki items as solid night cards (the Amaya .st-card in MGM's tokens). Label line in the gold: the
+   kanji and the item's short gloss, the live site's own caption ("Grand arrival" and so on); the Iki name in Boska;
+   the description in cream2, verbatim. The round-2 per-item renders are gone from the cards: the section image carries
+   the picture now. Four across from 1024px, two by two from 760px, a swipe row on phones (one card and the edge of the
+   next, scroll-snap, no scrollbar). */
+.iki-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.iki-list li{margin:0;padding:22px 22px 24px;background:var(--night1);border:1px solid rgba(248,244,239,.12)}
+.iki-n{display:flex;align-items:baseline;gap:10px;color:var(--gold2)}
+.iki-list .chp-kanji{position:static;font:500 17px/1.2 var(--fd);color:var(--gold2);font-style:normal;text-shadow:none}
+.iki-n span{font:600 11px/1.5 var(--fb);letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+.iki-n span::before{content:'\00B7';content:'\00B7' / '';margin-right:10px}
+.iki-list b{display:block;font:600 clamp(21px,2.2vw,26px)/1.2 var(--fd);font-variation-settings:'opsz' 18;color:var(--cream);margin:10px 0 8px}
+.iki-list p{font:400 14px/1.7 var(--fb);color:var(--cream2);margin:0}
+@media(min-width:760px) and (max-width:1023px){.iki-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+@media(min-width:1024px){.iki-list li{padding:18px 20px 20px}.iki-list p{font-size:13.5px;line-height:1.6}}
+/* 1024 to 1199: the four cards are at their narrowest (about 220px), so the label line keeps to one line on less tracking */
+@media(min-width:1024px) and (max-width:1199px){.iki-list li{padding:18px 16px 20px}.iki-n span{letter-spacing:.14em}}
+@media(max-width:759px){
+  .iki-list{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(80vw,340px);gap:12px;
+    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
+    margin-inline:calc(-1 * var(--pad));padding-inline:var(--pad);scroll-padding-inline:var(--pad)}
+  .iki-list::-webkit-scrollbar{display:none}
+  .iki-list li{scroll-snap-align:start}
+}
 .chapters2{border:0;padding-top:clamp(48px,6vw,80px)}
 .chp{padding:0 0 clamp(40px,5vw,64px)}
 .chp+.chp{border-top:1px solid var(--line);padding-top:clamp(40px,5vw,64px)}
@@ -2746,9 +2780,16 @@ html.hero-more .story-img{background-image:url('assets/cgi-arrival-drop-off.webp
     .nx #quickRegister{animation:mgm-par-bg linear both;animation-timeline:view()}
   }
 }
-/* round 3: vertical only, so the phone crop (44%) stays on the lobby and its M sign */
-@keyframes mgm-par{from{background-position-y:15%}to{background-position-y:75%}}
+/* round 3: vertical only, so the phone crop stays on the lobby and its M sign. Round 4: a small swing around the lift
+   (--p) the layout sets, so the M sign stays in the open band between the two washes while the section is in view */
+@keyframes mgm-par{from{background-position-y:calc(var(--p) - 10%)}to{background-position-y:calc(var(--p) + 10%)}}
 @keyframes mgm-par-bg{from{background-position:center 0%,center 20%}to{background-position:center 0%,center 70%}}
+/* Round 4 (16 Oct 2026, Justin): the pin line read as a footnote fourth in the hero; it replaces the "Open for Sale" eyebrow, larger and bolder,
+   pin 18 px in the site's accent, a deeper shadow so it holds over the photo */
+.hero .h-place{display:flex;align-items:center;gap:8px;margin:0 0 12px;font:600 15px/1.35 var(--fb);letter-spacing:.01em;text-shadow:0 1px 10px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.45)}
+.hero .h-place svg{flex:none;width:18px;height:18px}
+@media(min-width:1024px){.hero .h-place{font-size:16.5px;margin-bottom:16px}}
+@media(max-width:1023px) and (max-height:700px){.hero .h-place{margin-bottom:10px}}
 </style>
 
 </head>
@@ -2887,15 +2928,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="h-logo">
           <img src="assets/new-logo.png" alt="Grand Minori" width="414" height="398">
         </div>
-        <span class="h-eyebrow">Open for Sale</span>
-        <h1><em>Exclusive</em> Lifestyle Awaits</h1>
-        <p class="h-price">Freehold from <b class="num">RM332K<sup>*</sup></b></p>
-        <p class="h-fact">Two 61-storey towers, 403 to 835 sq ft</p>
-        <!-- round 2 (16 Oct): the place on its own line with a pin, out of the eyebrow (the M Amaya hero pattern) -->
+        <!-- Round 4 (16 Oct 2026, Justin): the place leads the hero copy in place of the "Open for Sale" eyebrow, larger so it reads at a glance -->
         <div class="h-place">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
           <span>Taman Pelangi, Johor Bahru</span>
         </div>
+        <h1><em>Exclusive</em> Lifestyle Awaits</h1>
+        <p class="h-price">Freehold from <b class="num">RM332K<sup>*</sup></b></p>
+        <p class="h-fact">Two 61-storey towers, 403 to 835 sq ft</p>
+        <!-- round 2 (16 Oct): the place on its own line with a pin, out of the eyebrow (the M Amaya hero pattern) -->
         <div class="h-beds" role="group" aria-label="See layouts by bedrooms">
           <button type="button" class="h-bed" data-bed-type="A">Studio</button>
           <button type="button" class="h-bed" data-bed-type="B">1 bed</button>
@@ -3122,7 +3163,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      tokens. Every h2, h3, chapter mark and description is the page's existing text, verbatim.
      Round 3 (Justin, 16 Oct): the M Aurora story layout. The arrival court is the background of the section's top: the
      eyebrow and heading sit over it (no flat band above the image), chapter 01 rides over its lower part and carries on
-     down the same night ground. -->
+     down the same night ground.
+     Round 4 (Justin, 16 Oct): the M Amaya story layout. The arrival court fills the section's top part; the eyebrow and
+     heading sit over its top, chapter 01's head over it above the cards, and the four Iki items are four solid night cards
+     in one row over its foot (two by two on tablets, a swipe row on phones). Each card's label is the kanji and the short
+     gloss the live site carried for it; the name and the description are the page's own, verbatim. -->
 <section class="sec" id="story" style="padding-bottom:0">
   <div class="story-split" id="storySplit">
     <div class="story-img" role="img" aria-label="The arrival court and residents lobby at M Grand Minori"></div>
@@ -3132,14 +3177,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2>One address, <span class="em">three chapters</span></h2>
       </div>
     </div>
-    <div class="story-body rv">
-      <div class="chp-head"><span class="chp-n">01</span><span class="chp-k">Japanese-inspired elegance</span></div>
-      <h3>Passage to an illuminated lifestyle</h3>
-      <ul class="iki-list iki-tiles">
-        <li><img src="assets/iki-genv2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1209"><div class="iki-copy"><i class="chp-kanji">&#29572;&#38306;</i><b>Iki-Gen</b><span>Derived from genkan (&#29572;&#38306;), meaning entryway &mdash; emphasising a grand arrival experience, setting the tone for prestige from entrance to lobby.</span></div></li>
-        <li><img src="assets/iki-gawav2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1209"><div class="iki-copy"><i class="chp-kanji">&#24029;</i><b>Iki-Gawa</b><span>Inspired by gawa (&#24029;), meaning water &mdash; introducing a tranquil corridor experience, seamlessly blending serenity into a serviced apartment setting.</span></div></li>
-        <li><img src="assets/iki-niwav2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1209"><div class="iki-copy"><i class="chp-kanji">&#24237;</i><b>Iki-Niwa</b><span>Rooted in niwa (&#24237;), meaning garden &mdash; infusing the facilities deck and common areas with the sophistication of exquisite Japanese garden design.</span></div></li>
-        <li><img src="assets/iki-madov2.webp" alt="" loading="lazy" decoding="async" width="1000" height="1171"><div class="iki-copy"><i class="chp-kanji">&#31379;</i><b>Iki-Mado</b><span>Drawing from mado (&#31379;), meaning window &mdash; prioritising expansive window designs, inviting natural light to foster a luminous and airy living environment.</span></div></li>
+    <div class="wrap story-body">
+      <div class="story-ch rv">
+        <div class="chp-head"><span class="chp-n">01</span><span class="chp-k">Japanese-inspired elegance</span></div>
+        <h3>Passage to an illuminated lifestyle</h3>
+      </div>
+      <ul class="iki-list rv" data-stagger>
+        <li><div class="iki-n"><i class="chp-kanji">&#29572;&#38306;</i><span>Grand arrival</span></div><b>Iki-Gen</b><p>Derived from genkan (&#29572;&#38306;), meaning entryway &mdash; emphasising a grand arrival experience, setting the tone for prestige from entrance to lobby.</p></li>
+        <li><div class="iki-n"><i class="chp-kanji">&#24029;</i><span>Tranquil flow</span></div><b>Iki-Gawa</b><p>Inspired by gawa (&#24029;), meaning water &mdash; introducing a tranquil corridor experience, seamlessly blending serenity into a serviced apartment setting.</p></li>
+        <li><div class="iki-n"><i class="chp-kanji">&#24237;</i><span>Garden soul</span></div><b>Iki-Niwa</b><p>Rooted in niwa (&#24237;), meaning garden &mdash; infusing the facilities deck and common areas with the sophistication of exquisite Japanese garden design.</p></li>
+        <li><div class="iki-n"><i class="chp-kanji">&#31379;</i><span>Natural light</span></div><b>Iki-Mado</b><p>Drawing from mado (&#31379;), meaning window &mdash; prioritising expansive window designs, inviting natural light to foster a luminous and airy living environment.</p></li>
       </ul>
     </div>
   </div>
