@@ -2790,22 +2790,25 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
 .hero .h-place svg{flex:none;width:18px;height:18px}
 @media(min-width:1024px){.hero .h-place{font-size:16.5px;margin-bottom:16px}}
 @media(max-width:1023px) and (max-height:700px){.hero .h-place{margin-bottom:10px}}
-/* Round 5 (16 Oct 2026, Justin): the phone hero read cluttered with the ask in the stack, and the lockup was missing.
-   Phones: the M Grand Minori lockup returns at the top of the hero copy; the hero's ask leaves the stack and the bottom
-   bar carries it from the first screen (the bar shows whenever .hero-ctas is out of view, so hiding it is enough). */
+/* Round 5 then 6 (16 Oct 2026, Justin): the phone hero read cluttered and the lockup was missing. Phones: the M Grand
+   Minori lockup at the top of the copy, then place, h1, price, fact and chips; the hero's own ask (full width) and the
+   trust line under it sit at the foot of the hero, the bottom of the first screen, over the scrim's dark foot. The
+   bottom bar steps aside while any price ask is on screen (script under the bar). */
 @media(max-width:699px){
   .hero .h-logo,.hero .hero-inner .h-logo{display:block!important;margin:0 0 12px!important}
   .hero .h-logo img{width:auto;height:58px}
-  .hero .hero-ctas,.hero .hero-inner .hero-ctas{display:none!important}
-  .h-beds{margin-bottom:12px}
-  .h-trust{margin-top:0}
+  .hero .hero-inner,.hero .hero-inner.hero-inner{display:flex;flex-direction:column;align-items:stretch;flex:1 1 auto}
+  .hero .hero-ctas,.hero .hero-inner .hero-ctas{margin-top:auto!important;width:100%}
+  .hero .hero-ctas .btn{flex:1 1 100%;width:100%}
+  .h-beds{margin-bottom:16px}
+  .h-trust{margin-top:10px}
 }
 @media(max-width:699px) and (max-height:700px){.hero .h-logo img{height:50px}.hero .h-logo,.hero .hero-inner .h-logo{margin-bottom:10px!important}}
-/* narrow phones (under 380 px): the artwork is pinned to the top at full width, so its baked-in "Tower B" label rises
-   as the screen narrows while the copy stack keeps its height; the trust line stays on one line, the lockup is a
-   touch smaller and the stack starts 16 px higher under the nav, so it ends above the label (360 and 375 measured; moving
-   or enlarging the artwork instead left a flat band under the nav or cut the side labels) */
-@media(max-width:379px){.hero .h-logo img{height:46px}.h-trust{font-size:clamp(11px,3.15vw,12.5px)}.hero .hero-body{padding-top:72px}}
+/* narrow phones (under 380 px): the lockup is a touch smaller and the trust line stays on one line at the foot */
+@media(max-width:379px){.hero .h-logo img{height:46px}.h-trust{font-size:clamp(11px,3.15vw,12.5px)}}
+/* short phones (600 px tall or less, iPhone SE): the hero is short, so the artwork's "Tower A Limited Unit" label lands
+   behind the ask and the trust line; the scrim's dark foot starts higher so the trust line sits on solid night */
+@media(max-width:699px) and (max-height:600px){.hero-scrim{background:linear-gradient(180deg,rgba(13,11,30,.42) 0%,rgba(13,11,30,.24) 18%,rgba(13,11,30,.14) 46%,rgba(13,11,30,.3) 64%,rgba(13,11,30,.9) 80%,var(--night0) 90%)}}
 </style>
 
 </head>
@@ -2941,7 +2944,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-scrim" aria-hidden="true"></div>
     <div class="hero-body">
       <div class="hero-inner">
-        <!-- Round 5 (16 Oct 2026, Justin): the lockup shows on phones again; the hero ask moves to the bottom bar on phones -->
+        <!-- Rounds 5 and 6 (16 Oct 2026, Justin): the lockup shows on phones again; on phones the ask and the trust line sit at the hero's foot -->
         <div class="h-logo">
           <img src="assets/new-logo.png" alt="Grand Minori" width="414" height="398">
         </div>
@@ -3761,10 +3764,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <button class="to-top" id="toTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
 <script>
 (function(){var sticky=document.querySelector('.sticky'),toTop=document.getElementById('toTop'),formSec=document.getElementById('register'),formInView=false,
-  heroCtas=document.querySelector('.hero-ctas'),heroCtaInView=null,io='IntersectionObserver' in window;
+  askInView=null,io='IntersectionObserver' in window;
 /* 2026-10-07: the sticky price bar shows whenever the hero buttons are out of view, not only after 400px of scroll,
    so short iPhones (hero buttons below the first screen in the Original-style hero) still get the ask on screen 1 */
-function upd(){var past=heroCtaInView===null?window.scrollY>400:!heroCtaInView;sticky.classList.toggle('on',past&&!formInView)}
+function upd(){var past=askInView===null?window.scrollY>400:!askInView;sticky.classList.toggle('on',past&&!formInView)}
 window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.scrollY>400);upd()},{passive:true});
 /* read the LAST entry: a layout shift (web fonts) can deliver two entries in one batch, and the first is stale */
 /* 2026-10-09: the bar steps aside while a form section is on screen: the quick form (now right under the hero), the
@@ -3772,14 +3775,14 @@ window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.s
    #register, an id this page does not have, so it never stepped aside before. */
 if(io){var seen={},fio=new IntersectionObserver(function(ents){ents.forEach(function(e){seen[e.target.id]=e.isIntersecting});formInView=Object.keys(seen).some(function(k){return seen[k]});upd()},{threshold:.15});
   ['quickRegister','visit','contact'].forEach(function(id){var el=document.getElementById(id);if(el)fio.observe(el)})}
-if(io&&heroCtas){new IntersectionObserver(function(ents){heroCtaInView=ents[ents.length-1].intersectionRatio>=.98;upd()},{threshold:[0,.5,.98,1]}).observe(heroCtas)}
-/* Round 5 (16 Oct 2026, Justin): on phones the hero's ask lives in this bar. While the hero is on screen and its own
-   button is hidden, the bar reports as the hero ask (cta_id hero_register, section hero, drawer source hero), so the
-   hero-ask read and the lead source stay comparable; below the hero it reports as the sticky bar again. */
-var heroSec=document.getElementById('about'),stk=sticky.querySelector('.stk-r');
-function asHero(on){if(on){sticky.setAttribute('data-section','hero');stk.setAttribute('data-open-lead','hero');stk.setAttribute('data-cta-id','hero_register')}
-  else{sticky.removeAttribute('data-section');stk.setAttribute('data-open-lead','sticky');stk.setAttribute('data-cta-id','sticky_register')}}
-if(io&&heroSec&&stk){new IntersectionObserver(function(ents){var e=ents[ents.length-1];asHero(e.isIntersecting&&!!heroCtas&&heroCtas.offsetParent===null)},{threshold:[0,.01]}).observe(heroSec)}
+/* Round 6 (16 Oct 2026, Justin): the bar steps aside whenever a price ask is on screen, not only the hero's: the hero
+   ask, the unit card, the calculator, and the floor-plan and tour asks in their overlays (hidden ones never count). The
+   strip the bar covers (bottom 72 px) does not count, so an ask still under the bar keeps it until it clears. The nav
+   and menu asks are left out: the nav is on every screen. Replaces the 7 Oct hero-only rule and the round-5 swap. */
+var asks=document.querySelectorAll('.hero .hero-ctas [data-open-lead],#uCta,#cCta,#lbAsk,#vrCta'),askSeen=[];
+if(io&&asks.length){var aio=new IntersectionObserver(function(ents){ents.forEach(function(e){var i=Array.prototype.indexOf.call(asks,e.target);askSeen[i]=e.isIntersecting});
+  askInView=askSeen.some(function(v){return v});upd()},{rootMargin:'0px 0px -72px 0px',threshold:0});
+  Array.prototype.forEach.call(asks,function(a){aio.observe(a)})}
 })();
 </script>
 
