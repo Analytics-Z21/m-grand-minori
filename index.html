@@ -70,9 +70,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="preload" as="font" type="font/woff2" href="assets/boska-500.woff2" crossorigin>
-<!-- R6 (2026-10-16): the first hero image is preloaded at high priority; everything below the fold is lazy -->
-<link rel="preload" as="image" type="image/webp" href="assets/hero-bg-mobile.webp" media="(max-width:699px)" fetchpriority="high">
-<link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp" media="(min-width:700px)" fetchpriority="high">
 <style>
 /* TYPE FOLLOWS VER2 M AURORA (2026-10-09, Justin: "for the font selection please all follow how ver2 M Aurora").
    Display serif = Boska (Indian Type Foundry, Fontshare licence, free for commercial use), the same self-hosted
@@ -2150,667 +2147,6 @@ a[href^="tel:"]{white-space:nowrap}
 form input.f-invalid{border-color:#b3261e!important;box-shadow:0 0 0 1px #b3261e!important}
 @media (pointer:coarse){form[action*="salesforce"] input:not([type=hidden]):not([type=checkbox]):not([type=radio]),form[action*="salesforce"] select,form[action*="salesforce"] textarea{font-size:16px!important}}
 </style>
-<style id="premium-port">
-/* =====================================================================================
-   PREMIUM PORT (2026-10-16, branch premium-aurora-port). Justin: apply the M Aurora R4 premium look
-   to the other four Clones in each project's own theme colour, and carry the elements that improved
-   T2L. Reference: ver2 M Aurora live main 05beb93. Spec: projects/mahsing/context/2026-10-16_premium-port-spec.md.
-   Restyle in place: every id, data attribute, form value and tracking hook is untouched; new asks get
-   new ids. Three roles on :root: night (the deep ground), paper (the reading ground), one ask colour.
-   Copper is painted on asks and nowhere else; selected tabs and chips take the cream tint.
-   ===================================================================================== */
-:root{--night0:#0D0B1E;--night1:#151328;--night2:#1E1B3A;--plum-plan:#211A36;
-  --paper:#F8F4EF;--paper2:#EDE8E0;--ink-d:#151328;--ink-m:#5A5670;--bronze-ink:#8A5A34;
-  --ask:#C4865A;--ask-h:#E0A87C;--ask-deep:#A8714A;
-  --line:rgba(248,244,239,.12);--line-ink:rgba(21,19,40,.14);
-  --grad:linear-gradient(90deg,#A96C43 0%,#D49E66 100%);--grad160:linear-gradient(160deg,#A96C43 0%,#C4865A 50%,#D49E66 100%);
-  --ease-out:cubic-bezier(.16,1,.3,1)}
-body{background:var(--night0)}
-
-/* ---------- type at display scale: Boska Medium headlines, italic accent words, Montserrat for UI ---------- */
-.nx h2,h2.stl,.city-sec h2,.dev2-h,.git-title,.rts-head h2,.form-grid h2{font:500 clamp(34px,4.8vw,64px)/1.03 var(--fd);
-  letter-spacing:-.012em;font-variation-settings:'opsz' 18;text-wrap:balance;color:var(--cream);margin:0}
-.nx #layouts .sec-head h2,.city-sec h2,.nx #quickRegister h2{font-size:clamp(30px,3.9vw,52px);line-height:1.06}
-.nx h3,.chp h3{font-variation-settings:'opsz' 18}
-.nx h3{font-size:clamp(19px,2.4vw,24px)}
-.chp h3{font:500 clamp(24px,3.4vw,38px)/1.12 var(--fd);color:var(--cream);margin:0 0 22px}
-.nx .em,.em,h2 em,.hero h1 em{font-style:italic;color:var(--gold2)}
-h2.stl em{font-style:italic!important;color:var(--gold2)!important}
-.nx .copy{font-size:16px;line-height:1.75}
-.nx .sec-head .copy{font-size:17px;max-width:46ch}
-.sdesc,.city-sub{font:400 16px/1.7 var(--fc);color:var(--cream2);max-width:46ch;margin:0}
-/* section label: a hairline of the copper-gold band instead of a kicker stacked on the heading */
-.eyebrow,.nx .eyebrow,.city-sec .eyebrow,.dev2 .eyebrow{position:relative;display:inline-block;padding-left:46px;margin:0;
-  font:600 11.5px/1.6 var(--fb);letter-spacing:.26em;text-transform:uppercase;color:var(--cream2);
-  background:none;-webkit-text-fill-color:currentColor;text-align:left}
-.eyebrow::before,.nx .eyebrow::before{content:'';position:absolute;left:0;top:50%;width:32px;height:1px;background:var(--grad)}
-.nx .sec-head,#fac .sec-head,#city .sec-head{display:flex;flex-direction:column;gap:18px;max-width:none;margin:0 0 clamp(32px,4vw,56px);text-align:left;align-items:flex-start}
-@media(min-width:1024px){
-  .nx .sec-head,#fac .sec-head,#city .sec-head{display:grid;grid-template-columns:minmax(200px,3fr) 9fr;column-gap:56px;align-items:start}
-  .nx .sec-head>*,#fac .sec-head>*,#city .sec-head>*{grid-column:2}
-  .nx .sec-head>.eyebrow,#fac .sec-head>.eyebrow,#city .sec-head>.eyebrow{grid-column:1;grid-row:1/span 6;margin-top:1.1em}
-}
-#loc .loc-head-float{display:flex;flex-direction:column;gap:14px;margin-bottom:26px}
-#loc .loc-head-float h2{margin:0!important}
-.nx .sec,.sec-mid{padding:clamp(64px,8vw,120px) 0}
-.sec-mid{padding-left:var(--pad);padding-right:var(--pad)}
-.bg-deco{display:none}
-
-/* ---------- buttons: one ask colour, square, Montserrat 700. Secondary actions are cream outlines ---------- */
-.btn,.nx .btn{font:700 14px/1.3 var(--fb);letter-spacing:.02em;padding:15px 26px;border-radius:0;
-  transition:transform .18s,box-shadow .18s,background .18s}
-.btn:active,.nx .btn:active{transform:scale(.98)}
-.btn-p,.nx .btn-p{background:var(--ask)!important;color:#fff!important;box-shadow:0 10px 24px rgba(6,4,20,.42)}
-/* hover: the deeper copper, as the live buttons already do. The spec's --copper3 hover reads 2.1:1 under white text. */
-.btn-p:hover,.nx .btn-p:hover{background:var(--ask-deep)!important;color:#fff!important;transform:translateY(-1px);filter:none}
-.btn-o,.nx .btn-o,.btn-s,.btn-vr360,#loc .loc-panel .btn-p,#loc .loc-panel .btn-s{background:rgba(13,11,30,.45)!important;border:1.5px solid rgba(248,244,239,.5)!important;
-  color:var(--cream)!important;box-shadow:none;font:700 13px/1.3 var(--fb);letter-spacing:.02em;flex-direction:row;padding:13px 20px;border-radius:0}
-.btn-o:hover,.nx .btn-o:hover,.btn-s:hover,.btn-vr360:hover,#loc .loc-panel .btn-p:hover,#loc .loc-panel .btn-s:hover{background:rgba(248,244,239,.12)!important;border-color:var(--cream)!important;transform:none}
-a.nav-reg{background:var(--ask);font:700 12.5px/1.2 var(--fb);letter-spacing:.03em;padding:12px 20px}
-a.nav-reg:hover{background:var(--ask-deep)}
-.mobile-cta{background:var(--ask);font:700 14px/1.3 var(--fb);border-radius:0}
-.mobile-cta:hover{background:var(--ask-deep)}
-.stk-r{background:var(--ask);font:700 14px/1.3 var(--fb)}
-.stk-r:hover{background:var(--ask-deep)}
-@media(min-width:1024px){.nav-rail a{font-size:11.5px}}
-.sticky{background:rgba(13,11,30,.96);border-top:1px solid var(--line);box-shadow:none}
-.to-top{background:var(--night2);color:var(--cream);border:1px solid var(--line)}
-.scroll-arrow{border-color:var(--cream2)}
-
-/* ---------- ticker and nav: night, the hairline carries the brand band ---------- */
-.ann{background:var(--night1);color:var(--cream2);border-bottom:1px solid rgba(248,244,239,.08);font-weight:600}
-.ann-sep{color:var(--gold2);opacity:.75}
-.nav.is-scrolled{background:rgba(13,11,30,.92);border-bottom:1px solid rgba(248,244,239,.08)}
-@media(min-width:1024px){
-  .nav-rail a::after{background:var(--grad)}
-  .nav-rail a.on{color:var(--cream)}
-}
-.nx .rail{background:rgba(13,11,30,.95);border-bottom:1px solid var(--line)}
-.nx .rail a::after{background:var(--grad)}
-.nx .rail a.on{color:var(--cream)}
-.mobile-menu-overlay{background:linear-gradient(180deg,var(--night1) 0%,var(--night0) 100%)}
-/* the closed menu and lead drawer sit just past the right edge; their shadows spilled into the page */
-.mobile-menu-overlay:not(.open),.lead-drawer:not(.open){box-shadow:none}
-
-/* ---------- motion: reveals ease out and groups stagger; the hairline draws in under its heading ---------- */
-html.js .rv,html.js .nx .rv,html.js .nx .rv-r{opacity:0;transform:translate3d(0,32px,0);transition:opacity .9s var(--ease-out),transform 1s var(--ease-out)}
-html.js .rv.in,html.js .nx .rv.in{opacity:1;transform:none}
-html.js [data-stagger].rv,html.js .nx [data-stagger].rv{opacity:1;transform:none}
-html.js [data-stagger].rv>*{opacity:0;transform:translate3d(0,24px,0);transition:opacity .8s var(--ease-out),transform .9s var(--ease-out);transition-delay:calc(var(--i,0) * 70ms)}
-html.js [data-stagger].rv.in>*{opacity:1;transform:none}
-@media(prefers-reduced-motion:no-preference){
-  html.js .rv .eyebrow::before{transform:scaleX(0);transform-origin:left center;transition:transform 1.1s var(--ease-out) .25s}
-  html.js .rv.in .eyebrow::before{transform:scaleX(1)}
-}
-@media(prefers-reduced-motion:reduce){html.js .rv,html.js .nx .rv,html.js [data-stagger].rv>*{opacity:1;transform:none;transition:none}}
-
-/* ---------- hero: price-led, the artwork full-bleed under a scrim, the copy at the foot (Aurora composition) ---------- */
-.hero{background:var(--night0)}
-.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--grad);opacity:.7;z-index:3}
-.hero .hero-media{position:relative;width:100%;min-height:min(calc(100svh - 38px),210vw);height:auto;aspect-ratio:auto;
-  background:var(--night0);display:flex;flex-direction:column;overflow:hidden}
-.hero .hero-media::before,.hero .hero-media::after,.hero .hero-inner::after,.hero .hero-ctas::before{display:none!important;content:none}
-.hero-art{position:absolute;inset:0;z-index:0;pointer-events:none;background:url('assets/hero-bg-mobile.webp') center top/100% auto no-repeat;transform-origin:50% 40%}
-@keyframes heroDrift{from{transform:scale(1.05)}to{transform:scale(1)}}
-@media(prefers-reduced-motion:no-preference){html.js .hero-art{animation:heroDrift 7.5s ease-out both}}
-/* phones: the artwork's own "Tower B / Tower A" labels sit at its mid-height, right where the copy begins, so the scrim
-   deepens from 40% down and the in-hero lockup is left to the nav (it already shows the lockup on the first screen) */
-.hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(13,11,30,.34) 0%,rgba(13,11,30,.05) 20%,rgba(13,11,30,.3) 38%,rgba(13,11,30,.64) 50%,rgba(13,11,30,.84) 64%,rgba(13,11,30,.93) 82%,var(--night0) 100%)}
-.hero .hero-body{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;
-  width:100%;max-width:var(--max);margin:0 auto;padding:118px var(--pad) 56px;min-height:0;top:auto;left:auto;right:auto;bottom:auto}
-.hero .hero-inner,.hero .hero-inner.hero-inner{width:100%;max-width:620px;text-align:left;margin:0;display:block;min-height:0;position:relative;flex:none}
-.hero .h-logo,.hero .hero-inner .h-logo{display:block;margin:0 0 14px!important;order:0}
-.hero .h-logo img{width:auto;height:60px;margin:0;filter:drop-shadow(0 2px 10px rgba(0,0,0,.5))}
-.h-eyebrow{display:block;font:600 11.5px/1.6 var(--fb);letter-spacing:.3em;text-transform:uppercase;color:var(--cream2);margin:0 0 12px;text-shadow:0 1px 8px rgba(0,0,0,.75)}
-.hero h1,.hero .hero-inner h1{font:500 clamp(22px,5.8vw,28px)/1.2 var(--fd);letter-spacing:.01em;color:var(--cream);margin:0 0 8px;
-  text-shadow:0 2px 14px rgba(0,0,0,.55);white-space:normal;text-wrap:balance}
-.h-price{font:500 clamp(36px,9.6vw,44px)/1.04 var(--fd);font-variation-settings:'opsz' 18;color:var(--cream);margin:0 0 10px;letter-spacing:-.01em;
-  text-shadow:0 2px 18px rgba(0,0,0,.6);text-wrap:balance}
-.h-price b{font-family:var(--fb);font-weight:700;font-size:.8em;letter-spacing:-.025em;white-space:nowrap}
-.h-price sup{font-size:.42em;vertical-align:super;line-height:0}
-.h-fact{font:500 14.5px/1.5 var(--fb);color:var(--cream2);margin:0 0 14px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-/* round 2 (16 Oct): the place line after the fact line, pin in the copper accent, text in the hero cream with the
-   fact line's shadow. The base .h-place rule (round 1, ~line 1054) stays; this sets the hero's own spacing and shadow. */
-.hero .h-place{display:flex;align-items:center;gap:7px;margin:0 0 14px;color:var(--cream2);font:500 13px/1.5 var(--fb);letter-spacing:.04em;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-.hero .h-place svg{flex:none;color:var(--copper3)}
-.h-beds{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
-.h-bed{min-height:44px;padding:0 14px;border:1.5px solid rgba(248,244,239,.42);border-radius:0;font:600 13.5px/1.2 var(--fb);color:var(--cream);
-  background:rgba(13,11,30,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer;touch-action:manipulation;
-  transition:background .15s,border-color .15s,transform .1s}
-@media(hover:hover) and (pointer:fine){.h-bed:hover{border-color:var(--cream);background:rgba(248,244,239,.12)}}
-.h-bed:active{transform:scale(.97)}
-.hero .hero-ctas,.hero .hero-inner .hero-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;max-width:none;width:auto;margin:0!important;padding:0!important;
-  position:static;grid-template-columns:none}
-.hero .hero-ctas .btn{min-width:0;padding:15px 26px;font-size:14px;line-height:1.3;text-align:center}
-.h-trust{font:500 12.5px/1.5 var(--fb);color:var(--cream2);margin:12px 0 0;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-@media(min-width:700px){
-  .hero-art{background-image:url('assets/hero-bg.webp');background-size:cover;background-position:right 80%}
-  .hero-scrim{background:linear-gradient(90deg,rgba(13,11,30,.9) 0%,rgba(13,11,30,.62) 40%,rgba(13,11,30,.12) 68%,rgba(13,11,30,.05) 100%),
-    linear-gradient(180deg,transparent 80%,var(--night0) 100%)}
-  .hero .hero-media{min-height:min(calc(100svh - 38px),120vw)}
-}
-@media(min-width:700px) and (max-width:1023px){
-  .hero .hero-body{padding:100px var(--pad) 56px!important}
-  .hero .hero-inner{max-width:560px}
-  .hero .h-logo img{width:auto;height:64px}
-  .hero h1{font-size:28px}
-}
-@media(min-width:1024px){
-  .hero .hero-media{min-height:calc(100svh - 42px)}
-  .hero .hero-body{justify-content:center;padding:124px var(--pad) 100px}
-  .hero .h-logo img{height:84px}
-  .hero h1{font-size:clamp(26px,2.4vw,34px)}
-  .h-price{font-size:clamp(52px,5.6vw,80px);line-height:1.02;margin-bottom:12px}
-  .h-fact{font-size:17px;margin-bottom:14px}
-  .hero .h-place{font-size:14px;margin-bottom:20px}
-  .h-beds{margin-bottom:24px}
-  .h-trust{font-size:13px}
-}
-@media(min-width:1024px) and (max-height:760px){
-  .hero .hero-body{padding-top:96px;padding-bottom:72px}
-  .hero .h-logo img{height:64px}
-  .hero .h-logo{margin-bottom:10px!important}
-  .h-price{font-size:clamp(44px,6vh,60px)}
-  .hero h1{font-size:26px}
-  .h-beds{margin-bottom:18px}
-}
-@media(max-width:374px){.hero .h-logo img{height:52px}.h-price{font-size:34px}.h-bed{padding:0 11px;font-size:12.5px}}
-@media(max-width:699px){
-  /* phones: Justin's 8 Oct sequence (copy on the artwork's own purple sky, the tower uncut below it with its own
-     "Tower B / Tower A" labels), carrying the Aurora content: eyebrow, H1, price line, fact line, bed chips, one ask,
-     trust line. Top-anchored, so the ask sits inside Safari's 393x659 first screen and the stack ends above the
-     labels. The in-hero lockup is left to the nav, which already shows it on the first screen. This block sits after
-     every other hero rule on purpose: it wins on order, not on weight. */
-  .hero .hero-body{justify-content:flex-start;padding:88px var(--pad) 24px}
-  .hero .h-logo,.hero .hero-inner .h-logo{display:none!important}
-  .h-eyebrow{margin-bottom:8px}
-  .hero h1,.hero .hero-inner h1{margin-bottom:6px}
-  .h-price{font-size:clamp(34px,9vw,40px);margin-bottom:8px}
-  .h-fact{margin-bottom:8px}
-  .hero .h-place{margin-bottom:12px}
-  .h-beds{margin-bottom:16px}
-  .h-trust{margin-top:10px}
-  .hero-scrim{background:linear-gradient(180deg,rgba(13,11,30,.42) 0%,rgba(13,11,30,.24) 18%,rgba(13,11,30,.14) 46%,rgba(13,11,30,.26) 70%,rgba(13,11,30,.8) 92%,var(--night0) 100%)}
-}
-
-/* ---------- quick form: the evening elevation under a night veil (loads after the page), the card on paper ---------- */
-.nx #quickRegister{background:linear-gradient(180deg,rgba(13,11,30,.94) 0%,rgba(13,11,30,.76) 45%,rgba(13,11,30,.94) 100%)}
-html.hero-more .nx #quickRegister{background:linear-gradient(180deg,rgba(13,11,30,.94) 0%,rgba(13,11,30,.74) 45%,rgba(13,11,30,.94) 100%),
-  url('assets/cgi-30.webp') center 40%/cover no-repeat}
-.nx #quickRegister .form-card{background:#fff;border-radius:0;box-shadow:0 40px 90px -40px rgba(0,0,0,.6)}
-.nx #quickRegister .form-card .btn-p,.nx #visit .form-card .btn-p{background:var(--ask-deep)!important}
-.nx #quickRegister .form-card .btn-p:hover,.nx #visit .form-card .btn-p:hover{background:var(--bronze-ink)!important}
-.nx .qx-points span{border-color:rgba(248,244,239,.25);border-radius:2px;color:var(--cream2)}
-.nx .qx-points span::before{color:var(--cream2)}
-.nx .f-label{color:var(--bronze-ink)}
-.nx .f-input,.nx select.f-input{border-color:rgba(21,19,40,.2);border-radius:2px;font-size:16px}
-.nx .f-input:focus{outline-color:var(--ink-d)}
-.nx .f-consent a,.f-consent a{color:#6F4626}
-.nx .micro{color:var(--ink-m)}
-
-/* ---------- facts band under the hero: the page's own figures, set large, counters run once in view ---------- */
-.trust{background:var(--night0);border-top:0;border-bottom:1px solid rgba(248,244,239,.08);padding:clamp(44px,6vw,80px) var(--pad);overflow:visible}
-.trust-in{display:grid;grid-template-columns:repeat(2,1fr);gap:34px 18px;max-width:var(--max);margin:0 auto;min-width:0;width:auto;justify-content:start}
-@media(min-width:900px){.trust-in{grid-template-columns:repeat(4,1fr);gap:24px}}
-.tr-item{position:relative;padding:0 0 0 18px;text-align:left;min-width:0;flex:none}
-.tr-item::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:1px;background:var(--grad)}
-.tr-num{font:700 clamp(42px,6.2vw,80px)/1 var(--fd);font-variation-settings:'opsz' 18;color:var(--cream);letter-spacing:-.02em;white-space:nowrap}
-.tr-num small{font:700 .42em/1 var(--fb);letter-spacing:0;margin-left:.12em;vertical-align:baseline}
-.tr-lab{margin-top:12px;font:600 11.5px/1.4 var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--cream2);white-space:normal}
-
-/* ---------- layouts on night: the card and calculator share one surface, the plan on its own plum ---------- */
-.nx #layouts{background:var(--night1)}
-.nx #layouts .unit{background:var(--night2);border:1px solid var(--line);border-radius:0}
-.nx .unit-plan{background:var(--plum-plan);border-color:var(--line)}
-.nx .unit-zoom{background:rgba(13,11,30,.8);border-color:var(--line);color:var(--cream2)}
-.nx .unit-zoom svg{color:var(--cream2)}
-.nx .unit-legend{background:rgba(13,11,30,.82);border-color:var(--line)}
-.nx #layouts .calc{background:var(--night2);border:1px solid var(--line);border-top:none}
-.nx .tabs{gap:7px}
-.nx .tab{border:1.5px solid rgba(248,244,239,.26);color:var(--cream2);border-radius:0;padding:11px 18px;font:700 12.5px/1.2 var(--fb);background:transparent}
-.nx .tab:hover{border-color:rgba(248,244,239,.6)}
-.nx .tab[aria-selected="true"]{background:var(--cream);border-color:var(--cream);color:var(--night1)}
-.nx .tab .pop{background:var(--gold);color:var(--night1)}
-.nx .specs b{font:600 17px/1.3 var(--fb);color:var(--cream)}
-.nx .specs span,.nx .price-lab{color:var(--cream2)}
-.nx .price-val{color:var(--cream)}
-.nx .unit-info{display:flex;flex-direction:column}
-.nx .unit-shots{order:10;margin:18px 0 0}
-.nx .unit-acts{grid-template-columns:1fr;gap:4px;margin-top:4px}
-.nx .unit-acts .btn{width:100%}
-.nx .u-link,.nx .vt-link.u-link{display:inline-flex;justify-content:center;align-items:center;gap:7px;width:100%;min-height:44px;margin:0;padding:4px 0;
-  border:0;border-bottom:0;background:none;font:600 13px/1.4 var(--fb);color:var(--cream);opacity:.85;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.nx .u-link:hover{opacity:1}
-.nx .u-link[hidden]{display:none}
-.nx .u-link svg{color:var(--cream2)}
-.nx .calc h3{color:var(--cream2);letter-spacing:.16em}
-.nx .cfield label{color:var(--cream2);opacity:1}
-.nx .cpick-btn{background:rgba(248,244,239,.07);border:1px solid rgba(248,244,239,.3);border-radius:0;color:var(--cream)}
-.nx .cpick-btn:hover,.nx .cpick-btn[aria-expanded="true"]{background:rgba(248,244,239,.14);border-color:var(--cream)}
-.nx .cpick-btn span{color:var(--cream2)}
-.nx .cpick-btn svg{color:var(--cream2)}
-.nx .cpick .cp-menu{background:var(--night2);border-color:rgba(248,244,239,.22)}
-.cp-opt2:hover{background:rgba(248,244,239,.08)}
-.cp-opt2[aria-selected="true"]{background:rgba(248,244,239,.12);box-shadow:inset 3px 0 0 var(--cream)}
-.cp-opt2 .num{color:var(--gold2)}
-.nx input[type=range]::-webkit-slider-runnable-track{background:rgba(248,244,239,.24)}
-.nx input[type=range]::-moz-range-track{background:rgba(248,244,239,.24)}
-.nx input[type=range]::-webkit-slider-thumb{background:var(--cream);border:3px solid var(--night1)}
-.nx input[type=range]::-moz-range-thumb{background:var(--cream);border:3px solid var(--night1)}
-/* the result is a read-out, not a button: it carries its own ask (R4, calc_get_price) */
-.nx .cout{background:rgba(248,244,239,.06)!important;border:1.5px solid rgba(248,244,239,.24);color:var(--cream);display:block;text-align:left;padding:20px 22px;margin-top:18px}
-.nx .cout .l{color:var(--cream2);opacity:1}
-.nx .cout .v,.nx .cout .s{color:var(--cream)}
-.nx .cout>div+div{text-align:left!important;margin-top:10px}
-.nx .cout .calc-cta{width:100%;margin-top:16px}
-@media(min-width:1024px){.nx .cout{grid-column:1/-1;margin-top:0}}
-@media(max-width:1023px){
-  .nx #layouts .unit{display:flex;flex-direction:column;margin:0 calc(var(--pad) * -1);border-left:0;border-right:0}
-  .nx #layouts .unit-info{order:-1;padding:22px 22px 24px}
-  .nx .unit-plan{border-bottom:none;border-top:1px solid var(--line);min-height:380px}
-  .nx #layouts .calc{margin:0 calc(var(--pad) * -1);border-left:0;border-right:0}
-}
-/* ---------- round 3 (16 Oct, Justin): the plan box carries a "Floor plan | Unit photos" toggle and the 360 pill ----------
-   A control band at the top (the toggle left, the zoom hint right) and one at the foot (the Renovation Package key or the
-   photo count left, the 360 pill right), so no control sits on the drawing. Selected state in cream (copper is for asks). */
-.nx #layouts #planWrap{padding:66px 20px 76px}
-@media(min-width:1024px){.nx #layouts #planWrap{padding:70px 34px 84px}}
-.nx #layouts #planWrap .unit-zoom{top:20px;right:14px}
-@media(min-width:1024px){.nx #layouts #planWrap .unit-zoom{top:24px;right:20px}}
-.plan-tog{position:absolute;top:14px;left:14px;z-index:3;display:inline-flex;padding:3px;background:rgba(13,11,30,.62);border:1px solid var(--line)}
-@media(min-width:1024px){.plan-tog{top:18px;left:20px}}
-.plan-tog-b{min-height:38px;padding:0 13px;border:0;border-radius:0;background:transparent;font:600 12.5px/1.2 var(--fb);color:var(--cream2);
-  white-space:nowrap;cursor:pointer;touch-action:manipulation;transition:background .15s,color .15s}
-.plan-tog-b[hidden]{display:none}
-/* narrow phones (under 375px): the toggle and the zoom hint share 332px, so both lose a little padding */
-@media(max-width:374px){.plan-tog-b{padding:0 10px}.nx #layouts #planWrap .unit-zoom{padding:7px 10px}}
-.plan-tog-b[aria-pressed="true"]{background:var(--cream);color:var(--night1)}
-@media(hover:hover) and (pointer:fine){.plan-tog-b:not([aria-pressed="true"]):hover{color:var(--cream);background:rgba(248,244,239,.1)}}
-.plan-tog-b:focus-visible,.plan-vt:focus-visible,.ushot:focus-visible,.ushot-nav:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
-#planWrap .plan-vt{position:absolute;right:14px;bottom:16px;z-index:3;display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 16px;
-  border-radius:999px;border:1px solid rgba(248,244,239,.22);background:rgba(13,11,30,.9);color:var(--cream);font:600 12.5px/1.2 var(--fb);
-  letter-spacing:.02em;white-space:nowrap;cursor:pointer;box-shadow:0 12px 24px -12px rgba(0,0,0,.7);transition:background .15s,border-color .15s}
-#planWrap .plan-vt[hidden]{display:none}
-#planWrap .plan-vt svg{flex:none;color:var(--cream2)}
-@media(hover:hover) and (pointer:fine){#planWrap .plan-vt:hover{background:var(--night2);border-color:rgba(248,244,239,.5)}}
-@media(min-width:1024px){#planWrap .plan-vt{right:20px;bottom:20px}}
-/* the photos view: the floor plan keeps its place (visibility only), so the box never changes height; the strip fills
-   the box between the two bands, one photo and the edge of the next in view, snapping photo by photo */
-.nx #planWrap[data-view="photos"]{cursor:default}
-.nx #planWrap[data-view="photos"] #planImg,.nx #planWrap[data-view="photos"] .unit-legend{visibility:hidden}
-.nx #planWrap #uShots{display:none}
-.nx #planWrap[data-view="photos"] #uShots{position:absolute;top:66px;left:0;right:0;bottom:76px;z-index:2;display:block;margin:0}
-.nx #planWrap .ushot-row{display:flex;gap:10px;height:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;
-  scroll-snap-type:x mandatory;padding:0 20px;scroll-padding:0 20px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.nx #planWrap .ushot-row::-webkit-scrollbar{display:none}
-.nx #planWrap .ushot{flex:0 0 84%;height:100%;scroll-snap-align:start;border:1px solid var(--line);background:var(--night0);cursor:zoom-in}
-.nx #planWrap .ushot img{width:100%;height:100%;max-height:none;aspect-ratio:auto;object-fit:cover}
-.nx #planWrap .ushot-note{position:absolute;left:14px;bottom:-48px;font:500 12px/1.4 var(--fb);color:var(--cream2);opacity:1;pointer-events:none}
-@media(min-width:1024px){
-  .nx #planWrap[data-view="photos"] #uShots{top:70px;bottom:84px}
-  .nx #planWrap .ushot-row{gap:12px;padding:0 34px;scroll-padding:0 34px}
-  .nx #planWrap .ushot{flex-basis:80%}
-  .nx #planWrap .ushot-note{left:20px;bottom:-52px}
-}
-.ushot-nav{display:none}
-@media(hover:hover) and (pointer:fine){
-  .nx #planWrap[data-view="photos"] .ushot-nav{position:absolute;top:calc(50% - 3px);transform:translateY(-50%);z-index:3;display:inline-flex;
-    align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid rgba(248,244,239,.35);border-radius:0;
-    background:rgba(13,11,30,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--cream);cursor:pointer;
-    transition:background .2s,border-color .2s,opacity .2s}
-  .nx #planWrap[data-view="photos"] .ushot-nav:hover{background:rgba(248,244,239,.16);border-color:var(--cream)}
-  .nx #planWrap .ushot-prev{left:10px}
-  .nx #planWrap .ushot-next{right:10px}
-  .nx #planWrap[data-view="photos"] .ushot-nav[disabled]{opacity:0;pointer-events:none}
-}
-
-/* ---------- RTS: night, the stats in cream on hairlines ---------- */
-.nx #rts{background:var(--night0)}
-.nx .split,.nx .stats,.nx .stat{border-color:var(--line)}
-.nx .stat b{color:var(--cream);font-variation-settings:'opsz' 18}
-.nx .stat span{color:var(--cream2);opacity:.9}
-.nx .src-note a{color:var(--cream2)}
-
-/* ---------- the story: the arrival court with chapter 01's four Iki cards over its foot, then two card rows ---------- */
-.nx #story{background:linear-gradient(180deg,var(--night0) 0%,var(--night1) 100%)}
-/* round 4 (16 Oct, Justin: "can we do like this layout, show the 4 cards here", pointing at the M Amaya story). The
-   arrival court fills the section's top part as its background: the eyebrow and heading over its top, chapter 01's head
-   over it just above the cards, and the four Iki items as solid night cards in one row over its foot (two by two on
-   tablets, a swipe row on phones). Chapters 02 and 03 carry on below on the night ground.
-   The darkening is neutral night (the Aurora and Amaya rule) and is tied to the text blocks, not to percentages of the
-   image, so the contrast holds at every viewport: one wash from the section's top to just under the heading, one from
-   just above chapter 01's head down to the foot. The image is zoomed (--z) and lifted (--p, past 100% so its foot sits
-   above the section's foot) so the lobby and its M sign land in the open band between the washes; the ceiling glazing
-   is what gets cropped. A gradient layer the same size as the image fades the image's own foot into night0, so the
-   lift never shows an edge and chapter 02 continues with no seam. */
-.nx #story{padding-top:0}
-.story-split{position:relative;isolation:isolate;overflow:hidden;margin:0;display:flex;flex-direction:column;justify-content:space-between;
-  gap:clamp(220px,34svh,340px)}
-.story-img{--z:135%;--p:132%;position:absolute;inset:0;z-index:0;min-height:0;background-color:var(--night0);background-repeat:no-repeat;
-  background-size:auto var(--z),auto var(--z);background-position:34% var(--p),34% var(--p)}
-html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,0) 74%,var(--night0) 98%),url('assets/cgi-arrival-drop-off-full.webp')}
-/* width:100% because .wrap's auto margins switch off the flex column's stretch: without it the chapter 01 block
-   shrink-wraps to the card row's full scroll width (1200px on a phone) */
-.story-head,.story-body{position:relative;z-index:1;width:100%;min-width:0}
-.story-head::before,.story-body::before{content:'';position:absolute;z-index:-1;left:50%;width:100vw;margin-left:-50vw;pointer-events:none}
-.story-head::before{top:0;bottom:-90px;
-  background:linear-gradient(180deg,rgba(13,11,30,.9) 0,rgba(13,11,30,.84) calc(100% - 90px),rgba(13,11,30,.36) calc(100% - 44px),rgba(13,11,30,0) 100%)}
-.story-body::before{top:-90px;bottom:0;
-  background:linear-gradient(180deg,rgba(13,11,30,0) 0,rgba(13,11,30,.4) 44px,rgba(13,11,30,.8) 90px,rgba(13,11,30,.86) 100%)}
-#story .story-head{padding-top:60px}
-.nx #story .story-head .sec-head{margin:0}
-#story .story-head h2,#story .story-head .eyebrow,#story .story-ch .chp-n,#story .story-ch .chp-k,#story .story-ch h3{text-shadow:0 2px 14px rgba(0,0,0,.6)}
-.story-ch .chp-head{margin-bottom:10px}
-.story-ch h3{font:500 clamp(24px,3.4vw,38px)/1.12 var(--fd);font-variation-settings:'opsz' 18;color:var(--cream);margin:0 0 clamp(18px,2vw,26px)}
-@media(min-width:1024px){
-  .story-split{min-height:min(calc(100vh - 65px),920px);gap:clamp(120px,20vh,280px)}
-  #story .story-head{padding-top:clamp(64px,10vh,104px)}
-  .story-img{--z:125%;--p:150%;background-size:auto var(--z),auto var(--z);
-    background-size:auto max(var(--z),56.25vw),auto max(var(--z),56.25vw);background-position:50% var(--p),50% var(--p)}
-  .story-head::before{bottom:-100px;background:linear-gradient(180deg,rgba(13,11,30,.9) 0,rgba(13,11,30,.82) calc(100% - 100px),rgba(13,11,30,.34) calc(100% - 50px),rgba(13,11,30,0) 100%)}
-  .story-body::before{top:-100px;background:linear-gradient(180deg,rgba(13,11,30,0) 0,rgba(13,11,30,.4) 50px,rgba(13,11,30,.78) 100px,rgba(13,11,30,.86) 100%)}
-  /* the section head's desktop grid lets the eyebrow span six rows, so five empty 18px row gaps sat under the h2 (90px);
-     closed here so the whole composition fits a 1440 x 900 screen */
-  .nx #story .story-head .sec-head{row-gap:0}
-  #story .story-body{padding-bottom:40px}
-  /* short desktop screens (a 1366 x 657 laptop): the open band is about 130px, so the washes ramp in 64px, not 100px,
-     and the image lifts further so the M sign sits between them. The alpha behind the text is unchanged. */
-  @media(max-height:780px){
-    .story-img{--p:175%}
-    .story-head::before{bottom:-64px;background:linear-gradient(180deg,rgba(13,11,30,.9) 0,rgba(13,11,30,.82) calc(100% - 64px),rgba(13,11,30,.3) calc(100% - 32px),rgba(13,11,30,0) 100%)}
-    .story-body::before{top:-64px;background:linear-gradient(180deg,rgba(13,11,30,0) 0,rgba(13,11,30,.36) 32px,rgba(13,11,30,.78) 64px,rgba(13,11,30,.86) 100%)}
-  }
-  /* chapter 01's head on the section head's grid: the mark and label left, the h3 right, under the eyebrow and h2 */
-  .story-ch{display:grid;grid-template-columns:minmax(200px,3fr) 9fr;column-gap:56px;align-items:baseline;margin-bottom:26px}
-  .story-ch .chp-head{margin:0}
-  .story-ch h3{margin:0}
-}
-/* round 4: the four Iki items as solid night cards (the Amaya .st-card in MGM's tokens). Label line in the gold: the
-   kanji and the item's short gloss, the live site's own caption ("Grand arrival" and so on); the Iki name in Boska;
-   the description in cream2, verbatim. The round-2 per-item renders are gone from the cards: the section image carries
-   the picture now. Four across from 1024px, two by two from 760px, a swipe row on phones (one card and the edge of the
-   next, scroll-snap, no scrollbar). */
-.iki-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.iki-list li{margin:0;padding:22px 22px 24px;background:var(--night1);border:1px solid rgba(248,244,239,.12)}
-.iki-n{display:flex;align-items:baseline;gap:10px;color:var(--gold2)}
-.iki-list .chp-kanji{position:static;font:500 17px/1.2 var(--fd);color:var(--gold2);font-style:normal;text-shadow:none}
-.iki-n span{font:600 11px/1.5 var(--fb);letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
-.iki-n span::before{content:'\00B7';content:'\00B7' / '';margin-right:10px}
-.iki-list b{display:block;font:600 clamp(21px,2.2vw,26px)/1.2 var(--fd);font-variation-settings:'opsz' 18;color:var(--cream);margin:10px 0 8px}
-.iki-list p{font:400 14px/1.7 var(--fb);color:var(--cream2);margin:0}
-@media(min-width:760px) and (max-width:1023px){.iki-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
-@media(min-width:1024px){.iki-list li{padding:18px 20px 20px}.iki-list p{font-size:13.5px;line-height:1.6}}
-/* 1024 to 1199: the four cards are at their narrowest (about 220px), so the label line keeps to one line on less tracking */
-@media(min-width:1024px) and (max-width:1199px){.iki-list li{padding:18px 16px 20px}.iki-n span{letter-spacing:.14em}}
-@media(max-width:759px){
-  .iki-list{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(80vw,340px);gap:12px;
-    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
-    margin-inline:calc(-1 * var(--pad));padding-inline:var(--pad);scroll-padding-inline:var(--pad)}
-  .iki-list::-webkit-scrollbar{display:none}
-  .iki-list li{scroll-snap-align:start}
-}
-.chapters2{border:0;padding-top:clamp(48px,6vw,80px)}
-.chp{padding:0 0 clamp(40px,5vw,64px)}
-.chp+.chp{border-top:1px solid var(--line);padding-top:clamp(40px,5vw,64px)}
-.chp-n{color:var(--cream2)}
-.chp-k{color:var(--cream2)}
-/* round 2 (16 Oct, Justin): chapters 02 and 03 back on the live site's large-image tap-to-read cards, full width on every
-   size (the round-1 side-by-side lists shrank the renders to 64px thumbnails). The live .chp-grid / .chp-card / .chp-hint /
-   .chp-story rules and the tap JS still stand from round 1; these lines restyle them to the night tokens: hairline border,
-   cream title and sub-line, the copper hint badge, a night overlay for the story copy. */
-.chp h3{color:var(--cream)}
-.chp-card{border:1px solid var(--line);background:var(--night1)}
-.chp-card figcaption{background:linear-gradient(180deg,transparent 0%,rgba(13,11,30,.55) 40%,rgba(13,11,30,.94) 100%)}
-.chp-card b{color:var(--cream);font-weight:600;font-variation-settings:'opsz' 18}
-.chp-card span{color:var(--cream2)}
-.chp-hint{background:rgba(13,11,30,.92);border-color:rgba(196,134,90,.6);color:var(--copper3);font-size:11px} /* .92: the badge sits over the render; at .78 the copper label read 3.55:1 on the brighter renders. 11px: the lint's functional-text floor (live had 10px) */
-.chp-story{background:rgba(13,11,30,.92)}
-.chp-story b{color:var(--cream);font-weight:600}
-.chp-story p{color:var(--cream2)}
-/* Live-site bug fixed on the way: under the phone peek-scroll row (grid-auto-flow:column) the explicit repeat(2,1fr) and
-   repeat(1,1fr) columns collapse to 2px, so the first card of chapter 02 (two cards) and chapter 03 (one card) were
-   invisible on phones. All columns implicit at 76% now, and chapter 03's cards take the same 4/5 frame as chapter 02. */
-@media(max-width:759px){
-  .chp-grid--4,.chp-grid--3{grid-template-columns:none}
-  .chp-grid--3 .chp-card img{aspect-ratio:4/5}
-}
-/* reasons as an editorial numbered list: thumbnail, title, hairline rules, the number at the right edge */
-.usp-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;border-top:1px solid rgba(248,244,239,.14)}
-.usp-list li{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid rgba(248,244,239,.14)}
-.usp-list .usp-th{width:64px;height:64px;object-fit:cover;display:block;border:1px solid rgba(248,244,239,.12)}
-.usp-list h4{font:600 clamp(18px,1.8vw,22px)/1.25 var(--fd);font-variation-settings:'opsz' 18;color:var(--cream);margin:0}
-.usp-list p{font:400 13.5px/1.6 var(--fc);color:var(--cream2);margin:5px 0 0;max-width:48ch}
-.usp-list .n{font:italic 600 17px/1 var(--fd);color:rgba(248,244,239,.55);justify-self:end;padding:0 3px 0 8px}
-@media(max-width:599px){.usp-list li{grid-template-columns:52px 1fr auto;gap:12px;padding:14px 0}.usp-list .usp-th{width:52px;height:52px}}
-/* the client's own tile icons, seen through a window: the tile's label and border stay outside it */
-.usp-ic{display:block;width:60px;height:54px;overflow:hidden;flex:none}
-.usp-ic img{display:block;width:176px;height:auto;max-width:none;margin:-31px 0 0 -58px}
-.usp-ink{border-top-color:var(--line-ink)}
-.usp-ink li{grid-template-columns:60px 1fr auto;border-bottom-color:var(--line-ink)}
-.usp-ink h4{color:var(--ink-d)}
-.usp-ink .n{color:var(--ink-m)}
-@media(min-width:900px){.usp-list.usp-ink{grid-template-columns:1fr 1fr;column-gap:64px}}
-
-/* ---------- facilities on paper: the plan on a white card, the categories and list beside it on desktop ---------- */
-#fac.sec-mid{background:var(--paper);color:var(--ink-d)}
-#fac .eyebrow{color:var(--ink-m)}
-#fac h2.stl{color:var(--ink-d)}
-#fac .sdesc{color:var(--ink-m)}
-#fac .sec-head{grid-column:1/-1}
-#fac .fac-map-wrap{border-radius:0;background:#fff;border:1px solid var(--line-ink);box-shadow:0 34px 70px -40px rgba(21,19,40,.4);padding:14px}
-#fac .fac-map-img{border-radius:0}
-#fac .fac-btn{background:#fff;border:1px solid var(--line-ink);color:var(--ink-d);border-radius:0;transition:background .2s,border-color .2s,color .2s}
-#fac .fac-btn:hover{background:var(--paper2);border-color:rgba(21,19,40,.4)}
-#fac .fac-btn.active{background:var(--ink-d);border-color:var(--ink-d);color:var(--cream)}
-#fac .fac-btn-name,#fac .fac-btn-count{color:inherit}
-#fac .fac-btn-count{opacity:.72}
-#fac .fac-detail{background:#fff;border:1px solid var(--line-ink);border-radius:0}
-#fac .fac-detail-title{color:var(--ink-d);font-weight:500}
-#fac .fac-detail-sub{color:var(--ink-m)}
-#fac .fac-detail-list li{color:var(--ink-d);font-weight:400}
-#fac .fac-detail-list li::before{background:var(--ink-m)}
-#fac .fac-tag{background:transparent;border:1px solid var(--line-ink);color:var(--ink-m);border-radius:0}
-#fac .sh{color:var(--ink-m)}
-
-/* ---------- gallery on night: full-bleed, taller images, captions in the serif italic, arrows and drag on desktop ---------- */
-.nx #gallery{background:var(--night0)}
-.nx #gallery .gal-wrap{position:relative;margin-inline:calc(50% - 50vw)}
-.nx #gallery .gal{grid-auto-columns:80vw;gap:14px;padding:0 var(--pad) 8px;scroll-padding:0 var(--pad);cursor:grab}
-.nx #gallery .gal.dragging{cursor:grabbing;scroll-snap-type:none}
-.nx #gallery .gal figure{border-color:var(--line)}
-.nx #gallery .gal img{height:min(64vh,600px)}
-.nx #gallery .gal figcaption{font:italic 600 clamp(20px,2vw,26px)/1.2 var(--fd);letter-spacing:0;text-transform:none;padding:44px 18px 16px}
-@media(hover:hover) and (pointer:fine){.nx #gallery .gal figure img{transition:transform 1.2s var(--ease-out)}.nx #gallery .gal figure:hover img{transform:scale(1.04)}}
-.gal-nav{display:none}
-@media(min-width:1024px){
-  .nx #gallery .gal{grid-auto-columns:38vw;gap:22px;padding:0 max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad))) 16px;
-    scrollbar-width:thin;scrollbar-color:rgba(248,244,239,.38) rgba(248,244,239,.08)}
-  .nx #gallery .gal::-webkit-scrollbar{display:block;height:8px}
-  .nx #gallery .gal::-webkit-scrollbar-track{background:rgba(248,244,239,.08)}
-  .nx #gallery .gal::-webkit-scrollbar-thumb{background:rgba(248,244,239,.38)}
-  .gal-nav{position:absolute;top:calc(50% - 12px);transform:translateY(-50%);z-index:3;display:inline-flex;align-items:center;justify-content:center;
-    width:48px;height:48px;border:1px solid rgba(248,244,239,.35);background:rgba(13,11,30,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-    color:var(--cream);border-radius:0;cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}
-  .gal-nav:hover{background:rgba(248,244,239,.16);border-color:var(--cream)}
-  .gal-nav svg{width:20px;height:20px}
-  .gal-prev{left:24px}
-  .gal-next{right:24px}
-  .gal-nav[disabled]{opacity:0;pointer-events:none}
-}
-.nx .gal-hint{opacity:.7}
-.nx .film{border-color:var(--line)}
-.nx .film-play{border-color:rgba(248,244,239,.5)}
-.nx .film-play::after{border-left-color:var(--cream)}
-
-/* ---------- interiors: night, the fittings in cream ---------- */
-.nx #interiors{background:var(--night1)}
-.nx .fit{background:var(--line);border-color:var(--line)}
-.nx .fit div{background:var(--night1)}
-.nx .fit-lead b{color:var(--cream)}
-.nx .car-dot.on{background:var(--cream)}
-.nx .car-ar{border-color:rgba(248,244,239,.4)}
-
-/* ---------- 15-minute city on paper: the nine points as an editorial list, the skyline render stays at the foot ---------- */
-.city-sec{padding-top:clamp(64px,8vw,120px);padding-left:0;padding-right:0;text-align:left}
-.city-sec .wrap{position:relative;z-index:2}
-.city-sec .sec-head .eyebrow{font-family:var(--fb);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-m);margin:0}
-.city-sec h2{color:var(--ink-d);text-align:left;margin:0}
-.city-sec .city-sub{color:var(--ink-m);text-align:left;margin:0;max-width:46ch}
-
-/* ---------- location: night deepening into the map's own ground ---------- */
-#loc.loc-hero{background:linear-gradient(180deg,var(--night0) 0%,#211A36 30%)}
-.loc-hero::before{display:none}
-#loc .eyebrow{color:var(--cream2)}
-#loc h2.stl{color:var(--cream)}
-#loc .sdesc{color:var(--cream2)}
-#loc .loc-panel{background:rgba(13,11,30,.55);border:1px solid var(--line);border-radius:0}
-.nx .loc-cat{border:1.5px solid rgba(248,244,239,.26);border-radius:0;color:var(--cream2);font:700 12.5px/1.2 var(--fb);padding:10px 16px;min-height:44px}
-.nx .loc-cat:hover{border-color:rgba(248,244,239,.6)}
-.nx .loc-cat[aria-selected="true"]{background:var(--cream);border-color:var(--cream);color:var(--night1)}
-.nx .loc-list,.nx .loc-item{border-color:var(--line)}
-.nx .loc-item b{color:var(--gold2)}
-#loc .loc-panel>div:last-child{border-top-color:var(--line)!important}
-/* round 2 (16 Oct, rule A2): one grid, DOM order on phones (title, tabs, map, details). The legacy order:1 on the map
-   and the .loc-info wrapper are retired. Desktop: heading and tabs span both columns, map left, details right, the map at
-   4/3 setting the row and the details panel stretching to it with the links docked at its foot. */
-#loc .loc-content{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
-#loc .loc-head-float{margin-bottom:6px}
-#loc .loc-tabs .loc-cats{margin-bottom:0}
-#loc .loc-map-bg{order:0}
-#loc .loc-panel{display:flex;flex-direction:column}
-@media(min-width:1024px){
-  #loc .loc-content{grid-template-columns:minmax(0,1.15fr) minmax(0,440px);column-gap:40px;row-gap:24px;align-items:stretch}
-  #loc .loc-head-float,#loc .loc-tabs{grid-column:1/-1}
-  #loc .loc-head-float{margin-bottom:0}
-  #loc .loc-map-bg{grid-column:1;aspect-ratio:4/3;height:auto;max-height:none;align-self:stretch}
-  #loc .loc-panel{grid-column:2;align-self:stretch}
-  #loc .loc-panel>div:last-child{margin-top:auto!important;padding-top:20px}
-  #loc .loc-panel .nx{padding-bottom:20px}
-}
-
-/* ---------- developer and the answers on paper; the red Mah Sing mark needs a light ground ---------- */
-.nx #developer,.nx #faq{background:var(--paper);color:var(--ink-d)}
-.nx #developer{padding-bottom:0}
-.nx #developer h2,.nx #faq h2{color:var(--ink-d)}
-.nx #developer .eyebrow,.nx #faq .eyebrow,.nx #developer .copy{color:var(--ink-m)}
-.nx #faq .em,.nx #visit .em,.city-sec .em{color:var(--bronze-ink)}
-.dev2-logo{aspect-ratio:571/112;object-fit:cover;object-position:top;width:min(300px,72%);height:auto}
-.nx #faq .faq,.nx #faq .faq-item{border-color:var(--line-ink)}
-.nx #faq .faq-q{color:var(--ink-d);font:600 clamp(18px,1.7vw,22px)/1.35 var(--fd);font-variation-settings:'opsz' 18;text-align:left}
-.nx #faq .faq-q:hover{color:var(--bronze-ink)}
-.nx #faq .faq-q i::before,.nx #faq .faq-q i::after{background:var(--ink-d)}
-.nx #faq .faq-a p,.nx #faq .faq-a li,.nx #faq .faq-a div{color:var(--ink-m)}
-.nx #faq .faq-a a{color:var(--bronze-ink)}
-
-/* ---------- closing form: the card on paper over the copper-gold band (the third gradient moment) ---------- */
-.nx #visit{background:linear-gradient(160deg,rgba(13,11,30,.94) 0%,rgba(13,11,30,.66) 48%,rgba(13,11,30,.22) 100%),var(--grad160)}
-.nx #visit .visit{border:0;box-shadow:0 50px 100px -40px rgba(8,10,30,.6)}
-.nx #visit .visit-l{background:var(--paper)}
-.nx #visit .visit-l h2{color:var(--ink-d)}
-.nx #visit .visit-l .eyebrow,.nx #visit .visit-l .copy{color:var(--ink-m)}
-.nx #visit .visit-l .visit-hours{color:var(--ink-d)}
-.nx #visit .visit-l>div{border-top-color:var(--line-ink)!important}
-.nx #visit .visit-l .btn-o{background:transparent!important;border-color:rgba(21,19,40,.3)!important;color:var(--ink-d)!important}
-.nx #visit .visit-l .btn-o:hover{background:rgba(21,19,40,.06)!important;border-color:var(--ink-d)!important}
-.nx #visit .form-card{background:#fff}
-
-/* ---------- contact and footer on night ---------- */
-.git{background:var(--night1);border-top:1px solid var(--line)}
-.git-title{color:var(--cream);margin-bottom:36px}
-.git-name{font-weight:500}
-.git-map-ico{border-color:rgba(248,244,239,.35)}
-.git-map-ico svg{fill:var(--cream2)}
-.git-map:hover .git-map-ico{border-color:var(--cream);background:rgba(248,244,239,.1)}
-.footer{background:var(--night0);border-top:1px solid rgba(248,244,239,.06)}
-.footer a{color:var(--cream2)}
-.footer a:hover{color:var(--cream)}
-.ft-contact-lab{color:var(--cream2)}
-.ft-legal{color:#A9A8A4}
-.ft-legal p[style]{color:var(--tl)!important}
-.ft-soc:hover{border-color:var(--cream);background:rgba(248,244,239,.1);color:var(--cream)}
-
-/* ---------- lead drawer on paper: the title in the display face, the trust line as the intro ---------- */
-.lead-drawer{background:var(--paper)}
-.lead-drawer-close{background:var(--paper2)}
-.lead-drawer-title{font-family:var(--fd);font-weight:500;font-variation-settings:'opsz' 18;font-size:clamp(24px,3vw,30px);line-height:1.15;color:var(--ink-d)}
-.lead-drawer-sub{color:var(--ink-m)}
-.ld-trust{font:600 12.5px/1.5 var(--fb);color:var(--ink-d);margin:-10px 0 16px}
-.qf-rlabel{font:700 15px/1.4 var(--fb);letter-spacing:0;text-transform:none;color:var(--ink-d);margin-bottom:8px}
-.receive{gap:4px 16px;margin-bottom:16px}
-.receive .r{border:0;padding:0;border-radius:0;font:600 12.5px/1.5 var(--fb);color:var(--ink-d)}
-.receive .r svg{color:var(--ink-d)}
-.lead-drawer-bar{background:rgba(21,19,40,.14);opacity:1}
-.lead-drawer-bar.is-active{background:var(--ink-d)}
-.lead-drawer-divider{border-top-color:var(--line-ink)}
-.ld-unit{background:rgba(21,19,40,.06);border-color:var(--line-ink);border-radius:0}
-.ld-unit-k{color:var(--ink-m)}
-.ld-unit-v{color:var(--ink-d)}
-.f-label{color:var(--bronze-ink)}
-.f-input{border-color:rgba(21,19,40,.2);border-radius:2px}
-.f-input:focus{outline-color:var(--ink-d)}
-.f-consent a{color:var(--bronze-ink)}
-.lead-submit,.btn-plum.lead-submit{background:var(--ask-deep);color:#fff;font:700 14px/1.3 var(--fb);letter-spacing:.02em;border-radius:0}
-.lead-submit:hover,.btn-plum.lead-submit:hover{background:var(--bronze-ink)}
-
-/* ---------- the zoomed plan carries its own ask (R1): bottom centre, the image leaves it room ---------- */
-.nx .lb{padding:18px 18px calc(90px + var(--safe))}
-.nx .lb img{max-height:calc(100vh - 190px)}
-.nx .lb-x{border-color:rgba(248,244,239,.35);border-radius:0}
-.nx .lb-ask{position:absolute;left:50%;bottom:calc(18px + var(--safe));transform:translateX(-50%);z-index:4;white-space:nowrap;padding:15px 26px}
-.nx .lb-ask:hover{transform:translateX(-50%) translateY(-1px)}
-.nx .lb-ask:active{transform:translateX(-50%) scale(.98)}
-.nx .lb-ask[hidden]{display:none}
-
-/* ---------- the 360 modal carries its own ask (VR): a foot bar under the tour ---------- */
-.imod-bar{background:rgba(13,11,30,.92);border-bottom:1px solid var(--line)}
-.imod-bar a{color:var(--cream2)}
-.imod-x,.vmod-x{border:1px solid rgba(248,244,239,.35);background:rgba(13,11,30,.8);border-radius:0}
-.imod-foot{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:10px 14px calc(10px + var(--safe));background:rgba(13,11,30,.92);border-top:1px solid var(--line)}
-.imod-foot[hidden]{display:none}
-.imod-note{font:500 11.5px/1.4 var(--fb);color:var(--tl);letter-spacing:.03em}
-.imod.has-ask iframe{height:calc(100% - 52px - 70px)}
-@media(max-width:600px){.imod-note{display:none}.imod-foot .btn{width:100%}}
-
-/* ---------- scroll-linked parallax on the CGI where the browser supports it ---------- */
-@supports (animation-timeline: view()){
-  @media(prefers-reduced-motion:no-preference){
-    .story-img{animation:mgm-par linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
-    .nx #quickRegister{animation:mgm-par-bg linear both;animation-timeline:view()}
-  }
-}
-/* round 3: vertical only, so the phone crop stays on the lobby and its M sign. Round 4: a small swing around the lift
-   (--p) the layout sets, so the M sign stays in the open band between the two washes while the section is in view */
-@keyframes mgm-par{from{background-position-y:calc(var(--p) - 10%)}to{background-position-y:calc(var(--p) + 10%)}}
-@keyframes mgm-par-bg{from{background-position:center 0%,center 20%}to{background-position:center 0%,center 70%}}
-/* Round 4 (16 Oct 2026, Justin): the pin line read as a footnote fourth in the hero; it replaces the "Open for Sale" eyebrow, larger and bolder,
-   pin 18 px in the site's accent, a deeper shadow so it holds over the photo */
-.hero .h-place{display:flex;align-items:center;gap:8px;margin:0 0 12px;font:600 15px/1.35 var(--fb);letter-spacing:.01em;text-shadow:0 1px 10px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.45)}
-.hero .h-place svg{flex:none;width:18px;height:18px}
-@media(min-width:1024px){.hero .h-place{font-size:16.5px;margin-bottom:16px}}
-@media(max-width:1023px) and (max-height:700px){.hero .h-place{margin-bottom:10px}}
-/* Round 5 then 6 (16 Oct 2026, Justin): the phone hero read cluttered and the lockup was missing. Phones: the M Grand
-   Minori lockup at the top of the copy, then place, h1, price, fact and chips; the hero's own ask (full width) and the
-   trust line under it sit at the foot of the hero, the bottom of the first screen, over the scrim's dark foot. The
-   bottom bar steps aside while any price ask is on screen (script under the bar). */
-@media(max-width:699px){
-  .hero .h-logo,.hero .hero-inner .h-logo{display:block!important;margin:0 0 12px!important}
-  .hero .h-logo img{width:auto;height:58px}
-  .hero .hero-inner,.hero .hero-inner.hero-inner{display:flex;flex-direction:column;align-items:stretch;flex:1 1 auto}
-  .hero .hero-ctas,.hero .hero-inner .hero-ctas{margin-top:auto!important;width:100%}
-  .hero .hero-ctas .btn{flex:1 1 100%;width:100%}
-  .h-beds{margin-bottom:16px}
-  .h-trust{margin-top:10px}
-}
-@media(max-width:699px) and (max-height:700px){.hero .h-logo img{height:50px}.hero .h-logo,.hero .hero-inner .h-logo{margin-bottom:10px!important}}
-/* narrow phones (under 380 px): the lockup is a touch smaller and the trust line stays on one line at the foot */
-@media(max-width:379px){.hero .h-logo img{height:46px}.h-trust{font-size:clamp(11px,3.15vw,12.5px)}}
-/* short phones (600 px tall or less, iPhone SE): the hero is short, so the artwork's "Tower A Limited Unit" label lands
-   behind the ask and the trust line; the scrim's dark foot starts higher so the trust line sits on solid night */
-@media(max-width:699px) and (max-height:600px){.hero-scrim{background:linear-gradient(180deg,rgba(13,11,30,.42) 0%,rgba(13,11,30,.24) 18%,rgba(13,11,30,.14) 46%,rgba(13,11,30,.3) 64%,rgba(13,11,30,.9) 80%,var(--night0) 90%)}}
-</style>
-
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -2933,39 +2269,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </aside>
 
-<!-- HERO (premium port, 2026-10-16: the ver2 M Aurora composition in M Grand Minori's own artwork and colours).
-     The artwork is full-bleed under a scrim; the copy sits at the foot on phones and left on desktop: eyebrow,
-     the verbatim H1, the price line as an added display line, one fact line, the bed chips that open the matching
-     layout tab, ONE ask, the trust line. The old location line and the two price tiles are folded into the eyebrow,
-     the price line and the fact line (moved, not added). The ask is inside Safari's 393x659 visible viewport. -->
+<!-- HERO -->
 <section class="hero" id="about">
-  <div class="hero-media" id="heroMedia">
-    <div class="hero-art" aria-hidden="true"></div>
-    <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-media">
     <div class="hero-body">
       <div class="hero-inner">
-        <!-- Rounds 5 and 6 (16 Oct 2026, Justin): the lockup shows on phones again; on phones the ask and the trust line sit at the hero's foot -->
         <div class="h-logo">
           <img src="assets/new-logo.png" alt="Grand Minori" width="414" height="398">
         </div>
-        <!-- Round 4 (16 Oct 2026, Justin): the place leads the hero copy in place of the "Open for Sale" eyebrow, larger so it reads at a glance -->
+        <div class="h-tag"><span class="dot"></span>Sales Gallery open everyday: 9.30am to 9pm</div>
+        <h1><em>Exclusive</em> Lifestyle Awaits</h1>
+        <!-- item 4: location line, pattern lifted from the 2026-08-11 mockup page -->
         <div class="h-place">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
           <span>Taman Pelangi, Johor Bahru</span>
         </div>
-        <h1><em>Exclusive</em> Lifestyle Awaits</h1>
-        <p class="h-price">Freehold from <b class="num">RM332K<sup>*</sup></b></p>
-        <p class="h-fact">Two 61-storey towers, 403 to 835 sq ft</p>
-        <!-- round 2 (16 Oct): the place on its own line with a pin, out of the eyebrow (the M Amaya hero pattern) -->
-        <div class="h-beds" role="group" aria-label="See layouts by bedrooms">
-          <button type="button" class="h-bed" data-bed-type="A">Studio</button>
-          <button type="button" class="h-bed" data-bed-type="B">1 bed</button>
-          <button type="button" class="h-bed" data-bed-type="E">3 bed</button>
+        <div class="h-cards">
+          <div class="h-card">
+            <div class="h-card-lab">Starting from</div>
+            <div class="h-card-val">RM 332K<span class="h-card-ast">*</span></div>
+            <div class="h-card-sub">Freehold · Type A</div>
+          </div>
+          <div class="h-card">
+            <div class="h-card-lab">To RTS Station</div>
+            <div class="h-card-val">3 km</div>
+            <div class="h-card-sub">Bukit Chagar · Cross-Border</div>
+          </div>
         </div>
+        <!-- items 5 + 6: the two static "Tower B Open Now / Tower A Limited Unit" pills
+             were decorative and carried no action. They are replaced by the primary
+             drawer CTA; the layout cue stays alongside as the secondary CTA (H13, LP-6:
+             22.1% of mobile visitors never reach 5% scroll depth and the hamburger is
+             the most-tapped element on the page, with "Units" its top link).
+             These MUST live inside .hero-inner: in a .hero-actions wrapper outside
+             .hero-media they rendered below the banner and never reached the fold. -->
         <div class="hero-ctas">
           <button type="button" class="btn btn-p" data-open-lead="hero" data-cta-id="hero_register">Get Price List Now</button>
         </div>
-        <p class="h-trust">Developed by Mah Sing Group &middot; Tower A 90% taken up</p>
       </div>
     </div>
     <a href="#quickRegister" class="scroll-ind" aria-label="Scroll down"><span class="scroll-arrow"></span></a>
@@ -2977,7 +2317,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      so the scoped form styles still apply. -->
 <div class="nx">
 <section class="sec sec-alt" id="quickRegister">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy" decoding="async"></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="qx rv">
       <div class="qx-l">
@@ -2997,7 +2337,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <input type="hidden" name="00N2j000000e0hR" value="1">
           <div class="field"><label class="f-label" for="q-name">Full name</label>
             <input class="f-input" id="q-name" name="last_name" type="text" maxlength="80" placeholder="Your full name" required autocomplete="name"></div>
-          <div class="field"><label class="f-label" for="q-phone">WhatsApp number</label>
+          <div class="field"><label class="f-label" for="q-phone">Phone number</label>
             <input class="f-input" id="q-phone" name="mobile" type="tel" maxlength="20" placeholder="012-345 6789 or 9123 4567" required autocomplete="tel" inputmode="tel" data-my-phone></div>
           <div class="field"><label class="f-label" for="q-email">Email</label>
             <input class="f-input" id="q-email" name="email" type="email" maxlength="80" placeholder="you@example.com" required autocomplete="email"></div>
@@ -3012,15 +2352,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <!-- TRUST -->
-<!-- FACTS BAND (premium port, 2026-10-16): the trust strip restyled as the Aurora facts band. Four of the page's own
-     figures (the permit's 61 floors per tower, the 41 facilities, the 3 km to Bukit Chagar RTS, Tower A 90% taken up),
-     set large, counters run once in view. Freehold moved to the hero price line; the GDV figure was dropped. -->
-<div class="trust facts" id="trust" aria-label="M Grand Minori at a glance">
-  <div class="trust-in rv" data-stagger>
-    <div class="tr-item"><div class="tr-num"><span class="num" data-count="61">61</span></div><div class="tr-lab">Storeys, two towers</div></div>
-    <div class="tr-item"><div class="tr-num"><span class="num" data-count="41">41</span></div><div class="tr-lab">Lifestyle facilities</div></div>
-    <div class="tr-item"><div class="tr-num"><span class="num" data-count="3">3</span><small>km</small></div><div class="tr-lab">To Bukit Chagar RTS</div></div>
-    <div class="tr-item"><div class="tr-num"><span class="num" data-count="90">90</span><small>%</small></div><div class="tr-lab">Tower A taken up</div></div>
+<div class="trust" id="trust">
+  <div class="trust-in">
+    <div class="tr-item"><div class="tr-num">90%</div><div class="tr-lab">Tower A Take-up Rate</div></div>
+    <div class="tr-item"><div class="tr-num">Freehold</div><div class="tr-lab">Tenure</div></div>
+    <div class="tr-item"><div class="tr-num">41</div><div class="tr-lab">Lifestyle Facilities</div></div>
+    <div class="tr-item"><div class="tr-num">61</div><div class="tr-lab">Storeys</div></div>
+    <div class="tr-item"><div class="tr-num">RM1.5B</div><div class="tr-lab">Total GDV</div></div>
   </div>
 </div>
 
@@ -3034,7 +2372,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="nx">
 <section class="sec" id="layouts">
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" loading="lazy" decoding="async"></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">Five layouts</span>
@@ -3051,35 +2389,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="unit rv">
-      <div class="unit-plan" id="planWrap" data-view="plan">
-        <!-- Round 3 (16 Oct, Justin): a "Floor plan | Unit photos" toggle inside the plan box. The photos view is the
-             unit's show-unit photography as a swipeable strip (#uShots, moved here from under the price; render()
-             rebuilds it per type), tap a photo for the lightbox with its price ask. Types with no photography (A, D)
-             hide the second option; switching unit resets to the floor plan. The 360 link (#uVt) is a pill at the foot
-             of the box, same id, attributes and modal binding. -->
-        <div class="plan-tog" role="group" aria-label="Plan view">
-          <button type="button" class="plan-tog-b" data-view="plan" aria-pressed="true">Floor plan</button>
-          <button type="button" class="plan-tog-b" data-view="photos" aria-pressed="false" hidden>Unit photos</button>
-        </div>
+      <div class="unit-plan" id="planWrap">
         <span class="unit-zoom"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg>Tap to enlarge</span>
-        <img id="planImg" src="assets/fp-type-a-card.webp" alt="Type A floor plan, 403 sq ft studio" width="729" height="1018" decoding="async">
+        <img id="planImg" src="assets/fp-type-a-card.webp" alt="Type A floor plan, 403 sq ft studio" width="729" height="1018">
         <span class="unit-legend"><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span>
-        <!-- Built per type by render(). Only the active type's photos are ever in the DOM, and they load only once the
-             photos view is opened (the strip is display:none until then). -->
-        <div class="unit-shots" id="uShots"></div>
-        <button type="button" class="ushot-nav ushot-prev" id="uShotPrev" aria-controls="uShots" aria-label="Previous photo">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-        </button>
-        <button type="button" class="ushot-nav ushot-next" id="uShotNext" aria-controls="uShots" aria-label="Next photo">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
-        </button>
-        <!-- R2 (2026-10-16) kept one filled price button on the card with the 360 walk-through as a text link; round 3 moves
-             that link into the plan box as a pill. It still opens the in-page iframe modal ([data-imod]); render() rewrites
-             its attributes per type and hides it for types with no tour. -->
-        <button class="plan-vt" id="uVt" type="button" data-imod="" data-imod-title="" data-tour-source="unit_card" hidden>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5c4.7 0 8.5-1.6 8.5-3.5S16.7 13.5 12 13.5 3.5 15.1 3.5 17s3.8 3.5 8.5 3.5Z"/><path d="M12 13.5V9.8"/><circle cx="12" cy="6.3" r="2.8"/><path d="m8.9 17.6 1.7-1.2M15.1 17.6l-1.7-1.2"/></svg>
-          <span id="uVtT">360&deg; tour</span>
-        </button>
       </div>
       <div class="unit-info">
         <h3>Type <span id="uName">A</span></h3>
@@ -3100,11 +2413,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="price-val num" id="uSgd">SGD 425 /mo</div>
             </div>
           </div>
-        <!-- R2 (2026-10-16): one filled price button. Round 3: the show-unit photos and the 360 tour now live in the
-             plan box (see #planWrap), so the card's ask stands alone. -->
+        <!-- Built per type by render(). Only the active type's six thumbs are ever in the
+             DOM, so switching type costs six ~18KB requests and the default view (Type A,
+             which has no photography) costs none. -->
+        <div class="unit-shots" id="uShots"></div>
           <div class="unit-acts">
           <button class="btn btn-p" id="uCta" data-open-lead="unit_card" data-unit="Type A" data-cta-id="units_price_list">Get Price List Now</button>
           </div>
+        <!-- 360 walk-through. Opens in the same in-page iframe modal the location 360 and
+             the e-brochure already use ([data-imod]), so the visitor never leaves the page.
+             The attributes are rewritten per type by render(); the modal's click handler
+             reads data-imod at click time, so the one static binding is enough.
+             Types with no tour hide this rather than linking to another type's unit. -->
+        <button class="vt-link" id="uVt" type="button" data-imod="" data-imod-title="" hidden>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 20.5c4.7 0 8.5-1.6 8.5-3.5S16.7 13.5 12 13.5 3.5 15.1 3.5 17s3.8 3.5 8.5 3.5Z"/><path d="M12 13.5V9.8"/><circle cx="12" cy="6.3" r="2.8"/><path d="m8.9 17.6 1.7-1.2M15.1 17.6l-1.7-1.2"/></svg>
+          <span id="uVtT">Walk through the Type A show unit in 360&deg;</span>
+        </button>
       </div>
     </div>
 
@@ -3150,8 +2474,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="cout">
         <div><div class="l">Estimated monthly</div><div class="v num" id="cMy">RM 1,323</div></div>
         <div style="text-align:right"><div class="l">In Singapore dollars</div><div class="s num" id="cSg">SGD 425</div></div>
-        <!-- R4 (2026-10-16): the price ask after the instalment, following the calculator's unit -->
-        <button type="button" class="btn btn-p calc-cta" id="cCta" data-open-lead="calc" data-unit="Type A" data-cta-id="calc_get_price">Send me the Type A price list</button>
       </div>
       <p class="cnote">Estimates only, at 4.0% p.a. over the selected tenure, 1 SGD = 3.11 MYR. Subject to bank approval. Not an offer.</p>
     </div>
@@ -3175,127 +2497,129 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- STORY (premium port, 2026-10-16): chapter 01 as the full-bleed arrival court with the copy on a glass card over it
-     (the Aurora story pattern). Round 2 (Justin's review, 16 Oct): inside the card the four Iki items are image tiles,
-     each with its own render behind a dark scrim, kanji and name in gold, the full description shown (no tap); two across
-     on desktop, one across on phones. Chapters 02 and 03 are back on the live site's large-image tap-to-read card grid
-     (.chp-grid / .chp-card / .chp-hint / .chp-story, the live CSS and tap JS were kept in round 1), restyled to the night
-     tokens. Every h2, h3, chapter mark and description is the page's existing text, verbatim.
-     Round 3 (Justin, 16 Oct): the M Aurora story layout. The arrival court is the background of the section's top: the
-     eyebrow and heading sit over it (no flat band above the image), chapter 01 rides over its lower part and carries on
-     down the same night ground.
-     Round 4 (Justin, 16 Oct): the M Amaya story layout. The arrival court fills the section's top part; the eyebrow and
-     heading sit over its top, chapter 01's head over it above the cards, and the four Iki items are four solid night cards
-     in one row over its foot (two by two on tablets, a swipe row on phones). Each card's label is the kanji and the short
-     gloss the live site carried for it; the name and the description are the page's own, verbatim. -->
 <section class="sec" id="story" style="padding-bottom:0">
-  <div class="story-split" id="storySplit">
-    <div class="story-img" role="img" aria-label="The arrival court and residents lobby at M Grand Minori"></div>
-    <div class="wrap story-head">
-      <div class="sec-head rv">
-        <span class="eyebrow">The M Grand Minori story</span>
-        <h2>One address, <span class="em">three chapters</span></h2>
-      </div>
-    </div>
-    <div class="wrap story-body">
-      <div class="story-ch rv">
-        <div class="chp-head"><span class="chp-n">01</span><span class="chp-k">Japanese-inspired elegance</span></div>
-        <h3>Passage to an illuminated lifestyle</h3>
-      </div>
-      <ul class="iki-list rv" data-stagger>
-        <li><div class="iki-n"><i class="chp-kanji">&#29572;&#38306;</i><span>Grand arrival</span></div><b>Iki-Gen</b><p>Derived from genkan (&#29572;&#38306;), meaning entryway &mdash; emphasising a grand arrival experience, setting the tone for prestige from entrance to lobby.</p></li>
-        <li><div class="iki-n"><i class="chp-kanji">&#24029;</i><span>Tranquil flow</span></div><b>Iki-Gawa</b><p>Inspired by gawa (&#24029;), meaning water &mdash; introducing a tranquil corridor experience, seamlessly blending serenity into a serviced apartment setting.</p></li>
-        <li><div class="iki-n"><i class="chp-kanji">&#24237;</i><span>Garden soul</span></div><b>Iki-Niwa</b><p>Rooted in niwa (&#24237;), meaning garden &mdash; infusing the facilities deck and common areas with the sophistication of exquisite Japanese garden design.</p></li>
-        <li><div class="iki-n"><i class="chp-kanji">&#31379;</i><span>Natural light</span></div><b>Iki-Mado</b><p>Drawing from mado (&#31379;), meaning window &mdash; prioritising expansive window designs, inviting natural light to foster a luminous and airy living environment.</p></li>
-      </ul>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">The M Grand Minori story</span>
+      <h2>One address, <span class="em">three chapters</span></h2>
     </div>
   </div>
-  <div class="wrap">
-    <div class="chapters2">
-      <article class="chp rv">
+  <div class="chapters2">
+    <article class="chp rv">
+      <div class="wrap">
+        <div class="chp-head"><span class="chp-n">01</span><span class="chp-k">Japanese-inspired elegance</span></div>
+        <h3>Passage to an illuminated lifestyle</h3>
+        <div class="chp-grid chp-grid--4">
+          <figure class="chp-card">
+            <img src="assets/iki-genv2.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
+            <figcaption><i class="chp-kanji">&#29572;&#38306;</i><b>Iki-Gen</b><span>Grand arrival</span></figcaption>
+            <div class="chp-story"><i>&#29572;&#38306;</i><b>Iki-Gen</b><p>Derived from genkan (&#29572;&#38306;), meaning entryway &mdash; emphasising a grand arrival experience, setting the tone for prestige from entrance to lobby.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/iki-gawav2.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
+            <figcaption><i class="chp-kanji">&#24029;</i><b>Iki-Gawa</b><span>Tranquil flow</span></figcaption>
+            <div class="chp-story"><i>&#24029;</i><b>Iki-Gawa</b><p>Inspired by gawa (&#24029;), meaning water &mdash; introducing a tranquil corridor experience, seamlessly blending serenity into a serviced apartment setting.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/iki-niwav2.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
+            <figcaption><i class="chp-kanji">&#24237;</i><b>Iki-Niwa</b><span>Garden soul</span></figcaption>
+            <div class="chp-story"><i>&#24237;</i><b>Iki-Niwa</b><p>Rooted in niwa (&#24237;), meaning garden &mdash; infusing the facilities deck and common areas with the sophistication of exquisite Japanese garden design.</p></div>
+          </figure>
+          <figure class="chp-card">
+            <img src="assets/iki-madov2.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
+            <figcaption><i class="chp-kanji">&#31379;</i><b>Iki-Mado</b><span>Natural light</span></figcaption>
+            <div class="chp-story"><i>&#31379;</i><b>Iki-Mado</b><p>Drawing from mado (&#31379;), meaning window &mdash; prioritising expansive window designs, inviting natural light to foster a luminous and airy living environment.</p></div>
+          </figure>
+        </div>
+      </div>
+    </article>
+    <article class="chp chp-alt rv">
+      <div class="wrap">
         <div class="chp-head"><span class="chp-n">02</span><span class="chp-k">Residential excellence</span></div>
         <h3>Designed to live, built to last</h3>
         <div class="chp-grid chp-grid--4">
           <figure class="chp-card">
-            <img src="assets/int-dsc05155.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <img src="assets/int-dsc05155.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
             <figcaption><b>Residential excellence</b><span>Premium finishes</span></figcaption>
             <div class="chp-story"><b>Residential excellence</b><p>Premium finishes throughout. Every detail serves daily life.</p></div>
           </figure>
           <figure class="chp-card">
-            <img src="assets/int-dsc05093.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <img src="assets/int-dsc05093.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
             <figcaption><b>Practical layouts</b><span>Living or rental</span></figcaption>
             <div class="chp-story"><b>Practical layouts</b><p>Considered layouts, flexible for living or rental.</p></div>
           </figure>
           <figure class="chp-card">
-            <img src="assets/int-dsc05086.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <img src="assets/int-dsc05086.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
             <figcaption><b>Immersive spaces</b><span>Light and views</span></figcaption>
             <div class="chp-story"><b>Immersive spaces</b><p>Natural light and wide views.</p></div>
           </figure>
           <figure class="chp-card">
-            <img src="assets/cgi-4.webp" alt="" loading="lazy" decoding="async" width="1400" height="875"><em class="chp-hint">Tap to read</em>
+            <img src="assets/cgi-4.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
             <figcaption><b>Eco-conscious</b><span>GreenRE-certified</span></figcaption>
             <div class="chp-story"><b>Eco-conscious</b><p>GreenRE-certified design, with eco-conscious finishes.</p></div>
           </figure>
         </div>
-      </article>
-      <article class="chp rv">
+      </div>
+    </article>
+    <article class="chp rv">
+      <div class="wrap">
         <div class="chp-head"><span class="chp-n">03</span><span class="chp-k">Location, proximity, convenience</span></div>
         <h3>Radiant with potential and life</h3>
         <div class="chp-grid chp-grid--3">
           <figure class="chp-card">
-            <img src="assets/cgi-retail-street.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <img src="assets/cgi-retail-street.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
             <figcaption><b>Strategic location</b><span>Taman Pelangi</span></figcaption>
             <div class="chp-story"><b>Strategic location</b><p>The mature township of Taman Pelangi &mdash; vibrant amenities that appeal to homeowners and attract cross-border investor interest.</p></div>
           </figure>
           <figure class="chp-card">
-            <img src="assets/cross-border-img1.webp" alt="" loading="lazy" decoding="async" width="1624" height="498"><em class="chp-hint">Tap to read</em>
+            <img src="assets/cross-border-img1.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
             <figcaption><b>Close proximity</b><span>RTS, CIQ, major roads</span></figcaption>
             <div class="chp-story"><b>Close proximity</b><p>Well connected via major roads to the RTS, CIQ and key transport links &mdash; all within minutes.</p></div>
           </figure>
           <figure class="chp-card">
-            <img src="assets/cgi-retail-promenade.webp" alt="" loading="lazy" decoding="async" width="1400" height="933"><em class="chp-hint">Tap to read</em>
+            <img src="assets/cgi-retail-promenade.webp" alt="" loading="lazy"><em class="chp-hint">Tap to read</em>
             <figcaption><b>Incredible convenience</b><span>Everything within 3 km</span></figcaption>
             <div class="chp-story"><b>Incredible convenience</b><p>Hospitals, schools, malls and direct RTS access within a 3 km radius &mdash; everything you need, close by.</p></div>
           </figure>
         </div>
-      </article>
-    </div>
+      </div>
+    </article>
   </div>
 </section>
 </div>
 <section class="sec sec-mid" id="fac">
   
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" width="643" height="1024" loading="lazy" decoding="async"></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" width="643" height="1024"></div>
   <div class="wrap">
-    <div class="sec-head rv">
+    <div class="center">
       <div class="eyebrow">41 Lifestyle Facilities</div>
       <h2 class="stl">Designed for Elevated Living</h2>
       <p class="sdesc">Japanese-inspired amenities curated for body, mind, and soul.</p>
     </div>
     <div class="fac-map-wrap fi">
       <div class="fac-map-img">
-        <img src="assets/facilities-map.webp" alt="Facilities Overview Map" class="fac-base" id="fac-base" width="1500" height="1022" loading="lazy" decoding="async">
-        <img src="assets/fac-water.webp" alt="Water Amenities" class="fac-layer" id="fac-water" width="1200" height="817" loading="lazy" decoding="async">
-        <img src="assets/fac-fitness.webp" alt="Fitness Facilities" class="fac-layer" id="fac-fitness" width="1200" height="817" loading="lazy" decoding="async">
-        <img src="assets/fac-gardens.webp" alt="Garden & Nature" class="fac-layer" id="fac-gardens" width="1200" height="817" loading="lazy" decoding="async">
-        <img src="assets/fac-leisure.webp" alt="Leisure & Social" class="fac-layer" id="fac-leisure" width="1200" height="818" loading="lazy" decoding="async">
+        <img src="assets/facilities-map.webp" alt="Facilities Overview Map" class="fac-base" id="fac-base" width="1500" height="1022">
+        <img src="assets/fac-water.webp" alt="Water Amenities" class="fac-layer" id="fac-water" width="1200" height="817">
+        <img src="assets/fac-fitness.webp" alt="Fitness Facilities" class="fac-layer" id="fac-fitness" width="1200" height="817">
+        <img src="assets/fac-gardens.webp" alt="Garden & Nature" class="fac-layer" id="fac-gardens" width="1200" height="817">
+        <img src="assets/fac-leisure.webp" alt="Leisure & Social" class="fac-layer" id="fac-leisure" width="1200" height="818">
       </div>
     </div>
 
     <div class="fac-btns">
-      <div class="fac-btn active" data-layer="fac-water" data-cat="water" onclick="pickFac(this,'fac-water','water')" onmouseenter="showFacLayer(this,'fac-water')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-1.webp" alt="" loading="lazy" decoding="async"></span>
+      <div class="fac-btn active" data-layer="fac-water" data-cat="water" onclick="pickFac(this,'fac-water','water')" onmouseenter="showFacLayer(this,'fac-water')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-1.webp" alt="" loading="lazy"></span>
         <span class="fac-btn-dot" style="background:#4CADE8"></span>
         <div class="fac-btn-info"><div class="fac-btn-name">Water Amenities</div><div class="fac-btn-count">7 facilities · 35m Lap Pool</div></div>
       </div>
-      <div class="fac-btn" data-layer="fac-fitness" data-cat="fitness" onclick="pickFac(this,'fac-fitness','fitness')" onmouseenter="showFacLayer(this,'fac-fitness')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-gymnasium.webp" alt="" loading="lazy" decoding="async"></span>
+      <div class="fac-btn" data-layer="fac-fitness" data-cat="fitness" onclick="pickFac(this,'fac-fitness','fitness')" onmouseenter="showFacLayer(this,'fac-fitness')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-gymnasium.webp" alt="" loading="lazy"></span>
         <span class="fac-btn-dot" style="background:#E87C4C"></span>
         <div class="fac-btn-info"><div class="fac-btn-name">Fitness & Sports</div><div class="fac-btn-count">9 facilities · Gym · Courts</div></div>
       </div>
-      <div class="fac-btn" data-layer="fac-gardens" data-cat="gardens" onclick="pickFac(this,'fac-gardens','gardens')" onmouseenter="showFacLayer(this,'fac-gardens')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-9.webp" alt="" loading="lazy" decoding="async"></span>
+      <div class="fac-btn" data-layer="fac-gardens" data-cat="gardens" onclick="pickFac(this,'fac-gardens','gardens')" onmouseenter="showFacLayer(this,'fac-gardens')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-9.webp" alt="" loading="lazy"></span>
         <span class="fac-btn-dot" style="background:#4CAE7A"></span>
         <div class="fac-btn-info"><div class="fac-btn-name">Gardens & Nature</div><div class="fac-btn-count">5 facilities · Zen Gardens</div></div>
       </div>
-      <div class="fac-btn" data-layer="fac-leisure" data-cat="leisure" onclick="pickFac(this,'fac-leisure','leisure')" onmouseenter="showFacLayer(this,'fac-leisure')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-games-room.webp" alt="" loading="lazy" decoding="async"></span>
+      <div class="fac-btn" data-layer="fac-leisure" data-cat="leisure" onclick="pickFac(this,'fac-leisure','leisure')" onmouseenter="showFacLayer(this,'fac-leisure')" onmouseleave="resetFacLayer()"><span class="fac-bthumb"><img src="assets/cgi-games-room.webp" alt="" loading="lazy"></span>
         <span class="fac-btn-dot" style="background:#C4865A"></span>
         <div class="fac-btn-info"><div class="fac-btn-name">Leisure & Social</div><div class="fac-btn-count">17 facilities · Lounge · BBQ</div></div>
       </div>
@@ -3371,7 +2695,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="nx">
 <section class="sec" id="gallery">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy" decoding="async"></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">Facilities, rendered</span>
@@ -3380,37 +2704,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
   <div class="wrap">
-    <div class="gal-wrap">
-    <div class="gal rv" id="gal" data-stagger>
-      <figure><img src="assets/cgi-arrival-drop-off.webp" alt="Arrival drop-off and residents lobby" loading="lazy" decoding="async"><figcaption>Arrival &amp; drop-off</figcaption></figure>
-      <figure><img src="assets/cgi-1.webp" alt="Swimming pool deck" loading="lazy" decoding="async"><figcaption>Pool deck</figcaption></figure>
-      <figure><img src="assets/cgi-gymnasium.webp" alt="Gymnasium" loading="lazy" decoding="async"><figcaption>Gymnasium</figcaption></figure>
-      <figure><img src="assets/cgi-games-room.webp" alt="Games room" loading="lazy" decoding="async"><figcaption>Games room</figcaption></figure>
-      <figure><img src="assets/cgi-gourmet-kitchen.webp" alt="Gourmet kitchen" loading="lazy" decoding="async"><figcaption>Gourmet kitchen</figcaption></figure>
-      <figure><img src="assets/cgi-kids-play-room.webp" alt="Children play room" loading="lazy" decoding="async"><figcaption>Kids&rsquo; play room</figcaption></figure>
-      <figure><img src="assets/cgi-4.webp" alt="Garden deck" loading="lazy" decoding="async"><figcaption>Garden deck</figcaption></figure>
-      <figure><img src="assets/cgi-9.webp" alt="Sky lounge" loading="lazy" decoding="async"><figcaption>Sky lounge</figcaption></figure>
-      <figure><img src="assets/cgi-retail-promenade.webp" alt="Retail promenade" loading="lazy" decoding="async"><figcaption>Retail promenade</figcaption></figure>
-      <figure><img src="assets/cgi-retail-street.webp" alt="Retail street" loading="lazy" decoding="async"><figcaption>Retail street</figcaption></figure>
-      <figure><img src="assets/cgi-6.webp" alt="Landscaped grounds" loading="lazy" decoding="async"><figcaption>Landscaped grounds</figcaption></figure>
-      <figure><img src="assets/cgi-30.webp" alt="Evening view of the towers" loading="lazy" decoding="async"><figcaption>Evening elevation</figcaption></figure>
+    <div class="gal rv" id="gal">
+      <figure><img src="assets/cgi-arrival-drop-off.webp" alt="Arrival drop-off and residents lobby" loading="lazy"><figcaption>Arrival &amp; drop-off</figcaption></figure>
+      <figure><img src="assets/cgi-1.webp" alt="Swimming pool deck" loading="lazy"><figcaption>Pool deck</figcaption></figure>
+      <figure><img src="assets/cgi-gymnasium.webp" alt="Gymnasium" loading="lazy"><figcaption>Gymnasium</figcaption></figure>
+      <figure><img src="assets/cgi-games-room.webp" alt="Games room" loading="lazy"><figcaption>Games room</figcaption></figure>
+      <figure><img src="assets/cgi-gourmet-kitchen.webp" alt="Gourmet kitchen" loading="lazy"><figcaption>Gourmet kitchen</figcaption></figure>
+      <figure><img src="assets/cgi-kids-play-room.webp" alt="Children play room" loading="lazy"><figcaption>Kids&rsquo; play room</figcaption></figure>
+      <figure><img src="assets/cgi-4.webp" alt="Garden deck" loading="lazy"><figcaption>Garden deck</figcaption></figure>
+      <figure><img src="assets/cgi-9.webp" alt="Sky lounge" loading="lazy"><figcaption>Sky lounge</figcaption></figure>
+      <figure><img src="assets/cgi-retail-promenade.webp" alt="Retail promenade" loading="lazy"><figcaption>Retail promenade</figcaption></figure>
+      <figure><img src="assets/cgi-retail-street.webp" alt="Retail street" loading="lazy"><figcaption>Retail street</figcaption></figure>
+      <figure><img src="assets/cgi-6.webp" alt="Landscaped grounds" loading="lazy"><figcaption>Landscaped grounds</figcaption></figure>
+      <figure><img src="assets/cgi-30.webp" alt="Evening view of the towers" loading="lazy"><figcaption>Evening elevation</figcaption></figure>
     </div>
-      <button class="gal-nav gal-prev" type="button" id="galPrev" aria-controls="gal" aria-label="Previous images">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-      </button>
-      <button class="gal-nav gal-next" type="button" id="galNext" aria-controls="gal" aria-label="Next images">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
-      </button>
-    </div>
-    <p class="gal-hint rv">Swipe or use the arrows &middot; tap any image to enlarge</p>
+    <p class="gal-hint rv">Swipe to see more &middot; tap any image to enlarge</p>
     <div class="films rv">
       <a class="film" href="https://m-grandminori.com.my/wp-content/uploads/2026/03/MGM-Part-1-260317-1.mp4" data-video="https://m-grandminori.com.my/wp-content/uploads/2026/03/MGM-Part-1-260317-1.mp4" target="_blank" rel="noopener">
-        <img src="assets/cgi-30.webp" alt="" loading="lazy" decoding="async">
+        <img src="assets/cgi-30.webp" alt="" loading="lazy">
         <span class="film-play" aria-hidden="true"></span>
         <span class="film-cap">Project film &middot; M Grand Minori</span>
       </a>
       <a class="film" href="https://m-grandminori.com.my/wp-content/uploads/2025/11/MAHSING_MGRANDMINORI_ENGLISH.mp4" data-video="https://m-grandminori.com.my/wp-content/uploads/2025/11/MAHSING_MGRANDMINORI_ENGLISH.mp4" target="_blank" rel="noopener">
-        <img src="assets/cgi-1.webp" alt="" loading="lazy" decoding="async">
+        <img src="assets/cgi-1.webp" alt="" loading="lazy">
         <span class="film-play" aria-hidden="true"></span>
         <span class="film-cap">Launch film &middot; English</span>
       </a>
@@ -3418,15 +2734,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 <section class="sec sec-alt" id="interiors">
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" loading="lazy" decoding="async"></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" loading="lazy"></div>
   <div class="split flip rv">
     <div class="car" id="car">
-      <figure class="on"><img src="assets/int-dsc05155.webp" alt="Show unit living and dining area" loading="lazy" decoding="async"></figure>
-      <figure><img src="assets/int-dsc05149.webp" alt="Show unit interior" loading="lazy" decoding="async"></figure>
-      <figure><img src="assets/int-dsc05086.webp" alt="Show unit bedroom" loading="lazy" decoding="async"></figure>
-      <figure><img src="assets/int-dsc05093.webp" alt="Show unit kitchen" loading="lazy" decoding="async"></figure>
-      <figure><img src="assets/int-dsc05158.webp" alt="Show unit detail" loading="lazy" decoding="async"></figure>
-      <figure><img src="assets/int-dsc05178.webp" alt="Show unit bathroom" loading="lazy" decoding="async"></figure>
+      <figure class="on"><img src="assets/int-dsc05155.webp" alt="Show unit living and dining area" loading="lazy"></figure>
+      <figure><img src="assets/int-dsc05149.webp" alt="Show unit interior" loading="lazy"></figure>
+      <figure><img src="assets/int-dsc05086.webp" alt="Show unit bedroom" loading="lazy"></figure>
+      <figure><img src="assets/int-dsc05093.webp" alt="Show unit kitchen" loading="lazy"></figure>
+      <figure><img src="assets/int-dsc05158.webp" alt="Show unit detail" loading="lazy"></figure>
+      <figure><img src="assets/int-dsc05178.webp" alt="Show unit bathroom" loading="lazy"></figure>
       <button class="car-ar car-prev" type="button" aria-label="Previous photo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="car-ar car-next" type="button" aria-label="Next photo"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       <div class="car-dots" id="carDots" role="tablist" aria-label="Interior photographs"></div>
@@ -3436,37 +2752,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2>Fitted, and ready to <span class="em">let</span></h2>
             <p class="fit-lead"><span class="fl-pre">Up to</span> <b>RM32,000</b> <span class="fl-cont">of fittings is included with every unit. Move in, or list it, without a fit-out.</span></p>
       <div class="fit">
-        <div><img src="assets/kitchen.png" alt="" loading="lazy" decoding="async"><b>Kitchen</b><span>Cabinet, hob &amp; hood</span></div>
-        <div><img src="assets/aircond.png" alt="" loading="lazy" decoding="async"><b>Aircond</b><span>Pre-installed</span></div>
-        <div><img src="assets/digital-lock.png" alt="" loading="lazy" decoding="async"><b>Digital lock</b><span>Smart entry</span></div>
-        <div><img src="assets/water-heater.png" alt="" loading="lazy" decoding="async"><b>Water heater</b><span>Ready to use</span></div>
-        <div><img src="assets/dryer.png" alt="" loading="lazy" decoding="async"><b>Washer / dryer</b><span>2-in-1 unit</span></div>
+        <div><img src="assets/kitchen.png" alt="" loading="lazy"><b>Kitchen</b><span>Cabinet, hob &amp; hood</span></div>
+        <div><img src="assets/aircond.png" alt="" loading="lazy"><b>Aircond</b><span>Pre-installed</span></div>
+        <div><img src="assets/digital-lock.png" alt="" loading="lazy"><b>Digital lock</b><span>Smart entry</span></div>
+        <div><img src="assets/water-heater.png" alt="" loading="lazy"><b>Water heater</b><span>Ready to use</span></div>
+        <div><img src="assets/dryer.png" alt="" loading="lazy"><b>Washer / dryer</b><span>2-in-1 unit</span></div>
       </div>
     </div>
   </div>
 </section>
 </div>
-<!-- 15-MINUTE CITY (premium port, 2026-10-16): the nine tiles as an editorial numbered list on paper (the Aurora
-     "reasons" pattern). The client's own tile icons show through a cropped window; each label is the tile's alt text,
-     verbatim. The skyline render stays at the foot of the section. -->
 <section class="city-sec" id="city">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow">Effortless Urban Living</span>
-      <h2>The '15-Minute City' isn't a dream — it's a reality.</h2>
-      <p class="city-sub">Everything you need for daily life — curated within a 15-minute reach of your front door.</p>
+  <div class="city-body">
+    <div class="eyebrow">Effortless Urban Living</div>
+    <h2>The '15-Minute City' isn't a dream — it's a reality.</h2>
+    <p class="city-sub">Everything you need for daily life — curated within a 15-minute reach of your front door.</p>
+    <div class="city-grid">
+      <div class="city-item"><img class="city-ico" src="assets/facilities.png" alt="41 Luxurious Facilities" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/greenRE.png" alt="GreenRE Certification" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/retail.png" alt="Retail Convenience Onsite" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/ramp.png" alt="Speed Ramp to Carpark" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/stream.png" alt="STREAM Auto Waste" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/layouts.png" alt="Flexible Layouts" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/EV.png" alt="EV Charging Points" loading="lazy" width="452" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/concierge.png" alt="Concierge Support" loading="lazy" width="451" height="458"></div>
+      <div class="city-item"><img class="city-ico" src="assets/shuttle.png" alt="Shuttle Bus Service" loading="lazy" width="451" height="458"></div>
     </div>
-    <ol class="usp-list usp-ink rv" data-stagger>
-      <li><span class="usp-ic"><img src="assets/facilities.png" alt="" loading="lazy" decoding="async" width="452" height="458"></span><h4>41 Luxurious Facilities</h4><span class="n">01</span></li>
-      <li><span class="usp-ic"><img src="assets/greenRE.png" alt="" loading="lazy" decoding="async" width="451" height="458"></span><h4>GreenRE Certification</h4><span class="n">02</span></li>
-      <li><span class="usp-ic"><img src="assets/retail.png" alt="" loading="lazy" decoding="async" width="451" height="458"></span><h4>Retail Convenience Onsite</h4><span class="n">03</span></li>
-      <li><span class="usp-ic"><img src="assets/ramp.png" alt="" loading="lazy" decoding="async" width="452" height="458"></span><h4>Speed Ramp to Carpark</h4><span class="n">04</span></li>
-      <li><span class="usp-ic"><img src="assets/stream.png" alt="" loading="lazy" decoding="async" width="452" height="458"></span><h4>STREAM Auto Waste</h4><span class="n">05</span></li>
-      <li><span class="usp-ic"><img src="assets/layouts.png" alt="" loading="lazy" decoding="async" width="451" height="458"></span><h4>Flexible Layouts</h4><span class="n">06</span></li>
-      <li><span class="usp-ic"><img src="assets/EV.png" alt="" loading="lazy" decoding="async" width="452" height="458"></span><h4>EV Charging Points</h4><span class="n">07</span></li>
-      <li><span class="usp-ic"><img src="assets/concierge.png" alt="" loading="lazy" decoding="async" width="451" height="458"></span><h4>Concierge Support</h4><span class="n">08</span></li>
-      <li><span class="usp-ic"><img src="assets/shuttle.png" alt="" loading="lazy" decoding="async" width="451" height="458"></span><h4>Shuttle Bus Service</h4><span class="n">09</span></li>
-    </ol>
   </div>
 </section>
 
@@ -3498,40 +2809,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <!-- LOCATION -->
-<!-- round 2 (16 Oct, rule A2): reading order title, tabs, map, details. The four blocks are direct children of one grid
-     (.loc-content) in that DOM order; on desktop the heading and the tabs span both columns, the map sits left and the
-     details right. The tabs (#locCats), the list (#locList), the map's enlarge and the three buttons are the same elements,
-     moved, not rebuilt; the tabs keep their .nx wrapper so the scoped chip styles still apply. -->
 <section id="loc" class="loc-hero">
   <div class="loc-content">
-    <!-- 1. heading -->
+    <div class="loc-info">
+    <!-- heading -->
     <div class="loc-head-float">
       <div class="eyebrow">Strategic Location</div>
-      <h2 class="stl">Heart of <em class="em">Taman Pelangi</em></h2>
-      <p class="sdesc">Mature township surrounded by malls, schools, hospitals and Singapore-bound transport — with the RTS just 3 km away.</p>
+      <h2 class="stl" style="margin-bottom:8px">Heart of <em style="font-style:normal;color:var(--copper3)">Taman Pelangi</em></h2>
+      <p class="sdesc" style="margin-bottom:0">Mature township surrounded by malls, schools, hospitals and Singapore-bound transport — with the RTS just 3 km away.</p>
     </div>
 
-    <!-- 2. category tabs -->
-    <div class="nx loc-tabs"><div class="loc-cats" id="locCats" role="tablist" aria-label="Nearby categories">
-        <button class="loc-cat" role="tab" aria-selected="true" data-cat="transport">Transport</button>
-        <button class="loc-cat" role="tab" aria-selected="false" data-cat="schools">Schools</button>
-        <button class="loc-cat" role="tab" aria-selected="false" data-cat="shopping">Shopping</button>
-        <button class="loc-cat" role="tab" aria-selected="false" data-cat="health">Health</button>
-      </div></div>
-
-    <!-- 3. the map (tap to enlarge) -->
-    <div class="loc-map-bg" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
-      <img src="assets/map-facilities.webp" alt="M Grand Minori location map" loading="lazy" decoding="async" width="1500" height="1411">
-    </div>
-
-    <!-- 4. details for the selected tab, then the map links -->
+    <!-- amenities panel -->
     <div class="loc-panel fi">
-      <div class="nx"><div class="loc-list" id="locList"></div></div>
+      <div class="nx"><div class="loc-cats" id="locCats" role="tablist" aria-label="Nearby categories">
+          <button class="loc-cat" role="tab" aria-selected="true" data-cat="transport">Transport</button>
+          <button class="loc-cat" role="tab" aria-selected="false" data-cat="schools">Schools</button>
+          <button class="loc-cat" role="tab" aria-selected="false" data-cat="shopping">Shopping</button>
+          <button class="loc-cat" role="tab" aria-selected="false" data-cat="health">Health</button>
+        </div>
+        <div class="loc-list" id="locList"></div></div>
       <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(196,134,90,.15);display:flex;gap:10px;flex-wrap:wrap">
         <a href="https://maps.app.goo.gl/8D6pQSJu3Yv5zfoF7" target="_blank" rel="noopener" class="btn btn-p" style="flex:1;min-width:120px;font-size:12px;padding:10px 16px">Google Maps →</a>
         <a href="https://ul.waze.com/ul?place=ChIJ7Znu3Udt2jERphr0MMUt8-A&ll=1.47832240%2C103.77286520&navigate=yes" target="_blank" rel="noopener" class="btn btn-s" style="flex:1;min-width:120px;font-size:12px;padding:10px 16px">Waze →</a>
           <button class="btn-vr360" type="button" data-imod="https://framemakers-creative.com/mgrandminori/" data-imod-title="360&deg; view of the location">View the site in 360&deg;</button>
       </div>
+    </div>
+
+    </div>
+
+    <div class="loc-map-bg" onclick="var i=this.querySelector('img');fpOpen(i.src,i.alt)">
+      <img src="assets/map-facilities.webp" alt="M Grand Minori location map" loading="lazy" width="1500" height="1411">
     </div>
   </div>
 </section>
@@ -3548,12 +2855,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="nx">
 <section class="sec sec-alt" id="developer">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy" decoding="async"></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="dev2 rv">
       <span class="eyebrow">The developer</span>
       <h2 class="dev2-h">This project is built by :</h2>
-      <img class="dev2-logo" src="assets/mahsing-logo.webp" alt="Mah Sing. Reinvent Spaces. Enhance Life." width="571" height="177" loading="lazy" decoding="async">
+      <img class="dev2-logo" src="assets/mahsing-logo.webp" alt="Mah Sing. Reinvent Spaces. Enhance Life." width="571" height="177" loading="lazy">
       <p class="copy dev2-sub">Whether you are looking for an investment property or home, Mah Sing offers solutions that reinvent the essence of what matters in life.</p>
     </div>
     
@@ -3561,7 +2868,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 <section class="sec sec-alt" id="faq">
-  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" loading="lazy" decoding="async"></div>
+  <div class="bg-deco right" aria-hidden="true"><img src="assets/bg-abstract-right-643x1024.webp" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">About the neighbourhood</span>
@@ -3606,7 +2913,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 <section class="sec" id="visit">
-  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy" decoding="async"></div>
+  <div class="bg-deco left" aria-hidden="true"><img src="assets/bg-abstract-left.webp" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="visit rv">
       <div class="visit-l">
@@ -3614,7 +2921,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2>Book a <span class="em">gallery visit</span></h2>
         <p class="copy">The show unit is ready for viewing. Register below and our team will confirm your slot, so nobody crosses the Causeway for a closed door.</p>
         <div style="border-top:1px solid var(--mullion);padding-top:16px;margin-top:4px">
-          <p class="copy" style="font-size:14px">M Grand Minori Sales Gallery<br>Jalan Kuning, Taman Pelangi, 80400 Johor Bahru<br><strong class="visit-hours">Open daily, 9.30am to 9.00pm</strong></p>
+          <p class="copy" style="font-size:14px">M Grand Minori Sales Gallery<br>Jalan Kuning, Taman Pelangi, 80400 Johor Bahru<br><strong style="color:var(--gold2)">Open daily, 9.30am to 9.00pm</strong></p>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <a class="btn btn-o" href="https://maps.app.goo.gl/8D6pQSJu3Yv5zfoF7" target="_blank" rel="noopener">Google Maps</a>
@@ -3632,7 +2939,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <input type="hidden" name="00N2j000000e0hR" value="1">
           <div class="field"><label class="f-label" for="v-name">Full name</label>
             <input class="f-input" id="v-name" name="last_name" maxlength="80" type="text" placeholder="Your full name" required autocomplete="name"></div>
-          <div class="field"><label class="f-label" for="v-phone">WhatsApp number</label>
+          <div class="field"><label class="f-label" for="v-phone">Phone number</label>
             <input class="f-input" id="v-phone" name="mobile" maxlength="20" type="tel" placeholder="012-345 6789 or 9123 4567" required autocomplete="tel" inputmode="tel" data-my-phone></div>
           <div class="field"><label class="f-label" for="v-email">Email</label>
             <input class="f-input" id="v-email" name="email" maxlength="80" type="email" placeholder="you@example.com" required autocomplete="email"></div>
@@ -3666,7 +2973,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer class="footer">
   <div class="ft-top">
     <div class="ft-logo">
-      <img src="assets/mahsing-logo-white.webp" alt="Mah Sing. Reinvent Spaces. Enhance Life." width="571" height="177" loading="lazy" decoding="async">
+      <img src="assets/mahsing-logo-white.webp" alt="Mah Sing. Reinvent Spaces. Enhance Life." width="571" height="177">
     </div>
     <div class="ft-contact">
       <div class="ft-contact-lab">For further enquiries, please contact:</div>
@@ -3707,7 +3014,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="ld-unit" id="ldUnit"><span class="ld-unit-k">Enquiring about</span><span class="ld-unit-v" id="ldUnitVal"></span></div>
     <h2 id="leadDrawerTitle" class="lead-drawer-title">Register &amp; get your price list</h2>
     <p class="lead-drawer-sub">Fill in your details and we will WhatsApp you the layout, pricing and investment brief.</p>
-    <p class="ld-trust">Developed by Mah Sing Group &middot; Tower A 90% taken up</p>
 
     <div class="qf-rlabel">You'll receive</div>
     <div class="receive">
@@ -3742,7 +3048,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input class="f-input" id="ld_last_name" type="text" name="last_name" maxlength="80" placeholder="Your full name" autocomplete="name" required>
       </div>
       <div class="field">
-        <label class="f-label" for="ld_mobile">WhatsApp number</label>
+        <label class="f-label" for="ld_mobile">Phone number</label>
         <input class="f-input" id="ld_mobile" type="tel" name="mobile" maxlength="20" placeholder="012-345 6789 or 9123 4567" inputmode="tel" autocomplete="tel" data-my-phone required>
       </div>
       <div class="field">
@@ -3764,10 +3070,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <button class="to-top" id="toTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
 <script>
 (function(){var sticky=document.querySelector('.sticky'),toTop=document.getElementById('toTop'),formSec=document.getElementById('register'),formInView=false,
-  askInView=null,io='IntersectionObserver' in window;
+  heroCtas=document.querySelector('.hero-ctas'),heroCtaInView=null,io='IntersectionObserver' in window;
 /* 2026-10-07: the sticky price bar shows whenever the hero buttons are out of view, not only after 400px of scroll,
    so short iPhones (hero buttons below the first screen in the Original-style hero) still get the ask on screen 1 */
-function upd(){var past=askInView===null?window.scrollY>400:!askInView;sticky.classList.toggle('on',past&&!formInView)}
+function upd(){var past=heroCtaInView===null?window.scrollY>400:!heroCtaInView;sticky.classList.toggle('on',past&&!formInView)}
 window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.scrollY>400);upd()},{passive:true});
 /* read the LAST entry: a layout shift (web fonts) can deliver two entries in one batch, and the first is stale */
 /* 2026-10-09: the bar steps aside while a form section is on screen: the quick form (now right under the hero), the
@@ -3775,14 +3081,7 @@ window.addEventListener('scroll',function(){toTop.classList.toggle('on',window.s
    #register, an id this page does not have, so it never stepped aside before. */
 if(io){var seen={},fio=new IntersectionObserver(function(ents){ents.forEach(function(e){seen[e.target.id]=e.isIntersecting});formInView=Object.keys(seen).some(function(k){return seen[k]});upd()},{threshold:.15});
   ['quickRegister','visit','contact'].forEach(function(id){var el=document.getElementById(id);if(el)fio.observe(el)})}
-/* Round 6 (16 Oct 2026, Justin): the bar steps aside whenever a price ask is on screen, not only the hero's: the hero
-   ask, the unit card, the calculator, and the floor-plan and tour asks in their overlays (hidden ones never count). The
-   strip the bar covers (bottom 72 px) does not count, so an ask still under the bar keeps it until it clears. The nav
-   and menu asks are left out: the nav is on every screen. Replaces the 7 Oct hero-only rule and the round-5 swap. */
-var asks=document.querySelectorAll('.hero .hero-ctas [data-open-lead],#uCta,#cCta,#lbAsk,#vrCta'),askSeen=[];
-if(io&&asks.length){var aio=new IntersectionObserver(function(ents){ents.forEach(function(e){var i=Array.prototype.indexOf.call(asks,e.target);askSeen[i]=e.isIntersecting});
-  askInView=askSeen.some(function(v){return v});upd()},{rootMargin:'0px 0px -72px 0px',threshold:0});
-  Array.prototype.forEach.call(asks,function(a){aio.observe(a)})}
+if(io&&heroCtas){new IntersectionObserver(function(ents){heroCtaInView=ents[ents.length-1].intersectionRatio>=.98;upd()},{threshold:[0,.5,.98,1]}).observe(heroCtas)}
 })();
 </script>
 
@@ -4642,10 +3941,6 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
       el.addEventListener('click', openDrawer);
     });
 
-    // Premium port (2026-10-16): the zoom and 360 asks are added to the DOM after this binder has run, so they open
-    // the drawer through this handle instead. Same handler, same source and unit attributes.
-    window.mgmOpenLead = openDrawer;
-
     closeBtn.addEventListener('click', closeDrawer);
     backdrop.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', function (e) {
@@ -4910,8 +4205,69 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 }
 .lead-field-hint .hint-apply:hover { color: #92400e; }
 
-/* The ATF + PRICE CTA block (2026-10-07) that positioned the Original-style phone hero was retired on 2026-10-16 by the
-   premium port: the hero now follows the ver2 M Aurora composition (style#premium-port in the head). */
+/* ===== ATF + PRICE CTA (2026-10-07, branch atf-price-cta). Justin: the hero is full screen above the fold
+   and its CTA is on the first screen on every phone and laptop. Checked at Chrome 390x844, Android
+   360x740, iPhone 15 Safari 393x659, iPhone SE (3rd gen) Safari ~375x553, 1440x900 and 1366x657. ===== */
+/* Phones: JUSTIN'S SEQUENCE (2026-10-08): big logo, sales-gallery pill, headline, location, price tiles, THEN the
+   tower image, then the two buttons at the foot. "Background" meant the dark fade behind the copy, not the tower:
+   the copy now sits on the artwork's own purple sky with no scrim.
+   - Behind the logo and copy: the portrait artwork's sky and branch (top of the image). From 62vw it blends into a
+     left-to-right gradient sampled from the same artwork's sky just above the spire (86-92vw), so its own tower never
+     shows behind the copy.
+   - The tower: an in-flow block (not a background positioned by guesswork), the bottom 110vw of the same portrait
+     artwork, full width and uncut, so the spire, both Tower A/B labels and the podium always show; its top 3vw
+     feathers into the gradient above, which is the same sky row, so there is no seam.
+   - The buttons sit on the tower's foot (the ground strip), inside the banner. The artwork's own "*Artist Impression"
+     ends up under the right button, so it is restated just above it.
+   Taller than most iPhone screens, like the Original: the sticky "Get Price List Now" bar covers the first screen
+   whenever the hero buttons are not fully visible (script below). */
+@media (max-width: 699px) {
+  .hero-media {
+    --lh: clamp(74px, 20vw, 88px);
+    min-height: 0; height: auto;
+    background: url('assets/hero-bg-mobile.webp') center top / 100% auto no-repeat, #18101F;
+  }
+  .hero-media::after { display: none; }
+  .hero-media::before {
+    content: ''; display: block; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, #18101F 0%, #1A0E32 25%, #3D134A 50%, #612060 75%, #5B1D5B 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
+    mask-image: linear-gradient(180deg, transparent 0, transparent 62vw, #000 88vw);
+  }
+  .hero-body { padding: 80px var(--pad) 0; min-height: 0; }
+  .hero-inner { min-height: 0; position: relative; }
+  .h-logo, .hero-inner .h-logo { order: -3; margin: 0 0 12px !important; }
+  .h-logo img { width: auto; height: var(--lh); margin-bottom: 0; }
+  .hero-inner .h-tag { order: -2; margin: 0 auto 12px !important; }
+  .hero-inner h1 { font-size: clamp(25px, 7.4vw, 32px); margin-bottom: 8px; white-space: nowrap; }
+  .hero-inner .h-place { margin-bottom: 14px !important; }
+  .hero-inner .h-cards { margin-bottom: 0 !important; }
+  .hero-inner .h-card { text-align: center; }
+  .hero-inner::after {
+    content: ''; order: 1; flex: none; align-self: stretch; height: 110vw;
+    margin: 2px calc(-1 * var(--pad)) 0;
+    background: url('assets/hero-bg-mobile.webp') center bottom / 100% auto no-repeat;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 3vw);
+    mask-image: linear-gradient(180deg, transparent 0, #000 3vw);
+  }
+  .hero-ctas { position: absolute; left: 0; right: 0; bottom: 14px; z-index: 3; margin: 0 !important; padding-top: 0 !important; width: 100%; }
+  .hero-ctas::before {
+    content: '*Artist Impression'; position: absolute; right: 2px; top: -16px;
+    font: 500 10px/1 var(--fb); letter-spacing: .02em; color: rgba(254,252,247,.8); text-shadow: 0 1px 4px rgba(0,0,0,.7);
+  }
+}
+/* narrow phones: the sales-gallery pill stays on one line */
+@media (max-width: 420px) {
+  .hero-inner .h-tag { font-size: 11px; padding: 6px 12px; letter-spacing: 0; }
+}
+/* Desktop: the width-derived banner (840px max) left the next section showing on a 1440x900 screen; it now
+   reaches the fold too. Short laptops: the centred copy put the CTA on the fold line, so it top-aligns there. */
+@media (min-width: 1024px) {
+  .hero-media { min-height: max(clamp(600px, 61vw, 840px), calc(100svh - 30px)); }
+}
+@media (min-width: 1024px) and (max-height: 760px) {
+  .hero-body { justify-content: flex-start; padding-top: 88px; }
+}
 </style>
 
 <script>
@@ -4939,9 +4295,7 @@ window.mgmTrackLead = function (payload) {
 </script>
 
 <div class="nx">
-<div class="lb" id="lb"><button class="lb-x" id="lbX" aria-label="Close">&#10005;</button><div class="lb-in"><img id="lbImg" alt=""><span class="lb-legend" id="lbKey" hidden><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span></div>
-<!-- R1 (2026-10-16): the enlarged floor plan carries its own ask, titled with the unit in view; hidden for every other image -->
-<button type="button" class="btn btn-p lb-ask" id="lbAsk" data-open-lead="floorplan_zoom" data-cta-id="floorplan_zoom_get_price" data-section="floorplan" data-unit="Type A" hidden>Get the Type A price list</button></div>
+<div class="lb" id="lb"><button class="lb-x" id="lbX" aria-label="Close">&#10005;</button><div class="lb-in"><img id="lbImg" alt=""><span class="lb-legend" id="lbKey" hidden><i aria-hidden="true"></i>Renovation Package<small>*Terms &amp; conditions apply.</small></span></div></div>
 </div>
 <script>
 (function(){
@@ -4988,16 +4342,12 @@ window.mgmTrackLead = function (payload) {
     $('planWrap').setAttribute('data-full',u.full);
     var cta=$('uCta'); cta.setAttribute('data-unit','Type '+cur);
     cta.textContent='Get Price List Now';
-    /* the calculator and zoom asks follow the type (premium port, 2026-10-16) */
-    var cc=$('cCta'); if(cc){cc.setAttribute('data-unit','Type '+cur); cc.textContent='Send me the Type '+cur+' price list';}
-    var la=$('lbAsk'); if(la){la.setAttribute('data-unit','Type '+cur); la.textContent='Get the Type '+cur+' price list';}
     var vt=$('uVt');
     if(vt){
       if(u.vt){
         vt.setAttribute('data-imod',u.vt);
         vt.setAttribute('data-imod-title','Type '+cur+' show unit, 360° walk-through');
-        $('uVtT').textContent='360° tour';
-        vt.setAttribute('aria-label','Type '+cur+' show unit, 360° tour');
+        $('uVtT').textContent='Walk through the Type '+cur+' show unit in 360°';
         vt.hidden=false;
       } else {
         vt.setAttribute('data-imod','');
@@ -5005,10 +4355,6 @@ window.mgmTrackLead = function (payload) {
       }
     }
     renderShots(u);
-    /* round 3: the photos option shows only for a type with photography; a new unit always opens on its floor plan */
-    var pb=document.querySelector('#planWrap .plan-tog-b[data-view="photos"]');
-    if(pb)pb.hidden=!(u.shots&&u.shots.length);
-    setPlanView('plan');
     Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'),function(t){
       t.setAttribute('aria-selected',String(t.getAttribute('data-type')===cur));});
     Array.prototype.forEach.call(document.querySelectorAll('#cpMenu2 .cp-opt2'),function(o){
@@ -5020,40 +4366,18 @@ window.mgmTrackLead = function (payload) {
      20-28MB camera originals; the 1800px WebP behind each one is fetched only when the
      lightbox opens. Types with no photography say so rather than borrowing another
      type's rooms, which is what the old hardcoded strip did. */
-  /* Round 3 (16 Oct): the photos now fill the plan box as a swipeable strip, so each frame is about 330px wide on a
-     phone and 460px on a desktop. The 480px thumb serves a 1x desktop; a 2x or 3x phone takes the 1800px file, which
-     is also the one the lightbox opens, so the enlargement is already cached. Nothing loads until the photos view is
-     opened: the strip is display:none in the floor-plan view and the images are lazy. Types without photography
-     render nothing (their toggle hides the photos option). */
   function renderShots(u){
     var box=$('uShots'); if(!box)return;
     var sh=u.shots||[], html='';
-    if(!sh.length){box.innerHTML='';return;}
-    html+='<div class="ushot-row">';
     sh.forEach(function(p){
       html+='<button class="ushot" type="button" data-src="assets/'+p[0]+'.webp">'+
-            '<img src="assets/'+p[0]+'-thumb.webp" srcset="assets/'+p[0]+'-thumb.webp 480w, assets/'+p[0]+'.webp 1800w" '+
-            'sizes="(min-width:1024px) 460px, 84vw" alt="'+p[1]+'" loading="lazy" '+
+            '<img src="assets/'+p[0]+'-thumb.webp" alt="'+p[1]+'" loading="lazy" '+
             'width="480" height="320" decoding="async"></button>';
     });
-    html+='</div><span class="ushot-note">Type '+cur+' show unit, '+sh.length+' photos</span>';
+    html+='<span class="ushot-note">'+(sh.length
+      ? 'Type '+cur+' show unit, '+sh.length+' photographs. Tap any photo to enlarge.'
+      : 'Show unit photography is available for Types B, C and E.')+'</span>';
     box.innerHTML=html;
-  }
-  /* the plan box view: 'plan' (the floor plan, the default) or 'photos' (the strip). The floor plan keeps its place
-     (visibility only), so the box never changes height when the view switches. */
-  function syncShotNav(){
-    var r=document.querySelector('#uShots .ushot-row'),p=$('uShotPrev'),n=$('uShotNext'); if(!p||!n)return;
-    if(!r){p.disabled=n.disabled=true;return;}
-    var max=r.scrollWidth-r.clientWidth; p.disabled=r.scrollLeft<=2; n.disabled=r.scrollLeft>=max-2;
-  }
-  function setPlanView(v){
-    var w=$('planWrap'); if(!w)return;
-    var ph=v==='photos'&&!!(UNITS[cur].shots&&UNITS[cur].shots.length);
-    w.setAttribute('data-view',ph?'photos':'plan');
-    Array.prototype.forEach.call(w.querySelectorAll('.plan-tog-b'),function(b){
-      b.setAttribute('aria-pressed',String(b.getAttribute('data-view')===(ph?'photos':'plan')));});
-    var r=document.querySelector('#uShots .ushot-row'); if(r)r.scrollLeft=0;
-    syncShotNav();
   }
 
   function calc(){
@@ -5091,28 +4415,8 @@ window.mgmTrackLead = function (payload) {
   /* lightbox. The third argument controls the Renovation Package key: it belongs to the
      floor plans only, not to the facilities plan, the CGI gallery or the show-unit photos,
      all of which open this same lightbox. */
-  $('planWrap').addEventListener('click',function(e){
-    /* round 3: the toggle, the strip (it opens its own photo), its arrows and the 360 pill are not an enlarge of the
-       plan, and nothing in the photos view enlarges the hidden plan */
-    if(e.target&&e.target.closest&&e.target.closest('.plan-tog, #uShots, .ushot-nav, #uVt'))return;
-    if(this.getAttribute('data-view')==='photos')return;
+  $('planWrap').addEventListener('click',function(){
     openLb(this.getAttribute('data-full')||$('planImg').src, $('planImg').alt, true);});
-  Array.prototype.forEach.call(document.querySelectorAll('#planWrap .plan-tog-b'),function(b){
-    b.addEventListener('click',function(){
-      if(b.getAttribute('aria-pressed')==='true')return;
-      setPlanView(b.getAttribute('data-view'));
-    });
-  });
-  (function(){
-    var p=$('uShotPrev'),n=$('uShotNext'),box=$('uShots'); if(!p||!n||!box)return;
-    function row(){return box.querySelector('.ushot-row');}
-    function step(){var r=row(),f=r&&r.querySelector('.ushot');return f?f.getBoundingClientRect().width+10:200;}
-    p.addEventListener('click',function(){var r=row();if(r)r.scrollBy({left:-step(),behavior:'smooth'});});
-    n.addEventListener('click',function(){var r=row();if(r)r.scrollBy({left:step(),behavior:'smooth'});});
-    /* the row is rebuilt per type, so listen on the box (scroll does not bubble: capture it) */
-    box.addEventListener('scroll',syncShotNav,{passive:true,capture:true});
-    window.addEventListener('resize',syncShotNav);
-  })();
   function closeLb(){$('lb').classList.remove('on');document.body.style.overflow='';}
   $('lbX').addEventListener('click',closeLb);
   $('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
@@ -5156,15 +4460,9 @@ window.mgmTrackLead = function (payload) {
   window.addEventListener('scroll',function(){window.requestAnimationFrame(setNavH);},{passive:true});
 
   /* item 2: the facilities plan and every gallery frame open in the lightbox */
-  function openLb(src,alt,showKey,unitPhoto){
+  function openLb(src,alt,showKey){
     $('lbImg').src=src; $('lbImg').alt=alt||'';
     var k=$('lbKey'); if(k)k.hidden=!showKey;
-    /* the ask belongs to the floor plans and (round 3) the unit's show-unit photos, both titled with the unit in view;
-       a photo reports its own cta_id and section, the drawer source stays floorplan_zoom */
-    var a=$('lbAsk'), ask=showKey||unitPhoto;
-    if(a){a.hidden=!ask; if(ask){a.setAttribute('data-unit','Type '+cur); a.textContent='Get the Type '+cur+' price list';
-      a.setAttribute('data-cta-id',unitPhoto?'unit_photo_get_price':'floorplan_zoom_get_price');
-      a.setAttribute('data-section',unitPhoto?'units':'floorplan');}}
     $('lb').classList.add('on'); document.body.style.overflow='hidden';
   }
   var fp=$('facPlan');
@@ -5176,7 +4474,7 @@ window.mgmTrackLead = function (payload) {
   if(shotsBox)shotsBox.addEventListener('click',function(e){
     var bt=e.target.closest('.ushot'); if(!bt)return;
     var im=bt.querySelector('img');
-    openLb(bt.getAttribute('data-src')||im.src,im.alt,false,true);
+    openLb(bt.getAttribute('data-src')||im.src,im.alt,false);
   });
 
   /* item 3: interiors carousel, auto-advancing, pauses on hover and when off-screen */
@@ -5271,45 +4569,6 @@ window.mgmTrackLead = function (payload) {
   },{threshold:.5});
   Array.prototype.forEach.call(document.querySelectorAll('[data-count]'),function(el){cio.observe(el);});
 
-  /* ===== PREMIUM PORT (2026-10-16): the asks and motion carried over from ver2 M Aurora ===== */
-  /* the zoomed plan's ask: close the zoom, then open the drawer titled with the unit in view */
-  var lbAsk=$('lbAsk');
-  if(lbAsk)lbAsk.addEventListener('click',function(e){closeLb();if(typeof window.mgmOpenLead==='function')window.mgmOpenLead(e);});
-  /* hero bed chips: open the matching layout tab and scroll to the tabs (unit_select / hero_pill is sent by the
-     click-events block at the end of the page) */
-  Array.prototype.forEach.call(document.querySelectorAll('.h-bed'),function(b){
-    b.addEventListener('click',function(){
-      var t=b.getAttribute('data-bed-type'),tabs=$('tabs'),navEl=$('siteNav');
-      if(window.setType)window.setType(t);
-      if(tabs){var y=tabs.getBoundingClientRect().top+window.scrollY-(navEl?navEl.offsetHeight:0)-64;window.scrollTo({top:Math.max(0,y),behavior:'smooth'});}
-    });
-  });
-  /* stagger: children of [data-stagger] reveal one after another */
-  Array.prototype.forEach.call(document.querySelectorAll('[data-stagger]'),function(g){
-    Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',Math.min(i,11));});});
-  /* the below-fold CGI backgrounds (quick form, story) wait for the page to load, so they never compete with the hero */
-  window.addEventListener('load',function(){setTimeout(function(){document.documentElement.classList.add('hero-more');},300);});
-  /* automated browsers (screenshots, audits) get every reveal after load; visitors get them as they scroll */
-  if(navigator.webdriver){window.addEventListener('load',function(){setTimeout(function(){
-    Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('in');});},900);});}
-  /* gallery: drags with a mouse (a drag never opens the lightbox or sends gallery_open), arrows on desktop */
-  (function(){var g=$('gal');if(!g)return;
-    window._galMoved=0;
-    if(window.matchMedia('(pointer:fine)').matches){
-      var down=false,x0=0,s0=0;
-      g.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;down=true;window._galMoved=0;x0=e.clientX;s0=g.scrollLeft;g.classList.add('dragging');});
-      window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-x0;window._galMoved=Math.max(window._galMoved,Math.abs(dx));g.scrollLeft=s0-dx;});
-      window.addEventListener('pointerup',function(){if(!down)return;down=false;g.classList.remove('dragging');});
-      g.addEventListener('click',function(e){if(window._galMoved>6){e.stopPropagation();e.preventDefault();window._galMoved=0;}},true);
-    }
-    var p=$('galPrev'),n=$('galNext');if(!p||!n)return;
-    function step(){var f=g.querySelector('figure');return f?f.getBoundingClientRect().width+14:Math.round(g.clientWidth*.8);}
-    function sync(){var max=g.scrollWidth-g.clientWidth;p.disabled=g.scrollLeft<=2;n.disabled=g.scrollLeft>=max-2;}
-    p.addEventListener('click',function(){g.scrollBy({left:-step(),behavior:'smooth'});});
-    n.addEventListener('click',function(){g.scrollBy({left:step(),behavior:'smooth'});});
-    g.addEventListener('scroll',sync,{passive:true});window.addEventListener('resize',sync);sync();
-  })();
-
   
   render();
 })();
@@ -5324,11 +4583,6 @@ window.mgmTrackLead = function (payload) {
     <a id="imodExt" href="#" target="_blank" rel="noopener">Open in new tab</a>
     <button class="imod-x" type="button" aria-label="Close">&times;</button></div>
   <iframe id="imodF" title="Embedded viewer" allow="fullscreen; gyroscope; accelerometer" src="about:blank"></iframe>
-  <!-- VR (2026-10-16): the 360 tours carry their own ask under the viewer; hidden for the e-brochure, which is a CTA of its own -->
-  <div class="imod-foot" id="imodFoot" hidden>
-    <span class="imod-note" id="imodNote">Drag to look around</span>
-    <button type="button" class="btn btn-p" id="vrCta" data-open-lead="vr_tour" data-cta-id="tour_get_price" data-section="virtual_tour">Get the price list</button>
-  </div>
 </div>
 
 <script>
@@ -5347,26 +4601,14 @@ window.mgmTrackLead = function (payload) {
       var p=vv.play(); if(p&&p.catch)p.catch(function(){});
     });
   });
-  var imFoot=document.getElementById('imodFoot'),imCta=document.getElementById('vrCta');
   Array.prototype.forEach.call(document.querySelectorAll('[data-imod]'),function(b){
     b.addEventListener('click',function(e){
       e.preventDefault();
       var u=b.getAttribute('data-imod');
       imT.textContent=b.getAttribute('data-imod-title')||'';
-      /* VR (2026-10-16): the 360 tours carry a price ask under the viewer. The e-brochure opener is a CTA of its own
-         (data-cta-id), so the foot stays hidden for it. The unit tour names its type; the location 360 asks plainly. */
-      var isBrochure=b.hasAttribute('data-cta-id');
-      if(imFoot)imFoot.hidden=isBrochure;
-      im.classList.toggle('has-ask',!isBrochure);
-      if(imCta&&!isBrochure){
-        if(b.id==='uVt'){var ty=String((document.getElementById('uName')||{}).textContent||'').trim();
-          imCta.setAttribute('data-unit','Type '+ty); imCta.textContent='Get the Type '+ty+' price list';}
-        else{imCta.removeAttribute('data-unit'); imCta.textContent='Get the price list';}
-      }
       imE.href=u; imF.src=u; im.classList.add('on'); lock(true);
     });
   });
-  if(imCta)imCta.addEventListener('click',function(e){closeI();if(typeof window.mgmOpenLead==='function')window.mgmOpenLead(e);});
   vm.querySelector('.vmod-x').addEventListener('click',closeV);
   im.querySelector('.imod-x').addEventListener('click',closeI);
   vm.addEventListener('click',function(e){if(e.target===vm)closeV();});
@@ -5505,11 +4747,6 @@ window.mgmTrackLead = function (payload) {
         send('unit_select',{unit_interest:'Type '+el.getAttribute('data-type'),select_source:'calc_dropdown'});
         return;
       }
-      /* hero bed chips (premium port, 2026-10-16): the first-screen selector, reported as its own source */
-      if((el=t.closest('.h-bed'))){
-        send('unit_select',{unit_interest:'Type '+el.getAttribute('data-bed-type'),select_source:'hero_pill'});
-        return;
-      }
       if((el=t.closest('#cPick'))){
         /* opens the price list (2026-10-10); the type is chosen in the list, sent as unit_select above */
         if(first('calc_unit'))send('calculator_interact',{calc_input:'unit'});
@@ -5517,28 +4754,16 @@ window.mgmTrackLead = function (payload) {
       }
       /* 6. images and plans opened in a lightbox, and the facilities map categories */
       if((el=t.closest('#gal figure'))){
-        if(window._galMoved>6)return;   /* a mouse drag across the gallery is not an open */
         send('gallery_open',{gallery:'gallery',item_index:idx(el,'#gal figure'),
           item_label:txt(el.querySelector('figcaption'),60)||alt(el)});
         return;
       }
-      /* round 3 (16 Oct): the show-unit photos sit behind the plan box's "Unit photos" toggle and report as their own
-         gallery. Switching to the photos counts (the tracker runs before the page handler, so aria-pressed still reads
-         the old state and only a real switch is sent); switching back, the strip arrows and taps on the photos view's
-         empty ground are not opens. */
       if((el=t.closest('#uShots .ushot'))){
-        send('gallery_open',{gallery:'unit_photos',item_index:idx(el,'#uShots .ushot'),item_label:alt(el)});
+        send('gallery_open',{gallery:'gallery',item_index:idx(el,'#uShots .ushot'),item_label:alt(el)});
         return;
       }
-      if((el=t.closest('#planWrap .plan-tog-b'))){
-        if(el.getAttribute('data-view')==='photos'&&el.getAttribute('aria-pressed')!=='true')
-          send('gallery_open',{gallery:'unit_photos',item_index:'ABCDE'.indexOf(curType())+1,item_label:'Type '+curType()+' unit photos'});
-        return;
-      }
-      if(t.closest('#planWrap .ushot-nav'))return;
       if((el=t.closest('#planWrap'))){
-        if(el.getAttribute('data-view')!=='photos'&&!t.closest('#uShots'))
-          send('gallery_open',{gallery:'floorplan',item_index:'ABCDE'.indexOf(curType())+1,item_label:alt(el)});
+        send('gallery_open',{gallery:'floorplan',item_index:'ABCDE'.indexOf(curType())+1,item_label:alt(el)});
         return;
       }
       if((el=t.closest('.loc-map-bg'))){
