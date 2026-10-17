@@ -2809,6 +2809,20 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
 /* short phones (600 px tall or less, iPhone SE): the hero is short, so the artwork's "Tower A Limited Unit" label lands
    behind the ask and the trust line; the scrim's dark foot starts higher so the trust line sits on solid night */
 @media(max-width:699px) and (max-height:600px){.hero-scrim{background:linear-gradient(180deg,rgba(13,11,30,.42) 0%,rgba(13,11,30,.24) 18%,rgba(13,11,30,.14) 46%,rgba(13,11,30,.3) 64%,rgba(13,11,30,.9) 80%,var(--night0) 90%)}}
+/* Round 7 (18 Oct 2026, Justin, from an iPhone 16 Pro Max: "the hero banner got squeezed to very short"; reference Gamuda
+   Cove: clean copy over the sky, the building whole below it, "but it will be great if we have CTA as well"). Phones: the
+   hero is no longer held to one screen. The copy, the ask and the trust line sit on the artwork's own purple sky; the
+   towers sit whole below them with nothing over them and run on past the first screen, so the page reads as continuing.
+   The artwork is 1:2 (200vw tall at full width) and drawn from the bottom; its towers start 46.5% down, so the last 107vw
+   of the hero belongs to them and the copy ends 20 px above that. Space above the artwork is its own top colour. */
+@media(max-width:699px){
+  .hero .hero-media{min-height:0!important;background:#1A0E2B}
+  .hero-art{background-position:center bottom!important;background-size:100% auto!important}
+  .hero .hero-body{justify-content:flex-start;padding:88px var(--pad) calc(107vw + 20px)!important}
+  .hero .hero-inner,.hero .hero-inner.hero-inner{flex:0 0 auto}
+  .hero .hero-ctas,.hero .hero-inner .hero-ctas{margin-top:4px!important}
+  .hero-scrim{background:linear-gradient(0deg,rgba(13,11,30,.6) 0,rgba(13,11,30,0) 90px)!important}
+}
 </style>
 
 </head>
