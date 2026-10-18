@@ -2823,6 +2823,38 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
   .hero .hero-ctas,.hero .hero-inner .hero-ctas{margin-top:4px!important}
   .hero-scrim{background:linear-gradient(0deg,rgba(13,11,30,.6) 0,rgba(13,11,30,0) 90px)!important}
 }
+/* Clean hero (19 Oct 2026, Justin: "I still prefer https://hero-clean.m-aurora-6we.pages.dev/ ... apply to the rest 4
+   projects for preview"; reference M Aurora hero-clean d227c97). Phones (699 px and under, this page's phone breakpoint):
+   still not held to the screen. The copy block is centred on a clean ground with no artwork behind it: night at the top,
+   easing into the artwork's own colours (dark plum on the left, purple on the right, sampled from its row 39% down)
+   exactly where the picture band starts, so there is no seam. Order: the lockup as the lead (128 px tall, 107 px at
+   700 px tall or less, 75 px at 600 or less), place, h1, price, fact, chips, the ask full width, the trust line on one
+   line. Below it the artwork as its own full-width band: its bottom 122vw (the towers whole, 107vw, under 15vw of sky
+   that fades in from the ground over 13vw), nothing over it but the foot fade into the quick form. The load zoom is off
+   on phones: it lifted the band's top edge about 10 px and cropped the Tower B and Tower A labels at the sides. The
+   lockup file's lettering sits on its own centre (GRAND MINORI 0.5 px left in a 414 px file), so it needs no nudge. */
+@media(max-width:699px){
+  .hero .hero-media{background:linear-gradient(180deg,var(--night0) 0,var(--night0) 96px,rgba(13,11,30,0) calc(100% - 122vw)),
+    linear-gradient(90deg,#17101E 0%,#170F26 6.25%,#190E29 12.5%,#1B0E30 18.75%,#1A0E34 25%,#1A0C36 31.25%,#200A3C 37.5%,#2C0B41 43.75%,
+    #320D43 50%,#3D1048 56.25%,#46154E 62.5%,#501854 68.75%,#571A58 75%,#591B59 81.25%,#551956 87.5%,#561A58 93.75%,#551956 100%)!important}
+  .hero-art{top:auto!important;bottom:0;height:122vw;background-position:center bottom!important;background-size:100% auto!important;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 13vw);mask-image:linear-gradient(180deg,transparent 0,#000 13vw)}
+  html.js .hero-art,html.js .hero-art.hero-art{animation:none!important;transform:none!important}
+  .hero .hero-body{padding:88px var(--pad) calc(122vw + 8px)!important}
+  .hero .hero-inner,.hero .hero-inner.hero-inner{text-align:center}
+  .hero .h-logo,.hero .hero-inner .h-logo{margin:0 0 16px!important}
+  .hero .h-logo img{display:block;width:auto;height:128px;margin:0 auto}
+  .hero .h-place{justify-content:center;text-align:center}
+  .hero h1,.hero .hero-inner h1,.hero .h-price,.hero .h-fact{text-align:center}
+  .hero .h-beds{justify-content:center}
+  .hero .hero-ctas,.hero .hero-inner .hero-ctas{margin-top:0!important}
+  .hero .h-trust{text-align:center;white-space:nowrap;text-wrap:nowrap;margin-left:calc(16px - var(--pad));margin-right:calc(16px - var(--pad));
+    font-size:min(12.5px,calc((100vw - 32px) / 27.6))}
+}
+@media(max-width:699px) and (max-height:700px){.hero .h-logo img{height:107px}.hero .h-logo,.hero .hero-inner .h-logo{margin-bottom:12px!important}}
+@media(max-width:699px) and (max-height:600px){.hero .h-logo img{height:75px}.hero .h-logo,.hero .hero-inner .h-logo{margin-bottom:10px!important}.hero .hero-body{padding-top:84px!important}}
+/* the trust line is 27.5 em wide in Montserrat 500: under 336 px wide one line would drop below 11 px, so two balanced lines */
+@media(max-width:335px){.hero .h-trust{white-space:normal;text-wrap:balance;margin-left:0;margin-right:0;font-size:12px}}
 </style>
 
 </head>
