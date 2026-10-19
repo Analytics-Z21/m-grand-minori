@@ -2952,6 +2952,18 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
 @media(max-width:335px){.hero{--trh:36px}.hero .h-trust{font-size:12px}.hero .hero-inner .h-beds{gap:4px}.hero .hero-inner .h-bed{padding:0 6px;font-size:12px}}
 @supports not (height:100svh){@media(max-width:699px){.hero{--hh:calc(100vh - 34px)}}}
 </style>
+<style>@media(min-width:768px){.nav-logo img.lk,.nav-logo img.ms{display:none!important}}</style>
+<style>
+/* 20 Oct 2026 (Justin: "I want all projects the same size, big and clear to see the project logo, and all projects to have
+   the Mah Sing logo"). Phones: the project mark is 56 px tall in the menu bar on every Clone (M Aria's size) and the
+   Mah Sing logo sits beside it at 26 px; the same at the top and in the scrolled bar. */
+@media(max-width:767px){
+  .nav-logo{display:flex!important;align-items:center;gap:12px}
+  .nav-logo img.lk{height:56px!important;width:auto!important;max-width:none!important}
+  .nav-logo img.ms{height:26px!important;width:auto!important;max-width:none!important}
+  .nav-logo img.nav-combo{display:none!important}
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -2975,7 +2987,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- NAV (m-legasi pattern: transparent over hero, blurred-navy on scroll, centered pill + drawer) -->
 <nav class="nav" id="siteNav">
   <a href="#" class="nav-logo" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
-    <img src="assets/grand-minori-mahsing-logo-ml.webp" alt="Grand Minori, a Mah Sing development" width="636" height="148">
+    <img class="nav-combo" src="assets/grand-minori-mahsing-logo-ml.webp" alt="Grand Minori, a Mah Sing development" width="636" height="148">
+    <img class="lk" src="assets/grand-minorii-logo-white.webp" alt="M Grand Minori" width="201" height="194">
+    <img class="ms" src="assets/mahsing-logo.webp" alt="A Mah Sing development" width="571" height="177">
   </a>
 
   <ul class="nav-pill" aria-label="Primary">
