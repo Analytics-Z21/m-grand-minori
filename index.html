@@ -2879,6 +2879,77 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
   .hero .hero-inner .h-fact,.hero .hero-inner .h-beds{margin-bottom:12px!important}
 }
 </style>
+
+<style>
+/* Round 10 (19 Oct 2026, Justin: "reduce the shade to same as live site, and apply this to all projects"; reference
+   M Amaya d88983f). Phones (699 px and under, this page's phone breakpoint; tablet and desktop unchanged): the hero is
+   one screen and the artwork fills it at the live site's phone crop (full width, drawn from the top), under the live
+   site's own shade, which on this page is none. The copy sits as it does on live: the lockup, place, price and project
+   line on the artwork's dark sky at the top; the chips, the ask and the trust line at the foot; the towers, with their
+   own "Tower B / Tower A" labels, clear in between. The towers are bright white and gold, so copy over them would not
+   read without a veil, and the labels sit on the towers' flanks at mid height, so a stack at the foot would run into
+   them.
+   The geometry, measured on hero-bg-mobile.webp (1080 x 2160) in units of the drawn width (--aw): Tower B's crown
+   0.931, the Tower B label 0.987 to 1.225 (text, leader and dot, the left 24.4%), the Tower A label 1.196 to 1.433
+   (the right 23.6%), the baked-in "*Artist Impression" 1.945 to 1.988. So:
+   - the art is drawn so the crown sits 4 px under the project line (moved up, never down, so the live top crop holds);
+   - the lockup keeps round 7's sizes (128 / 107 / 75) unless the screen is too short to keep the Tower A label clear
+     of the ask, then it steps down (--lk, never under 56 px);
+   - on screens 600 px tall or less there is not room for the whole Tower A label, so its leader and dot run behind
+     the ask and its text stays clear above it;
+   - the chips are held inside the gap between the two label columns, so they may sit level with a label;
+   - the artwork's own "*Artist Impression" is in view, whole, on screens at least 2.02 times as tall as wide, where the
+     trust line steps up to clear it; on the rest it is cropped, so the hero carries the live site's restated note in
+     its corner (live restates it on phones the same way). */
+@media(max-width:699px){
+  .hero{
+    --hh:calc(100svh - 34px);                                  /* the hero starts 4 px under the 38 px ticker (nav margin -80px) */
+    --aw:max(100vw, calc(var(--hh) / 2));                      /* drawn width of the artwork: cover */
+    --pt:88px;--g1:16px;--pf:clamp(36px,10.4vw,44px);--pb:16px;--offmax:0px;--lkcap:128px;
+    --trh:calc(1.5 * min(12.5px, calc((100vw - 32px) / 28)));
+    --copy:calc(var(--g1) + 62px + 1.872 * var(--pf));        /* under the lockup: place 20.25 + 10 + price 1.872em + 10 + fact 21.75 */
+    --foot:calc(var(--trh) + 58.2px);                          /* ask 48.2 + 10 + trust line */
+    --lkA:calc(0.931 * var(--aw) + var(--offmax) - 4px - var(--pt) - var(--copy));
+    --lkB0:calc(var(--hh) - var(--pb) - var(--foot) - 8px - 0.502 * var(--aw) - var(--pt) - var(--copy));
+    --lkB:var(--lkB0);
+    --lk:clamp(56px, min(var(--lkA), var(--lkB)), var(--lkcap));
+    --off:clamp(calc(var(--hh) - 2 * var(--aw)), calc(var(--pt) + var(--lk) + var(--copy) + 4px - 0.931 * var(--aw)), var(--offmax));
+    --chp:clamp(7px, calc((51.1vw - 145px) / 6), 14px)
+  }
+  .hero .hero-media{min-height:var(--hh)!important;background:var(--night0)!important}
+  .hero .hero-art{top:0!important;bottom:0!important;height:auto!important;-webkit-mask-image:none!important;mask-image:none!important;
+    background-size:var(--aw) auto!important;background-position:50% var(--off)!important}
+  .hero .hero-scrim{background:none!important}
+  .hero .hero-body{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;
+    padding:var(--pt) var(--pad) var(--pb)!important}
+  .hero .hero-inner,.hero .hero-inner.hero-inner{flex:1 1 auto!important;display:flex!important;flex-direction:column!important}
+  .hero .h-logo,.hero .hero-inner .h-logo{margin:0 0 var(--g1)!important}
+  .hero .h-logo img{height:var(--lk)!important}
+  .hero .hero-inner .h-beds{margin-top:auto!important;gap:6px}
+  /* the chips now sit over the towers' lower floors: a touch more of their own fill (.42 to .5) so every label holds 4.5:1 */
+  .hero .hero-inner .h-bed{padding:0 var(--chp);background:rgba(13,11,30,.5)}
+  /* the trust line now runs over the towers' white facades (it sat on the plain ground before): its own shadow is
+     denser and it is set at 600, so "Mah Sing Group" holds over Tower B; one line is 27.9 em at 600 */
+  .hero .h-trust{font-weight:600;font-size:min(12.5px,calc((100vw - 32px) / 28));
+    text-shadow:0 0 1px rgba(13,11,30,1),0 0 3px rgba(13,11,30,.95),0 1px 6px rgba(13,11,30,.9),0 0 16px rgba(13,11,30,.8)}
+  .hero .hero-media.hero-media::after{content:'*Artist Impression'!important;display:block!important;position:absolute;inset:auto 16px 4px auto!important;
+    background:none!important;z-index:3;pointer-events:none;font:500 10px/1 var(--fb);letter-spacing:.02em;color:rgba(254,252,247,.8);
+    text-shadow:0 1px 4px rgba(0,0,0,.7)}
+}
+@media(max-width:699px) and (max-height:700px){.hero{--g1:12px;--pf:clamp(32px,9.4vw,40px);--lkcap:107px}}
+/* 600 px tall or less: where the whole Tower A label cannot clear the ask (--lkB0 under 56 px), its leader and dot go
+   behind the ask instead (the lockup may then be 50.2 px larger: the leader's end sits 2 px inside the ask's foot) */
+@media(max-width:699px) and (max-height:600px){
+  .hero{--g1:10px;--pt:84px;--lkcap:75px;
+    --lkB:calc(var(--lkB0) + clamp(0px, calc((56px - var(--lkB0)) * 1000), 50.2px))}
+}
+@media(max-width:699px) and (max-aspect-ratio:100/202){
+  .hero{--offmax:min(0px, calc(var(--hh) - 1.99 * var(--aw) - 1px));--pb:calc(0.055 * var(--aw) + 5px)}
+  .hero .hero-media.hero-media::after{content:none!important;display:none!important}
+}
+@media(max-width:335px){.hero{--trh:36px}.hero .h-trust{font-size:12px}.hero .hero-inner .h-beds{gap:4px}.hero .hero-inner .h-bed{padding:0 6px;font-size:12px}}
+@supports not (height:100svh){@media(max-width:699px){.hero{--hh:calc(100vh - 34px)}}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
