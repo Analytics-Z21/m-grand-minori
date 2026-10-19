@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="preload" as="font" type="font/woff2" href="assets/boska-500.woff2" crossorigin>
 <!-- R6 (2026-10-16): the first hero image is preloaded at high priority; everything below the fold is lazy -->
-<link rel="preload" as="image" type="image/webp" href="assets/hero-bg-mobile.webp" media="(max-width:699px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="assets/hero-render-phone.webp" media="(max-width:699px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp" media="(min-width:700px)" fetchpriority="high">
 <style>
 /* TYPE FOLLOWS VER2 M AURORA (2026-10-09, Justin: "for the font selection please all follow how ver2 M Aurora").
@@ -2963,6 +2963,30 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
   .nav-logo img.ms{height:26px!important;width:auto!important;max-width:none!important}
   .nav-logo img.nav-combo{display:none!important}
 }
+</style>
+<style>
+/* SAMPLE hero-render (19 Oct 2026, Justin: "How about M Grand Minori?", after M Aurora's flyer-render hero). Phones
+   (699 px and under; tablet and desktop unchanged): the artwork gives way to Mah Sing's own dusk render of the two
+   towers (Tower A loose sheet, page 2: its printed title taken out of the sky, the building untouched;
+   tools/_mgm_brochure_hero_crop.py), drawn to cover the one-screen hero from the top, as the M Amaya, M Aria and
+   M Aurora heroes are. The render has no Tower A / Tower B labels, so the copy stacks centred at the hero's foot over
+   the towers' lower floors, crowns clear above it: lockup, place, price, project line, chips, ask, trust line. The
+   render's own "Artist Impression" is cropped, so the hero's restated note shows on every phone. */
+@media(max-width:699px){
+  .hero{--lk:128px;--pb:16px}
+  .hero .hero-art{background-image:url('assets/hero-render-phone.webp')!important;background-size:cover!important;background-position:50% 0!important}
+  .hero .hero-inner,.hero .hero-inner.hero-inner{justify-content:flex-end!important}
+  .hero .h-logo,.hero .hero-inner .h-logo{margin-top:auto!important}
+  .hero .hero-inner .h-beds{margin-top:0!important}
+  .hero .hero-media.hero-media::after{content:'*Artist Impression'!important;display:block!important}
+  /* the render's facades are bright and busy where the copy sits, so the foot of the picture fades into the artwork's
+     own plum (#2A113C family), as the live hero's copy sits on the artwork's dark sky; the crowns stay clear. The sky
+     is pale where the menu bar sits, so a short plum fade under it keeps the white project mark and the menu button
+     readable (a dusk sky darkens towards the top) */
+  .hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,.62) 0,rgba(26,11,40,.4) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.92) 0,rgba(26,11,40,.86) 42%,rgba(26,11,40,.7) 56%,rgba(26,11,40,.32) 68%,rgba(26,11,40,0) 80%)!important}
+}
+@media(max-width:699px) and (max-height:700px){.hero{--lk:107px}}
+@media(max-width:699px) and (max-height:600px){.hero{--lk:75px}}
 </style>
 </head>
 <body>
