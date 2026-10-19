@@ -2919,7 +2919,9 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
   .hero .hero-media{min-height:var(--hh)!important;background:var(--night0)!important}
   .hero .hero-art{top:0!important;bottom:0!important;height:auto!important;-webkit-mask-image:none!important;mask-image:none!important;
     background-size:var(--aw) auto!important;background-position:50% var(--off)!important}
-  .hero .hero-scrim{background:none!important}
+  /* Round 10b (19 Oct 2026, QA): a bottom shade only, as live's dark foot behind its button: the trust line ran over the
+     towers' bright base (1.04 to 1.15:1); the sky, the towers and both labels above it stay clear */
+  .hero .hero-scrim{background:linear-gradient(0deg,rgba(13,11,30,.8) 0,rgba(13,11,30,.8) 40px,rgba(13,11,30,0) 120px)!important}
   .hero .hero-body{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;
     padding:var(--pt) var(--pad) var(--pb)!important}
   .hero .hero-inner,.hero .hero-inner.hero-inner{flex:1 1 auto!important;display:flex!important;flex-direction:column!important}
