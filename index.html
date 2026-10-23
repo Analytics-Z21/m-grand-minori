@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="preload" as="font" type="font/woff2" href="assets/boska-500.woff2" crossorigin>
 <!-- R6 (2026-10-16): the first hero image is preloaded at high priority; everything below the fold is lazy -->
-<link rel="preload" as="image" type="image/webp" href="assets/hero-banner-tower-phone.webp" media="(max-width:699px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="assets/hero-banner-tower-phone-ext.webp" media="(max-width:699px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp" media="(min-width:700px)" fetchpriority="high">
 <style>
 /* TYPE FOLLOWS VER2 M AURORA (2026-10-09, Justin: "for the font selection please all follow how ver2 M Aurora").
@@ -5796,8 +5796,15 @@ window.addEventListener('load',function(){if(!window.FontFace||!document.fonts)r
    tablet and desktop unchanged): the hero picture is Mah Sing's new 1290 x 2800 tower banner, supplied 22 Oct, in
    place of the retouched loose-sheet crop, its crown pinned about 20 px under the menu bar (never leaving a gap at
    the foot). The big lockup is off on phones (the menu bar keeps the project mark), so the plum shade is cut back
-   to the copy band: a short fade under the menu, dense behind the copy, clear above it. */
-@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone.webp')!important;background-size:cover!important;background-position:50% max(calc(112px - 0.222 * 217.054vw), 100%)!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
+   to the copy band: a short fade under the menu, dense behind the copy, clear above it.
+   Extended banner (23 Oct 2026, Justin: the inspect-mode look on real phones, as on M Amaya): -ext is Mah Sing's banner
+   at 56% on a 1290 x 2800 canvas whose surroundings were extended by an image model (Nano Banana 2; invented
+   objects removed), with the building pasted back pixel-true from the original. Crown at 20% of the frame, base at 44%:
+   the building is 24% of the frame height (4.167 = 1 / 0.24), so it sits full width on every phone with the crown under
+   the menu and the base about 20 px above the place line, the whole copy on the first screen. 475 / 453 px = the copy
+   band plus the crown and the gap, on taller and short (max-height:700px) phones. Needs Mah Sing's OK before live. */
+@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone-ext.webp')!important;--ih:max(217.054vw, calc((100svh - 475px) * 4.167));background-size:auto var(--ih)!important;background-position:50% calc(112px - 0.2 * var(--ih))!important;background-repeat:no-repeat!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
+@media(max-width:699px) and (max-height:700px){.hero .hero-art{--ih:max(217.054vw, calc((100svh - 453px) * 4.167))}}
 </style>
 </body>
 </html>
