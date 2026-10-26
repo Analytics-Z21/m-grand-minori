@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preload" as="font" type="font/woff2" href="assets/montserrat-latin.woff2" crossorigin>
 <!-- R6 (2026-10-16): the first hero image is preloaded at high priority; everything below the fold is lazy -->
 <!-- 26 Oct 2026 (speed pass): the phone banner is preloaded at the screen's resolution (860 px wide at 1x and 2x, 1080 px wide at 3x), matching the image-set in the banner rule -->
-<link rel="preload" as="image" type="image/webp" href="assets/hero-banner-tower-phone-1080.webp" imagesrcset="assets/hero-banner-tower-phone-860.webp 1x, assets/hero-banner-tower-phone-860.webp 2x, assets/hero-banner-tower-phone-1080.webp 3x" media="(max-width:699px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="assets/hero-banner-tower-phone-wide-1080.webp" imagesrcset="assets/hero-banner-tower-phone-wide-860.webp 1x, assets/hero-banner-tower-phone-wide-860.webp 2x, assets/hero-banner-tower-phone-wide-1080.webp 3x" media="(max-width:699px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp" media="(min-width:700px)" fetchpriority="high">
 <style>
 /* TYPE FOLLOWS VER2 M AURORA (2026-10-09, Justin: "for the font selection please all follow how ver2 M Aurora").
@@ -3046,7 +3046,7 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
    place of the retouched loose-sheet crop, its crown pinned about 20 px under the menu bar (never leaving a gap at
    the foot). The big lockup is off on phones (the menu bar keeps the project mark), so the plum shade is cut back
    to the copy band: a short fade under the menu, dense behind the copy, clear above it. */
-@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone-1080.webp')!important;background-image:image-set(url('assets/hero-banner-tower-phone-860.webp') 1x,url('assets/hero-banner-tower-phone-860.webp') 2x,url('assets/hero-banner-tower-phone-1080.webp') 3x)!important;background-size:cover!important;background-position:50% max(calc(112px - 0.222 * 217.054vw), 100%)!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
+@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone-wide-1080.webp')!important;background-image:image-set(url('assets/hero-banner-tower-phone-wide-860.webp') 1x,url('assets/hero-banner-tower-phone-wide-860.webp') 2x,url('assets/hero-banner-tower-phone-wide-1080.webp') 3x)!important;background-size:auto var(--ihb,max(217.054vw,100%))!important;background-position:50% calc(112px - 0.222 * var(--ihb,max(217.054vw,100%)))!important;background-repeat:no-repeat!important;background-color:rgb(35,22,45)!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
 </style>
 <style>
 /* 26 Oct 2026 (speed pass): below-the-fold backgrounds are fetched when their section comes within 800 px of the screen (script at the end
@@ -3220,6 +3220,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#quickRegister" class="scroll-ind" aria-label="Scroll down"><span class="scroll-arrow"></span></a>
   </div>
 </section>
+<script>
+/* 26 Oct 2026 (iPhone hero fit): on short phone screens (iPhone Safari with its bars) draw the tower banner so the
+   towers end above the place line; the banner's sides are a widened copy of the same render. Without JS the fit
+   stays as before. */
+(function(){
+  var art=document.querySelector('.hero .hero-art'),place=document.querySelector('.h-place');
+  if(!art||!place||!window.matchMedia)return;
+  var mq=window.matchMedia('(max-width:699px)'),CROWN=0.222,CLEAR=0.65,ASPECT=0.8982;
+  function fit(){
+    if(!mq.matches){art.style.removeProperty('--ihb');return;}
+    var a=art.getBoundingClientRect(),p=place.getBoundingClientRect(),vw=document.documentElement.clientWidth;
+    var room=p.top-a.top-14-112;                               /* towers end 14 px above the place line */
+    if(room<=0)return;
+    var ih=Math.min(2.17054*vw,room/(CLEAR-CROWN));            /* never larger than today's fit */
+    ih=Math.max(ih,vw/ASPECT+1);                               /* the widened banner always covers the screen */
+    art.style.setProperty('--ihb',ih.toFixed(1)+'px');
+  }
+  fit();
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+})();
+</script>
 
 <!-- QUICK REGISTRATION (low-friction subform under hero) -->
 <!-- 2026-10-09 (Justin): the quick form sits right below the hero. It keeps its .nx wrapper
