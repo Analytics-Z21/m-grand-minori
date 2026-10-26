@@ -3051,12 +3051,13 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
 <style>
 /* 26 Oct 2026 (speed pass): below-the-fold backgrounds are fetched when their section comes within 800 px of the screen (script at the end
    of the page adds .in), not on every visit: the 15-minute city skyline (.city-sec, 111 KB on phones) and the RTS photo
-   (#rts .split-img, 71 KB). The rules are not scoped to html.js: that class is set mid-body, after the browser may already have styled
+   (#rts .split-img, 71 KB) and the story backdrop (.story-img, 231 KB; html.hero-more still gates it as well, so it paints once both are true). The rules are not scoped to html.js: that class is set mid-body, after the browser may already have styled
    these elements and started the downloads. Without JS the noscript block below puts every image back, as before. */
 .city-sec:not(.in){background-image:none!important}
 #rts .split-img:not(.in){background-image:none!important}
+.story-img:not(.in){background-image:none!important}
 </style>
-<noscript><style>.city-sec:not(.in){background-image:linear-gradient(180deg,var(--cream) 0%,var(--cream) 55%,rgba(248,244,239,.85) 70%,rgba(248,244,239,0) 92%),url('assets/investment-bg-mobile.webp')!important}@media(min-width:768px){.city-sec:not(.in){background-image:linear-gradient(180deg,var(--cream) 0%,var(--cream) 5%,rgba(248,244,239,.85) 20%,rgba(248,244,239,0) 40%),url('assets/investment-bg.webp')!important}}#rts .split-img:not(.in){background-image:url('assets/cross-border-img1.webp')!important}</style></noscript>
+<noscript><style>.city-sec:not(.in){background-image:linear-gradient(180deg,var(--cream) 0%,var(--cream) 55%,rgba(248,244,239,.85) 70%,rgba(248,244,239,0) 92%),url('assets/investment-bg-mobile.webp')!important}@media(min-width:768px){.city-sec:not(.in){background-image:linear-gradient(180deg,var(--cream) 0%,var(--cream) 5%,rgba(248,244,239,.85) 20%,rgba(248,244,239,0) 40%),url('assets/investment-bg.webp')!important}}#rts .split-img:not(.in){background-image:url('assets/cross-border-img1.webp')!important}.story-img:not(.in){background-image:linear-gradient(180deg,rgba(13,11,30,0) 74%,var(--night0) 98%),url('assets/cgi-arrival-drop-off-full.webp')!important}</style></noscript>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -5503,9 +5504,7 @@ window.mgmTrackLead = function (payload) {
   Array.prototype.forEach.call(document.querySelectorAll('[data-stagger]'),function(g){
     Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',Math.min(i,11));});});
   /* the below-fold CGI backgrounds (quick form, story) wait for the page to load, so they never compete with the hero */
-  /* 26 Oct 2026 (speed pass): slide 2 first shows at 6 s, so slides 2 to 4 wait 2.5 s after load instead of 300 ms;
-     go() still adds hero-more itself, so a dot tap or an early autoplay loads them at once. */
-  window.addEventListener('load',function(){setTimeout(function(){document.documentElement.classList.add('hero-more');},2500);});
+  window.addEventListener('load',function(){setTimeout(function(){document.documentElement.classList.add('hero-more');},300);});
   /* automated browsers (screenshots, audits) get every reveal after load; visitors get them as they scroll */
   if(navigator.webdriver){window.addEventListener('load',function(){setTimeout(function(){
     Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('in');});},900);});}
@@ -5817,8 +5816,8 @@ window.addEventListener('load',function(){if(!window.FontFace||!document.fonts)r
     document.fonts.add(new FontFace(d[0],'url('+d[1]+') format("woff2")',{style:'italic',weight:'100 900',display:'swap'}));});});
 </script>
 <script>
-/* 26 Oct 2026 (speed pass): the 15-minute city skyline and the RTS photo load when they come within 800 px of the screen, not on every visit. */
-(function(){var els=document.querySelectorAll('.city-sec,#rts .split-img');
+/* 26 Oct 2026 (speed pass): the 15-minute city skyline, the RTS photo and the story backdrop load when they come within 800 px of the screen, not on every visit. */
+(function(){var els=document.querySelectorAll('.city-sec,#rts .split-img,.story-img');
   function on(e){e.classList.add('in');}
   if(!('IntersectionObserver' in window)){Array.prototype.forEach.call(els,on);return;}
   var io=new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){if(es[i].isIntersecting){on(es[i].target);io.unobserve(es[i].target);}}},{rootMargin:'800px 0px'});
