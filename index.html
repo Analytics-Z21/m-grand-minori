@@ -53,10 +53,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- JSON-LD Schema -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://ver2.m-grandminori.com.my/","url":"https://ver2.m-grandminori.com.my/","name":"M Grand Minori - Official Website | Taman Pelangi Condo For Sale","isPartOf":{"@id":"https://ver2.m-grandminori.com.my/#website"},"primaryImageOfPage":{"@id":"https://ver2.m-grandminori.com.my/#primaryimage"},"image":{"@id":"https://ver2.m-grandminori.com.my/#primaryimage"},"thumbnailUrl":"https://m-grandminori.com.my/wp-content/uploads/2025/08/MGM-Share.png","description":"Discover M Grand Minori, new freehold serviced residence condo project in Taman Pelangi, Johor Bahru. Click here to check out this new launch property for sale now.","breadcrumb":{"@id":"https://ver2.m-grandminori.com.my/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://ver2.m-grandminori.com.my/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://ver2.m-grandminori.com.my/#primaryimage","url":"https://m-grandminori.com.my/wp-content/uploads/2025/08/MGM-Share.png","contentUrl":"https://m-grandminori.com.my/wp-content/uploads/2025/08/MGM-Share.png","width":500,"height":500},{"@type":"BreadcrumbList","@id":"https://ver2.m-grandminori.com.my/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://ver2.m-grandminori.com.my/#website","url":"https://ver2.m-grandminori.com.my/","name":"M Grand Minori - Official Website | Mah Sing","description":"Exclusive Lifestyle Awaits at Taman Pelangi","inLanguage":"en-US"}]}</script>
 
-<!-- Favicons -->
-<link rel="icon" href="https://m-grandminori.com.my/wp-content/uploads/2025/08/cropped-MGM-website-logo-32x32.jpg" sizes="32x32">
-<link rel="icon" href="https://m-grandminori.com.my/wp-content/uploads/2025/08/cropped-MGM-website-logo-192x192.jpg" sizes="192x192">
-<link rel="apple-touch-icon" href="https://m-grandminori.com.my/wp-content/uploads/2025/08/cropped-MGM-website-logo-180x180.jpg">
+<!-- Favicons (26 Oct 2026, speed pass: self-hosted in assets/, no longer fetched from the WordPress origin) -->
+<link rel="icon" href="assets/cropped-MGM-website-logo-32x32.jpg" sizes="32x32">
+<link rel="icon" href="assets/cropped-MGM-website-logo-192x192.jpg" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/cropped-MGM-website-logo-180x180.jpg">
 
 <!-- GA4: intentionally NO bare gtag on this page. GTM-5CG9TXKM owns G-D2MFJ76RZX
      and holds the Google tag, the generate_lead tag, the Meta Pixel and the ver2_*
@@ -66,12 +66,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<!-- 26 Oct 2026 (speed pass): Montserrat is self-hosted (@font-face below), so the Google Fonts preconnects and stylesheet are gone and the first paint no longer waits on fonts.googleapis.com and fonts.gstatic.com -->
 <link rel="preload" as="font" type="font/woff2" href="assets/boska-500.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/montserrat-latin.woff2" crossorigin>
 <!-- R6 (2026-10-16): the first hero image is preloaded at high priority; everything below the fold is lazy -->
-<link rel="preload" as="image" type="image/webp" href="assets/hero-banner-tower-phone.webp" media="(max-width:699px)" fetchpriority="high">
+<!-- 26 Oct 2026 (speed pass): the phone banner is preloaded at the screen's resolution (860 px wide at 1x and 2x, 1080 px wide at 3x), matching the image-set in the banner rule -->
+<link rel="preload" as="image" type="image/webp" href="assets/hero-banner-tower-phone-1080.webp" imagesrcset="assets/hero-banner-tower-phone-860.webp 1x, assets/hero-banner-tower-phone-860.webp 2x, assets/hero-banner-tower-phone-1080.webp 3x" media="(max-width:699px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" href="assets/hero-bg.webp" media="(min-width:700px)" fetchpriority="high">
 <style>
 /* TYPE FOLLOWS VER2 M AURORA (2026-10-09, Justin: "for the font selection please all follow how ver2 M Aurora").
@@ -82,6 +82,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    The italics register after page load (script at the end of the page), as on Aurora. */
 @font-face{font-family:"Boska";src:url("assets/boska-700.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:"Boska Medium";src:url("assets/boska-500.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+/* 26 Oct 2026 (speed pass): Montserrat is self-hosted (SIL OFL, latin subset as Google served it), so the first paint no
+   longer waits on fonts.googleapis.com and fonts.gstatic.com. */
+@font-face{font-family:"Montserrat";src:url("assets/montserrat-latin.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";src:url("assets/montserrat-latin-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 </style>
 <style>
 :root{
@@ -3000,6 +3004,59 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
 @media(max-width:767px){.nav{margin-bottom:-92px!important}.nav.is-scrolled{margin-bottom:-81px!important}}
 @supports not (height:100svh){@media(max-width:699px){.hero{--hh:calc(100vh - 38px)!important}}}
 </style>
+<!-- 26 Oct 2026 (speed pass): the two style blocks that sat after the page content (lead-field hint, tower banner) now sit here at the end of the head, in the same order and unchanged except for the banner image-set noted inside, so the phone hero is styled before the first paint and the earlier hero render rule (hero-render-phone.webp, 217 KB) is never fetched on phones -->
+<style>
+/* Inline lead-field hint (email typo suggestion). Amber notice — high
+   contrast on both light and dark form backgrounds. Sits directly under
+   the input's wrapper. Click "Yes, fix it" to apply the correction. */
+.lead-field-hint {
+  display: none;
+  margin: 6px 0 10px;
+  padding: 8px 12px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #78350f;
+  line-height: 1.4;
+  font-weight: 500;
+}
+.lead-field-hint.show { display: block; }
+.lead-field-hint strong { color: #78350f; }
+.lead-field-hint .hint-apply {
+  background: none;
+  border: none;
+  color: #b45309;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 0 0 4px;
+  font-size: 12px;
+  text-decoration: underline;
+}
+.lead-field-hint .hint-apply:hover { color: #92400e; }
+
+/* The ATF + PRICE CTA block (2026-10-07) that positioned the Original-style phone hero was retired on 2026-10-16 by the
+   premium port: the hero now follows the ver2 M Aurora composition (style#premium-port in the head). */
+</style>
+<style>
+/* 26 Oct 2026 (speed pass): the banner is served at the screen's resolution, 860 px wide at 1x and 2x, 1080 px wide at 3x (image-set; the plain
+   1080 line is the fallback for browsers without image-set). Every other declaration below is unchanged. */
+/* Tower banner (22 Oct 2026, Justin: "this looks much nicer ... push all to live"). Phones (699 px and under;
+   tablet and desktop unchanged): the hero picture is Mah Sing's new 1290 x 2800 tower banner, supplied 22 Oct, in
+   place of the retouched loose-sheet crop, its crown pinned about 20 px under the menu bar (never leaving a gap at
+   the foot). The big lockup is off on phones (the menu bar keeps the project mark), so the plum shade is cut back
+   to the copy band: a short fade under the menu, dense behind the copy, clear above it. */
+@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone-1080.webp')!important;background-image:image-set(url('assets/hero-banner-tower-phone-860.webp') 1x,url('assets/hero-banner-tower-phone-860.webp') 2x,url('assets/hero-banner-tower-phone-1080.webp') 3x)!important;background-size:cover!important;background-position:50% max(calc(112px - 0.222 * 217.054vw), 100%)!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
+</style>
+<style>
+/* 26 Oct 2026 (speed pass): below-the-fold backgrounds are fetched when their section comes within 800 px of the screen (script at the end
+   of the page adds .in), not on every visit: the 15-minute city skyline (.city-sec, 111 KB on phones) and the RTS photo
+   (#rts .split-img, 71 KB). The rules are not scoped to html.js: that class is set mid-body, after the browser may already have styled
+   these elements and started the downloads. Without JS the noscript block below puts every image back, as before. */
+.city-sec:not(.in){background-image:none!important}
+#rts .split-img:not(.in){background-image:none!important}
+</style>
+<noscript><style>.city-sec:not(.in){background-image:linear-gradient(180deg,var(--cream) 0%,var(--cream) 55%,rgba(248,244,239,.85) 70%,rgba(248,244,239,0) 92%),url('assets/investment-bg-mobile.webp')!important}@media(min-width:768px){.city-sec:not(.in){background-image:linear-gradient(180deg,var(--cream) 0%,var(--cream) 5%,rgba(248,244,239,.85) 20%,rgba(248,244,239,0) 40%),url('assets/investment-bg.webp')!important}}#rts .split-img:not(.in){background-image:url('assets/cross-border-img1.webp')!important}</style></noscript>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -3137,7 +3194,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="hero-inner">
         <!-- Rounds 5 and 6 (16 Oct 2026, Justin): the lockup shows on phones again; on phones the ask and the trust line sit at the hero's foot -->
         <div class="h-logo">
-          <img src="assets/new-logo.png" alt="Grand Minori" width="414" height="398">
+          <img src="assets/new-logo.webp" alt="Grand Minori" width="414" height="398">
         </div>
         <!-- Round 4 (16 Oct 2026, Justin): the place leads the hero copy in place of the "Open for Sale" eyebrow, larger so it reads at a glance -->
         <div class="h-place">
@@ -5072,40 +5129,6 @@ document.querySelectorAll('.fi').forEach(function(el){obs.observe(el)});
 })();
 </script>
 
-<style>
-/* Inline lead-field hint (email typo suggestion). Amber notice — high
-   contrast on both light and dark form backgrounds. Sits directly under
-   the input's wrapper. Click "Yes, fix it" to apply the correction. */
-.lead-field-hint {
-  display: none;
-  margin: 6px 0 10px;
-  padding: 8px 12px;
-  background: #fef3c7;
-  border: 1px solid #f59e0b;
-  border-radius: 8px;
-  font-size: 12px;
-  color: #78350f;
-  line-height: 1.4;
-  font-weight: 500;
-}
-.lead-field-hint.show { display: block; }
-.lead-field-hint strong { color: #78350f; }
-.lead-field-hint .hint-apply {
-  background: none;
-  border: none;
-  color: #b45309;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 0 0 0 4px;
-  font-size: 12px;
-  text-decoration: underline;
-}
-.lead-field-hint .hint-apply:hover { color: #92400e; }
-
-/* The ATF + PRICE CTA block (2026-10-07) that positioned the Original-style phone hero was retired on 2026-10-16 by the
-   premium port: the hero now follows the ver2 M Aurora composition (style#premium-port in the head). */
-</style>
-
 <script>
 /* ===== lead tracking (revised 2026-09-04) =========================================
    dataLayer ONLY. GTM-5CG9TXKM v6 carries a generate_lead Custom Event trigger and a
@@ -5480,7 +5503,9 @@ window.mgmTrackLead = function (payload) {
   Array.prototype.forEach.call(document.querySelectorAll('[data-stagger]'),function(g){
     Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',Math.min(i,11));});});
   /* the below-fold CGI backgrounds (quick form, story) wait for the page to load, so they never compete with the hero */
-  window.addEventListener('load',function(){setTimeout(function(){document.documentElement.classList.add('hero-more');},300);});
+  /* 26 Oct 2026 (speed pass): slide 2 first shows at 6 s, so slides 2 to 4 wait 2.5 s after load instead of 300 ms;
+     go() still adds hero-more itself, so a dot tap or an early autoplay loads them at once. */
+  window.addEventListener('load',function(){setTimeout(function(){document.documentElement.classList.add('hero-more');},2500);});
   /* automated browsers (screenshots, audits) get every reveal after load; visitors get them as they scroll */
   if(navigator.webdriver){window.addEventListener('load',function(){setTimeout(function(){
     Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('in');});},900);});}
@@ -5791,13 +5816,14 @@ window.addEventListener('load',function(){if(!window.FontFace||!document.fonts)r
   [['Boska','assets/boska-700i.woff2'],['Boska Medium','assets/boska-500i.woff2']].forEach(function(d){
     document.fonts.add(new FontFace(d[0],'url('+d[1]+') format("woff2")',{style:'italic',weight:'100 900',display:'swap'}));});});
 </script>
-<style>
-/* Tower banner (22 Oct 2026, Justin: "this looks much nicer ... push all to live"). Phones (699 px and under;
-   tablet and desktop unchanged): the hero picture is Mah Sing's new 1290 x 2800 tower banner, supplied 22 Oct, in
-   place of the retouched loose-sheet crop, its crown pinned about 20 px under the menu bar (never leaving a gap at
-   the foot). The big lockup is off on phones (the menu bar keeps the project mark), so the plum shade is cut back
-   to the copy band: a short fade under the menu, dense behind the copy, clear above it. */
-@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone.webp')!important;background-size:cover!important;background-position:50% max(calc(112px - 0.222 * 217.054vw), 100%)!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
-</style>
+<script>
+/* 26 Oct 2026 (speed pass): the 15-minute city skyline and the RTS photo load when they come within 800 px of the screen, not on every visit. */
+(function(){var els=document.querySelectorAll('.city-sec,#rts .split-img');
+  function on(e){e.classList.add('in');}
+  if(!('IntersectionObserver' in window)){Array.prototype.forEach.call(els,on);return;}
+  var io=new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){if(es[i].isIntersecting){on(es[i].target);io.unobserve(es[i].target);}}},{rootMargin:'800px 0px'});
+  Array.prototype.forEach.call(els,function(e){io.observe(e);});
+})();
+</script>
 </body>
 </html>
