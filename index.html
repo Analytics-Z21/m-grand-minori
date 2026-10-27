@@ -3046,7 +3046,7 @@ html.hero-more .story-img{background-image:linear-gradient(180deg,rgba(13,11,30,
    place of the retouched loose-sheet crop, its crown pinned about 20 px under the menu bar (never leaving a gap at
    the foot). The big lockup is off on phones (the menu bar keeps the project mark), so the plum shade is cut back
    to the copy band: a short fade under the menu, dense behind the copy, clear above it. */
-@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone-wide-1080.webp')!important;background-image:image-set(url('assets/hero-banner-tower-phone-wide-860.webp') 1x,url('assets/hero-banner-tower-phone-wide-860.webp') 2x,url('assets/hero-banner-tower-phone-wide-1080.webp') 3x)!important;background-size:auto var(--ihb,max(217.054vw,100%))!important;background-position:50% calc(112px - 0.222 * var(--ihb,max(217.054vw,100%)))!important;background-repeat:no-repeat!important;background-color:rgb(35,22,45)!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
+@media(max-width:699px){.hero .hero-art{background-image:url('assets/hero-banner-tower-phone-wide-1080.webp')!important;background-image:image-set(url('assets/hero-banner-tower-phone-wide-860.webp') 1x,url('assets/hero-banner-tower-phone-wide-860.webp') 2x,url('assets/hero-banner-tower-phone-wide-1080.webp') 3x)!important;background-size:auto var(--ihb,max(217.054vw,100%))!important;background-position:50% calc(var(--hct,112px) - 0.222 * var(--ihb,max(217.054vw,100%)))!important;background-repeat:no-repeat!important;background-color:rgb(35,22,45)!important}.hero .h-logo,.hero .hero-inner .h-logo{display:none!important}.hero .hero-scrim{background:linear-gradient(180deg,rgba(26,11,40,0.62) 0,rgba(26,11,40,0.37) 64px,rgba(26,11,40,0) 128px),linear-gradient(0deg,rgba(26,11,40,.9) 0,rgba(26,11,40,.84) 180px,rgba(26,11,40,.8) 278px,rgba(26,11,40,.76) 318px,rgba(26,11,40,.46) 358px,rgba(26,11,40,.18) 403px,rgba(26,11,40,0) 448px)!important}}
 </style>
 <style>
 /* 26 Oct 2026 (speed pass): below-the-fold backgrounds are fetched when their section comes within 800 px of the screen (script at the end
@@ -3224,21 +3224,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 /* 26 Oct 2026 (iPhone hero fit): on short phone screens (iPhone Safari with its bars) draw the tower banner so the
    towers end above the place line; the banner's sides are a widened copy of the same render. Without JS the fit
    stays as before. */
+/* 27 Oct 2026 (sharp sides): the banner's sides are a plain mirror of the render, cropped so it never reaches the
+   building; the crown sits 70 px under the banner top so the photo shrinks less. */
 (function(){
   var art=document.querySelector('.hero .hero-art'),place=document.querySelector('.h-place');
   if(!art||!place||!window.matchMedia)return;
-  var mq=window.matchMedia('(max-width:699px)'),CROWN=0.222,CLEAR=0.65,ASPECT=0.8982;
+  var mq=window.matchMedia('(max-width:699px)'),CROWN=0.222,CLEAR=0.65,ASPECT=0.6479;
   function fit(){
-    if(!mq.matches){art.style.removeProperty('--ihb');return;}
+    if(!mq.matches){art.style.removeProperty('--ihb');art.style.removeProperty('--hct');return;}
     var a=art.getBoundingClientRect(),p=place.getBoundingClientRect(),vw=document.documentElement.clientWidth;
-    var room=p.top-a.top-14-112;                               /* towers end 14 px above the place line */
+    var room=p.top-a.top-14-70;                               /* towers end 14 px above the place line */
     if(room<=0)return;
     var ih=Math.min(2.17054*vw,room/(CLEAR-CROWN));            /* never larger than today's fit */
     ih=Math.max(ih,vw/ASPECT+1);                               /* the widened banner always covers the screen */
-    art.style.setProperty('--ihb',ih.toFixed(1)+'px');
+    art.style.setProperty('--ihb',ih.toFixed(1)+'px');art.style.setProperty('--hct','70px');
   }
   fit();
-  window.addEventListener('resize',fit);
+  window.addEventListener('resize',fit);if(mq.addEventListener)mq.addEventListener('change',fit);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
 })();
 </script>
