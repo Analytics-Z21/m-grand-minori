@@ -115,11 +115,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 (function(){
   try{
     window.dataLayer=window.dataLayer||[];
-    window.dataLayer.push({
+    /* Option 9 port (6 Nov 2026): the source the landing page stored on submit (index.html, 'z21_lead'). Read once and cleared,
+       so a refresh of this page still counts lead_confirmed but never re-credits a source; older than 30 min is ignored. */
+    var lead=null;
+    try{ lead=JSON.parse(sessionStorage.getItem('z21_lead')||'null'); sessionStorage.removeItem('z21_lead'); }catch(e1){ lead=null; }
+    if(lead&&lead.t&&Date.now()-lead.t>1800000) lead=null;
+    var dl={
       event:'lead_confirmed',
       lead_type:'form_submission',
       page_location:location.href
-    });
+    };
+    if(lead){
+      ['lead_source','form_name','unit_interest','submission_id'].forEach(function(k){ if(lead[k]) dl[k]=lead[k]; });
+    } else { dl.lead_source='unknown'; }
+    window.dataLayer.push(dl);
   }catch(e){}
 })();
 </script>
